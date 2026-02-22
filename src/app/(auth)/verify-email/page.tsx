@@ -61,7 +61,7 @@ function VerifyEmailContent() {
             <CheckCircle2 size={48} />
           </div>
           <div className="space-y-2">
-            <h2 className="font-outfit text-2xl font-bold">
+            <h2 className="font-peculiar text-2xl font-bold">
               Verification Successful!
             </h2>
             <p className="text-sm text-muted-foreground">{message}</p>
@@ -81,7 +81,7 @@ function VerifyEmailContent() {
             <XCircle size={48} />
           </div>
           <div className="space-y-2">
-            <h2 className="font-outfit text-2xl font-bold font-red-600">
+            <h2 className="font-peculiar text-2xl font-bold font-red-600">
               Verification Failed
             </h2>
             <p className="text-sm text-muted-foreground">{message}</p>

@@ -70,7 +70,7 @@ export default function ProviderGrid({ filters }: ProviderGridProps) {
     return (
       <div className="flex h-[400px] flex-col items-center justify-center text-center p-12 bg-slate-50 rounded-3xl border border-dashed border-slate-200">
         <SearchX size={48} className="text-slate-300" />
-        <h3 className="mt-4 font-outfit text-xl font-bold text-slate-900">
+        <h3 className="mt-4 font-peculiar text-xl font-bold text-slate-900">
           No professionals found
         </h3>
         <p className="mt-2 text-slate-500 max-w-xs">

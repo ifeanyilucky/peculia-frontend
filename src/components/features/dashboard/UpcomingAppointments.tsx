@@ -29,7 +29,7 @@ export default function UpcomingAppointments() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between px-2">
-        <h3 className="font-outfit text-xl font-bold text-slate-900">
+        <h3 className="font-peculiar text-xl font-bold text-slate-900">
           Upcoming Appointments
         </h3>
         <Link

@@ -15,7 +15,7 @@ export default function ProviderAvailabilityPreview() {
     <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
       <div className="mb-6 flex items-center gap-3 text-rose-600">
         <Calendar size={24} />
-        <h3 className="font-outfit text-xl font-bold text-slate-900">
+        <h3 className="font-peculiar text-xl font-bold text-slate-900">
           Weekly Schedule
         </h3>
       </div>

@@ -55,7 +55,7 @@ export default function BookingFlowPage() {
             className="mx-auto animate-spin text-rose-600 mb-4"
             size={40}
           />
-          <p className="font-outfit text-xl font-bold text-slate-900">
+          <p className="font-peculiar text-xl font-bold text-slate-900">
             Preparing booking experience...
           </p>
         </div>
@@ -66,7 +66,7 @@ export default function BookingFlowPage() {
   if (isError || !provider) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center text-center p-6">
-        <h2 className="font-outfit text-3xl font-bold text-slate-900">
+        <h2 className="font-peculiar text-3xl font-bold text-slate-900">
           Professional not found
         </h2>
         <p className="mt-4 text-lg text-slate-600">
@@ -95,7 +95,7 @@ export default function BookingFlowPage() {
             Back
           </button>
           <div className="text-center">
-            <h1 className="font-outfit text-lg font-bold text-slate-900">
+            <h1 className="font-peculiar text-lg font-bold text-slate-900">
               Booking with {provider.businessName}
             </h1>
           </div>

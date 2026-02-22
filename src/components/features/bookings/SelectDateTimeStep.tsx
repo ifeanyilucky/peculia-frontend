@@ -139,7 +139,7 @@ export default function SelectDateTimeStep() {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="text-center mb-8">
-        <h2 className="font-outfit text-2xl font-bold text-slate-900">
+        <h2 className="font-peculiar text-2xl font-bold text-slate-900">
           Select Date & Time
         </h2>
         <p className="mt-2 text-slate-500">
@@ -151,7 +151,7 @@ export default function SelectDateTimeStep() {
         {/* Calendar Side */}
         <div className="space-y-6">
           <div className="flex items-center justify-between px-2">
-            <h3 className="font-outfit text-lg font-bold text-slate-900">
+            <h3 className="font-peculiar text-lg font-bold text-slate-900">
               {format(currentMonth, "MMMM yyyy")}
             </h3>
             <div className="flex gap-2">
@@ -203,7 +203,7 @@ export default function SelectDateTimeStep() {
 
         {/* Time Slots Side */}
         <div className="space-y-6">
-          <h3 className="font-outfit text-lg font-bold text-slate-900 flex items-center gap-2">
+          <h3 className="font-peculiar text-lg font-bold text-slate-900 flex items-center gap-2">
             Available Slots
             {selectedDate && (
               <span className="text-sm font-medium text-slate-400">

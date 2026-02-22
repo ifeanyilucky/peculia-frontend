@@ -139,7 +139,7 @@ export default function ClientProfilePage() {
   return (
     <div className="max-w-4xl mx-auto space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="space-y-2 px-2">
-        <h1 className="font-outfit text-4xl font-black text-slate-900 tracking-tight">
+        <h1 className="font-peculiar text-4xl font-black text-slate-900 tracking-tight">
           Account Settings
         </h1>
         <p className="text-lg text-slate-500 font-medium">

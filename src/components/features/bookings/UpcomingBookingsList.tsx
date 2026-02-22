@@ -64,7 +64,7 @@ export default function UpcomingBookingsList() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between px-2">
-        <h3 className="font-outfit text-xl font-bold text-slate-900">Agenda</h3>
+        <h3 className="font-peculiar text-xl font-bold text-slate-900">Agenda</h3>
         <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 text-[10px] font-black uppercase tracking-widest text-white">
           <Calendar size={12} />
           Next 48 Hours

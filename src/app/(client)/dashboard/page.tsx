@@ -66,7 +66,7 @@ export default function ClientDashboardPage() {
               <Sparkles size={14} />
               Welcome to the community
             </div>
-            <h1 className="font-outfit text-4xl lg:text-5xl font-black leading-tight tracking-tight">
+            <h1 className="font-peculiar text-4xl lg:text-5xl font-black leading-tight tracking-tight">
               Hello, {user?.firstName}! 👋
               <br />
               <span className="text-white/60">
@@ -96,7 +96,7 @@ export default function ClientDashboardPage() {
           <UpcomingAppointments />
 
           <div className="space-y-4">
-            <h3 className="font-outfit text-xl font-bold text-slate-900 px-2">
+            <h3 className="font-peculiar text-xl font-bold text-slate-900 px-2">
               Quick Actions
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -145,7 +145,7 @@ export default function ClientDashboardPage() {
         {/* Right Column: Recent Activity */}
         <div className="space-y-4">
           <div className="flex items-center justify-between px-2">
-            <h3 className="font-outfit text-xl font-bold text-slate-900">
+            <h3 className="font-peculiar text-xl font-bold text-slate-900">
               Recent Activity
             </h3>
             <Activity size={20} className="text-slate-300" />

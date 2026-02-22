@@ -13,7 +13,7 @@ export default function CTASection() {
               <span className="text-sm font-bold uppercase tracking-widest text-rose-500">
                 For Clients
               </span>
-              <h2 className="mt-4 font-outfit text-4xl font-bold text-white">
+              <h2 className="mt-4 font-peculiar text-4xl font-bold text-white">
                 Find your next favorite stylist today.
               </h2>
               <ul className="mt-8 space-y-4">
@@ -48,7 +48,7 @@ export default function CTASection() {
               <span className="text-sm font-bold uppercase tracking-widest text-emerald-500">
                 For Professionals
               </span>
-              <h2 className="mt-4 font-outfit text-4xl font-bold text-white">
+              <h2 className="mt-4 font-peculiar text-4xl font-bold text-white">
                 Grow your beauty business with ease.
               </h2>
               <ul className="mt-8 space-y-4">

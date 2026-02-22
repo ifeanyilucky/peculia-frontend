@@ -120,7 +120,7 @@ export default function RegisterProviderForm() {
         <div className="rounded-full bg-green-100 p-3 text-green-600">
           <CheckCircle2 size={48} />
         </div>
-        <h2 className="font-outfit text-2xl font-bold">
+        <h2 className="font-peculiar text-2xl font-bold">
           Registration Successful
         </h2>
         <p className="text-muted-foreground">
@@ -140,7 +140,7 @@ export default function RegisterProviderForm() {
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
-        <h2 className="font-outfit text-3xl font-bold tracking-tight text-rose-600">
+        <h2 className="font-peculiar text-3xl font-bold tracking-tight text-rose-600">
           Become a Professional
         </h2>
         <div className="flex justify-center gap-2 py-4">

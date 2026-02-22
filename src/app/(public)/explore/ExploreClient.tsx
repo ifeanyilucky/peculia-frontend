@@ -26,7 +26,7 @@ export default function ExploreClient() {
       </div>
       <div className="flex-1">
         <div className="mb-8">
-          <h1 className="font-outfit text-3xl font-bold text-slate-900">
+          <h1 className="font-peculiar text-3xl font-bold text-slate-900">
             Discovery
           </h1>
           <p className="mt-2 text-slate-600 tracking-tight">

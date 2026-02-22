@@ -99,7 +99,7 @@ export default function ClientBookingCard({ booking }: ClientBookingCardProps) {
               </span>
             )}
           </div>
-          <h3 className="font-outfit text-xl lg:text-2xl font-black text-slate-900 group-hover:text-rose-600 transition-colors truncate">
+          <h3 className="font-peculiar text-xl lg:text-2xl font-black text-slate-900 group-hover:text-rose-600 transition-colors truncate">
             {booking.serviceName}
           </h3>
           <p className="text-slate-500 font-medium truncate mt-1 underline-offset-4 hover:underline decoration-rose-500 decoration-2 transition-all">

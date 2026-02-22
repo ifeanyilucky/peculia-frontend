@@ -107,7 +107,7 @@ export default async function ProviderProfilePage({
 
               <section>
                 <div className="mb-6 flex items-center justify-between">
-                  <h3 className="font-outfit text-2xl font-bold text-slate-900">
+                  <h3 className="font-peculiar text-2xl font-bold text-slate-900">
                     Portfolio
                   </h3>
                   <span className="text-sm font-bold text-rose-600">
@@ -120,7 +120,7 @@ export default async function ProviderProfilePage({
               <hr className="border-slate-100" />
 
               <section>
-                <h3 className="font-outfit text-2xl font-bold text-slate-900 mb-8">
+                <h3 className="font-peculiar text-2xl font-bold text-slate-900 mb-8">
                   Client Reviews
                 </h3>
                 <Suspense
@@ -138,7 +138,7 @@ export default async function ProviderProfilePage({
               <ProviderAvailabilityPreview />
 
               <div className="rounded-3xl bg-slate-900 p-8 text-white shadow-xl shadow-slate-200">
-                <h4 className="font-outfit text-xl font-bold">
+                <h4 className="font-peculiar text-xl font-bold">
                   Ready to book?
                 </h4>
                 <p className="mt-2 text-sm text-slate-400">

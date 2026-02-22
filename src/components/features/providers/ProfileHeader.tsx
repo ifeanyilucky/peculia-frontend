@@ -40,7 +40,7 @@ export default function ProfileHeader({ provider }: ProfileHeaderProps) {
           {/* Details */}
           <div className="flex-1 pb-4">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="font-outfit text-3xl font-bold text-slate-900 md:text-5xl">
+              <h1 className="font-peculiar text-3xl font-bold text-slate-900 md:text-5xl">
                 {provider.businessName}
               </h1>
               {provider.isVerified && (

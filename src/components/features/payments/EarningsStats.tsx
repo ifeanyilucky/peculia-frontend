@@ -39,7 +39,7 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
           <p className="text-[10px] font-black uppercase tracking-widest text-white/40">
             Current Balance
           </p>
-          <p className="font-outfit text-5xl font-black tracking-tight">
+          <p className="font-peculiar text-5xl font-black tracking-tight">
             ₦{(data.availableBalance / 100).toLocaleString()}
           </p>
         </div>
@@ -72,7 +72,7 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
             Escrow Balance
           </p>
-          <p className="font-outfit text-4xl font-black text-slate-900">
+          <p className="font-peculiar text-4xl font-black text-slate-900">
             ₦{(data.pendingBalance / 100).toLocaleString()}
           </p>
           <p className="text-xs font-medium text-slate-400 mt-2">
@@ -108,7 +108,7 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
             Total This Month
           </p>
-          <p className="font-outfit text-4xl font-black text-slate-900">
+          <p className="font-peculiar text-4xl font-black text-slate-900">
             ₦{(data.thisMonth / 100).toLocaleString()}
           </p>
           <div className="mt-4 flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-slate-900">

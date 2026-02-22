@@ -141,7 +141,7 @@ export default function WeeklyScheduleEditor({
     <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden flex flex-col">
       <div className="p-8 border-b border-slate-50 flex items-center justify-between bg-slate-50/30">
         <div>
-          <h3 className="font-outfit text-xl font-bold text-slate-900">
+          <h3 className="font-peculiar text-xl font-bold text-slate-900">
             Weekly Business Hours
           </h3>
           <p className="text-xs font-medium text-slate-400 mt-1 uppercase tracking-widest">

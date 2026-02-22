@@ -31,7 +31,7 @@ export default function EarningsChart() {
     <div className="bg-white rounded-[2.5rem] border border-slate-100 p-8 shadow-sm h-full flex flex-col">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h3 className="font-outfit text-xl font-bold text-slate-900 tracking-tight">
+          <h3 className="font-peculiar text-xl font-bold text-slate-900 tracking-tight">
             Revenue Analytics
           </h3>
           <p className="text-xs font-medium text-slate-400 mt-1">

@@ -17,7 +17,7 @@ export default function ProviderServices({ services }: ProviderServicesProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="font-outfit text-2xl font-bold text-slate-900">
+        <h3 className="font-peculiar text-2xl font-bold text-slate-900">
           Services
         </h3>
         <span className="text-sm font-bold text-rose-600">
@@ -32,7 +32,7 @@ export default function ProviderServices({ services }: ProviderServicesProps) {
             className="group flex flex-col justify-between gap-4 rounded-3xl border border-slate-100 p-6 bg-white transition-all hover:border-rose-200 hover:shadow-lg hover:shadow-rose-100/50 sm:flex-row sm:items-center"
           >
             <div className="space-y-1">
-              <h4 className="font-outfit text-xl font-bold text-slate-900 group-hover:text-rose-600 transition-colors">
+              <h4 className="font-peculiar text-xl font-bold text-slate-900 group-hover:text-rose-600 transition-colors">
                 {service.name}
               </h4>
               <p className="text-sm text-slate-500 max-w-md line-clamp-2">

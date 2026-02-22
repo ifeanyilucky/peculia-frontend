@@ -68,7 +68,7 @@ export default function ProviderBookingsPage() {
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
         <div className="space-y-2">
-          <h1 className="font-outfit text-4xl font-black text-slate-900 tracking-tight">
+          <h1 className="font-peculiar text-4xl font-black text-slate-900 tracking-tight">
             Bookings
           </h1>
           <p className="text-lg text-slate-500 font-medium leading-relaxed">
@@ -153,7 +153,7 @@ export default function ProviderBookingsPage() {
             <div className="h-20 w-20 rounded-full bg-slate-50 flex items-center justify-center text-slate-200 mb-6">
               <Inbox size={40} />
             </div>
-            <h3 className="font-outfit text-xl font-bold text-slate-900">
+            <h3 className="font-peculiar text-xl font-bold text-slate-900">
               No bookings found
             </h3>
             <p className="text-slate-400 font-medium max-w-xs mt-2">

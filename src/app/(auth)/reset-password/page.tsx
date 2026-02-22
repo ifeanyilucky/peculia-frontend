@@ -67,7 +67,7 @@ function ResetPasswordForm() {
   if (!token) {
     return (
       <div className="text-center space-y-4">
-        <h2 className="font-outfit text-2xl font-bold text-rose-600">
+        <h2 className="font-peculiar text-2xl font-bold text-rose-600">
           Invalid Link
         </h2>
         <p className="text-muted-foreground">
@@ -86,7 +86,7 @@ function ResetPasswordForm() {
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
-        <h2 className="font-outfit text-3xl font-bold tracking-tight">
+        <h2 className="font-peculiar text-3xl font-bold tracking-tight">
           Reset Password
         </h2>
         <p className="text-sm text-muted-foreground">

@@ -90,7 +90,7 @@ export default function BookingPaymentStep() {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="text-center mb-10">
-        <h2 className="font-outfit text-2xl font-bold text-slate-900">
+        <h2 className="font-peculiar text-2xl font-bold text-slate-900">
           Secure Your Appointment
         </h2>
         <p className="mt-2 text-slate-500">
@@ -112,7 +112,7 @@ export default function BookingPaymentStep() {
             <p className="text-sm font-black uppercase tracking-widest text-slate-400">
               Total Deposit
             </p>
-            <p className="font-outfit text-5xl font-black text-slate-900">
+            <p className="font-peculiar text-5xl font-black text-slate-900">
               ₦{(lastCreatedBooking.depositAmount / 100).toLocaleString()}
             </p>
             <p className="text-xs font-bold text-slate-400">

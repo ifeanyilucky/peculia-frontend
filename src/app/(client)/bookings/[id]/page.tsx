@@ -55,7 +55,7 @@ export default function BookingDetailPage() {
         <div className="h-20 w-20 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mb-6">
           <AlertCircle size={40} />
         </div>
-        <h2 className="font-outfit text-3xl font-bold text-slate-900">
+        <h2 className="font-peculiar text-3xl font-bold text-slate-900">
           Booking not found
         </h2>
         <p className="mt-4 text-slate-500 max-w-sm">
@@ -124,7 +124,7 @@ export default function BookingDetailPage() {
               <span className="inline-block px-3 py-1 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest mb-2">
                 Reference: {booking.bookingRef}
               </span>
-              <h1 className="font-outfit text-4xl font-black text-slate-900 tracking-tight">
+              <h1 className="font-peculiar text-4xl font-black text-slate-900 tracking-tight">
                 {booking.serviceName}
               </h1>
             </div>
@@ -276,7 +276,7 @@ export default function BookingDetailPage() {
                   <span className="text-xs font-black uppercase tracking-widest text-slate-400">
                     Remaining Balance
                   </span>
-                  <span className="text-3xl font-outfit font-black text-slate-900 leading-none">
+                  <span className="text-3xl font-peculiar font-black text-slate-900 leading-none">
                     ₦
                     {(
                       (booking.servicePrice - booking.depositAmount) /
@@ -294,7 +294,7 @@ export default function BookingDetailPage() {
 
         {/* Right Side: Professional Card */}
         <div className="space-y-6">
-          <h3 className="font-outfit text-xl font-bold text-slate-900 px-2">
+          <h3 className="font-peculiar text-xl font-bold text-slate-900 px-2">
             Managed By
           </h3>
 

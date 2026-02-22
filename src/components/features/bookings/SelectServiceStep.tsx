@@ -29,7 +29,7 @@ export default function SelectServiceStep() {
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="text-center">
-        <h2 className="font-outfit text-2xl font-bold text-slate-900">
+        <h2 className="font-peculiar text-2xl font-bold text-slate-900">
           Choose a Service
         </h2>
         <p className="mt-2 text-slate-500">
@@ -61,7 +61,7 @@ export default function SelectServiceStep() {
               <div className="space-y-1">
                 <h3
                   className={cn(
-                    "font-outfit text-lg font-bold transition-colors",
+                    "font-peculiar text-lg font-bold transition-colors",
                     isSelected
                       ? "text-rose-600"
                       : "text-slate-900 group-hover:text-rose-600",

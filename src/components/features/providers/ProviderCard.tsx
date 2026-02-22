@@ -61,7 +61,7 @@ export default function ProviderCard({
             </div>
           </div>
 
-          <h3 className="mt-2 font-outfit text-xl font-bold text-slate-900 group-hover:text-rose-600 transition-colors">
+          <h3 className="mt-2 font-peculiar text-xl font-bold text-slate-900 group-hover:text-rose-600 transition-colors">
             {provider.businessName}
           </h3>
 

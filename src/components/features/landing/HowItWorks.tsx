@@ -26,7 +26,7 @@ export default function HowItWorks() {
     <section className="bg-slate-50 py-24 px-6 lg:px-24">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 text-center">
-          <h2 className="font-outfit text-4xl font-bold tracking-tight text-slate-900">
+          <h2 className="font-peculiar text-4xl font-bold tracking-tight text-slate-900">
             How It Works
           </h2>
           <p className="mt-4 text-lg text-slate-600">
@@ -46,7 +46,7 @@ export default function HowItWorks() {
               <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-xl shadow-slate-200 transition-transform hover:scale-110">
                 {step.icon}
               </div>
-              <h3 className="font-outfit text-xl font-bold text-slate-900">
+              <h3 className="font-peculiar text-xl font-bold text-slate-900">
                 {step.title}
               </h3>
               <p className="mt-4 leading-relaxed text-slate-600">

@@ -14,13 +14,13 @@ export default function AuthLayout({
 
         <div className="relative z-10 flex h-full flex-col justify-between">
           <div>
-            <h1 className="font-outfit text-3xl font-bold tracking-tight">
+            <h1 className="font-peculiar text-3xl font-bold tracking-tight">
               PECULIA
             </h1>
           </div>
 
           <div className="max-w-md">
-            <h2 className="font-outfit text-5xl font-bold leading-tight tracking-tighter">
+            <h2 className="font-peculiar text-5xl font-bold leading-tight tracking-tighter">
               Redefining Beauty <br /> & Wellness.
             </h2>
             <p className="mt-6 text-lg text-rose-100 opacity-90">
@@ -39,7 +39,7 @@ export default function AuthLayout({
       {/* Form Section */}
       <div className="flex w-full flex-col items-center justify-center bg-background px-6 py-12 lg:w-1/2 lg:px-24">
         <div className="mb-8 w-full max-w-[400px] lg:hidden">
-          <h1 className="font-outfit text-2xl font-bold tracking-tight text-rose-600 text-center">
+          <h1 className="font-peculiar text-2xl font-bold tracking-tight text-rose-600 text-center">
             PECULIA
           </h1>
         </div>

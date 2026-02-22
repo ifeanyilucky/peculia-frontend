@@ -20,7 +20,7 @@ export default function TrustBadges() {
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-50 text-rose-500">
                 {badge.icon}
               </div>
-              <span className="font-outfit font-semibold tracking-tight">
+              <span className="font-peculiar font-semibold tracking-tight">
                 {badge.label}
               </span>
             </div>

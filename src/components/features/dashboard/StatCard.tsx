@@ -62,7 +62,7 @@ export default function StatCard({
         <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
           {label}
         </p>
-        <p className="font-outfit text-4xl font-black text-slate-900">
+        <p className="font-peculiar text-4xl font-black text-slate-900">
           {value}
         </p>
       </div>

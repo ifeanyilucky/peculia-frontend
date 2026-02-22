@@ -25,7 +25,7 @@ export default async function FeaturedProviders() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <h2 className="font-outfit text-4xl font-bold tracking-tight text-slate-900">
+            <h2 className="font-peculiar text-4xl font-bold tracking-tight text-slate-900">
               Featured Professionals
             </h2>
             <p className="mt-4 text-lg text-slate-600">

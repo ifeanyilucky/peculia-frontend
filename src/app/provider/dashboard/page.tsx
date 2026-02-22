@@ -28,7 +28,7 @@ export default function ProviderDashboardPage() {
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
         <div className="space-y-2">
-          <h1 className="font-outfit text-4xl font-black text-slate-900 tracking-tight">
+          <h1 className="font-peculiar text-4xl font-black text-slate-900 tracking-tight">
             Professional Overview
           </h1>
           <p className="text-lg text-slate-500 font-medium leading-relaxed">
@@ -87,7 +87,7 @@ export default function ProviderDashboardPage() {
         {/* Right Column: Recent Reviews */}
         <div className="space-y-6">
           <div className="flex items-center justify-between px-2">
-            <h3 className="font-outfit text-xl font-bold text-slate-900">
+            <h3 className="font-peculiar text-xl font-bold text-slate-900">
               Recent Reviews
             </h3>
             <MessageSquare size={20} className="text-slate-300" />

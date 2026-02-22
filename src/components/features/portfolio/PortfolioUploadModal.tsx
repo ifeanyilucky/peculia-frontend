@@ -80,7 +80,7 @@ export default function PortfolioUploadModal({
       <div className="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
         <div className="px-8 py-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
           <div>
-            <h3 className="font-outfit text-2xl font-black text-slate-900">
+            <h3 className="font-peculiar text-2xl font-black text-slate-900">
               Upload Work
             </h3>
             <p className="text-xs font-medium text-slate-400 mt-1 uppercase tracking-widest">

@@ -9,7 +9,7 @@ export default function ProviderAbout({ provider }: ProviderAboutProps) {
   return (
     <div className="space-y-10">
       <section>
-        <h3 className="font-outfit text-2xl font-bold text-slate-900">
+        <h3 className="font-peculiar text-2xl font-bold text-slate-900">
           About the Professional
         </h3>
         <p className="mt-4 leading-relaxed text-slate-600 whitespace-pre-wrap">
@@ -49,7 +49,7 @@ export default function ProviderAbout({ provider }: ProviderAboutProps) {
       </section>
 
       <section>
-        <h4 className="font-outfit text-lg font-bold text-slate-900 mb-4">
+        <h4 className="font-peculiar text-lg font-bold text-slate-900 mb-4">
           Core Specialties
         </h4>
         <div className="flex flex-wrap gap-2">

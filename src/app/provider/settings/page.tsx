@@ -26,7 +26,7 @@ export default function ProviderSettingsPage() {
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
         <div className="space-y-2">
-          <h1 className="font-outfit text-4xl font-black text-slate-900 tracking-tight">
+          <h1 className="font-peculiar text-4xl font-black text-slate-900 tracking-tight">
             Settings
           </h1>
           <p className="text-lg text-slate-500 font-medium leading-relaxed">
@@ -106,7 +106,7 @@ export default function ProviderSettingsPage() {
               {/* Danger Zone */}
               <div className="p-8 rounded-[2.5rem] bg-rose-50 border border-rose-100 space-y-6">
                 <div>
-                  <h3 className="font-outfit text-xl font-bold text-rose-900">
+                  <h3 className="font-peculiar text-xl font-bold text-rose-900">
                     Danger Zone
                   </h3>
                   <p className="text-xs font-medium text-rose-600/60 mt-1 uppercase tracking-widest">

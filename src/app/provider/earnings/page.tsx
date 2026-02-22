@@ -33,7 +33,7 @@ export default function ProviderEarningsPage() {
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
         <div className="space-y-2">
-          <h1 className="font-outfit text-4xl font-black text-slate-900 tracking-tight">
+          <h1 className="font-peculiar text-4xl font-black text-slate-900 tracking-tight">
             Earnings
           </h1>
           <p className="text-lg text-slate-500 font-medium leading-relaxed">
@@ -73,7 +73,7 @@ export default function ProviderEarningsPage() {
               {/* Account Details Widget */}
               <div className="p-8 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm space-y-6">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-outfit text-xl font-bold text-slate-900">
+                  <h3 className="font-peculiar text-xl font-bold text-slate-900">
                     Payout Method
                   </h3>
                   <button className="text-[10px] font-black uppercase tracking-widest text-rose-600 hover:underline">
@@ -122,7 +122,7 @@ export default function ProviderEarningsPage() {
               <div className="p-8 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm space-y-4">
                 <div className="flex items-center gap-2 text-rose-600">
                   <AlertTriangle size={20} />
-                  <h3 className="font-outfit text-lg font-bold">
+                  <h3 className="font-peculiar text-lg font-bold">
                     Incomplete Tax Info
                   </h3>
                 </div>

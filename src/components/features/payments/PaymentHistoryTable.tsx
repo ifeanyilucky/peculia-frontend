@@ -109,7 +109,7 @@ export default function PaymentHistoryTable({
                 <td className="px-8 py-6">
                   <p
                     className={cn(
-                      "font-outfit text-lg font-black leading-tight",
+                      "font-peculiar text-lg font-black leading-tight",
                       payment.type === "refund"
                         ? "text-blue-600"
                         : "text-slate-900",

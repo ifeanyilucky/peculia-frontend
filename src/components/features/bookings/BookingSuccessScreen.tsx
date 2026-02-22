@@ -23,7 +23,7 @@ export default function BookingSuccessScreen() {
       </motion.div>
 
       <div className="max-w-md space-y-4">
-        <h2 className="font-outfit text-4xl font-black text-slate-900">
+        <h2 className="font-peculiar text-4xl font-black text-slate-900">
           Appointment Confirmed!
         </h2>
         <p className="text-lg font-medium text-slate-600">

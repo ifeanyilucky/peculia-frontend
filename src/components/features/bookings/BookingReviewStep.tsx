@@ -70,7 +70,7 @@ export default function BookingReviewStep() {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="text-center mb-10">
-        <h2 className="font-outfit text-2xl font-bold text-slate-900">
+        <h2 className="font-peculiar text-2xl font-bold text-slate-900">
           Review Your Booking
         </h2>
         <p className="mt-2 text-slate-500">
@@ -97,7 +97,7 @@ export default function BookingReviewStep() {
               )}
             </div>
             <div>
-              <h3 className="font-outfit text-xl font-bold text-slate-900">
+              <h3 className="font-peculiar text-xl font-bold text-slate-900">
                 {selectedService.name}
               </h3>
               <p className="text-sm font-medium text-slate-500">
@@ -162,7 +162,7 @@ export default function BookingReviewStep() {
 
         {/* Pricing Breakdown */}
         <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm space-y-4">
-          <h4 className="font-outfit font-bold text-slate-900">
+          <h4 className="font-peculiar font-bold text-slate-900">
             Price Breakdown
           </h4>
 
@@ -177,7 +177,7 @@ export default function BookingReviewStep() {
             </div>
             <div className="flex justify-between text-sm py-3 border-y border-dashed border-slate-100">
               <span className="text-rose-600 font-bold">Deposit Due Now</span>
-              <span className="font-black text-rose-600 font-outfit text-lg">
+              <span className="font-black text-rose-600 font-peculiar text-lg">
                 ₦{(selectedService.depositAmount / 100).toLocaleString()}
               </span>
             </div>

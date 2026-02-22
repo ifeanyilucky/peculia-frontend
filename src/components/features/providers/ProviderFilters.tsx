@@ -32,7 +32,7 @@ export default function ProviderFilters() {
   return (
     <aside className="space-y-8 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm sticky top-24">
       <div className="flex items-center justify-between">
-        <h3 className="font-outfit text-xl font-bold text-slate-900">
+        <h3 className="font-peculiar text-xl font-bold text-slate-900">
           Filters
         </h3>
         <button

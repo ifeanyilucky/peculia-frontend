@@ -89,7 +89,7 @@ export default function RegisterClientForm() {
         <div className="rounded-full bg-green-100 p-3 text-green-600">
           <CheckCircle2 size={48} />
         </div>
-        <h2 className="font-outfit text-2xl font-bold">Check your email</h2>
+        <h2 className="font-peculiar text-2xl font-bold">Check your email</h2>
         <p className="text-muted-foreground">
           We&apos;ve sent a verification link to your email address. You will be
           redirected to login shortly.
@@ -107,7 +107,7 @@ export default function RegisterClientForm() {
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
-        <h2 className="font-outfit text-3xl font-bold tracking-tight">
+        <h2 className="font-peculiar text-3xl font-bold tracking-tight">
           Create an Account
         </h2>
         <p className="text-sm text-muted-foreground">

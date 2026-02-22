@@ -10,7 +10,7 @@ export default function NotFound() {
         <Sparkles size={40} />
       </div>
 
-      <h1 className="font-outfit text-7xl font-black text-slate-900 tracking-tighter mb-4">
+      <h1 className="font-peculiar text-7xl font-black text-slate-900 tracking-tighter mb-4">
         404
       </h1>
 
