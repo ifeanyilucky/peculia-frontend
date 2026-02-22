@@ -26,5 +26,5 @@ export function ToastProvider() {
         },
       };
 
-  return <Toaster position="top-center" options={options} />;
+  return <Toaster position="top-right" options={options} />;
 }

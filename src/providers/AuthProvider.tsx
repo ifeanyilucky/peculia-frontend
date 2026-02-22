@@ -1,38 +1,42 @@
 "use client";
 
-import { useEffect, useState, ReactNode, useCallback } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import { useAuthStore } from "@/store/auth.store";
 import api from "@/lib/axios";
 import FullPageLoader from "@/components/common/FullPageLoader";
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
-  const { accessToken, setAuth, clearAuth } = useAuthStore();
+  const accessToken = useAuthStore((state) => state.accessToken);
   const [isLoading, setIsLoading] = useState(true);
 
-  const initAuth = useCallback(async () => {
+  useEffect(() => {
+    // Grab store actions directly so they don't become deps (Zustand refs are stable
+    // when accessed via getState(), avoiding infinite re-render loops)
+    const { setAuth, clearAuth } = useAuthStore.getState();
+
     if (!accessToken) {
       setIsLoading(false);
       return;
     }
 
-    try {
-      const response = await api.get("/auth/me");
-      const { user } = response.data.data;
+    const initAuth = async () => {
+      try {
+        const response = await api.get("/auth/me");
+        // GET /auth/me returns the user object directly under data.data
+        const user = response.data.data;
+        const refreshToken = useAuthStore.getState().refreshToken!;
+        setAuth(user, accessToken, refreshToken);
+      } catch (error) {
+        console.error("Auth initialization failed:", error);
+        clearAuth();
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-      // We keep the existing tokens but update the user data
-      const refreshToken = useAuthStore.getState().refreshToken!;
-      setAuth(user, accessToken, refreshToken);
-    } catch (error) {
-      console.error("Auth initialization failed:", error);
-      clearAuth();
-    } finally {
-      setIsLoading(false);
-    }
-  }, [accessToken, setAuth, clearAuth]);
-
-  useEffect(() => {
     initAuth();
-  }, [initAuth]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken]); // Only re-run when the token actually changes
 
   if (isLoading) {
     return <FullPageLoader />;
