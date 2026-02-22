@@ -13,14 +13,13 @@ import {
   ShieldCheck,
   Save,
   Loader2,
-  Eye,
-  EyeOff,
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { sileo } from "sileo";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 const profileSchema = z.object({
   firstName: z.string().min(2, "First name is too short"),
@@ -41,6 +40,9 @@ const passwordSchema = z
     path: ["confirmPassword"],
   });
 
+type ProfileFormValues = z.infer<typeof profileSchema>;
+type PasswordFormValues = z.infer<typeof passwordSchema>;
+
 export default function ClientProfilePage() {
   const { user, updateUser } = useAuthStore();
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
@@ -52,7 +54,7 @@ export default function ClientProfilePage() {
     register: regProfile,
     handleSubmit: handleProfileSubmit,
     formState: { errors: profileErrors },
-  } = useForm({
+  } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
       firstName: user?.firstName || "",
@@ -66,21 +68,21 @@ export default function ClientProfilePage() {
     handleSubmit: handlePasswordSubmit,
     formState: { errors: passwordErrors },
     reset: resetPassword,
-  } = useForm({
+  } = useForm<PasswordFormValues>({
     resolver: zodResolver(passwordSchema),
   });
 
-  const onUpdateProfile = async (data: any) => {
+  const onUpdateProfile = async (data: ProfileFormValues) => {
     setIsUpdatingProfile(true);
     try {
       const updated = await clientService.updateProfile(data);
       updateUser(updated);
-      toast.success({
+      sileo.success({
         title: "Profile Updated",
         description: "Your personal information has been saved.",
       });
     } catch (err) {
-      toast.error({
+      sileo.error({
         title: "Update Failed",
         description: "Could not save profile changes.",
       });
@@ -89,20 +91,20 @@ export default function ClientProfilePage() {
     }
   };
 
-  const onChangePassword = async (data: any) => {
+  const onChangePassword = async (data: PasswordFormValues) => {
     setIsChangingPassword(true);
     try {
       await clientService.updatePassword({
         currentPassword: data.currentPassword,
         newPassword: data.newPassword,
       });
-      toast.success({
+      sileo.success({
         title: "Password Changed",
         description: "Your security credentials have been updated.",
       });
       resetPassword();
     } catch (err: any) {
-      toast.error({
+      sileo.error({
         title: "Security Error",
         description:
           err.response?.data?.message || "Could not change password.",
@@ -114,7 +116,7 @@ export default function ClientProfilePage() {
 
   const onDeleteAccount = async () => {
     if (deleteConfirmation !== "DELETE") {
-      toast.error({
+      sileo.error({
         title: "Invalid Input",
         description: 'Please type "DELETE" to confirm.',
       });
@@ -125,7 +127,7 @@ export default function ClientProfilePage() {
       await clientService.deleteAccount("DELETE");
       // Handle logout/redirect
     } catch (err) {
-      toast.error({
+      sileo.error({
         title: "Action Failed",
         description: "Could not delete your account at this time.",
       });
@@ -395,7 +397,7 @@ export default function ClientProfilePage() {
             <div className="bg-white rounded-3xl p-6 border border-rose-100 flex flex-col md:flex-row items-center gap-6 justify-between">
               <div className="text-center md:text-left">
                 <p className="text-sm font-bold text-slate-900">
-                  Type "DELETE" to confirm
+                  Type &quot;DELETE&quot; to confirm
                 </p>
                 <p className="text-xs text-slate-400 mt-1">
                   This action is irreversible and will cancel all active

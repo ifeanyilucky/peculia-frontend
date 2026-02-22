@@ -8,6 +8,7 @@ interface User {
   lastName: string;
   role: "client" | "provider" | "admin";
   avatar?: string;
+  phone?: string;
 }
 
 interface AuthState {
