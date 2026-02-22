@@ -22,7 +22,6 @@ export default function AuthGuard({ children, allowedRoles }: AuthGuardProps) {
   const [hasHydrated, setHasHydrated] = useState<boolean>(() =>
     useAuthStore.persist.hasHydrated(),
   );
-  const [isAuthorized, setIsAuthorized] = useState(false);
 
   // Subscribe to Zustand hydration completion for the rare cold-start case
   useEffect(() => {
@@ -52,11 +51,15 @@ export default function AuthGuard({ children, allowedRoles }: AuthGuardProps) {
       router.push(redirectMap[user.role]);
       return;
     }
-
-    setIsAuthorized(true);
   }, [hasHydrated, isAuthenticated, user, allowedRoles, router]);
 
-  if (!hasHydrated || !isAuthenticated || !isAuthorized) {
+  // Derive authorization inline — avoids a setState inside an effect body.
+  const isAuthorized =
+    hasHydrated &&
+    isAuthenticated &&
+    (!allowedRoles || !user || allowedRoles.includes(user.role));
+
+  if (!isAuthorized) {
     return <FullPageLoader />;
   }
 
