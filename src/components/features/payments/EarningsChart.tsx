@@ -107,10 +107,11 @@ export default function EarningsChart() {
                 color: "#e11d48",
                 fontSize: "14px",
               }}
-              formatter={(value: number) => [
-                `₦${value.toLocaleString()}`,
-                "Earnings",
-              ]}
+              formatter={(value: number | undefined) =>
+                value !== undefined
+                  ? [`₦${value.toLocaleString()}`, "Earnings"]
+                  : ["₦0", "Earnings"]
+              }
             />
             <Bar dataKey="total" radius={[10, 10, 10, 10]} barSize={32}>
               {DATA.map((entry, index) => (
