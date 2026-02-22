@@ -148,7 +148,7 @@ export default function ProviderBookingsPage() {
               Loading your schedule...
             </p>
           </div>
-        ) : bookings?.results?.length === 0 ? (
+        ) : bookings?.data?.results?.length === 0 ? (
           <div className="py-20 flex flex-col items-center justify-center text-center bg-white rounded-[2.5rem] border border-slate-100 border-dashed">
             <div className="h-20 w-20 rounded-full bg-slate-50 flex items-center justify-center text-slate-200 mb-6">
               <Inbox size={40} />
@@ -170,7 +170,7 @@ export default function ProviderBookingsPage() {
                 : "grid-cols-1",
             )}
           >
-            {bookings?.results?.map((booking: any) => (
+            {bookings?.data?.results?.map((booking: any) => (
               <ProviderBookingCard
                 key={booking.id}
                 booking={booking}
