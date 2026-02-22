@@ -11,7 +11,7 @@ import {
 export const providerService = {
   discoverProviders: async (filters: DiscoveryFilters) => {
     const response = await api.get<ApiSuccess<PaginatedData<Provider>>>(
-      "/provider-profiles",
+      "/providers",
       {
         params: filters,
       },
@@ -20,15 +20,13 @@ export const providerService = {
   },
 
   getProviderById: async (id: string) => {
-    const response = await api.get<ApiSuccess<Provider>>(
-      `/provider-profiles/${id}`,
-    );
+    const response = await api.get<ApiSuccess<Provider>>(`/providers/${id}`);
     return response.data.data;
   },
 
   getProviderPublicProfile: async (id: string) => {
     const response = await api.get<ApiSuccess<Provider>>(
-      `/provider-profiles/${id}/public`,
+      `/providers/${id}/public`,
     );
     return response.data.data;
   },

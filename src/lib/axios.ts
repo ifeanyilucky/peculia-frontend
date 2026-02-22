@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useAuthStore } from "@/store/auth.store";
+import { sileo } from "sileo";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -80,6 +81,20 @@ api.interceptors.response.use(
       } finally {
         isRefreshing = false;
       }
+    }
+
+    // Global Error Toast Handling
+    const errorMessage =
+      error.response?.data?.message ||
+      error.message ||
+      "An unexpected error occurred";
+
+    // Avoid showing toast for 401 as it's handled by refresh logic or redirect
+    if (error.response?.status !== 401) {
+      sileo.error({
+        title: "Error",
+        description: errorMessage,
+      });
     }
 
     return Promise.reject(error);
