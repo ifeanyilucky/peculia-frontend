@@ -5,6 +5,7 @@ import {
   Service,
   Review,
   DiscoveryFilters,
+  PortfolioImage,
 } from "@/types/provider.types";
 
 export const providerService = {
@@ -67,6 +68,31 @@ export const providerService = {
 
   deleteService: async (id: string) => {
     const response = await api.delete<ApiSuccess<void>>(`/services/${id}`);
+    return response.data.data;
+  },
+
+  getMyProfile: async () => {
+    const response = await api.get<ApiSuccess<Provider>>("/providers/me");
+    return response.data.data;
+  },
+
+  uploadPortfolioImage: async (formData: FormData) => {
+    const response = await api.post<ApiSuccess<PortfolioImage>>(
+      "/providers/me/portfolio",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
+    return response.data.data;
+  },
+
+  deletePortfolioImage: async (publicId: string) => {
+    const response = await api.delete<ApiSuccess<void>>(
+      `/providers/me/portfolio/${publicId}`,
+    );
     return response.data.data;
   },
 };
