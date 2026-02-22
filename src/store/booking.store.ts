@@ -1,34 +1,50 @@
 import { create } from "zustand";
+import { Provider, Service } from "@/types/provider.types";
 
 interface BookingFlowState {
-  selectedProvider: any | null;
-  selectedService: any | null;
+  currentStep: number;
+  selectedProvider: Provider | null;
+  selectedService: Service | null;
   selectedDate: Date | null;
-  selectedSlot: string | null;
+  selectedSlot: { startTime: string; endTime: string } | null;
   bookingNotes: string;
 
-  setSelectedProvider: (provider: any) => void;
-  setSelectedService: (service: any) => void;
+  // Actions
+  setStep: (step: number) => void;
+  nextStep: () => void;
+  prevStep: () => void;
+  setSelectedProvider: (provider: Provider | null) => void;
+  setSelectedService: (service: Service | null) => void;
   setSelectedDate: (date: Date | null) => void;
-  setSelectedSlot: (slot: string | null) => void;
+  setSelectedSlot: (
+    slot: { startTime: string; endTime: string } | null,
+  ) => void;
   setBookingNotes: (notes: string) => void;
   resetBookingFlow: () => void;
 }
 
 export const useBookingStore = create<BookingFlowState>((set) => ({
+  currentStep: 1,
   selectedProvider: null,
   selectedService: null,
   selectedDate: null,
   selectedSlot: null,
   bookingNotes: "",
 
+  setStep: (step) => set({ currentStep: step }),
+  nextStep: () => set((state) => ({ currentStep: state.currentStep + 1 })),
+  prevStep: () =>
+    set((state) => ({ currentStep: Math.max(1, state.currentStep - 1) })),
+
   setSelectedProvider: (provider) => set({ selectedProvider: provider }),
   setSelectedService: (service) => set({ selectedService: service }),
   setSelectedDate: (date) => set({ selectedDate: date }),
   setSelectedSlot: (slot) => set({ selectedSlot: slot }),
   setBookingNotes: (notes) => set({ bookingNotes: notes }),
+
   resetBookingFlow: () =>
     set({
+      currentStep: 1,
       selectedProvider: null,
       selectedService: null,
       selectedDate: null,
