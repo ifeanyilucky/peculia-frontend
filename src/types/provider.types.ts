@@ -23,7 +23,7 @@ export interface ProviderUser {
 }
 
 export interface Provider {
-  id: string;
+  _id: string;
   userId: ProviderUser;
   businessName: string;
   bio?: string;

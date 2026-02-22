@@ -58,7 +58,7 @@ export default function SavedProvidersPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {/* Mocked "saved" state for now since the backend logic is pending */}
             {savedProviders.results.map((provider) => (
-              <ProviderCard key={provider.id} provider={provider} />
+              <ProviderCard key={provider._id} provider={provider} />
             ))}
           </div>
         )}

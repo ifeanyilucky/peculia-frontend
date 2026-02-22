@@ -35,7 +35,7 @@ export default function BookingReviewStep() {
     setIsSubmitting(true);
     try {
       const booking = await bookingService.createBooking({
-        providerProfileId: selectedProvider.id,
+        providerProfileId: selectedProvider._id,
         serviceId: selectedService.id,
         scheduledDate: selectedDate.toISOString(),
         startTime: selectedSlot.startTime,

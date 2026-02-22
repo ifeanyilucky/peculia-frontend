@@ -85,7 +85,7 @@ export default function ProviderGrid({ filters }: ProviderGridProps) {
     <div className="space-y-12">
       <div className="grid gap-6 sm:grid-cols-2">
         {allProviders.map((provider) => (
-          <ProviderCard key={provider.id} provider={provider} />
+          <ProviderCard key={provider._id} provider={provider} />
         ))}
       </div>
 

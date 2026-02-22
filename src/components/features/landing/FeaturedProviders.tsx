@@ -42,7 +42,7 @@ export default async function FeaturedProviders() {
 
         <div className="flex gap-6 overflow-x-auto pb-8 snap-x no-scrollbar">
           {providers.map((provider) => (
-            <div key={provider.id} className="w-[320px] shrink-0 snap-start">
+            <div key={provider._id} className="w-[320px] shrink-0 snap-start">
               <ProviderCard provider={provider} />
             </div>
           ))}

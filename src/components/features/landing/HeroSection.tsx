@@ -51,7 +51,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="mx-auto mt-12 w-full max-w-4xl"
+          className="mx-auto mt-12 w-full max-w-6xl"
         >
           <form
             onSubmit={handleSearch}
