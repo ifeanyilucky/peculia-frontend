@@ -24,14 +24,7 @@ export default function MobileBottomNav() {
     { label: "Profile", href: "/profile", icon: UserCircle2 },
   ];
 
-  const providerItems = [
-    { label: "Home", href: ROUTES.provider.dashboard, icon: LayoutDashboard },
-    { label: "Bookings", href: ROUTES.provider.bookings, icon: CalendarDays },
-    { label: "Services", href: "/provider/services", icon: Scissors },
-    { label: "Profile", href: "/provider/profile", icon: UserCircle2 },
-  ];
-
-  const items = user?.role === "provider" ? providerItems : clientItems;
+  const items = clientItems;
 
   return (
     <nav className="lg:hidden fixed bottom-0 left-0 right-0 h-20 bg-white/90 backdrop-blur-xl border-t border-slate-100 px-6 flex items-center justify-between z-50 pb-safe">

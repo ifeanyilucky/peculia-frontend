@@ -45,7 +45,7 @@ export default function AuthGuard({ children, allowedRoles }: AuthGuardProps) {
       // Wrong role — redirect to their correct dashboard
       const redirectMap: Record<Role, string> = {
         client: ROUTES.client.dashboard,
-        provider: ROUTES.provider.dashboard,
+        provider: "/", // TODO: Redirect to partners portal
         admin: ROUTES.admin.dashboard,
       };
       router.push(redirectMap[user.role]);

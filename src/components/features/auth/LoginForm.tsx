@@ -47,7 +47,7 @@ export default function LoginForm() {
       // Redirect based on role
       const redirectMap = {
         client: ROUTES.client.dashboard,
-        provider: ROUTES.provider.dashboard,
+        provider: "/", // TODO: Redirect to partners portal
         admin: ROUTES.admin.dashboard,
       };
 
@@ -155,8 +155,8 @@ export default function LoginForm() {
           I&apos;m a Client
         </Link>
         <Link
-          href={ROUTES.auth.registerProvider}
-          className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+          href="#" // TODO: Point to partners portal URL
+          className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
         >
           I&apos;m a Professional
         </Link>
