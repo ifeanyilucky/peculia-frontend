@@ -29,7 +29,7 @@ const step1Schema = z
         /[^A-Za-z0-9]/,
         "Password must contain at least one special character",
       ),
-    role: z.literal("provider").default("provider"),
+    role: z.literal("provider"),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -64,7 +64,10 @@ export default function RegisterProviderForm() {
     formState: { errors: errors1 },
   } = useForm<Step1Values>({
     resolver: zodResolver(step1Schema),
-    defaultValues: formData,
+    defaultValues: {
+      ...formData,
+      role: "provider",
+    } as Partial<Step1Values>,
   });
 
   const {

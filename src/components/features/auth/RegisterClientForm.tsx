@@ -34,7 +34,7 @@ const registerSchema = z
         (val) => val === true,
         "You must accept the terms and conditions",
       ),
-    role: z.literal("client").default("client"),
+    role: z.literal("client"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -55,6 +55,9 @@ export default function RegisterClientForm() {
     formState: { errors },
   } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      role: "client",
+    },
   });
 
   const password = watch("password");
