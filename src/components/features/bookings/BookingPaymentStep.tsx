@@ -95,8 +95,9 @@ export default function BookingPaymentStep() {
         </h2>
         <p className="mt-2 text-slate-500">
           Pay the deposit to confirm your booking with{" "}
-          {lastCreatedBooking.providerProfileId?.businessName ||
-            "the professional"}
+          {typeof lastCreatedBooking.providerProfileId !== "string"
+            ? lastCreatedBooking.providerProfileId.businessName
+            : "the professional"}
           .
         </p>
       </div>

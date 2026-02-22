@@ -1,4 +1,4 @@
-import { ProviderUser } from "./provider.types";
+import { ProviderUser, Provider } from "./provider.types";
 
 export type BookingStatus =
   | "pending_payment"
@@ -13,7 +13,7 @@ export interface Booking {
   id: string;
   bookingRef: string;
   clientId: string | ProviderUser;
-  providerProfileId: string;
+  providerProfileId: string | Provider;
   serviceId: string;
   scheduledDate: string;
   startTime: string;
