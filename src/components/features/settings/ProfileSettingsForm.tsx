@@ -18,7 +18,7 @@ const profileSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileSchema>;
 
 export default function ProfileSettingsForm() {
-  const { user, setUser } = useAuthStore();
+  const { user, updateUser } = useAuthStore();
 
   const {
     register,
@@ -36,7 +36,7 @@ export default function ProfileSettingsForm() {
   const onSubmit = async (data: ProfileFormValues) => {
     try {
       const updatedUser = await authService.updateProfile(data);
-      setUser(updatedUser);
+      updateUser(updatedUser);
       sileo.success({
         title: "Updated",
         description: "Your personal details have been saved.",

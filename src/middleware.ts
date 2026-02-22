@@ -1,19 +1,20 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/request";
+import { NextResponse, type NextRequest } from "next/server";
 
 // Simplified middleware for initial auth check
 // In a real app, you'd decode the JWT or check a session cookie
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  
+
   // Get token from cookies
   const token = request.cookies.get("token")?.value;
   const userRole = request.cookies.get("userRole")?.value; // "client" or "provider"
 
   // Define protected routes
   const isProviderRoute = pathname.startsWith("/provider");
-  const isClientRoute = pathname.startsWith("/dashboard") || pathname.startsWith("/bookings");
-  const isAuthRoute = pathname.startsWith("/login") || pathname.startsWith("/register");
+  const isClientRoute =
+    pathname.startsWith("/dashboard") || pathname.startsWith("/bookings");
+  const isAuthRoute =
+    pathname.startsWith("/login") || pathname.startsWith("/register");
 
   // Redirect unauthenticated users
   if ((isProviderRoute || isClientRoute) && !token) {
@@ -24,9 +25,10 @@ export function middleware(request: NextRequest) {
 
   // Redirect authenticated users away from auth pages
   if (isAuthRoute && token) {
-    const dashboardUrl = userRole === "provider" 
-      ? new URL("/provider/dashboard", request.url)
-      : new URL("/dashboard", request.url);
+    const dashboardUrl =
+      userRole === "provider"
+        ? new URL("/provider/dashboard", request.url)
+        : new URL("/dashboard", request.url);
     return NextResponse.redirect(dashboardUrl);
   }
 
@@ -55,4 +57,4 @@ export const config = {
     "/((?!api|_next/static|_next/image|favicon.ico|public|images|og-image.png).*)",
   ],
 };
-理论上
+理论上;
