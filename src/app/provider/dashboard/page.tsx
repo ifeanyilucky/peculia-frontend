@@ -2,8 +2,8 @@
 
 import { useAuthStore } from "@/store/auth.store";
 import StatCard from "@/components/features/dashboard/StatCard";
+import dynamic from "next/dynamic";
 import UpcomingBookingsList from "@/components/features/bookings/UpcomingBookingsList";
-import EarningsChart from "@/components/features/payments/EarningsChart";
 import {
   CalendarCheck2,
   Banknote,
@@ -15,6 +15,12 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+
+// Dynamically import recharts-based chart to avoid bloating the initial bundle
+const EarningsChart = dynamic(
+  () => import("@/components/features/payments/EarningsChart"),
+  { ssr: false },
+);
 
 export default function ProviderDashboardPage() {
   const { user } = useAuthStore();

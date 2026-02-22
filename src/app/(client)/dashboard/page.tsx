@@ -15,11 +15,17 @@ import {
 import { useAuthStore } from "@/store/auth.store";
 import { useQuery } from "@tanstack/react-query";
 import { bookingService } from "@/services/booking.service";
-import UpcomingAppointments from "@/components/features/dashboard/UpcomingAppointments";
+import dynamic from "next/dynamic";
 import { format } from "date-fns";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ROUTES } from "@/constants/routes";
+
+// Dynamically loaded to avoid pulling all booking components into the initial bundle
+const UpcomingAppointments = dynamic(
+  () => import("@/components/features/dashboard/UpcomingAppointments"),
+  { ssr: false },
+);
 
 export default function ClientDashboardPage() {
   const { user } = useAuthStore();
