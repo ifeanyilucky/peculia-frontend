@@ -40,7 +40,7 @@ export default function PublicHeader() {
             Log in
           </Link>
           <Link
-            href={ROUTES.auth.registerProvider}
+            href="#" // TODO: Point to partners portal URL
             className="hidden sm:block rounded-full border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-50"
           >
             List your business
@@ -95,7 +95,7 @@ export default function PublicHeader() {
                 <div className="my-1 border-t border-slate-100 px-3"></div>
 
                 <Link
-                  href={ROUTES.auth.registerProvider}
+                  href="#" // TODO: Point to partners portal URL
                   onClick={() => setIsMenuOpen(false)}
                   className="flex w-full items-center justify-between p-3 text-sm font-bold text-slate-900 hover:bg-slate-50 rounded-xl transition-colors"
                 >

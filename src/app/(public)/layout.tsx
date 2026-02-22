@@ -49,13 +49,13 @@ export default function PublicLayout({
               <div className="flex flex-col gap-4">
                 <span className="font-bold text-slate-900">Professionals</span>
                 <Link
-                  href={ROUTES.auth.registerProvider}
+                  href="#" // TODO: Point to partners portal URL
                   className="text-sm text-slate-500 hover:text-rose-600"
                 >
                   Join Peculia
                 </Link>
                 <Link
-                  href={ROUTES.auth.login}
+                  href="#" // TODO: Point to partners portal URL
                   className="text-sm text-slate-500 hover:text-rose-600"
                 >
                   Pro Portal

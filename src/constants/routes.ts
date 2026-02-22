@@ -7,7 +7,6 @@ export const ROUTES = {
   auth: {
     login: "/login",
     registerClient: "/register/client",
-    registerProvider: "/register/provider",
     forgotPassword: "/forgot-password",
     resetPassword: "/reset-password",
     verifyEmail: "/verify-email",
@@ -21,17 +20,6 @@ export const ROUTES = {
     saved: "/saved",
     notifications: "/notifications",
     profile: "/profile",
-  },
-  provider: {
-    dashboard: "/provider/dashboard",
-    bookings: "/provider/bookings",
-    bookingDetail: (id: string) => `/provider/bookings/${id}`,
-    services: "/provider/services",
-    availability: "/provider/availability",
-    portfolio: "/provider/portfolio",
-    earnings: "/provider/earnings",
-    notifications: "/provider/notifications",
-    settings: "/provider/settings",
   },
   admin: {
     dashboard: "/dashboard",
