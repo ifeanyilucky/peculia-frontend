@@ -51,4 +51,22 @@ export const providerService = {
     );
     return response.data.data;
   },
+
+  createService: async (data: Partial<Service>) => {
+    const response = await api.post<ApiSuccess<Service>>("/services", data);
+    return response.data.data;
+  },
+
+  updateService: async (id: string, data: Partial<Service>) => {
+    const response = await api.patch<ApiSuccess<Service>>(
+      `/services/${id}`,
+      data,
+    );
+    return response.data.data;
+  },
+
+  deleteService: async (id: string) => {
+    const response = await api.delete<ApiSuccess<void>>(`/services/${id}`);
+    return response.data.data;
+  },
 };
