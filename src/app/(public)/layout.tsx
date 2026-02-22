@@ -20,7 +20,7 @@ export default function PublicLayout({
             <div>
               <Link
                 href="/"
-                className="font-peculiar text-2xl font-bold tracking-tight text-rose-600"
+                className="font-peculiar text-2xl font-bold text-rose-600"
               >
                 PECULIA
               </Link>

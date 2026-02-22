@@ -107,7 +107,7 @@ export default function RegisterClientForm() {
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
-        <h2 className="font-peculiar text-3xl font-bold tracking-tight">
+        <h2 className="font-peculiar text-3xl font-bold">
           Create an Account
         </h2>
         <p className="text-sm text-muted-foreground">

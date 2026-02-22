@@ -84,7 +84,7 @@ export default function ServicesList({
                     {service.category || "General"}
                   </span>
                 </div>
-                <h4 className="font-peculiar text-2xl font-black text-slate-900 leading-tight">
+                <h4 className="font-peculiar text-2xl font-black text-slate-900">
                   {service.name}
                 </h4>
               </div>

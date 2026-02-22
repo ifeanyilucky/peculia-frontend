@@ -42,7 +42,7 @@ export default function HeroSection() {
             Introducing the Peculia Mobile App
             <span className="text-slate-400">→</span>
           </span> */}
-          <h1 className="font-peculiar text-6xl font-black tracking-tight text-slate-900 ">
+          <h1 className="font-peculiar text-6xl font-black text-slate-900 ">
             Book local <span className="text-rose-600">selfcare</span> services
           </h1>
           <p className="mt-6 max-w-2xl text-lg font-medium text-slate-600 sm:text-xl">

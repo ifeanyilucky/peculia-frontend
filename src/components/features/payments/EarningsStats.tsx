@@ -39,7 +39,7 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
           <p className="text-[10px] font-black uppercase tracking-widest text-white/40">
             Current Balance
           </p>
-          <p className="font-peculiar text-5xl font-black tracking-tight">
+          <p className="font-peculiar text-5xl font-black">
             ₦{(data.availableBalance / 100).toLocaleString()}
           </p>
         </div>

@@ -26,7 +26,7 @@ export default function HowItWorks() {
     <section className="bg-slate-50 py-24 px-6 lg:px-24">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 text-center">
-          <h2 className="font-peculiar text-4xl font-bold tracking-tight text-slate-900">
+          <h2 className="font-peculiar text-4xl font-bold text-slate-900">
             How It Works
           </h2>
           <p className="mt-4 text-lg text-slate-600">

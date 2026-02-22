@@ -69,7 +69,7 @@ export default function ForgotPasswordPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="font-peculiar text-3xl font-bold tracking-tight">
+        <h2 className="font-peculiar text-3xl font-bold">
           Forgot Password
         </h2>
         <p className="text-sm text-muted-foreground">

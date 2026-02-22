@@ -124,7 +124,7 @@ export default function BookingDetailPage() {
               <span className="inline-block px-3 py-1 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest mb-2">
                 Reference: {booking.bookingRef}
               </span>
-              <h1 className="font-peculiar text-4xl font-black text-slate-900 tracking-tight">
+              <h1 className="font-peculiar text-4xl font-black text-slate-900">
                 {booking.serviceName}
               </h1>
             </div>
@@ -276,7 +276,7 @@ export default function BookingDetailPage() {
                   <span className="text-xs font-black uppercase tracking-widest text-slate-400">
                     Remaining Balance
                   </span>
-                  <span className="text-3xl font-peculiar font-black text-slate-900 leading-none">
+                  <span className="text-3xl font-peculiar font-black text-slate-900">
                     ₦
                     {(
                       (booking.servicePrice - booking.depositAmount) /

@@ -22,7 +22,7 @@ export default function Error({
         <AlertCircle size={40} />
       </div>
 
-      <h1 className="font-peculiar text-4xl font-black text-slate-900 tracking-tighter mb-4">
+      <h1 className="font-peculiar text-4xl font-black text-slate-900er mb-4">
         Something went wrong
       </h1>
 

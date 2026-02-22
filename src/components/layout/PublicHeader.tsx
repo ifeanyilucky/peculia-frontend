@@ -26,7 +26,7 @@ export default function PublicHeader() {
         {/* Left: Logo */}
         <Link
           href="/"
-          className="font-peculiar text-2xl font-black tracking-tight text-slate-900"
+          className="font-peculiar text-2xl font-black text-slate-900"
         >
           Peculia.
         </Link>

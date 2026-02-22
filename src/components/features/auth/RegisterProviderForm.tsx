@@ -140,7 +140,7 @@ export default function RegisterProviderForm() {
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
-        <h2 className="font-peculiar text-3xl font-bold tracking-tight text-rose-600">
+        <h2 className="font-peculiar text-3xl font-bold text-rose-600">
           Become a Professional
         </h2>
         <div className="flex justify-center gap-2 py-4">
