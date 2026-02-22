@@ -1,5 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { sileo } from "sileo";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,7 +14,10 @@ export const queryClient = new QueryClient({
         const message =
           error?.response?.data?.message ||
           "Something went wrong. Please try again.";
-        toast.error(message);
+        sileo.error({
+          title: "Error",
+          description: message,
+        });
       },
     },
   },
