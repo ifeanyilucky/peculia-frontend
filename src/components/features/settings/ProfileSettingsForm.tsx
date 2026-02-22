@@ -7,8 +7,9 @@ import { User, Mail, Shield, Loader2, Save, Camera } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
 import { authService } from "@/services/auth.service";
 import { sileo } from "sileo";
+import { cn } from "@/lib/utils";
 
-const profileSchema = z.zod.object({
+const profileSchema = z.object({
   firstName: z.string().min(2, "First name is too short"),
   lastName: z.string().min(2, "Last name is too short"),
   email: z.string().email("Invalid email address"),
@@ -142,6 +143,3 @@ export default function ProfileSettingsForm() {
     </div>
   );
 }
-
-// Helper for cn (will import from utils)
-import { cn } from "@/lib/utils";

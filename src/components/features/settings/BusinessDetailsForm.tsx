@@ -17,7 +17,7 @@ import { providerService } from "@/services/provider.service";
 import { sileo } from "sileo";
 import { cn } from "@/lib/utils";
 
-const businessSchema = z.zod.object({
+const businessSchema = z.object({
   businessName: z.string().min(3, "Business name is too short"),
   bio: z.string().max(500, "Bio must be under 500 characters"),
   specialties: z.string().transform((val) =>
@@ -27,7 +27,7 @@ const businessSchema = z.zod.object({
       .filter(Boolean),
   ),
   yearsOfExperience: z.coerce.number().min(0),
-  location: z.zod.object({
+  location: z.object({
     address: z.string().min(5, "Address is required"),
     city: z.string().min(2, "City is required"),
   }),
