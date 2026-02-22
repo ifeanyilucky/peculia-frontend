@@ -120,4 +120,3 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
     </div>
   );
 }
-理论上;
