@@ -35,7 +35,7 @@ export default function HeroSection() {
           <span className="inline-block rounded-full bg-rose-50 px-4 py-1.5 text-sm font-bold tracking-wide text-rose-600 uppercase">
             Beauty Reinvented
           </span>
-          <h1 className="mt-8 font-peculiar text-6xl font-black tracking-tight text-slate-900 sm:text-7xl lg:text-8xl">
+          <h1 className="mt-8 font-peculiar text-6xl font-black tracking-tight text-slate-900 sm:text-7xl ">
             Book Trusted <br />
             <span className="text-rose-600">Professionals</span>
           </h1>
