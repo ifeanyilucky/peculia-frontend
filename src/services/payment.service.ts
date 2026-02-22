@@ -23,4 +23,9 @@ export const paymentService = {
     });
     return response.data.data;
   },
+
+  getProviderEarnings: async () => {
+    const response = await api.get<ApiSuccess<any>>("/payments/earnings");
+    return response.data.data;
+  },
 };
