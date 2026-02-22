@@ -14,6 +14,7 @@ import {
   ArrowLeft,
   ArrowRight,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function MyBookingsPage() {
   const [currentTab, setCurrentTab] = useState<BookingStatusFilter>("all");

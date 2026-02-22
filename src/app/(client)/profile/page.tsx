@@ -19,13 +19,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { sileo } from "sileo";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 
 const profileSchema = z.object({
   firstName: z.string().min(2, "First name is too short"),
   lastName: z.string().min(2, "Last name is too short"),
   phone: z.string().optional(),
 });
+
+type ProfileFormValues = z.infer<typeof profileSchema>;
 
 const passwordSchema = z
   .object({
@@ -40,7 +41,6 @@ const passwordSchema = z
     path: ["confirmPassword"],
   });
 
-type ProfileFormValues = z.infer<typeof profileSchema>;
 type PasswordFormValues = z.infer<typeof passwordSchema>;
 
 export default function ClientProfilePage() {
@@ -81,7 +81,7 @@ export default function ClientProfilePage() {
         title: "Profile Updated",
         description: "Your personal information has been saved.",
       });
-    } catch (err) {
+    } catch {
       sileo.error({
         title: "Update Failed",
         description: "Could not save profile changes.",
@@ -126,7 +126,7 @@ export default function ClientProfilePage() {
     try {
       await clientService.deleteAccount("DELETE");
       // Handle logout/redirect
-    } catch (err) {
+    } catch {
       sileo.error({
         title: "Action Failed",
         description: "Could not delete your account at this time.",

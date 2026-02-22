@@ -25,7 +25,7 @@ const NAV_ITEMS = [
 
 export default function ClientSidebar() {
   const pathname = usePathname();
-  const logout = useAuthStore((state) => state.logout);
+  const clearAuth = useAuthStore((state) => state.clearAuth);
 
   return (
     <aside className="hidden lg:flex h-screen w-72 flex-col border-r border-slate-100 bg-white sticky top-0">
@@ -61,7 +61,7 @@ export default function ClientSidebar() {
 
       <div className="p-4 mt-auto">
         <button
-          onClick={() => logout()}
+          onClick={() => clearAuth()}
           className="flex w-full items-center gap-3 rounded-2xl px-4 py-4 text-sm font-bold text-rose-500 transition-all hover:bg-rose-50 hover:text-rose-600"
         >
           <LogOut size={20} />
