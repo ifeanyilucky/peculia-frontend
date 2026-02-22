@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { Provider, Service } from "@/types/provider.types";
+import { Booking } from "@/types/booking.types";
 
 interface BookingFlowState {
   currentStep: number;
@@ -8,6 +9,7 @@ interface BookingFlowState {
   selectedDate: Date | null;
   selectedSlot: { startTime: string; endTime: string } | null;
   bookingNotes: string;
+  lastCreatedBooking: Booking | null;
 
   // Actions
   setStep: (step: number) => void;
@@ -20,6 +22,7 @@ interface BookingFlowState {
     slot: { startTime: string; endTime: string } | null,
   ) => void;
   setBookingNotes: (notes: string) => void;
+  setLastCreatedBooking: (booking: Booking | null) => void;
   resetBookingFlow: () => void;
 }
 
@@ -30,6 +33,7 @@ export const useBookingStore = create<BookingFlowState>((set) => ({
   selectedDate: null,
   selectedSlot: null,
   bookingNotes: "",
+  lastCreatedBooking: null,
 
   setStep: (step) => set({ currentStep: step }),
   nextStep: () => set((state) => ({ currentStep: state.currentStep + 1 })),
@@ -41,6 +45,7 @@ export const useBookingStore = create<BookingFlowState>((set) => ({
   setSelectedDate: (date) => set({ selectedDate: date }),
   setSelectedSlot: (slot) => set({ selectedSlot: slot }),
   setBookingNotes: (notes) => set({ bookingNotes: notes }),
+  setLastCreatedBooking: (booking) => set({ lastCreatedBooking: booking }),
 
   resetBookingFlow: () =>
     set({
@@ -50,5 +55,6 @@ export const useBookingStore = create<BookingFlowState>((set) => ({
       selectedDate: null,
       selectedSlot: null,
       bookingNotes: "",
+      lastCreatedBooking: null,
     }),
 }));

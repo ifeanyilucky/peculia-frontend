@@ -43,15 +43,14 @@ export default function BookingReviewStep() {
         notes: bookingNotes,
       });
 
+      useBookingStore.getState().setLastCreatedBooking(booking);
+
       sileo.success({
         title: "Booking Initiated",
         description:
           "Your booking has been created. Please complete the deposit payment.",
       });
 
-      // Save the created booking ID for the next step (could be in store or as a param)
-      // Here we'll just move to the next step where the payment logic will take over
-      // We might need to store the created booking in the zustand store briefly
       nextStep();
     } catch (error) {
       console.error("Booking creation failed:", error);
