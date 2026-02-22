@@ -90,7 +90,7 @@ api.interceptors.response.use(
       "An unexpected error occurred";
 
     // Avoid showing toast for 401 as it's handled by refresh logic or redirect
-    if (error.response?.status !== 401) {
+    if (error.response?.status !== 401 && typeof window !== "undefined") {
       sileo.error({
         title: "Error",
         description: errorMessage,
