@@ -37,4 +37,31 @@ export const availabilityService = {
     );
     return response.data.data;
   },
+
+  saveWeeklySchedule: async (data: any) => {
+    const response = await api.post<ApiSuccess<any>>(
+      "/availability/schedule",
+      data,
+    );
+    return response.data.data;
+  },
+
+  blockDate: async (data: {
+    date: string;
+    reason?: string;
+    isFullDay: boolean;
+  }) => {
+    const response = await api.post<ApiSuccess<BlockedDate>>(
+      "/availability/block",
+      data,
+    );
+    return response.data.data;
+  },
+
+  unblockDate: async (id: string) => {
+    const response = await api.delete<ApiSuccess<void>>(
+      `/availability/block/${id}`,
+    );
+    return response.data.data;
+  },
 };
