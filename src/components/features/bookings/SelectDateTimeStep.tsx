@@ -39,16 +39,16 @@ export default function SelectDateTimeStep() {
     queryKey: [
       "availability",
       "blocked",
-      selectedProvider?._id,,
+      selectedProvider?._id,
       format(currentMonth, "yyyy-MM"),
     ],
     queryFn: () =>
       availabilityService.getBlockedDates(
-        selectedProvider?._id, || "",
+        selectedProvider?._id || "",
         currentMonth.getMonth() + 1,
         currentMonth.getFullYear(),
       ),
-    enabled: !!selectedProvider?._id,,
+    enabled: !!selectedProvider?._id,
   });
 
   // 2. Fetch slots for selected date
@@ -56,17 +56,17 @@ export default function SelectDateTimeStep() {
     queryKey: [
       "availability",
       "slots",
-      selectedProvider?._id,,
+      selectedProvider?._id,
       selectedService?.id,
       selectedDate?.toISOString(),
     ],
     queryFn: () =>
       availabilityService.getAvailableSlots(
-        selectedProvider?._id, || "",
+        selectedProvider?._id || "",
         selectedService?.id || "",
         selectedDate!.toISOString(),
       ),
-    enabled: !!selectedProvider?._id, && !!selectedService?.id && !!selectedDate,
+    enabled: !!selectedProvider?._id && !!selectedService?.id && !!selectedDate,
   });
 
   // Calendar Logic
