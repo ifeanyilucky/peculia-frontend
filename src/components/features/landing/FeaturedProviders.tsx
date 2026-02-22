@@ -1,4 +1,3 @@
-import { Provider } from "@/types/provider.types";
 import ProviderCard from "../providers/ProviderCard";
 import { providerService } from "@/services/provider.service";
 

@@ -20,7 +20,7 @@ export default function PublicLayout({
 
           <nav className="hidden items-center gap-8 md:flex">
             <Link
-              href={ROUTES.explore}
+              href={ROUTES.public.explore}
               className="text-sm font-semibold text-slate-600 hover:text-rose-600"
             >
               Find Professionals
@@ -73,13 +73,13 @@ export default function PublicLayout({
               <div className="flex flex-col gap-4">
                 <span className="font-bold text-slate-900">Explore</span>
                 <Link
-                  href={ROUTES.explore}
+                  href={ROUTES.public.explore}
                   className="text-sm text-slate-500 hover:text-rose-600"
                 >
                   Find Pros
                 </Link>
                 <Link
-                  href={ROUTES.explore}
+                  href={ROUTES.public.explore}
                   className="text-sm text-slate-500 hover:text-rose-600"
                 >
                   Services
