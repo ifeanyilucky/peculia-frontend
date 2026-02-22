@@ -21,7 +21,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  transpilePackages: ["sileo"],
+  transpilePackages: ["sileo", "next-themes"],
   experimental: {
     // any experimental features if needed
   },
