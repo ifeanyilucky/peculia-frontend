@@ -6,13 +6,14 @@ import api from "@/lib/axios";
 import FullPageLoader from "@/components/common/FullPageLoader";
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
-  const accessToken = useAuthStore((state) => state.accessToken);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Grab store actions directly so they don't become deps (Zustand refs are stable
-    // when accessed via getState(), avoiding infinite re-render loops)
-    const { setAuth, clearAuth } = useAuthStore.getState();
+    // Read everything from getState() to avoid:
+    // 1. Stale closures
+    // 2. Re-triggering this effect when setAuth updates accessToken in the store
+    const { accessToken, setAuth, clearAuth, refreshToken } =
+      useAuthStore.getState();
 
     if (!accessToken) {
       setIsLoading(false);
@@ -24,10 +25,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         const response = await api.get("/auth/me");
         // GET /auth/me returns the user object directly under data.data
         const user = response.data.data;
-        const refreshToken = useAuthStore.getState().refreshToken!;
-        setAuth(user, accessToken, refreshToken);
-      } catch (error) {
-        console.error("Auth initialization failed:", error);
+        setAuth(user, accessToken, refreshToken!);
+      } catch {
         clearAuth();
       } finally {
         setIsLoading(false);
@@ -35,8 +34,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     initAuth();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accessToken]); // Only re-run when the token actually changes
+    // Empty dep array — runs exactly once on mount.
+    // All state is read from getState() so there are no stale closure issues.
+  }, []);
 
   if (isLoading) {
     return <FullPageLoader />;

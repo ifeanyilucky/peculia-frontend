@@ -8,6 +8,7 @@ import { NextResponse, type NextRequest } from "next/server";
  * This middleware is intentionally kept as a passthrough.
  * If you want server-side auth in the future, switch to HttpOnly cookies.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function middleware(_request: NextRequest) {
   return NextResponse.next();
 }

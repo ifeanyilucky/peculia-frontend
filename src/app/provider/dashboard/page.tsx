@@ -14,7 +14,6 @@ import {
   ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 // Dynamically import recharts-based chart to avoid bloating the initial bundle
 const EarningsChart = dynamic(
