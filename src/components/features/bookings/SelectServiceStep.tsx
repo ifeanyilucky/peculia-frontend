@@ -12,10 +12,10 @@ export default function SelectServiceStep() {
     useBookingStore();
 
   const { data: services, isLoading } = useQuery({
-    queryKey: queryKeys.providers.services(selectedProvider?.id || ""),
+    queryKey: queryKeys.providers.services(selectedProvider?._id, || ""),
     queryFn: () =>
-      providerService.getProviderServices(selectedProvider?.id || ""),
-    enabled: !!selectedProvider?.id,
+      providerService.getProviderServices(selectedProvider?._id, || ""),
+    enabled: !!selectedProvider?._id,,
   });
 
   if (isLoading) {
