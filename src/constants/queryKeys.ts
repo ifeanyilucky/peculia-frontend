@@ -7,7 +7,7 @@ export const queryKeys = {
     detail: (id: string) => ["users", id] as const,
   },
   providers: {
-    all: (filters?: any) => ["providers", filters] as const,
+    list: (filters?: any) => ["providers", filters] as const,
     detail: (id: string) => ["providers", id] as const,
     services: (id: string) => ["providers", id, "services"] as const,
     availability: (id: string, date: string) =>
@@ -23,7 +23,7 @@ export const queryKeys = {
     detail: (id: string) => ["payments", id] as const,
   },
   reviews: {
-    all: (filters?: any) => ["reviews", filters] as const,
+    list: (filters?: any) => ["reviews", filters] as const,
     provider: (id: string) => ["reviews", "provider", id] as const,
   },
   notifications: {

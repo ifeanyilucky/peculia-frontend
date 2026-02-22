@@ -32,7 +32,7 @@ export default function CTASection() {
                 ))}
               </ul>
               <Link
-                href={ROUTES.explore}
+                href={ROUTES.public.explore}
                 className="mt-10 inline-flex items-center rounded-full bg-rose-600 px-8 py-4 font-bold text-white transition-all hover:bg-white hover:text-slate-900"
               >
                 Find a Professional <ArrowRight size={20} className="ml-2" />

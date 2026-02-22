@@ -17,7 +17,7 @@ export default function HeroSection() {
     const params = new URLSearchParams();
     if (city) params.set("city", city);
     if (specialty) params.set("specialty", specialty);
-    router.push(`${ROUTES.explore}?${params.toString()}`);
+    router.push(`${ROUTES.public.explore}?${params.toString()}`);
   };
 
   return (
