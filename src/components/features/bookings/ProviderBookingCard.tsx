@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Booking } from "@/types/booking.types";
 import { format } from "date-fns";
 import {
@@ -49,12 +50,14 @@ export default function ProviderBookingCard({
     <div className="group bg-white rounded-[2rem] border border-slate-100 p-6 hover:border-slate-900 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-slate-200/50">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="h-14 w-14 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 overflow-hidden shrink-0 border-2 border-white shadow-sm">
+          <div className="h-14 w-14 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 overflow-hidden shrink-0 border-2 border-white shadow-sm relative">
             {client?.avatar ? (
-              <img
+              <Image
                 src={client.avatar}
-                alt=""
-                className="h-full w-full object-cover"
+                alt={`${client.firstName || "Client"}'s avatar`}
+                fill
+                className="object-cover"
+                sizes="56px"
               />
             ) : (
               <User size={24} />

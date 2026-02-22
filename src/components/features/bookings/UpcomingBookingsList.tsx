@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { bookingService } from "@/services/booking.service";
 import { format, isToday, isTomorrow } from "date-fns";
@@ -128,12 +129,14 @@ export default function UpcomingBookingsList() {
                       </div>
 
                       <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 overflow-hidden">
+                        <div className="h-10 w-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 overflow-hidden relative">
                           {booking.clientId?.avatar ? (
-                            <img
+                            <Image
                               src={booking.clientId.avatar}
-                              alt=""
-                              className="h-full w-full object-cover"
+                              alt={`${booking.clientId.firstName || "Client"}'s avatar`}
+                              fill
+                              className="object-cover"
+                              sizes="40px"
                             />
                           ) : (
                             <User size={18} />

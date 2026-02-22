@@ -38,4 +38,3 @@ export default function ExploreClient() {
     </div>
   );
 }
-理论上

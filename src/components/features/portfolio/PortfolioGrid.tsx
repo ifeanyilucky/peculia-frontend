@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { PortfolioImage } from "@/types/provider.types";
 import { Trash2, ExternalLink, Maximize2, FileText } from "lucide-react";
 import { providerService } from "@/services/provider.service";
@@ -39,10 +40,12 @@ export default function PortfolioGrid({
           key={image.publicId}
           className="group relative aspect-square rounded-[2.5rem] overflow-hidden bg-slate-100 border border-slate-100 hover:border-slate-900 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-slate-200"
         >
-          <img
+          <Image
             src={image.url}
             alt={image.caption || "Portfolio item"}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
 
           {/* Overlay */}
