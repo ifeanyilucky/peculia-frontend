@@ -42,7 +42,7 @@ export default function HeroSection() {
             Introducing the Peculia Mobile App
             <span className="text-slate-400">→</span>
           </span> */}
-          <h1 className="font-peculiar text-6xl font-black text-slate-900 ">
+          <h1 className="font-peculiar text-4xl sm:text-6xl font-black text-slate-900 ">
             Book local <span className="text-rose-600">selfcare</span> services
           </h1>
           <p className="mt-6 max-w-2xl text-lg font-medium text-slate-600 sm:text-xl">
@@ -131,7 +131,7 @@ export default function HeroSection() {
         >
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent z-10" />
           <Image
-            src="/images/nail-tech.jpg"
+            src="/images/makeup-artist2.jpg"
             alt="Woman receiving premium salon service"
             fill
             className="object-cover"
