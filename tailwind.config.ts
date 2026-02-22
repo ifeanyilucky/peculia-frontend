@@ -60,6 +60,12 @@ const config: Config = {
         satoshi: ["var(--font-satoshi)", "sans-serif"],
         peculiar: ["var(--font-peculiar)", "sans-serif"],
       },
+      fontWeight: {
+        semibold: "500",
+        bold: "500",
+        extrabold: "500",
+        black: "500",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
