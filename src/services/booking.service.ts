@@ -36,4 +36,12 @@ export const bookingService = {
     );
     return response.data.data;
   },
+
+  updateBookingStatus: async (id: string, status: string) => {
+    const response = await api.patch<ApiSuccess<Booking>>(
+      `/bookings/${id}/status`,
+      { status },
+    );
+    return response.data.data;
+  },
 };
