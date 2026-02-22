@@ -22,23 +22,31 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-white px-6 py-12 lg:px-8 xl:py-20 lg:max-w-7xl mx-auto">
+    <section className="relative w-full overflow-hidden bg-white px-6 pt-16 lg:px-8 xl:pt-24 pb-20 mx-auto max-w-7xl">
       {/* Background abstract elements */}
-      <div className="absolute -top-24 -left-20 h-96 w-96 rounded-full bg-rose-50 blur-3xl opacity-60" />
+      <div className="absolute top-0 -left-20 h-[500px] w-[500px] rounded-full bg-rose-50 blur-3xl opacity-60" />
+      <div className="absolute top-20 -right-20 h-[500px] w-[500px] rounded-full bg-slate-50/80 blur-3xl opacity-60" />
 
-      <div className="relative z-10 grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-8">
-        {/* Left Column Text Content */}
+      <div className="relative z-10 flex flex-col items-center">
+        {/* Top Centered Text Content */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col items-center text-center lg:items-start lg:text-left"
+          className="flex flex-col items-center text-center max-w-4xl"
         >
-          <h1 className="font-peculiar text-6xl font-black tracking-tight text-slate-900 sm:text-7xl lg:text-8xl lg:leading-[1.1]">
-            Book local <br className="hidden lg:block" />
+          {/* <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-sm font-bold text-slate-700 shadow-sm transition-colors hover:bg-slate-50 mb-8 cursor-pointer">
+            <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs text-rose-600 uppercase tracking-wider">
+              New
+            </span>
+            Introducing the Peculia Mobile App
+            <span className="text-slate-400">→</span>
+          </span> */}
+          <h1 className="font-peculiar text-6xl font-black tracking-tight text-slate-900 sm:text-7xl">
+            Book local &nbsp;
             <span className="text-rose-600">selfcare</span> services
           </h1>
-          <p className="mt-6 max-w-xl text-lg font-medium text-slate-600 sm:text-xl">
+          <p className="mt-6 max-w-2xl text-lg font-medium text-slate-600 sm:text-xl">
             Discover top-rated salons, barbers, medspas, wellness studios and
             beauty experts trusted by millions worldwide.
           </p>
@@ -48,17 +56,14 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="mt-10 w-full"
+            className="mt-10 w-full lg:w-[850px]"
           >
             <form
               onSubmit={handleSearch}
               className="flex flex-col gap-3 rounded-[32px] border border-slate-100 bg-white p-3 shadow-xl shadow-rose-100/50 lg:flex-row lg:items-center lg:gap-0 lg:rounded-full"
             >
               <div className="flex flex-1 items-center px-4 py-2 lg:border-r lg:border-slate-100 lg:py-0">
-                <Search
-                  className="mr-3 text-slate-400 flex-shrink-0"
-                  size={20}
-                />
+                <Search className="mr-3 text-slate-400 shrink-0" size={20} />
                 <select
                   value={specialty}
                   onChange={(e) => setSpecialty(e.target.value)}
@@ -74,10 +79,7 @@ export default function HeroSection() {
               </div>
 
               <div className="flex flex-1 items-center px-4 py-2 lg:border-r lg:border-slate-100 lg:py-0">
-                <MapPin
-                  className="mr-3 text-slate-400 flex-shrink-0"
-                  size={20}
-                />
+                <MapPin className="mr-3 text-slate-400 shrink-0" size={20} />
                 <input
                   type="text"
                   placeholder="Current location"
@@ -97,7 +99,7 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Popular Tags */}
-          <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-4 text-sm font-medium text-slate-500">
+          <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm font-medium text-slate-500">
             <button
               onClick={() => router.push(ROUTES.public.explore)}
               className="transition-colors hover:text-rose-600"
@@ -121,19 +123,20 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
-        {/* Right Column Image */}
+        {/* Bottom Large Image */}
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="relative h-[400px] w-full lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="mt-16 w-full lg:max-w-[1000px] h-[400px] lg:h-[500px] rounded-[2.5rem] overflow-hidden shadow-2xl relative"
         >
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent z-10" />
           <Image
-            src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=2874&auto=format&fit=crop"
+            src="/images/Lash_Technician_5k.webp"
             alt="Woman receiving premium salon service"
             fill
             className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 50vw"
+            sizes="(max-width: 1024px) 100vw, 1000px"
             priority
           />
         </motion.div>

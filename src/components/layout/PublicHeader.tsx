@@ -21,14 +21,14 @@ export default function PublicHeader() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full max-w-7xl mx-auto bg-white border-b border-slate-100">
-      <div className="mx-auto flex h-[72px] items-center justify-between px-6 lg:px-8">
+    <header className="sticky top-0 z-50 w-full bg-white border-b border-slate-100">
+      <div className="mx-auto  max-w-7xl flex h-[72px] items-center justify-between px-6 lg:px-8">
         {/* Left: Logo */}
         <Link
           href="/"
           className="font-peculiar text-2xl font-black tracking-tight text-slate-900"
         >
-          peculia
+          Peculia.
         </Link>
 
         {/* Right: Actions */}
