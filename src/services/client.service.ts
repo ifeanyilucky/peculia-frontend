@@ -1,0 +1,40 @@
+import api from "@/lib/axios";
+import { ApiSuccess } from "@/types/api.types";
+
+export interface ClientProfileUpdate {
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  avatar?: string;
+}
+
+export interface PasswordUpdate {
+  currentPassword: string;
+  newPassword: string;
+}
+
+export const clientService = {
+  getProfile: async () => {
+    const response = await api.get<ApiSuccess<any>>("/clients/profile");
+    return response.data.data;
+  },
+
+  updateProfile: async (data: ClientProfileUpdate) => {
+    const response = await api.patch<ApiSuccess<any>>("/clients/profile", data);
+    return response.data.data;
+  },
+
+  updatePassword: async (data: PasswordUpdate) => {
+    const response = await api.patch<ApiSuccess<any>>(
+      "/clients/profile/password",
+      data,
+    );
+    return response.data;
+  },
+
+  deleteAccount: async (confirmation: string) => {
+    if (confirmation !== "DELETE") throw new Error("Invalid confirmation");
+    const response = await api.delete<ApiSuccess<any>>("/clients/profile");
+    return response.data;
+  },
+};
