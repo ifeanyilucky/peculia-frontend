@@ -66,7 +66,7 @@ export default function PublicHeader() {
                   <div className="flex flex-col gap-3">
                     <Link
                       href={ROUTES.auth.login}
-                      className="text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-colors"
+                      className="text-sm font-medium text-rose-600 hover:text-rose-700 transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Log in or sign up
@@ -85,10 +85,10 @@ export default function PublicHeader() {
                     >
                       Help and support
                     </Link>
-                    <button className="flex w-full items-center gap-2 text-left text-sm text-slate-700 hover:text-slate-900 transition-colors">
+                    {/* <button className="flex w-full items-center gap-2 text-left text-sm text-slate-700 hover:text-slate-900 transition-colors">
                       <Globe className="h-4 w-4" />
                       English
-                    </button>
+                    </button> */}
                   </div>
                 </div>
 
