@@ -8,9 +8,43 @@ import ProviderReviewsList from "@/components/features/providers/ProviderReviews
 import ProviderAvailabilityPreview from "@/components/features/providers/ProviderAvailabilityPreview";
 import { Suspense } from "react";
 import { Loader2 } from "lucide-react";
+import type { Metadata, ResolvingMetadata } from "next";
+import Script from "next/script";
 
 interface ProviderProfilePageProps {
   params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata(
+  { params }: ProviderProfilePageProps,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const { id } = await params;
+  try {
+    const provider = await providerService.getProviderById(id);
+    if (!provider) return { title: "Provider Not Found" };
+
+    const name = `${provider.user.firstName} ${provider.user.lastName}`;
+    const businessName = provider.businessName;
+    const previousImages = (await parent).openGraph?.images || [];
+
+    return {
+      title: `${businessName || name} | Beauty Professional`,
+      description:
+        provider.bio?.substring(0, 160) ||
+        `Book ${name} for beauty and wellness services on Peculia.`,
+      openGraph: {
+        title: `${businessName || name} on Peculia`,
+        description: provider.bio?.substring(0, 160),
+        url: `https://peculia.com/providers/${id}`,
+        images: provider.user.avatar
+          ? [provider.user.avatar, ...previousImages]
+          : previousImages,
+      },
+    };
+  } catch {
+    return { title: "Peculia Provider" };
+  }
 }
 
 export default async function ProviderProfilePage({
@@ -24,8 +58,37 @@ export default async function ProviderProfilePage({
 
     if (!provider) return notFound();
 
+    const name = `${provider.userId.firstName} ${provider.userId.lastName}`;
+    const businessName = provider.businessName;
+
+    // Structured Data (JSON-LD)
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: businessName || name,
+      image: provider.userId.avatar,
+      description: provider.bio,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: provider.location?.address,
+        addressLocality: provider.location?.city,
+      },
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: provider.rating,
+        reviewCount: provider.totalReviews,
+      },
+    };
+
     return (
       <div className="bg-white pb-24">
+        {/* Schema.org Structured Data */}
+        <Script
+          id="provider-jsonld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+
         {/* Profile Header */}
         <ProfileHeader provider={provider} />
 
