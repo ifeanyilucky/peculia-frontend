@@ -20,11 +20,11 @@ import { ROUTES } from "@/constants/routes";
 const NAV_ITEMS = [
   { label: "Overview", href: ROUTES.provider.dashboard, icon: LayoutDashboard },
   { label: "Bookings", href: ROUTES.provider.bookings, icon: CalendarDays },
-  { label: "My Services", href: "/provider/services", icon: Scissors },
-  { label: "Availability", href: "/provider/availability", icon: Clock },
-  { label: "Portfolio", href: "/provider/portfolio", icon: Briefcase },
-  { label: "Earnings", href: "/provider/earnings", icon: BarChart3 },
-  { label: "Profile", href: "/provider/profile", icon: UserCircle2 },
+  { label: "My Services", href: ROUTES.provider.services, icon: Scissors },
+  { label: "Availability", href: ROUTES.provider.availability, icon: Clock },
+  { label: "Portfolio", href: ROUTES.provider.portfolio, icon: Briefcase },
+  { label: "Earnings", href: ROUTES.provider.earnings, icon: BarChart3 },
+  { label: "Settings", href: ROUTES.provider.settings, icon: UserCircle2 },
 ];
 
 export default function ProviderSidebar() {

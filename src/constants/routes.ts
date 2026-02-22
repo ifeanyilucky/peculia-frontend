@@ -31,7 +31,7 @@ export const ROUTES = {
     portfolio: "/portfolio",
     earnings: "/earnings",
     notifications: "/notifications",
-    profile: "/profile",
+    settings: "/settings",
   },
   admin: {
     dashboard: "/dashboard",
