@@ -29,7 +29,9 @@ export default function BookingSuccessScreen() {
         <p className="text-lg font-medium text-slate-600">
           Your booking with{" "}
           <span className="font-bold text-slate-900">
-            {lastCreatedBooking.providerProfileId?.businessName}
+            {typeof lastCreatedBooking.providerProfileId !== "string"
+              ? lastCreatedBooking.providerProfileId.businessName
+              : "the professional"}
           </span>{" "}
           has been secured.
         </p>
