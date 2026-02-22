@@ -25,6 +25,13 @@ export const providerService = {
     return response.data.data;
   },
 
+  getProviderPublicProfile: async (id: string) => {
+    const response = await api.get<ApiSuccess<Provider>>(
+      `/provider-profiles/${id}/public`,
+    );
+    return response.data.data;
+  },
+
   getProviderServices: async (providerProfileId: string) => {
     const response = await api.get<ApiSuccess<Service[]>>(
       `/services/provider/${providerProfileId}`,

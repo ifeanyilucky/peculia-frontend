@@ -16,13 +16,7 @@ import {
   isBefore,
   startOfToday,
 } from "date-fns";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Clock,
-  Loader2,
-  AlertCircle,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock, AlertCircle } from "lucide-react";
 import { availabilityService } from "@/services/availability.service";
 import { useBookingStore } from "@/store/booking.store";
 import { cn } from "@/lib/utils";
@@ -58,11 +52,7 @@ export default function SelectDateTimeStep() {
   });
 
   // 2. Fetch slots for selected date
-  const {
-    data: slots,
-    isLoading: isLoadingSlots,
-    isError: isErrorSlots,
-  } = useQuery({
+  const { data: slots, isLoading: isLoadingSlots } = useQuery({
     queryKey: [
       "availability",
       "slots",
