@@ -7,30 +7,42 @@ import {
   CalendarDays,
   Bookmark,
   UserCircle2,
+  Scissors,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ROUTES } from "@/constants/routes";
-
-const NAV_ITEMS = [
-  { label: "Home", href: ROUTES.client.dashboard, icon: LayoutDashboard },
-  { label: "Bookings", href: ROUTES.client.bookings, icon: CalendarDays },
-  { label: "Saved", href: "/saved", icon: Bookmark },
-  { label: "Profile", href: "/profile", icon: UserCircle2 },
-];
+import { useAuthStore } from "@/store/auth.store";
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
+  const { user } = useAuthStore();
+
+  const clientItems = [
+    { label: "Home", href: ROUTES.client.dashboard, icon: LayoutDashboard },
+    { label: "Bookings", href: ROUTES.client.bookings, icon: CalendarDays },
+    { label: "Saved", href: "/saved", icon: Bookmark },
+    { label: "Profile", href: "/profile", icon: UserCircle2 },
+  ];
+
+  const providerItems = [
+    { label: "Home", href: ROUTES.provider.dashboard, icon: LayoutDashboard },
+    { label: "Bookings", href: ROUTES.provider.bookings, icon: CalendarDays },
+    { label: "Services", href: "/provider/services", icon: Scissors },
+    { label: "Profile", href: "/provider/profile", icon: UserCircle2 },
+  ];
+
+  const items = user?.role === "provider" ? providerItems : clientItems;
 
   return (
     <nav className="lg:hidden fixed bottom-0 left-0 right-0 h-20 bg-white/90 backdrop-blur-xl border-t border-slate-100 px-6 flex items-center justify-between z-50 pb-safe">
-      {NAV_ITEMS.map((item) => {
+      {items.map((item) => {
         const isActive = pathname === item.href;
         return (
           <Link
             key={item.href}
             href={item.href}
             className={cn(
-              "flex flex-col items-center gap-1.5 transition-all duration-300 px-4",
+              "flex flex-col items-center gap-1.5 transition-all duration-300 px-4 relative",
               isActive ? "text-rose-600 scale-110" : "text-slate-400",
             )}
           >
