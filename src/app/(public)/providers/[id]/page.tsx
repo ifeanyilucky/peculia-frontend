@@ -24,7 +24,7 @@ export async function generateMetadata(
     const provider = await providerService.getProviderById(id);
     if (!provider) return { title: "Provider Not Found" };
 
-    const name = `${provider.user.firstName} ${provider.user.lastName}`;
+    const name = `${provider.userId.firstName} ${provider.userId.lastName}`;
     const businessName = provider.businessName;
     const previousImages = (await parent).openGraph?.images || [];
 
@@ -37,8 +37,8 @@ export async function generateMetadata(
         title: `${businessName || name} on Peculia`,
         description: provider.bio?.substring(0, 160),
         url: `https://peculia.com/providers/${id}`,
-        images: provider.user.avatar
-          ? [provider.user.avatar, ...previousImages]
+        images: provider.userId.avatar
+          ? [provider.userId.avatar, ...previousImages]
           : previousImages,
       },
     };
