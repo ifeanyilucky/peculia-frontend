@@ -163,4 +163,3 @@ export default function PayoutsTable({ payouts }: PayoutsTableProps) {
     </div>
   );
 }
-理论上;

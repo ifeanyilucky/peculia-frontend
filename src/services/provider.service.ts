@@ -95,4 +95,12 @@ export const providerService = {
     );
     return response.data.data;
   },
+
+  updateProviderProfile: async (data: any) => {
+    const response = await api.patch<ApiSuccess<Provider>>(
+      "/providers/me",
+      data,
+    );
+    return response.data.data;
+  },
 };

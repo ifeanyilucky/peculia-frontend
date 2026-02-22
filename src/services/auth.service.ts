@@ -65,4 +65,20 @@ export const authService = {
     const response = await api.post<ApiSuccess<any>>("/auth/logout");
     return response.data;
   },
+
+  updateProfile: async (data: any) => {
+    const response = await api.patch<ApiSuccess<AuthResponse["user"]>>(
+      "/auth/profile",
+      data,
+    );
+    return response.data.data;
+  },
+
+  updatePassword: async (data: any) => {
+    const response = await api.patch<ApiSuccess<any>>(
+      "/auth/update-password",
+      data,
+    );
+    return response.data;
+  },
 };
