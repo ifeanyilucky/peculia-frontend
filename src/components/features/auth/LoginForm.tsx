@@ -140,24 +140,18 @@ export default function LoginForm() {
         </button>
       </form>
 
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Don&apos;t have an account?
+      <div className="flex justify-center pt-2">
+        <div className="text-sm text-center">
+          <span className="text-muted-foreground">
+            Don&apos;t have an account?{" "}
           </span>
+          <Link
+            href={ROUTES.auth.registerClient}
+            className="text-rose-600 font-medium hover:underline"
+          >
+            Please sign up
+          </Link>
         </div>
-      </div>
-
-      <div className="flex justify-center">
-        <Link
-          href={ROUTES.auth.registerClient}
-          className="inline-flex h-10 w-full items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-        >
-          I&apos;m a Client
-        </Link>
       </div>
     </div>
   );
