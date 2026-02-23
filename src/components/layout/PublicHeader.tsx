@@ -95,7 +95,7 @@ export default function PublicHeader() {
                 <div className="my-1 border-t border-slate-100 px-3"></div>
 
                 <Link
-                  href="#" // TODO: Point to partners portal URL
+                  href={ROUTES.public.forBusiness} // TODO: Point to partners portal URL
                   onClick={() => setIsMenuOpen(false)}
                   className="flex w-full items-center justify-between p-3 text-sm font-bold text-slate-900 hover:bg-slate-50 rounded-xl transition-colors"
                 >

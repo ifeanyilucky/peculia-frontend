@@ -2,6 +2,7 @@ export const ROUTES = {
   public: {
     home: "/",
     explore: "/explore",
+    forBusiness: "/for-business",
     providerDetail: (id: string) => `/providers/${id}`,
   },
   auth: {
