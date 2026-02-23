@@ -1,3 +1,5 @@
+"use client";
+
 import { Provider } from "@/types/provider.types";
 import {
   CheckCircle2,
@@ -11,6 +13,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import PhotoViewer from "@/components/common/PhotoViewer";
 
 import { SPECIALTIES } from "@/constants/specialties";
 
@@ -19,6 +23,7 @@ interface ProfileHeaderProps {
 }
 
 export default function ProfileHeader({ provider }: ProfileHeaderProps) {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const images = provider.portfolioImages || [];
 
   // Look up the label for the primary specialty
@@ -30,6 +35,16 @@ export default function ProfileHeader({ provider }: ProfileHeaderProps) {
 
   const city = provider.location?.city || "London";
   const area = provider.location?.state; // Using state as the "Area" (e.g., Fulham)
+
+  const handlePrev = () => {
+    if (selectedIndex === null) return;
+    setSelectedIndex((prev) => (prev! === 0 ? images.length - 1 : prev! - 1));
+  };
+
+  const handleNext = () => {
+    if (selectedIndex === null) return;
+    setSelectedIndex((prev) => (prev! === images.length - 1 ? 0 : prev! + 1));
+  };
 
   return (
     <div className="bg-white">
@@ -152,7 +167,10 @@ export default function ProfileHeader({ provider }: ProfileHeaderProps) {
         {/* Image Gallery Grid */}
         <div className="mt-10 grid h-[400px] grid-cols-1 gap-3 md:h-[500px] md:grid-cols-3">
           {/* Main Large Image */}
-          <div className="relative overflow-hidden rounded-2xl md:col-span-2">
+          <div
+            className="relative cursor-pointer overflow-hidden rounded-2xl md:col-span-2"
+            onClick={() => setSelectedIndex(0)}
+          >
             <Image
               src={images[0]?.url || "/images/placeholder-cover.jpg"}
               alt={provider.businessName}
@@ -164,7 +182,10 @@ export default function ProfileHeader({ provider }: ProfileHeaderProps) {
 
           {/* Secondary Stacked Images */}
           <div className="hidden grid-rows-2 gap-3 md:grid">
-            <div className="relative overflow-hidden rounded-2xl">
+            <div
+              className="relative cursor-pointer overflow-hidden rounded-2xl"
+              onClick={() => setSelectedIndex(1)}
+            >
               <Image
                 src={
                   images[1]?.url ||
@@ -176,7 +197,10 @@ export default function ProfileHeader({ provider }: ProfileHeaderProps) {
                 className="object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
-            <div className="relative overflow-hidden rounded-2xl">
+            <div
+              className="relative cursor-pointer overflow-hidden rounded-2xl"
+              onClick={() => setSelectedIndex(2)}
+            >
               <Image
                 src={
                   images[2]?.url ||
@@ -187,13 +211,27 @@ export default function ProfileHeader({ provider }: ProfileHeaderProps) {
                 fill
                 className="object-cover transition-transform duration-700 hover:scale-105"
               />
-              <button className="absolute bottom-6 right-6 rounded-lg bg-white/90 px-4 py-2 text-xs font-black text-slate-900 shadow-xl backdrop-blur-sm transition-all hover:bg-white hover:scale-105 active:scale-95">
+              <button
+                className="absolute bottom-6 right-6 rounded-lg bg-white/90 px-4 py-2 text-xs font-black text-slate-900 shadow-xl backdrop-blur-sm transition-all hover:bg-white hover:scale-105 active:scale-95"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedIndex(2);
+                }}
+              >
                 See all images
               </button>
             </div>
           </div>
         </div>
       </section>
+
+      <PhotoViewer
+        images={images}
+        currentIndex={selectedIndex}
+        onClose={() => setSelectedIndex(null)}
+        onPrev={handlePrev}
+        onNext={handleNext}
+      />
     </div>
   );
 }

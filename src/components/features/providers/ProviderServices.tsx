@@ -81,9 +81,6 @@ export default function ProviderServices({ services }: ProviderServicesProps) {
                   </h4>
                   <div className="flex items-center gap-3 text-sm font-medium text-slate-400">
                     <span>{service.duration} mins</span>
-                    <span className="h-1 w-1 rounded-full bg-slate-200" />
-                    <span>{service.duration} mins</span>{" "}
-                    {/* Placeholder for another stat like in reference */}
                   </div>
                   <div className="flex items-center gap-2">
                     <p className="text-lg font-black text-slate-900">

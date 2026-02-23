@@ -3,8 +3,9 @@
 import { Provider } from "@/types/provider.types";
 import Image from "next/image";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Maximize2 } from "lucide-react";
+import PhotoViewer from "@/components/common/PhotoViewer";
 
 interface ProviderPortfolioProps {
   provider: Provider;
@@ -57,62 +58,13 @@ export default function ProviderPortfolio({
         ))}
       </div>
 
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {selectedIndex !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4"
-          >
-            <button
-              onClick={() => setSelectedIndex(null)}
-              className="absolute top-6 right-6 text-white hover:text-rose-500"
-            >
-              <X size={32} />
-            </button>
-
-            <button
-              onClick={handlePrev}
-              className="absolute left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-4 text-white hover:bg-white/20"
-            >
-              <ChevronLeft size={32} />
-            </button>
-
-            <div className="relative max-h-[80vh] w-full max-w-5xl px-12">
-              <motion.div
-                key={selectedIndex}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="relative aspect-video w-full"
-              >
-                <Image
-                  src={images[selectedIndex].url}
-                  alt={images[selectedIndex].caption || "Portfolio"}
-                  fill
-                  className="object-contain"
-                />
-              </motion.div>
-              {images[selectedIndex].caption && (
-                <p className="mt-4 text-center text-lg text-white font-medium">
-                  {images[selectedIndex].caption}
-                </p>
-              )}
-              <p className="mt-2 text-center text-slate-400 text-sm">
-                Image {selectedIndex + 1} of {images.length}
-              </p>
-            </div>
-
-            <button
-              onClick={handleNext}
-              className="absolute right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-4 text-white hover:bg-white/20"
-            >
-              <ChevronRight size={32} />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <PhotoViewer
+        images={images}
+        currentIndex={selectedIndex}
+        onClose={() => setSelectedIndex(null)}
+        onPrev={handlePrev}
+        onNext={handleNext}
+      />
     </>
   );
 }
