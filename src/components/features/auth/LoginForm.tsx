@@ -45,17 +45,21 @@ export default function LoginForm() {
       });
 
       // Redirect based on role
+      if (user.role === "provider") {
+        window.location.href = ROUTES.partnersPortal;
+        return;
+      }
+
       const redirectMap = {
         client: ROUTES.client.dashboard,
-        provider: "/", // TODO: Redirect to partners portal
         admin: ROUTES.admin.dashboard,
       };
 
-      router.push(redirectMap[user.role]);
-    } catch (error: any) {
+      router.push(redirectMap[user.role as keyof typeof redirectMap]);
+    } catch (error: unknown) {
       // Error is handled by axios global interceptor usually,
       // but we can add specific handling here if needed
-      console.error(error);
+      console.error(error as Error);
     } finally {
       setIsLoading(false);
     }
@@ -147,18 +151,12 @@ export default function LoginForm() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="flex justify-center">
         <Link
           href={ROUTES.auth.registerClient}
-          className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+          className="inline-flex h-10 w-full items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
         >
           I&apos;m a Client
-        </Link>
-        <Link
-          href="#" // TODO: Point to partners portal URL
-          className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-        >
-          I&apos;m a Professional
         </Link>
       </div>
     </div>

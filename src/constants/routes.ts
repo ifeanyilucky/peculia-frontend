@@ -31,4 +31,5 @@ export const ROUTES = {
     reviews: "/reviews",
     providers: "/providers",
   },
+  partnersPortal: "http://localhost:3002", // TODO: Make configurable via .env
 } as const;

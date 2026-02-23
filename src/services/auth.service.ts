@@ -31,14 +31,6 @@ export const authService = {
     return response.data;
   },
 
-  registerProvider: async (data: any) => {
-    const response = await api.post<ApiSuccess<any>>(
-      "/auth/register/provider",
-      data,
-    );
-    return response.data;
-  },
-
   forgotPassword: async (email: string) => {
     const response = await api.post<ApiSuccess<any>>("/auth/forgot-password", {
       email,

@@ -16,6 +16,7 @@ import {
   ArrowRight,
   Sparkles,
 } from "lucide-react";
+import { ROUTES } from "@/constants/routes";
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -57,7 +58,7 @@ export default function ForBusinessPage() {
               </p>
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
                 <Link
-                  href="/register/provider"
+                  href={ROUTES.partnersPortal}
                   className="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white rounded-full text-lg font-bold hover:bg-rose-600 transition-all shadow-xl shadow-rose-100 flex items-center justify-center gap-2 group"
                 >
                   Join as a Partner
@@ -241,10 +242,10 @@ export default function ForBusinessPage() {
               </p>
             </div>
             <Link
-              href="/register/provider"
+              href={ROUTES.partnersPortal}
               className="px-8 py-4 bg-rose-600 text-white rounded-full font-bold hover:bg-rose-700 transition-all flex items-center gap-2 group whitespace-nowrap"
             >
-              Start Free Trial
+              Get Started{" "}
               <ArrowRight
                 size={20}
                 className="group-hover:translate-x-1 transition-transform"
@@ -303,17 +304,11 @@ export default function ForBusinessPage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link
-                href="/register/provider"
+                href={ROUTES.partnersPortal}
                 className="w-full sm:w-auto px-10 py-5 bg-white text-rose-600 rounded-full text-xl font-black hover:bg-slate-50 transition-all shadow-xl"
               >
                 Join Now
               </Link>
-              <span className="text-white/60 font-bold hidden sm:inline">
-                — OR —
-              </span>
-              <button className="text-white font-bold text-lg hover:underline underline-offset-8">
-                Request a Demo
-              </button>
             </div>
           </div>
         </div>
