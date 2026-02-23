@@ -28,6 +28,7 @@ export default function ProviderCard({
         {/* Cover Image */}
         <div className="relative h-48 w-full overflow-hidden bg-slate-100">
           <Image
+            alt={provider.portfolioImages?.[0]?.url}
             src={
               provider.portfolioImages?.[0]?.url ||
               "/images/placeholder-provider.jpg"
