@@ -49,7 +49,13 @@ export interface Service {
   duration: number; // in minutes
   depositAmount: number;
   isActive: boolean;
-  category?: string;
+  category?: string; // Legacy
+  categoryId?:
+    | {
+        _id: string;
+        name: string;
+      }
+    | string;
   createdAt: string;
   updatedAt: string;
 }

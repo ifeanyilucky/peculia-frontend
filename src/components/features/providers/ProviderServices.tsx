@@ -10,10 +10,17 @@ interface ProviderServicesProps {
 }
 
 export default function ProviderServices({ services }: ProviderServicesProps) {
+  const getCategoryName = (s: Service) => {
+    if (s.categoryId && typeof s.categoryId === "object" && s.categoryId.name) {
+      return s.categoryId.name;
+    }
+    return s.category || "General";
+  };
+
   const categories = useMemo(() => {
-    const cats = Array.from(
-      new Set(services.map((s) => s.category || "General")),
-    ).filter(Boolean);
+    const cats = Array.from(new Set(services.map(getCategoryName))).filter(
+      Boolean,
+    );
     return cats;
   }, [services]);
 
@@ -22,7 +29,7 @@ export default function ProviderServices({ services }: ProviderServicesProps) {
   );
 
   const filteredServices = useMemo(() => {
-    return services.filter((s) => (s.category || "General") === activeCategory);
+    return services.filter((s) => getCategoryName(s) === activeCategory);
   }, [services, activeCategory]);
 
   if (services.length === 0) {

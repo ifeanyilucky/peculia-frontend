@@ -72,7 +72,10 @@ export default function ServiceFormModal({
     defaultValues: service
       ? {
           name: service.name,
-          category: service.category,
+          category:
+            (service.categoryId && typeof service.categoryId === "object"
+              ? service.categoryId.name
+              : service.category) || "",
           description: service.description,
           duration: service.duration,
           price: service.price / 100, // Convert to major units

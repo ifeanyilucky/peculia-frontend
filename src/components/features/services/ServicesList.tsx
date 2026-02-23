@@ -81,7 +81,10 @@ export default function ServicesList({
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-rose-600 animate-pulse" />
                   <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                    {service.category || "General"}
+                    {(service.categoryId &&
+                    typeof service.categoryId === "object"
+                      ? service.categoryId.name
+                      : service.category) || "General"}
                   </span>
                 </div>
                 <h4 className="font-peculiar text-2xl font-black text-slate-900">
