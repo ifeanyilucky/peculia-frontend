@@ -77,6 +77,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { CookieConsent } from "@/components/common/CookieConsent";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -97,6 +99,7 @@ export default function RootLayout({
             <AuthProvider>
               {children}
               <ToastProvider />
+              <CookieConsent />
             </AuthProvider>
           </QueryProvider>
         </ThemeProvider>
