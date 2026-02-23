@@ -2,21 +2,26 @@ import { create } from "zustand";
 import { Provider, Service } from "@/types/provider.types";
 import { Booking } from "@/types/booking.types";
 
-interface BookingFlowState {
+export interface BookingFlowState {
   currentStep: number;
   selectedProvider: Provider | null;
-  selectedService: Service | null;
+  selectedServices: Service[];
   selectedDate: Date | null;
   selectedSlot: { startTime: string; endTime: string } | null;
   bookingNotes: string;
   lastCreatedBooking: Booking | null;
+
+  // Derived State
+  totalPrice: number;
+  totalDuration: number;
 
   // Actions
   setStep: (step: number) => void;
   nextStep: () => void;
   prevStep: () => void;
   setSelectedProvider: (provider: Provider | null) => void;
-  setSelectedService: (service: Service | null) => void;
+  addService: (service: Service) => void;
+  removeService: (serviceId: string) => void;
   setSelectedDate: (date: Date | null) => void;
   setSelectedSlot: (
     slot: { startTime: string; endTime: string } | null,
@@ -29,11 +34,13 @@ interface BookingFlowState {
 export const useBookingStore = create<BookingFlowState>((set) => ({
   currentStep: 1,
   selectedProvider: null,
-  selectedService: null,
+  selectedServices: [],
   selectedDate: null,
   selectedSlot: null,
   bookingNotes: "",
   lastCreatedBooking: null,
+  totalPrice: 0,
+  totalDuration: 0,
 
   setStep: (step) => set({ currentStep: step }),
   nextStep: () => set((state) => ({ currentStep: state.currentStep + 1 })),
@@ -41,7 +48,32 @@ export const useBookingStore = create<BookingFlowState>((set) => ({
     set((state) => ({ currentStep: Math.max(1, state.currentStep - 1) })),
 
   setSelectedProvider: (provider) => set({ selectedProvider: provider }),
-  setSelectedService: (service) => set({ selectedService: service }),
+
+  addService: (service) =>
+    set((state) => {
+      // Prevent duplicates
+      if (state.selectedServices.find((s) => s.id === service.id)) return state;
+
+      const newServices = [...state.selectedServices, service];
+      return {
+        selectedServices: newServices,
+        totalPrice: newServices.reduce((sum, s) => sum + s.price, 0),
+        totalDuration: newServices.reduce((sum, s) => sum + s.duration, 0),
+      };
+    }),
+
+  removeService: (serviceId) =>
+    set((state) => {
+      const newServices = state.selectedServices.filter(
+        (s) => s.id !== serviceId,
+      );
+      return {
+        selectedServices: newServices,
+        totalPrice: newServices.reduce((sum, s) => sum + s.price, 0),
+        totalDuration: newServices.reduce((sum, s) => sum + s.duration, 0),
+      };
+    }),
+
   setSelectedDate: (date) => set({ selectedDate: date }),
   setSelectedSlot: (slot) => set({ selectedSlot: slot }),
   setBookingNotes: (notes) => set({ bookingNotes: notes }),
@@ -51,10 +83,12 @@ export const useBookingStore = create<BookingFlowState>((set) => ({
     set({
       currentStep: 1,
       selectedProvider: null,
-      selectedService: null,
+      selectedServices: [],
       selectedDate: null,
       selectedSlot: null,
       bookingNotes: "",
       lastCreatedBooking: null,
+      totalPrice: 0,
+      totalDuration: 0,
     }),
 }));
