@@ -50,7 +50,7 @@ export default function UpcomingBookingsList() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center p-12 bg-white rounded-[2.5rem] border border-slate-100">
+      <div className="flex flex-col items-center justify-center p-12 bg-white rounded-2xl border border-slate-100">
         <Loader2 className="animate-spin text-rose-600 mb-4" size={32} />
         <p className="text-sm font-black uppercase tracking-widest text-slate-400">
           Fetching schedule...
@@ -64,14 +64,16 @@ export default function UpcomingBookingsList() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between px-2">
-        <h3 className="font-peculiar text-xl font-bold text-slate-900">Agenda</h3>
+        <h3 className="font-peculiar text-xl font-bold text-slate-900">
+          Agenda
+        </h3>
         <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 text-[10px] font-black uppercase tracking-widest text-white">
           <Calendar size={12} />
           Next 48 Hours
         </div>
       </div>
 
-      <div className="bg-white rounded-[2.5rem] border border-slate-100 p-8 shadow-sm">
+      <div className="bg-white rounded-2xl border border-slate-100 p-8 shadow-sm">
         {results.length === 0 ? (
           <div className="py-12 text-center space-y-4">
             <div className="h-16 w-16 mx-auto rounded-full bg-slate-50 flex items-center justify-center text-slate-200">

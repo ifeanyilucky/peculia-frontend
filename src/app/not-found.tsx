@@ -6,7 +6,7 @@ import { Sparkles, Home, ArrowLeft } from "lucide-react";
 export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 px-6 text-center">
-      <div className="flex h-20 w-20 items-center justify-center rounded-[2.5rem] bg-slate-900 text-white shadow-2xl shadow-slate-200 mb-8 animate-bounce">
+      <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-2xl shadow-slate-200 mb-8 animate-bounce">
         <Sparkles size={40} />
       </div>
 

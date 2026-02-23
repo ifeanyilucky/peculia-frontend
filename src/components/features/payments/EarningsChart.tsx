@@ -28,7 +28,7 @@ export default function EarningsChart() {
   const [view, setView] = useState<"weekly" | "monthly">("weekly");
 
   return (
-    <div className="bg-white rounded-[2.5rem] border border-slate-100 p-8 shadow-sm h-full flex flex-col">
+    <div className="bg-white rounded-2xl border border-slate-100 p-8 shadow-sm h-full flex flex-col">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
           <h3 className="font-peculiar text-xl font-bold text-slate-900">

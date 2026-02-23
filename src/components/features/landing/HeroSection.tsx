@@ -127,7 +127,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="mt-16 w-full lg:max-w-[1000px] h-[400px] lg:h-[500px] rounded-[2.5rem] overflow-hidden shadow-2xl relative"
+          className="mt-16 w-full lg:max-w-[1000px] h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl relative"
         >
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent z-10" />
           <Image

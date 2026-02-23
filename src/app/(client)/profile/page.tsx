@@ -149,11 +149,11 @@ export default function ClientProfilePage() {
 
       <div className="grid gap-10">
         {/* Personal Information */}
-        <section className="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-sm">
+        <section className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm">
           <div className="p-8 lg:p-10 space-y-10">
             <div className="flex flex-col md:flex-row gap-10 items-start">
               <div className="relative group shrink-0">
-                <div className="h-32 w-32 rounded-[2.5rem] bg-slate-900 overflow-hidden border-4 border-white shadow-2xl relative">
+                <div className="h-32 w-32 rounded-2xl bg-slate-900 overflow-hidden border-4 border-white shadow-2xl relative">
                   {user?.avatar ? (
                     <Image
                       src={user.avatar}
@@ -276,7 +276,7 @@ export default function ClientProfilePage() {
         </section>
 
         {/* Security / Password Change */}
-        <section className="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-sm">
+        <section className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm">
           <div className="p-8 lg:p-10 space-y-8">
             <div className="flex items-center gap-3 border-b border-slate-50 pb-6">
               <div className="h-10 w-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
@@ -378,7 +378,7 @@ export default function ClientProfilePage() {
         </section>
 
         {/* Danger Zone */}
-        <section className="bg-rose-50/50 rounded-[2.5rem] border border-rose-100 overflow-hidden shadow-sm">
+        <section className="bg-rose-50/50 rounded-2xl border border-rose-100 overflow-hidden shadow-sm">
           <div className="p-8 lg:p-10 space-y-6">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-xl bg-rose-600 text-white flex items-center justify-center shadow-lg shadow-rose-200">

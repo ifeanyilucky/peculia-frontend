@@ -38,7 +38,7 @@ export default function PortfolioGrid({
       {images.map((image) => (
         <div
           key={image.publicId}
-          className="group relative aspect-square rounded-[2.5rem] overflow-hidden bg-slate-100 border border-slate-100 hover:border-slate-900 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-slate-200"
+          className="group relative aspect-square rounded-2xl overflow-hidden bg-slate-100 border border-slate-100 hover:border-slate-900 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-slate-200"
         >
           <Image
             src={image.url}

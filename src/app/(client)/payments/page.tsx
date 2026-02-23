@@ -43,7 +43,7 @@ export default function PaymentsPage() {
             </p>
           </div>
         ) : payments?.results?.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 bg-white rounded-[2.5rem] border-2 border-dashed border-slate-100 italic text-slate-400">
+          <div className="flex flex-col items-center justify-center py-20 bg-white rounded-2xl border-2 border-dashed border-slate-100 italic text-slate-400">
             <Receipt size={48} className="mb-4 opacity-10" />
             <p className="text-lg font-medium">No payment history found.</p>
             <p className="text-sm mt-1">

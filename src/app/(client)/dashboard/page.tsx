@@ -50,7 +50,7 @@ export default function ClientDashboardPage() {
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Welcome Banner */}
       {showWelcome && (
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-slate-900 p-8 lg:p-12 text-white shadow-2xl shadow-slate-200">
+        <div className="relative overflow-hidden rounded-2xl bg-slate-900 p-8 lg:p-12 text-white shadow-2xl shadow-slate-200">
           <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-rose-600/20 blur-[100px]" />
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-64 w-64 rounded-full bg-blue-600/20 blur-[100px]" />
 

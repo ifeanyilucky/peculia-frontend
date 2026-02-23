@@ -65,7 +65,7 @@ export default function ClientBookingCard({ booking }: ClientBookingCardProps) {
   const StatusIcon = config.icon;
 
   return (
-    <div className="group bg-white rounded-[2.5rem] border border-slate-100 p-6 lg:p-8 hover:border-rose-200 hover:shadow-2xl hover:shadow-rose-50 transition-all duration-500 relative flex flex-col lg:flex-row gap-8">
+    <div className="group bg-white rounded-2xl border border-slate-100 p-6 lg:p-8 hover:border-rose-200 hover:shadow-2xl hover:shadow-rose-50 transition-all duration-500 relative flex flex-col lg:flex-row gap-8">
       {/* Visual Indicator */}
       <div
         className={cn(

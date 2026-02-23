@@ -43,7 +43,7 @@ export default function PaymentHistoryTable({
   };
 
   return (
-    <div className="overflow-x-auto rounded-[2.5rem] bg-white border border-slate-100 shadow-sm">
+    <div className="overflow-x-auto rounded-2xl bg-white border border-slate-100 shadow-sm">
       <table className="w-full text-left border-collapse">
         <thead>
           <tr className="border-b border-slate-50 uppercase text-[10px] font-black tracking-widest text-slate-400">

@@ -144,7 +144,7 @@ export default function BookingDetailPage() {
           </div>
 
           {/* Timeline Widget */}
-          <div className="rounded-[2.5rem] bg-white border border-slate-100 p-8 shadow-sm">
+          <div className="rounded-2xl bg-white border border-slate-100 p-8 shadow-sm">
             <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-8 border-b border-slate-50 pb-4">
               Booking Journey
             </h3>
@@ -190,7 +190,7 @@ export default function BookingDetailPage() {
           </div>
 
           {/* Details Card */}
-          <div className="rounded-[2.5rem] bg-white border border-slate-100 overflow-hidden shadow-sm">
+          <div className="rounded-2xl bg-white border border-slate-100 overflow-hidden shadow-sm">
             <div className="p-8 lg:p-10 grid gap-10 md:grid-cols-2">
               <div className="space-y-6">
                 <div className="flex gap-4">
@@ -298,7 +298,7 @@ export default function BookingDetailPage() {
             Managed By
           </h3>
 
-          <div className="rounded-[2.5rem] bg-white border border-slate-100 p-8 shadow-sm space-y-6">
+          <div className="rounded-2xl bg-white border border-slate-100 p-8 shadow-sm space-y-6">
             <div className="flex flex-col items-center text-center">
               <div className="relative h-24 w-24 rounded-[2rem] bg-slate-900 overflow-hidden border-4 border-white shadow-2xl mb-4">
                 {/* Placeholder avatar */}

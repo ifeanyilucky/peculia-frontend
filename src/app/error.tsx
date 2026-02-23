@@ -18,7 +18,7 @@ export default function Error({
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 px-6 text-center">
-      <div className="flex h-20 w-20 items-center justify-center rounded-[2.5rem] bg-rose-100 text-rose-600 shadow-2xl shadow-rose-100 mb-8">
+      <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-rose-100 text-rose-600 shadow-2xl shadow-rose-100 mb-8">
         <AlertCircle size={40} />
       </div>
 

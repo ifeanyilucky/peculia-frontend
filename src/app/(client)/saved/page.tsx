@@ -35,7 +35,7 @@ export default function SavedProvidersPage() {
             <Loader2 className="animate-spin text-rose-600" size={40} />
           </div>
         ) : !savedProviders || savedProviders.results.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 bg-white rounded-[2.5rem] border-2 border-dashed border-slate-100 text-slate-400">
+          <div className="flex flex-col items-center justify-center py-24 bg-white rounded-2xl border-2 border-dashed border-slate-100 text-slate-400">
             <div className="h-20 w-20 rounded-full bg-slate-50 flex items-center justify-center mb-6">
               <Bookmark size={40} className="text-slate-200" />
             </div>
