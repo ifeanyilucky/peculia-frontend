@@ -1,12 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/constants/routes";
 import { SPECIALTIES } from "@/constants/specialties";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+
+function AppointmentCounter() {
+  const [count, setCount] = useState(1532);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((prev) => prev + Math.floor(Math.random() * 3) + 1);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.span
+        key={count}
+        initial={{ y: 10, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: -10, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        className="inline-block"
+      >
+        {count.toLocaleString()}
+      </motion.span>
+    </AnimatePresence>
+  );
+}
 
 export default function HeroSection() {
   const [city, setCity] = useState("");
@@ -98,28 +124,7 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Popular Tags */}
-          <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm font-medium text-slate-500">
-            <button
-              onClick={() => router.push(ROUTES.public.explore)}
-              className="transition-colors hover:text-rose-600"
-            >
-              Hair Styling
-            </button>
-            <span>•</span>
-            <button
-              onClick={() => router.push(ROUTES.public.explore)}
-              className="transition-colors hover:text-rose-600"
-            >
-              Nails
-            </button>
-            <span>•</span>
-            <button
-              onClick={() => router.push(ROUTES.public.explore)}
-              className="transition-colors hover:text-rose-600"
-            >
-              Massage
-            </button>
-          </div>
+          <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm font-medium text-slate-500"></div>
         </motion.div>
 
         {/* Bottom Large Image */}
