@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { providerService } from "@/services/provider.service";
 import ProfileHeader from "@/components/features/providers/ProfileHeader";
 import ProviderAbout from "@/components/features/providers/ProviderAbout";
@@ -100,7 +101,7 @@ export default async function ProviderProfilePage({
 
               <hr className="border-slate-100" />
 
-              <ProviderServices services={services} />
+              <ProviderServices services={services} providerId={id} />
 
               <hr className="border-slate-100" />
 
@@ -169,9 +170,12 @@ export default async function ProviderProfilePage({
                   Deals
                 </div>
 
-                <button className="mt-8 w-full rounded-2xl bg-slate-900 py-4 text-lg font-black text-white shadow-xl shadow-slate-900/20 transition-all hover:bg-slate-800 active:scale-95">
+                <Link
+                  href={`/book/${id}/services`}
+                  className="mt-8 flex justify-center w-full rounded-2xl bg-slate-900 py-4 text-lg font-black text-white shadow-xl shadow-slate-900/20 transition-all hover:bg-slate-800 active:scale-95"
+                >
                   Book now
-                </button>
+                </Link>
 
                 <div className="mt-10 space-y-6">
                   <div className="flex items-start gap-3">

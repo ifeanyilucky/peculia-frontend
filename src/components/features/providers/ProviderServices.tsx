@@ -4,12 +4,20 @@ import { Service } from "@/types/provider.types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { useBookingStore } from "@/store/booking.store";
 
 interface ProviderServicesProps {
   services: Service[];
+  providerId: string;
 }
 
-export default function ProviderServices({ services }: ProviderServicesProps) {
+export default function ProviderServices({
+  services,
+  providerId,
+}: ProviderServicesProps) {
+  const router = useRouter();
+  const { addService } = useBookingStore();
   const getCategoryName = (s: Service) => {
     if (s.categoryId && typeof s.categoryId === "object" && s.categoryId.name) {
       return s.categoryId.name;
@@ -101,7 +109,13 @@ export default function ProviderServices({ services }: ProviderServicesProps) {
                   </div>
                 </div>
 
-                <button className="rounded-full border border-slate-200 bg-white px-8 py-2 text-sm font-black text-slate-900 transition-all hover:bg-slate-900 hover:text-white hover:border-slate-900 active:scale-95">
+                <button
+                  onClick={() => {
+                    addService(service);
+                    router.push(`/book/${providerId}/services`);
+                  }}
+                  className="rounded-full border border-slate-200 bg-white px-8 py-2 text-sm font-black text-slate-900 transition-all hover:bg-slate-900 hover:text-white hover:border-slate-900 active:scale-95"
+                >
                   Book
                 </button>
               </div>
