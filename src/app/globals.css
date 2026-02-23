@@ -53,6 +53,25 @@
     letter-spacing: -0.05em;
     line-height: 1;
   }
+
+  .animate-scroll-x {
+    display: flex;
+    width: max-content;
+    animation: scroll-x 40s linear infinite;
+  }
+
+  .pause {
+    animation-play-state: paused;
+  }
+
+  @keyframes scroll-x {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 }
 
 @layer base {
