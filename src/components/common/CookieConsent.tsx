@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { X, Cookie, ShieldCheck, Settings } from "lucide-react";
+import { Cookie, Settings } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const COOKIE_CONSENT_KEY = "peculia-cookie-consent";
@@ -56,7 +56,7 @@ export const CookieConsent = () => {
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
         className="fixed bottom-6 left-6 right-6 md:left-auto md:right-8 md:max-w-md z-9999"
       >
-        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-800/50 rounded-3xl p-6 shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative">
+        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-800/50 rounded-3xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative">
           {/* Subtle background gradient */}
           <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -83,14 +83,14 @@ export const CookieConsent = () => {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 mt-6">
+          <div className="flex flex-col sm:flex-row gap-2 mt-6">
             <button
               onClick={handleNecessaryOnly}
-              className="px-5 py-3 text-sm font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex-1"
+              className="px-4 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex-1"
             >
               Only necessary
             </button>
-            <button className="px-5 py-3 text-sm font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full hover:border-rose-600 hover:text-rose-600 transition-all flex items-center justify-center gap-2 group">
+            <button className="px-4 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full hover:border-rose-600 hover:text-rose-600 transition-all flex items-center justify-center gap-2 group">
               <Settings
                 size={16}
                 className="group-hover:rotate-45 transition-transform"
@@ -99,7 +99,7 @@ export const CookieConsent = () => {
             </button>
             <button
               onClick={handleAcceptAll}
-              className="px-5 py-3 text-sm font-black uppercase tracking-widest text-white bg-slate-900 dark:bg-rose-600 rounded-full hover:bg-rose-600 dark:hover:bg-rose-700 transition-all shadow-lg shadow-rose-500/10 flex-1 whitespace-nowrap"
+              className="px-4 py-2.5 text-sm font-black uppercase tracking-widest text-white bg-slate-900 dark:bg-rose-600 rounded-full hover:bg-rose-600 dark:hover:bg-rose-700 transition-all shadow-lg shadow-rose-500/10 flex-1 whitespace-nowrap"
             >
               Accept all
             </button>
