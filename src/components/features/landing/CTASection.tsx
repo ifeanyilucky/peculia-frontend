@@ -67,7 +67,7 @@ export default function CTASection() {
                 ))}
               </ul>
               <Link
-                href="#" // TODO: Point to partners portal URL
+                href={ROUTES.public.forBusiness}
                 className="mt-10 inline-flex items-center rounded-full bg-white px-8 py-4 font-bold text-slate-900 transition-all hover:bg-emerald-500 hover:text-white"
               >
                 Join as a Professional <ArrowRight size={20} className="ml-2" />
