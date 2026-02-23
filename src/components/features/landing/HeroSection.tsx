@@ -9,12 +9,33 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 function AppointmentCounter() {
-  const [count, setCount] = useState(1532);
+  // Function to calculate deterministic count based on current time
+  const calculateCount = () => {
+    const now = new Date();
+    const secondsSinceMidnight =
+      now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+
+    const intervalIndex = Math.floor(secondsSinceMidnight / 30);
+
+    // Use a seed based on the date to make it consistent for the day
+    const dateSeed =
+      now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+
+    let total = 0;
+    // Sum up deterministic "random" increments (0-10) for each 30s interval
+    for (let i = 0; i < intervalIndex; i++) {
+      const x = Math.sin(dateSeed + i) * 10000;
+      total += Math.floor((x - Math.floor(x)) * 11);
+    }
+    return total;
+  };
+
+  const [count, setCount] = useState(calculateCount());
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCount((prev) => prev + Math.floor(Math.random() * 3) + 1);
-    }, 4000);
+      setCount(calculateCount());
+    }, 10000); // Check every 10s to stay roughly synced
     return () => clearInterval(interval);
   }, []);
 
@@ -123,8 +144,24 @@ export default function HeroSection() {
             </form>
           </motion.div>
 
-          {/* Popular Tags */}
-          <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm font-medium text-slate-500"></div>
+          {/* Rolling Counter */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mt-8 flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-100 text-sm font-bold text-slate-600"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            <span className="tabular-nums">
+              <AppointmentCounter />
+            </span>
+            <span className="text-slate-500 font-medium">
+              appointments booked today
+            </span>
+          </motion.div>
         </motion.div>
 
         {/* Bottom Large Image */}
