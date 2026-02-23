@@ -3,7 +3,15 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { X, Loader2, Scissors, Clock, Banknote, FileText } from "lucide-react";
+import {
+  X,
+  Loader2,
+  Scissors,
+  Clock,
+  Banknote,
+  FileText,
+  ChevronDown,
+} from "lucide-react";
 import { Service } from "@/types/provider.types";
 import { providerService } from "@/services/provider.service";
 import { useAuthStore } from "@/store/auth.store";
