@@ -5,9 +5,8 @@ import ProviderAbout from "@/components/features/providers/ProviderAbout";
 import ProviderServices from "@/components/features/providers/ProviderServices";
 import ProviderPortfolio from "@/components/features/providers/ProviderPortfolio";
 import ProviderReviewsList from "@/components/features/providers/ProviderReviewsList";
-import ProviderAvailabilityPreview from "@/components/features/providers/ProviderAvailabilityPreview";
 import { Suspense } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Star, Clock, MapPin, ChevronDown } from "lucide-react";
 import type { Metadata, ResolvingMetadata } from "next";
 import Script from "next/script";
 
@@ -134,20 +133,80 @@ export default async function ProviderProfilePage({
             </div>
 
             {/* Right Column: Sticky Sidebar (Desktop) */}
-            <aside className="w-full space-y-8 lg:w-80 lg:shrink-0 lg:sticky lg:top-24">
-              <ProviderAvailabilityPreview />
+            <aside className="w-full space-y-8 lg:w-96 lg:shrink-0 lg:sticky lg:top-24">
+              <div className="rounded-[32px] border border-slate-100 bg-white p-8 shadow-2xl shadow-slate-200/50">
+                <h2 className="font-peculiar text-3xl font-black text-slate-900">
+                  {provider.businessName}
+                </h2>
+                <div className="mt-4 flex items-center gap-2">
+                  <span className="text-xl font-bold text-slate-900">
+                    {provider.rating.toFixed(1)}
+                  </span>
+                  <div className="flex items-center text-yellow-500">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        size={18}
+                        fill={
+                          i < Math.floor(provider.rating)
+                            ? "currentColor"
+                            : "none"
+                        }
+                        className={
+                          i < Math.floor(provider.rating)
+                            ? ""
+                            : "text-slate-200"
+                        }
+                      />
+                    ))}
+                  </div>
+                  <span className="text-slate-400 font-medium">
+                    ({provider.totalReviews.toLocaleString()})
+                  </span>
+                </div>
 
-              <div className="rounded-3xl bg-slate-900 p-8 text-white shadow-xl shadow-slate-200">
-                <h4 className="font-peculiar text-xl font-bold">
-                  Ready to book?
-                </h4>
-                <p className="mt-2 text-sm text-slate-400">
-                  Select a service and secure your spot with a direct deposit.
-                </p>
-                <button className="mt-6 w-full rounded-full bg-rose-600 py-4 font-bold transition-all hover:bg-rose-700">
-                  Select a Service
+                <div className="mt-4 inline-flex rounded-lg bg-green-50 px-3 py-1 text-xs font-bold text-green-600">
+                  Deals
+                </div>
+
+                <button className="mt-8 w-full rounded-2xl bg-slate-900 py-4 text-lg font-black text-white shadow-xl shadow-slate-900/20 transition-all hover:bg-slate-800 active:scale-95">
+                  Book now
                 </button>
+
+                <div className="mt-10 space-y-6">
+                  <div className="flex items-start gap-3">
+                    <Clock size={20} className="mt-1 text-slate-400" />
+                    <div>
+                      <p className="font-bold text-slate-900">
+                        <span className="text-rose-600">Closed</span>
+                        <span className="ml-2 font-medium text-slate-500">
+                          — opens on Tuesday at 10:00
+                        </span>
+                        <ChevronDown
+                          size={16}
+                          className="ml-2 inline text-slate-400"
+                        />
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <MapPin size={20} className="mt-1 text-slate-400" />
+                    <div className="flex-1">
+                      <p className="font-medium text-slate-500 leading-relaxed">
+                        {provider.location?.address ||
+                          `${provider.location?.city}, ${provider.location?.state}`}
+                      </p>
+                      <button className="mt-1 text-indigo-600 font-bold hover:underline">
+                        Get directions
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              {/* Original Availability Preview (Hidden for now to match reference more closely) */}
+              {/* <ProviderAvailabilityPreview /> */}
             </aside>
           </div>
         </div>

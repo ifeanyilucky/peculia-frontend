@@ -1,97 +1,199 @@
 import { Provider } from "@/types/provider.types";
-import { CheckCircle2, MapPin, Star } from "lucide-react";
+import {
+  CheckCircle2,
+  MapPin,
+  Star,
+  Share2,
+  Heart,
+  ChevronRight,
+  Clock,
+} from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+import { SPECIALTIES } from "@/constants/specialties";
 
 interface ProfileHeaderProps {
   provider: Provider;
 }
 
 export default function ProfileHeader({ provider }: ProfileHeaderProps) {
+  const images = provider.portfolioImages || [];
+
+  // Look up the label for the primary specialty
+  const specialtyId = provider.specialties?.[0];
+  const specialtyLabel =
+    SPECIALTIES.find((s) => s.id === specialtyId)?.label ||
+    specialtyId?.replace("_", " ") ||
+    "Health & Beauty";
+
+  const city = provider.location?.city || "London";
+  const area = provider.location?.state; // Using state as the "Area" (e.g., Fulham)
+
   return (
-    <div className="relative">
-      {/* Cover Image */}
-      <div className="h-64 w-full bg-slate-900 overflow-hidden md:h-80">
-        <Image
-          src={
-            provider.portfolioImages?.[1]?.url ||
-            provider.portfolioImages?.[0]?.url ||
-            "/images/placeholder-cover.jpg"
-          }
-          alt="Cover"
-          width={1920}
-          height={600}
-          className="h-full w-full object-cover opacity-60 blur-sm scale-105"
-        />
-      </div>
+    <div className="bg-white">
+      {/* Breadcrumbs */}
+      <nav className="mx-auto max-w-7xl px-6 py-4 lg:px-8">
+        <ol className="flex items-center gap-2 text-xs font-medium text-slate-500">
+          <li>
+            <Link href="/" className="hover:text-rose-600">
+              Home
+            </Link>
+          </li>
+          <span className="text-slate-300 mx-1">.</span>
+          <li>
+            <Link
+              href={`/explore?specialty=${specialtyId}`}
+              className="hover:text-rose-600 capitalize"
+            >
+              {specialtyLabel}
+            </Link>
+          </li>
+          <span className="text-slate-300 mx-1">.</span>
+          <li>
+            <Link
+              href={`/explore?city=${city}`}
+              className="hover:text-rose-600"
+            >
+              {city}
+            </Link>
+          </li>
+          {area && (
+            <>
+              <span className="text-slate-300 mx-1">.</span>
+              <li>
+                <Link
+                  href={`/explore?city=${city}&state=${area}`}
+                  className="hover:text-rose-600"
+                >
+                  {area}
+                </Link>
+              </li>
+            </>
+          )}
+          <span className="text-slate-300 mx-1">.</span>
+          <li className="text-slate-900 font-bold truncate max-w-[150px] sm:max-w-none">
+            {provider.businessName}
+          </li>
+        </ol>
+      </nav>
 
-      {/* Profile Info */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="relative -mt-24 flex flex-col gap-6 md:-mt-32 md:flex-row md:items-end md:gap-8">
-          {/* Avatar */}
-          <div className="relative h-40 w-40 overflow-hidden rounded-3xl border-4 border-white bg-white shadow-xl md:h-52 md:w-52 md:rounded-[40px]">
-            <Image
-              src={provider.userId.avatar || "/images/placeholder-avatar.jpg"}
-              alt={provider.businessName}
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          {/* Details */}
-          <div className="flex-1 pb-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <h1 className="font-peculiar text-3xl font-bold text-slate-900 md:text-5xl">
+      {/* Business Info Section */}
+      <section className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
+        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <h1 className="font-peculiar text-4xl font-black text-slate-900 md:text-5xl">
                 {provider.businessName}
               </h1>
               {provider.isVerified && (
-                <div className="flex items-center gap-1 rounded-full bg-rose-600 px-3 py-1 text-[10px] font-bold text-white uppercase tracking-widest">
-                  <CheckCircle2 size={12} />
-                  Verified
-                </div>
+                <CheckCircle2 size={24} className="fill-blue-500 text-white" />
               )}
             </div>
 
-            <p className="mt-2 text-lg font-medium text-slate-500 md:text-xl">
-              {provider.userId.firstName} {provider.userId.lastName}
-            </p>
-
-            <div className="mt-4 flex flex-wrap items-center gap-6">
-              <div className="flex items-center gap-1 text-yellow-500">
-                <Star size={20} fill="currentColor" />
-                <span className="text-lg font-bold text-slate-900">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-bold">
+              <div className="flex items-center gap-1">
+                <span className="text-slate-900">
                   {provider.rating.toFixed(1)}
                 </span>
-                <span className="text-slate-400">
-                  ({provider.totalReviews} reviews)
+                <div className="flex items-center text-yellow-500">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={14}
+                      fill={
+                        i < Math.floor(provider.rating)
+                          ? "currentColor"
+                          : "none"
+                      }
+                      className={
+                        i < Math.floor(provider.rating) ? "" : "text-slate-200"
+                      }
+                    />
+                  ))}
+                </div>
+                <span className="text-indigo-600 font-medium">
+                  ({provider.totalReviews.toLocaleString()})
                 </span>
               </div>
-              <div className="flex items-center gap-1 text-slate-500">
-                <MapPin size={18} />
-                <span className="text-sm font-medium">
-                  {provider.location?.city}, {provider.location?.state}
-                </span>
-              </div>
+
               <div className="flex items-center gap-2">
-                {provider.specialties.slice(0, 3).map((spec) => (
-                  <span
-                    key={spec}
-                    className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600"
-                  >
-                    {spec.replace("_", " ")}
-                  </span>
-                ))}
+                <span className="h-1 w-1 rounded-full bg-slate-300" />
+                <span className="text-rose-600">Closed</span>
+                <span className="text-slate-500 font-medium">
+                  — opens on Tuesday at 10:00
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="h-1 w-1 rounded-full bg-slate-300" />
+                <span className="text-slate-500 font-medium">
+                  {provider.location?.address ||
+                    `${city}, ${provider.location?.state}`}
+                </span>
+                <button className="text-indigo-600 hover:underline">
+                  Get directions
+                </button>
               </div>
             </div>
           </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden pb-4 md:block">
-            <button className="rounded-full bg-rose-600 px-10 py-4 text-base font-bold text-white shadow-lg shadow-rose-200 transition-all hover:bg-rose-700 hover:scale-105 active:scale-95">
-              Book Now
+          <div className="flex items-center gap-3">
+            <button className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 transition-all hover:bg-slate-50 active:scale-90">
+              <Share2 size={20} className="text-slate-600" />
+            </button>
+            <button className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 transition-all hover:bg-slate-50 active:scale-90">
+              <Heart size={20} className="text-slate-600" />
             </button>
           </div>
         </div>
-      </div>
+
+        {/* Image Gallery Grid */}
+        <div className="mt-10 grid h-[400px] grid-cols-1 gap-3 md:h-[500px] md:grid-cols-3">
+          {/* Main Large Image */}
+          <div className="relative overflow-hidden rounded-2xl md:col-span-2">
+            <Image
+              src={images[0]?.url || "/images/placeholder-cover.jpg"}
+              alt={provider.businessName}
+              fill
+              className="object-cover transition-transform duration-700 hover:scale-105"
+              priority
+            />
+          </div>
+
+          {/* Secondary Stacked Images */}
+          <div className="hidden grid-rows-2 gap-3 md:grid">
+            <div className="relative overflow-hidden rounded-2xl">
+              <Image
+                src={
+                  images[1]?.url ||
+                  images[0]?.url ||
+                  "/images/placeholder-cover.jpg"
+                }
+                alt={provider.businessName}
+                fill
+                className="object-cover transition-transform duration-700 hover:scale-105"
+              />
+            </div>
+            <div className="relative overflow-hidden rounded-2xl">
+              <Image
+                src={
+                  images[2]?.url ||
+                  images[0]?.url ||
+                  "/images/placeholder-cover.jpg"
+                }
+                alt={provider.businessName}
+                fill
+                className="object-cover transition-transform duration-700 hover:scale-105"
+              />
+              <button className="absolute bottom-6 right-6 rounded-lg bg-white/90 px-4 py-2 text-xs font-black text-slate-900 shadow-xl backdrop-blur-sm transition-all hover:bg-white hover:scale-105 active:scale-95">
+                See all images
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
