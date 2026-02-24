@@ -90,3 +90,21 @@ export interface DiscoveryFilters {
   page?: number;
   limit?: number;
 }
+
+export interface TeamMember {
+  _id: string;
+  providerProfileId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  avatar?: string;
+  specialties: string[];
+  bio?: string;
+  position?: string;
+  rating: number;
+  totalReviews: number;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -101,4 +101,11 @@ export const providerService = {
     );
     return response.data.data;
   },
+
+  getProviderTeam: async (providerProfileId: string) => {
+    const response = await api.get<ApiSuccess<TeamMember[]>>(
+      `/team-members/provider/${providerProfileId}`,
+    );
+    return response.data.data;
+  },
 };

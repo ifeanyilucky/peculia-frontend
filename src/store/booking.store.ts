@@ -6,6 +6,7 @@ export interface BookingFlowState {
   currentStep: number;
   selectedProvider: Provider | null;
   selectedServices: Service[];
+  selectedTeamMember: TeamMember | null;
   selectedDate: Date | null;
   selectedSlot: { startTime: string; endTime: string } | null;
   bookingNotes: string;
@@ -22,6 +23,7 @@ export interface BookingFlowState {
   setSelectedProvider: (provider: Provider | null) => void;
   addService: (service: Service) => void;
   removeService: (serviceId: string) => void;
+  setSelectedTeamMember: (member: TeamMember | null) => void;
   setSelectedDate: (date: Date | null) => void;
   setSelectedSlot: (
     slot: { startTime: string; endTime: string } | null,
@@ -35,6 +37,7 @@ export const useBookingStore = create<BookingFlowState>((set) => ({
   currentStep: 1,
   selectedProvider: null,
   selectedServices: [],
+  selectedTeamMember: null,
   selectedDate: null,
   selectedSlot: null,
   bookingNotes: "",
@@ -74,6 +77,7 @@ export const useBookingStore = create<BookingFlowState>((set) => ({
       };
     }),
 
+  setSelectedTeamMember: (member) => set({ selectedTeamMember: member }),
   setSelectedDate: (date) => set({ selectedDate: date }),
   setSelectedSlot: (slot) => set({ selectedSlot: slot }),
   setBookingNotes: (notes) => set({ bookingNotes: notes }),
@@ -84,6 +88,7 @@ export const useBookingStore = create<BookingFlowState>((set) => ({
       currentStep: 1,
       selectedProvider: null,
       selectedServices: [],
+      selectedTeamMember: null,
       selectedDate: null,
       selectedSlot: null,
       bookingNotes: "",
