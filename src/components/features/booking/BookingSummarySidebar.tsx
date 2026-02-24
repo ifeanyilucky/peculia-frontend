@@ -8,7 +8,7 @@ import { formatCurrency, formatNumber } from "@/utils/formatters";
 import { useState } from "react";
 import { bookingService } from "@/services/booking.service";
 import { format } from "date-fns";
-import { Loader2, User } from "lucide-react";
+import { Loader2, User as UserIcon } from "lucide-react";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
@@ -149,7 +149,7 @@ export default function BookingSummarySidebar({
                           className="object-cover"
                         />
                       ) : (
-                        <User size={16} className="text-slate-400" />
+                        <UserIcon size={16} className="text-slate-400" />
                       )}
                     </div>
                     <p className="text-xs font-bold text-slate-900">
@@ -164,7 +164,7 @@ export default function BookingSummarySidebar({
         </div>
 
         {/* Total & Action Button */}
-        <div className="p-6 border-t border-slate-100 bg-slate-50/50 rounded-b-[2rem]">
+        <div className="p-6 border-t border-slate-100 bg-slate-50/50 rounded-b-4xl">
           <div className="flex items-center justify-between font-peculiar text-xl font-black text-slate-900 mb-6">
             <span>Total</span>
             <span>
@@ -191,25 +191,5 @@ export default function BookingSummarySidebar({
         </div>
       </div>
     </aside>
-  );
-}
-
-function User({ size = 24, className = "" }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
   );
 }
