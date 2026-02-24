@@ -12,16 +12,16 @@ import type { Metadata, ResolvingMetadata } from "next";
 import Script from "next/script";
 
 interface ProviderProfilePageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata(
   { params }: ProviderProfilePageProps,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const { id } = await params;
+  const { slug } = await params;
   try {
-    const provider = await providerService.getProviderById(id);
+    const provider = await providerService.getProviderById(slug);
     if (!provider) return { title: "Provider Not Found" };
 
     const name = `${provider.userId.firstName} ${provider.userId.lastName}`;
@@ -36,7 +36,7 @@ export async function generateMetadata(
       openGraph: {
         title: `${businessName || name} on Peculia`,
         description: provider.bio?.substring(0, 160),
-        url: `https://peculia.com/providers/${id}`,
+        url: `https://peculia.com/providers/${slug}`,
         images: provider.userId.avatar
           ? [provider.userId.avatar, ...previousImages]
           : previousImages,
@@ -50,11 +50,11 @@ export async function generateMetadata(
 export default async function ProviderProfilePage({
   params,
 }: ProviderProfilePageProps) {
-  const { id } = await params;
+  const { slug } = await params;
 
   try {
-    const provider = await providerService.getProviderById(id);
-    const services = await providerService.getProviderServices(id);
+    const provider = await providerService.getProviderById(slug);
+    const services = await providerService.getProviderServices(provider._id);
 
     if (!provider) return notFound();
 
@@ -101,7 +101,7 @@ export default async function ProviderProfilePage({
 
               <hr className="border-slate-100" />
 
-              <ProviderServices services={services} providerId={id} />
+              <ProviderServices services={services} providerId={provider._id} />
 
               <hr className="border-slate-100" />
 
@@ -128,7 +128,7 @@ export default async function ProviderProfilePage({
                     <Loader2 className="animate-spin text-rose-600 mx-auto" />
                   }
                 >
-                  <ProviderReviewsList providerProfileId={id} />
+                  <ProviderReviewsList providerProfileId={provider._id} />
                 </Suspense>
               </section>
             </div>
@@ -171,7 +171,7 @@ export default async function ProviderProfilePage({
                 </div>
 
                 <Link
-                  href={`/book/${id}/services`}
+                  href={`/book/${slug}/services`}
                   className="mt-8 flex justify-center w-full rounded-2xl bg-slate-900 py-4 text-lg font-black text-white shadow-xl shadow-slate-900/20 transition-all hover:bg-slate-800 active:scale-95"
                 >
                   Book now

@@ -6,15 +6,15 @@ import BookingSummarySidebar from "@/components/features/booking/BookingSummaryS
 import type { Metadata } from "next";
 
 interface BookingServicesPageProps {
-  params: Promise<{ providerId: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: BookingServicesPageProps): Promise<Metadata> {
-  const { providerId } = await params;
+  const { slug } = await params;
   try {
-    const provider = await providerService.getProviderById(providerId);
+    const provider = await providerService.getProviderById(slug);
     return {
       title: `Book ${provider?.businessName || "Services"} | Peculia`,
     };
@@ -26,13 +26,11 @@ export async function generateMetadata({
 export default async function BookingServicesPage({
   params,
 }: BookingServicesPageProps) {
-  const { providerId } = await params;
+  const { slug } = await params;
 
   try {
-    const [provider, services] = await Promise.all([
-      providerService.getProviderById(providerId),
-      providerService.getProviderServices(providerId),
-    ]);
+    const provider = await providerService.getProviderById(slug);
+    const services = await providerService.getProviderServices(provider._id);
 
     if (!provider) {
       notFound();
@@ -45,7 +43,7 @@ export default async function BookingServicesPage({
         <div className="mx-auto w-full max-w-7xl flex-1 px-6 py-12 lg:px-8">
           <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
             <BookingServiceSelection services={services} />
-            <BookingSummarySidebar provider={provider} currentStep={1} />
+            <BookingSummarySidebar provider={provider} currentStep={1} slug={slug} />
           </div>
         </div>
       </div>

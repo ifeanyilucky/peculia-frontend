@@ -6,15 +6,15 @@ import BookingTimeSelection from "@/components/features/booking/BookingTimeSelec
 import type { Metadata } from "next";
 
 interface TimePageProps {
-  params: Promise<{ providerId: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: TimePageProps): Promise<Metadata> {
-  const { providerId } = await params;
+  const { slug } = await params;
   try {
-    const provider = await providerService.getProviderById(providerId);
+    const provider = await providerService.getProviderById(slug);
     return {
       title: `Select Time — ${provider?.businessName || "Book"} | Peculia`,
     };
@@ -24,10 +24,10 @@ export async function generateMetadata({
 }
 
 export default async function TimeSelectionPage({ params }: TimePageProps) {
-  const { providerId } = await params;
+  const { slug } = await params;
 
   const provider = await providerService
-    .getProviderById(providerId)
+    .getProviderById(slug)
     .catch(() => null);
   if (!provider) notFound();
 
@@ -37,8 +37,8 @@ export default async function TimeSelectionPage({ params }: TimePageProps) {
 
       <div className="mx-auto w-full max-w-7xl flex-1 px-6 py-12 lg:px-8">
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
-          <BookingTimeSelection providerId={providerId} />
-          <BookingSummarySidebar provider={provider} currentStep={3} />
+          <BookingTimeSelection providerId={provider._id} />
+          <BookingSummarySidebar provider={provider} currentStep={3} slug={slug} />
         </div>
       </div>
     </div>

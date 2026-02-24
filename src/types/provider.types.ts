@@ -26,6 +26,7 @@ export interface Provider {
   _id: string;
   userId: ProviderUser;
   businessName: string;
+  slug: string;
   bio?: string;
   specialties: string[];
   location?: Location;
