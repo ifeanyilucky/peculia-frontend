@@ -6,6 +6,7 @@ import {
   Review,
   DiscoveryFilters,
   PortfolioImage,
+  TeamMember,
 } from "@/types/provider.types";
 
 export const providerService = {

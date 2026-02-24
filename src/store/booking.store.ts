@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Provider, Service } from "@/types/provider.types";
+import { Provider, Service, TeamMember } from "@/types/provider.types";
 import { Booking } from "@/types/booking.types";
 
 export interface BookingFlowState {
