@@ -157,7 +157,7 @@ export default function BookingDetailPage() {
             </h3>
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 relative">
               {/* Connector line (desktop) */}
-              <div className="absolute top-[1.125rem] left-0 w-full h-0.5 bg-slate-50 hidden md:block" />
+              <div className="absolute top-4.5 left-0 w-full h-0.5 bg-slate-50 hidden md:block" />
 
               {timelineSteps.map((step, i) => (
                 <div
@@ -329,7 +329,7 @@ export default function BookingDetailPage() {
 
           <div className="rounded-2xl bg-white border border-slate-100 p-8 shadow-sm space-y-6">
             <div className="flex flex-col items-center text-center">
-              <div className="relative h-24 w-24 rounded-[2rem] bg-slate-900 overflow-hidden border-4 border-white shadow-2xl mb-4">
+              <div className="relative h-24 w-24 rounded-4xl bg-slate-900 overflow-hidden border-4 border-white shadow-2xl mb-4">
                 {/* Placeholder avatar */}
               </div>
               <h4 className="text-xl font-black text-slate-900">
@@ -362,7 +362,7 @@ export default function BookingDetailPage() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] bg-rose-50/50 border border-rose-100 p-6 flex gap-4">
+          <div className="rounded-4xl bg-rose-50/50 border border-rose-100 p-6 flex gap-4">
             <div className="h-10 w-10 shrink-0 rounded-full bg-rose-600 text-white flex items-center justify-center">
               <ShieldCheck size={20} />
             </div>

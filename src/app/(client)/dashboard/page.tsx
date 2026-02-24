@@ -123,7 +123,7 @@ export default function ClientDashboardPage() {
                 <Link
                   key={action.label}
                   href={action.href}
-                  className="group flex flex-col items-center justify-center gap-3 p-6 rounded-[2rem] bg-white border border-slate-100 hover:border-slate-900 transition-all duration-300"
+                  className="group flex flex-col items-center justify-center gap-3 p-6 rounded-4xl bg-white border border-slate-100 hover:border-slate-900 transition-all duration-300"
                 >
                   <div
                     className={cn(
@@ -151,7 +151,7 @@ export default function ClientDashboardPage() {
             <Activity size={20} className="text-slate-300" />
           </div>
 
-          <div className="rounded-[2rem] bg-white border border-slate-100 p-6 space-y-6">
+          <div className="rounded-4xl bg-white border border-slate-100 p-6 space-y-6">
             {isLoadingActivity ? (
               <div className="flex justify-center py-10">
                 <Loader2 className="animate-spin text-rose-600" size={24} />
@@ -167,7 +167,7 @@ export default function ClientDashboardPage() {
                 <div key={item.id} className="relative flex gap-4">
                   {/* Vertical Line */}
                   {i !== recentActivity.results.length - 1 && (
-                    <div className="absolute left-[1.125rem] top-10 bottom-0 w-0.5 bg-slate-50" />
+                    <div className="absolute left-4.5 top-10 bottom-0 w-0.5 bg-slate-50" />
                   )}
 
                   <div

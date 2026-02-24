@@ -8,7 +8,7 @@ import { formatCurrency, formatNumber } from "@/utils/formatters";
 import { useState } from "react";
 import { bookingService } from "@/services/booking.service";
 import { format } from "date-fns";
-import { Loader2 } from "lucide-react";
+import { Loader2, User } from "lucide-react";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
