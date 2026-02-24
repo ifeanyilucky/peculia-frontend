@@ -1,0 +1,227 @@
+"use client";
+
+import { useState, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import {
+  format,
+  addDays,
+  subDays,
+  startOfToday,
+  isBefore,
+  isSameDay,
+  startOfWeek,
+} from "date-fns";
+import {
+  ChevronLeft,
+  ChevronRight,
+  CalendarDays,
+  User,
+  Users,
+} from "lucide-react";
+import { availabilityService } from "@/services/availability.service";
+import { useBookingStore } from "@/store/booking.store";
+import { useRouter, useParams } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/utils/formatters";
+
+interface BookingTimeSelectionProps {
+  providerId: string;
+}
+
+export default function BookingTimeSelection({
+  providerId,
+}: BookingTimeSelectionProps) {
+  const router = useRouter();
+  const today = startOfToday();
+
+  const {
+    selectedServices,
+    selectedTeamMember,
+    selectedDate,
+    setSelectedDate,
+    selectedSlot,
+    setSelectedSlot,
+  } = useBookingStore();
+
+  // Week window state — anchored to Monday of the current week or today's week
+  const [weekStart, setWeekStart] = useState<Date>(
+    startOfWeek(selectedDate ?? today, { weekStartsOn: 1 }),
+  );
+
+  const weekDays = useMemo(
+    () => Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)),
+    [weekStart],
+  );
+
+  // The first selected service drives the slot query
+  const firstService = selectedServices[0];
+
+  const { data: slots, isLoading: isLoadingSlots } = useQuery({
+    queryKey: [
+      "slots",
+      providerId,
+      firstService?.id,
+      selectedDate?.toISOString(),
+      selectedTeamMember?._id,
+    ],
+    queryFn: () =>
+      availabilityService.getAvailableSlots(
+        providerId,
+        firstService?.id ?? "",
+        selectedDate!.toISOString(),
+      ),
+    enabled: !!selectedDate && !!firstService?.id,
+  });
+
+  const professionalLabel = selectedTeamMember
+    ? `${selectedTeamMember.firstName} ${selectedTeamMember.lastName}`
+    : "Any professional";
+
+  return (
+    <div className="w-full flex-1 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <h1 className="font-peculiar text-4xl font-black text-slate-900 mb-8 tracking-tight">
+        Select time
+      </h1>
+
+      {/* Controls row */}
+      <div className="flex items-center justify-between mb-6">
+        {/* Professional pill */}
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-200 bg-white shadow-sm cursor-default select-none">
+          {selectedTeamMember ? (
+            <User size={16} className="text-slate-500 shrink-0" />
+          ) : (
+            <Users size={16} className="text-slate-500 shrink-0" />
+          )}
+          <span className="text-sm font-bold text-slate-800">
+            {professionalLabel}
+          </span>
+          <ChevronRight size={14} className="text-slate-400 rotate-90" />
+        </div>
+
+        {/* Calendar icon */}
+        <button className="h-10 w-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-900 hover:border-slate-300 transition-all shadow-sm">
+          <CalendarDays size={18} />
+        </button>
+      </div>
+
+      {/* Week strip */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-base font-black text-slate-900">
+            {format(weekStart, "MMMM yyyy")}
+          </h2>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setWeekStart((w) => subDays(w, 7))}
+              disabled={!isBefore(today, weekStart)}
+              className="h-8 w-8 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={() => setWeekStart((w) => addDays(w, 7))}
+              className="h-8 w-8 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-100 transition-colors"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-7 gap-1">
+          {weekDays.map((day) => {
+            const isPast = isBefore(day, today);
+            const isSelected = selectedDate
+              ? isSameDay(day, selectedDate)
+              : false;
+
+            return (
+              <button
+                key={day.toISOString()}
+                disabled={isPast}
+                onClick={() => {
+                  setSelectedDate(day);
+                  setSelectedSlot(null);
+                }}
+                className={cn(
+                  "flex flex-col items-center gap-1 py-3 rounded-2xl transition-all",
+                  isPast
+                    ? "opacity-30 cursor-not-allowed"
+                    : isSelected
+                      ? "bg-rose-600 text-white shadow-lg shadow-rose-200"
+                      : "hover:bg-slate-50 text-slate-600",
+                )}
+              >
+                <span
+                  className={cn(
+                    "text-[10px] font-black uppercase tracking-widest",
+                    isSelected ? "text-white/70" : "text-slate-400",
+                  )}
+                >
+                  {format(day, "EEE")}
+                </span>
+                <span
+                  className={cn(
+                    "text-lg font-black",
+                    isSelected ? "text-white" : "text-slate-900",
+                  )}
+                >
+                  {format(day, "d")}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Time slots */}
+      {!selectedDate ? (
+        <div className="py-16 flex flex-col items-center justify-center text-center text-slate-400 bg-slate-50 rounded-3xl border border-dashed border-slate-200">
+          <CalendarDays size={40} className="mb-4 text-slate-300" />
+          <p className="text-sm font-bold">
+            Select a date to see available times
+          </p>
+        </div>
+      ) : isLoadingSlots ? (
+        <div className="space-y-2">
+          {[...Array(8)].map((_, i) => (
+            <div
+              key={i}
+              className="h-14 rounded-xl bg-slate-100 animate-pulse"
+            />
+          ))}
+        </div>
+      ) : !slots || slots.length === 0 ? (
+        <div className="py-16 flex flex-col items-center justify-center text-center text-slate-400 bg-rose-50 rounded-3xl border border-rose-100">
+          <p className="text-sm font-bold text-rose-500">
+            No available slots for this date.
+          </p>
+          <p className="text-xs font-medium text-rose-400 mt-1">
+            Try selecting another day.
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {slots
+            .filter((s) => s.isAvailable)
+            .map((slot) => {
+              const isSelected = selectedSlot?.startTime === slot.startTime;
+              return (
+                <button
+                  key={slot.startTime}
+                  onClick={() => setSelectedSlot(isSelected ? null : slot)}
+                  className={cn(
+                    "w-full text-left px-6 py-4 rounded-xl border transition-all font-bold text-sm",
+                    isSelected
+                      ? "bg-rose-600 border-rose-600 text-white shadow-md shadow-rose-100"
+                      : "bg-white border-slate-100 text-slate-700 hover:border-slate-200 hover:bg-slate-50",
+                  )}
+                >
+                  {slot.startTime}
+                </button>
+              );
+            })}
+        </div>
+      )}
+    </div>
+  );
+}
