@@ -3,6 +3,7 @@
 import { Booking } from "@/types/booking.types";
 import { format } from "date-fns";
 import {
+  CalendarDays,
   Clock,
   CheckCircle2,
   XCircle,

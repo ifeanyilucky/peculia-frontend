@@ -7,7 +7,6 @@ import { format, isToday, isTomorrow } from "date-fns";
 import {
   Clock,
   User,
-  User,
   CheckCircle2,
   XCircle,
   Loader2,

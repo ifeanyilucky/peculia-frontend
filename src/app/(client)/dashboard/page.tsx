@@ -29,15 +29,12 @@ const UpcomingAppointments = dynamic(
 
 export default function ClientDashboardPage() {
   const { user } = useAuthStore();
-  const [showWelcome, setShowWelcome] = useState(false);
-
-  useEffect(() => {
-    // Only show if not explicitly hidden
-    const hidden = localStorage.getItem("peculia_welcome_hidden");
-    if (!hidden) {
-      setShowWelcome(true);
+  const [showWelcome, setShowWelcome] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !localStorage.getItem("peculia_welcome_hidden");
     }
-  }, []);
+    return false;
+  });
 
   const hideWelcome = () => {
     localStorage.setItem("peculia_welcome_hidden", "true");

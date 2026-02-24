@@ -21,6 +21,7 @@ import {
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
+import { formatCurrency } from "@/utils/formatters";
 
 export default function BookingDetailPage() {
   const { id } = useParams();
@@ -262,7 +263,7 @@ export default function BookingDetailPage() {
                           {service.name}
                         </p>
                         <p className="text-xs font-medium text-slate-500">
-                          ₦{(service.price / 100).toLocaleString()}
+                          {formatCurrency(service.price / 100).toLocaleString()}
                         </p>
                       </div>
                     ))}
