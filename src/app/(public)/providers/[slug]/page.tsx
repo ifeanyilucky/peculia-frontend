@@ -9,6 +9,8 @@ import ProviderReviewsList from "@/components/features/providers/ProviderReviews
 import { Suspense } from "react";
 import { Loader2, Star, Clock, MapPin, ChevronDown } from "lucide-react";
 import type { Metadata, ResolvingMetadata } from "next";
+import { availabilityService } from "@/services/availability.service";
+import ProviderLocation from "@/components/features/providers/ProviderLocation";
 import Script from "next/script";
 
 interface ProviderProfilePageProps {
@@ -54,9 +56,12 @@ export default async function ProviderProfilePage({
 
   try {
     const provider = await providerService.getProviderById(slug);
-    const services = await providerService.getProviderServices(provider._id);
-
     if (!provider) return notFound();
+
+    const services = await providerService.getProviderServices(provider._id);
+    const schedule = await availabilityService
+      .getWeeklySchedule(provider._id)
+      .catch(() => null);
 
     const name = `${provider.userId.firstName} ${provider.userId.lastName}`;
     const businessName = provider.businessName;
@@ -97,11 +102,10 @@ export default async function ProviderProfilePage({
           <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
             {/* Left Column: Main Info */}
             <div className="flex-1 space-y-16">
-              <ProviderAbout provider={provider} />
+              <ProviderServices services={services} providerId={provider._id} />
 
               <hr className="border-slate-100" />
-
-              <ProviderServices services={services} providerId={provider._id} />
+              <ProviderAbout provider={provider} />
 
               <hr className="border-slate-100" />
 
@@ -131,6 +135,10 @@ export default async function ProviderProfilePage({
                   <ProviderReviewsList providerProfileId={provider._id} />
                 </Suspense>
               </section>
+
+              <hr className="border-slate-100" />
+
+              <ProviderLocation provider={provider} schedule={schedule} />
             </div>
 
             {/* Right Column: Sticky Sidebar (Desktop) */}
