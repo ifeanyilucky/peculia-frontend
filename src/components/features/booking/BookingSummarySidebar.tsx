@@ -4,15 +4,32 @@ import { Service, Provider } from "@/types/provider.types";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useBookingStore } from "@/store/booking.store";
+import { useRouter, useParams } from "next/navigation";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
+  currentStep: number;
 }
 
 export default function BookingSummarySidebar({
   provider,
+  currentStep,
 }: BookingSummarySidebarProps) {
-  const { selectedServices, totalPrice, totalDuration } = useBookingStore();
+  const router = useRouter();
+  const params = useParams();
+  const providerId = params?.providerId as string;
+  const { selectedServices, totalPrice, totalDuration, selectedTeamMember } =
+    useBookingStore();
+
+  const handleContinue = () => {
+    if (currentStep === 1) {
+      router.push(`/book/${providerId}/professional`);
+    } else if (currentStep === 2) {
+      router.push(`/book/${providerId}/time`);
+    } else if (currentStep === 3) {
+      router.push(`/book/${providerId}/confirm`);
+    }
+  };
 
   return (
     <aside className="w-full lg:w-[400px] lg:shrink-0 h-fit lg:sticky lg:top-28">
@@ -55,25 +72,56 @@ export default function BookingSummarySidebar({
             </div>
           ) : (
             <div className="flex-1 space-y-4 overflow-y-auto">
-              {selectedServices.map((service) => (
-                <div
-                  key={service.id}
-                  className="flex items-start justify-between gap-4"
-                >
-                  <div className="space-y-1">
-                    <p className="text-sm font-bold text-slate-900">
-                      {service.name}
-                    </p>
-                    <p className="text-[11px] font-medium text-slate-500">
-                      {service.duration} mins • {service.duration} minutes with
-                      any professional
+              <div className="space-y-4">
+                {selectedServices.map((service) => (
+                  <div
+                    key={service.id}
+                    className="flex items-start justify-between gap-4"
+                  >
+                    <div className="space-y-1">
+                      <p className="text-sm font-bold text-slate-900">
+                        {service.name}
+                      </p>
+                      <p className="text-[11px] font-medium text-slate-500">
+                        {service.duration} mins •{" "}
+                        {selectedTeamMember
+                          ? `${selectedTeamMember.firstName} ${selectedTeamMember.lastName}`
+                          : "Any professional"}
+                      </p>
+                    </div>
+                    <p className="text-sm font-black text-slate-900 tabular-nums shrink-0 mt-0.5">
+                      £{(service.price / 100).toLocaleString()}
                     </p>
                   </div>
-                  <p className="text-sm font-black text-slate-900 tabular-nums shrink-0 mt-0.5">
-                    ₦{(service.price / 100).toLocaleString()}
+                ))}
+              </div>
+
+              {selectedTeamMember && (
+                <div className="mt-6 pt-6 border-t border-slate-50">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
+                    Chosen Professional
                   </p>
+                  <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center overflow-hidden">
+                      {selectedTeamMember.avatar ? (
+                        <Image
+                          src={selectedTeamMember.avatar}
+                          alt={selectedTeamMember.firstName}
+                          width={32}
+                          height={32}
+                          className="object-cover"
+                        />
+                      ) : (
+                        <User size={16} className="text-slate-400" />
+                      )}
+                    </div>
+                    <p className="text-xs font-bold text-slate-900">
+                      {selectedTeamMember.firstName}{" "}
+                      {selectedTeamMember.lastName}
+                    </p>
+                  </div>
                 </div>
-              ))}
+              )}
             </div>
           )}
         </div>
@@ -90,13 +138,34 @@ export default function BookingSummarySidebar({
           </div>
 
           <button
+            onClick={handleContinue}
             disabled={selectedServices.length === 0}
-            className="w-full rounded-full bg-slate-900 py-4 text-sm font-black text-white transition-all hover:bg-slate-800 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full rounded-full bg-slate-900 py-4 text-sm font-black text-white transition-all hover:bg-slate-800 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-slate-900/10"
           >
             Continue
           </button>
         </div>
       </div>
     </aside>
+  );
+}
+
+function User({ size = 24, className = "" }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
   );
 }

@@ -45,7 +45,7 @@ export default async function BookingServicesPage({
         <div className="mx-auto w-full max-w-7xl flex-1 px-6 py-12 lg:px-8">
           <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
             <BookingServiceSelection services={services} />
-            <BookingSummarySidebar provider={provider} />
+            <BookingSummarySidebar provider={provider} currentStep={1} />
           </div>
         </div>
       </div>

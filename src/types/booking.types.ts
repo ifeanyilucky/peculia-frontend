@@ -15,6 +15,7 @@ export interface Booking {
   clientId: string | ProviderUser;
   providerProfileId: string | Provider;
   serviceId: string;
+  teamMemberId?: string;
   scheduledDate: string;
   startTime: string;
   endTime: string;
