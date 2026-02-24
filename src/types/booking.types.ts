@@ -11,6 +11,7 @@ export type BookingStatus =
 
 export interface Booking {
   id: string;
+  _id?: string;
   bookingRef: string;
   clientId: string | ProviderUser;
   providerProfileId: string | Provider;

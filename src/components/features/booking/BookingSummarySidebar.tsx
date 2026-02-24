@@ -65,12 +65,14 @@ export default function BookingSummarySidebar({
       // If booking is pending payment, initialize Paystack
       if (booking.status === "pending_payment") {
         const { authorizationUrl } = await paymentService.initializePayment(
-          booking.id,
+          booking.id || booking._id!,
         );
         window.location.href = authorizationUrl;
       } else {
         // Otherwise (e.g. personal or free service), just go to success
-        router.push(`/book/${slug}/success?bookingId=${booking.id}`);
+        router.push(
+          `/book/${slug}/success?bookingId=${booking.id || booking._id!}`,
+        );
       }
     } catch (error) {
       console.error("Booking failed:", error);
