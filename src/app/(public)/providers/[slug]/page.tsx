@@ -227,20 +227,17 @@ export default async function ProviderProfilePage({
                         {provider.location?.address ||
                           `${provider.location?.city}, ${provider.location?.state}`}
                       </p>
-                      <button
-                        onClick={() => {
-                          const address =
-                            provider.location?.address ||
-                            `${provider.location?.city}, ${provider.location?.state}`;
-                          window.open(
-                            `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`,
-                            "_blank",
-                          );
-                        }}
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                          provider.location?.address ||
+                            `${provider.location?.city}, ${provider.location?.state}`,
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="mt-1 text-indigo-600 font-bold hover:underline"
                       >
                         Get directions
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>

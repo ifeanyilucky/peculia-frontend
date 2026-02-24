@@ -33,7 +33,7 @@ export default function ProviderCard({
           <Image
             src={
               provider.portfolioImages?.[0]?.url ||
-              "/images/placeholder-provider.jpg"
+              "https://placehold.co/600x400?text=Peculia+Provider"
             }
             alt={provider.businessName}
             fill

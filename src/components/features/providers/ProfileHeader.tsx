@@ -196,7 +196,10 @@ export default function ProfileHeader({
             onClick={() => setSelectedIndex(0)}
           >
             <Image
-              src={images[0]?.url || "/images/placeholder-cover.jpg"}
+              src={
+                images[0]?.url ||
+                "https://placehold.co/1200x800?text=Peculia+Provider"
+              }
               alt={provider.businessName}
               fill
               className="object-cover transition-transform duration-700 hover:scale-105"
@@ -214,7 +217,7 @@ export default function ProfileHeader({
                 src={
                   images[1]?.url ||
                   images[0]?.url ||
-                  "/images/placeholder-cover.jpg"
+                  "https://placehold.co/1200x800?text=Peculia+Provider"
                 }
                 alt={provider.businessName}
                 fill
@@ -229,7 +232,7 @@ export default function ProfileHeader({
                 src={
                   images[2]?.url ||
                   images[0]?.url ||
-                  "/images/placeholder-cover.jpg"
+                  "https://placehold.co/1200x800?text=Peculia+Provider"
                 }
                 alt={provider.businessName}
                 fill

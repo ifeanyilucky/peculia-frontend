@@ -139,7 +139,7 @@ export default function BookingDetailPage() {
             <div className="flex items-center gap-3">
               {booking.status === "pending_payment" && (
                 <button className="rounded-full bg-rose-600 px-8 py-4 text-sm font-black text-white hover:bg-rose-700 transition-all shadow-xl shadow-rose-100">
-                  Pay Deposit ₦{(booking.depositAmount / 100).toLocaleString()}
+                  Pay Deposit {formatCurrency(booking.depositAmount / 100)}
                 </button>
               )}
               {booking.status === "confirmed" && (
@@ -292,13 +292,13 @@ export default function BookingDetailPage() {
                 <div className="flex justify-between text-sm font-medium">
                   <span className="text-slate-500">Service Fee</span>
                   <span className="text-slate-900">
-                    ₦{(booking.servicePrice / 100).toLocaleString()}
+                    {formatCurrency(booking.servicePrice / 100)}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm font-bold border-b border-white/50 pb-3">
                   <span className="text-rose-600">Deposit Paid</span>
                   <span className="text-rose-600">
-                    - ₦{(booking.depositAmount / 100).toLocaleString()}
+                    - {formatCurrency(booking.depositAmount / 100)}
                   </span>
                 </div>
                 <div className="flex justify-between items-end pt-2">
@@ -306,11 +306,9 @@ export default function BookingDetailPage() {
                     Remaining Balance
                   </span>
                   <span className="text-3xl font-peculiar font-black text-slate-900">
-                    ₦
-                    {(
-                      (booking.servicePrice - booking.depositAmount) /
-                      100
-                    ).toLocaleString()}
+                    {formatCurrency(
+                      (booking.servicePrice - booking.depositAmount) / 100,
+                    )}
                   </span>
                 </div>
                 <p className="text-[10px] text-slate-400 font-bold italic pt-2">
