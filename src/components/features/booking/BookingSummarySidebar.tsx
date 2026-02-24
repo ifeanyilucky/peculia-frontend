@@ -3,12 +3,15 @@
 import { Provider } from "@/types/provider.types";
 import Image from "next/image";
 import { useBookingStore } from "@/store/booking.store";
+import { useAuthStore } from "@/store/auth.store";
 import { useRouter, useParams } from "next/navigation";
 import { formatCurrency, formatNumber } from "@/utils/formatters";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { bookingService } from "@/services/booking.service";
 import { format } from "date-fns";
 import { Loader2, User as UserIcon } from "lucide-react";
+import BookingAuthModal from "@/components/features/booking/BookingAuthModal";
+import AddPhoneModal from "@/components/features/booking/AddPhoneModal";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
@@ -24,15 +27,53 @@ export default function BookingSummarySidebar({
   const providerId = params?.providerId as string;
   const { selectedServices, totalPrice, selectedTeamMember, selectedSlot } =
     useBookingStore();
+  const { isAuthenticated, user } = useAuthStore();
+
   const [isBooking, setIsBooking] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showPhoneModal, setShowPhoneModal] = useState(false);
 
   const isStepComplete = () => {
     if (currentStep === 1) return selectedServices.length > 0;
-    if (currentStep === 2) return selectedServices.length > 0; // professional is optional
+    if (currentStep === 2) return selectedServices.length > 0;
     if (currentStep === 3) return !!selectedSlot;
     if (currentStep === 4) return true;
     return false;
   };
+
+  /**
+   * Core booking submission — called after auth + phone are guaranteed.
+   * Extracted so it can be re-triggered from both modal onSuccess callbacks.
+   */
+  const submitBooking = useCallback(async () => {
+    if (!selectedSlot) return;
+    setIsBooking(true);
+    try {
+      const booking = await bookingService.createBooking({
+        providerProfileId: provider._id,
+        serviceIds: selectedServices.map((s) => s.id),
+        teamMemberId: selectedTeamMember?._id,
+        scheduledDate: format(
+          useBookingStore.getState().selectedDate!,
+          "yyyy-MM-dd",
+        ),
+        startTime: selectedSlot.startTime,
+        endTime: selectedSlot.endTime,
+      });
+      router.push(`/book/${providerId}/success?bookingId=${booking.id}`);
+    } catch (error) {
+      console.error("Booking failed:", error);
+    } finally {
+      setIsBooking(false);
+    }
+  }, [
+    selectedSlot,
+    selectedServices,
+    selectedTeamMember,
+    provider._id,
+    providerId,
+    router,
+  ]);
 
   const handleContinue = async () => {
     if (currentStep === 1) {
@@ -44,27 +85,20 @@ export default function BookingSummarySidebar({
     } else if (currentStep === 4) {
       if (!selectedSlot) return;
 
-      setIsBooking(true);
-      try {
-        const booking = await bookingService.createBooking({
-          providerProfileId: provider._id,
-          serviceIds: selectedServices.map((s) => s.id),
-          teamMemberId: selectedTeamMember?._id,
-          scheduledDate: format(
-            useBookingStore.getState().selectedDate!,
-            "yyyy-MM-dd",
-          ),
-          startTime: selectedSlot.startTime,
-          endTime: selectedSlot.endTime,
-        });
-
-        // Redirect to success or payment
-        router.push(`/book/${providerId}/success?bookingId=${booking.id}`);
-      } catch (error) {
-        console.error("Booking failed:", error);
-      } finally {
-        setIsBooking(false);
+      // ── Gate 1: Not authenticated → show auth modal ──
+      if (!isAuthenticated) {
+        setShowAuthModal(true);
+        return;
       }
+
+      // ── Gate 2: Authenticated but no phone → capture phone ──
+      if (!user?.phone) {
+        setShowPhoneModal(true);
+        return;
+      }
+
+      // ── Gate 3: All good → submit directly ──
+      await submitBooking();
     }
   };
 
@@ -190,6 +224,34 @@ export default function BookingSummarySidebar({
           </button>
         </div>
       </div>
+
+      {/* ── Booking Auth Modal (unauthenticated users) ────────────── */}
+      {showAuthModal && (
+        <BookingAuthModal
+          onSuccess={() => {
+            setShowAuthModal(false);
+            // After auth, check phone gate immediately
+            const freshUser = useAuthStore.getState().user;
+            if (!freshUser?.phone) {
+              setShowPhoneModal(true);
+            } else {
+              submitBooking();
+            }
+          }}
+          onClose={() => setShowAuthModal(false)}
+        />
+      )}
+
+      {/* ── Add Phone Modal (authed users without phone) ────────────── */}
+      {showPhoneModal && (
+        <AddPhoneModal
+          onSuccess={() => {
+            setShowPhoneModal(false);
+            submitBooking();
+          }}
+          onClose={() => setShowPhoneModal(false)}
+        />
+      )}
     </aside>
   );
 }
