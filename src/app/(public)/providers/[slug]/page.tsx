@@ -121,7 +121,11 @@ export default async function ProviderProfilePage({
         />
 
         {/* Profile Header */}
-        <ProfileHeader provider={provider} schedule={schedule} />
+        <ProfileHeader
+          provider={provider}
+          schedule={schedule}
+          initialOpeningStatus={openingStatus}
+        />
 
         {/* Content Tabs/Grid */}
         <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">

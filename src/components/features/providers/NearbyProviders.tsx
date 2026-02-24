@@ -1,3 +1,5 @@
+"use client";
+
 import { Provider } from "@/types/provider.types";
 import ProviderCard from "./ProviderCard";
 

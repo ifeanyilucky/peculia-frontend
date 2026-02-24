@@ -1,38 +1,43 @@
 "use client";
 
 import { Provider } from "@/types/provider.types";
-import {
-  CheckCircle2,
-  MapPin,
-  Star,
-  Share2,
-  Heart,
-  ChevronRight,
-  Clock,
-  ExternalLink,
-} from "lucide-react";
+import { CheckCircle2, Star, Share2, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import PhotoViewer from "@/components/common/PhotoViewer";
 import SaveButton from "./SaveButton";
-import { getOpeningStatus, WeeklySchedule } from "@/utils/time.utils";
+import {
+  getOpeningStatus,
+  WeeklySchedule,
+  OpeningStatus,
+} from "@/utils/time.utils";
+import { useEffect } from "react";
 
 import { SPECIALTIES } from "@/constants/specialties";
 
 interface ProfileHeaderProps {
   provider: Provider;
   schedule?: WeeklySchedule;
+  initialOpeningStatus?: OpeningStatus;
 }
 
 export default function ProfileHeader({
   provider,
   schedule,
+  initialOpeningStatus,
 }: ProfileHeaderProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
 
-  const openingStatus = useMemo(() => getOpeningStatus(schedule), [schedule]);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const openingStatus =
+    mounted && schedule
+      ? getOpeningStatus(schedule)
+      : initialOpeningStatus || { isOpen: false, message: "Loading..." };
 
   const address =
     provider.location?.address ||

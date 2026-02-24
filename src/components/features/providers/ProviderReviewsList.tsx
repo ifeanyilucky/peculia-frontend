@@ -52,7 +52,8 @@ export default function ProviderReviewsList({
               <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-slate-100">
                 <Image
                   src={
-                    review.clientId.avatar || "/images/placeholder-avatar.jpg"
+                    review.clientId.avatar ||
+                    "https://placehold.co/100x100?text=User"
                   }
                   alt={review.clientId.firstName}
                   fill
