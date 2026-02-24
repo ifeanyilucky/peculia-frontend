@@ -31,7 +31,7 @@ export default async function BookingServicesPage({
   try {
     const [provider, services] = await Promise.all([
       providerService.getProviderById(providerId),
-      providerService.getProviderServicesPublic(providerId),
+      providerService.getProviderServices(providerId),
     ]);
 
     if (!provider) {
