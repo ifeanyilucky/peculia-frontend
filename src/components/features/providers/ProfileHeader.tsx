@@ -15,6 +15,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import PhotoViewer from "@/components/common/PhotoViewer";
+import SaveButton from "./SaveButton";
 
 import { SPECIALTIES } from "@/constants/specialties";
 
@@ -158,9 +159,7 @@ export default function ProfileHeader({ provider }: ProfileHeaderProps) {
             <button className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 transition-all hover:bg-slate-50 active:scale-90">
               <Share2 size={20} className="text-slate-600" />
             </button>
-            <button className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 transition-all hover:bg-slate-50 active:scale-90">
-              <Heart size={20} className="text-slate-600" />
-            </button>
+            <SaveButton providerId={provider._id} size="lg" />
           </div>
         </div>
 

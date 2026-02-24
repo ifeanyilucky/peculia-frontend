@@ -107,4 +107,32 @@ export const providerService = {
     );
     return response.data.data;
   },
+
+  saveProvider: async (providerProfileId: string) => {
+    const response = await api.post<ApiSuccess<{ saved: boolean; message: string }>>(
+      `/users/me/saved/${providerProfileId}`,
+    );
+    return response.data.data;
+  },
+
+  unsaveProvider: async (providerProfileId: string) => {
+    const response = await api.delete<ApiSuccess<{ saved: boolean; message: string }>>(
+      `/users/me/saved/${providerProfileId}`,
+    );
+    return response.data.data;
+  },
+
+  getSavedProviders: async () => {
+    const response = await api.get<ApiSuccess<Provider[]>>(
+      "/users/me/saved",
+    );
+    return response.data.data;
+  },
+
+  checkProviderSaved: async (providerProfileId: string) => {
+    const response = await api.get<ApiSuccess<{ isSaved: boolean }>>(
+      `/users/me/saved/${providerProfileId}`,
+    );
+    return response.data.data;
+  },
 };
