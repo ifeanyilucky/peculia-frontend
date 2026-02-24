@@ -6,8 +6,6 @@ export interface BookingFlowState {
   currentStep: number;
   selectedProvider: Provider | null;
   selectedServices: Service[];
-  /** @deprecated Use `selectedServices[0]` — kept for legacy step components */
-  selectedService: Service | null;
   selectedTeamMember: TeamMember | null;
   selectedDate: Date | null;
   selectedSlot: { startTime: string; endTime: string } | null;
@@ -25,8 +23,6 @@ export interface BookingFlowState {
   setSelectedProvider: (provider: Provider | null) => void;
   addService: (service: Service) => void;
   removeService: (serviceId: string) => void;
-  /** @deprecated Use `addService` — kept for legacy step components */
-  setSelectedService: (service: Service | null) => void;
   setSelectedTeamMember: (member: TeamMember | null) => void;
   setSelectedDate: (date: Date | null) => void;
   setSelectedSlot: (
@@ -41,7 +37,6 @@ export const useBookingStore = create<BookingFlowState>((set) => ({
   currentStep: 1,
   selectedProvider: null,
   selectedServices: [],
-  selectedService: null,
   selectedTeamMember: null,
   selectedDate: null,
   selectedSlot: null,
@@ -82,24 +77,6 @@ export const useBookingStore = create<BookingFlowState>((set) => ({
       };
     }),
 
-  // Backward-compat alias: sets the first (and only) service in the multi-service array
-  setSelectedService: (service) =>
-    set((state) => {
-      if (!service)
-        return {
-          selectedServices: [],
-          selectedService: null,
-          totalPrice: 0,
-          totalDuration: 0,
-        };
-      return {
-        selectedService: service,
-        selectedServices: [service],
-        totalPrice: service.price,
-        totalDuration: service.duration,
-      };
-    }),
-
   setSelectedTeamMember: (member) => set({ selectedTeamMember: member }),
   setSelectedDate: (date) => set({ selectedDate: date }),
   setSelectedSlot: (slot) => set({ selectedSlot: slot }),
@@ -111,7 +88,6 @@ export const useBookingStore = create<BookingFlowState>((set) => ({
       currentStep: 1,
       selectedProvider: null,
       selectedServices: [],
-      selectedService: null,
       selectedTeamMember: null,
       selectedDate: null,
       selectedSlot: null,
