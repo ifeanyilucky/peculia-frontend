@@ -13,6 +13,9 @@ export const availabilityService = {
       `/availability/slots/${providerProfileId}`,
       {
         params: { serviceIds, date, teamMemberId },
+        paramsSerializer: {
+          indexes: null, // this makes array serialization look like `?serviceIds=1&serviceIds=2` instead of `serviceIds[]=1`
+        },
       },
     );
     return response.data.data;
