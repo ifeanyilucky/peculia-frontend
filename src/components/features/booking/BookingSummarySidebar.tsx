@@ -70,7 +70,7 @@ export default function BookingSummarySidebar({
 
   return (
     <aside className="w-full lg:w-[400px] lg:shrink-0 h-fit lg:sticky lg:top-28">
-      <div className="rounded-[2rem] border border-slate-100 bg-white shadow-xl shadow-slate-200/50 flex flex-col min-h-[500px]">
+      <div className="rounded-4xl border border-slate-100 bg-white shadow-xl shadow-slate-200/50 flex flex-col min-h-[500px]">
         {/* Provider Profile Info */}
         <div className="p-6 flex items-start gap-4 border-b border-slate-100">
           <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-slate-100">

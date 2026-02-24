@@ -5,15 +5,14 @@ import { TimeSlot, BlockedDate } from "@/types/booking.types";
 export const availabilityService = {
   getAvailableSlots: async (
     providerProfileId: string,
-    serviceId: string,
+    serviceIds: string[],
     date: string,
     teamMemberId?: string,
-    totalDuration?: number,
   ) => {
     const response = await api.get<ApiSuccess<TimeSlot[]>>(
       `/availability/slots/${providerProfileId}`,
       {
-        params: { serviceId, date, teamMemberId, totalDuration },
+        params: { serviceIds, date, teamMemberId },
       },
     );
     return response.data.data;

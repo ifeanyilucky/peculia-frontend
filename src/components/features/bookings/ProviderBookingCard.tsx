@@ -47,7 +47,7 @@ export default function ProviderBookingCard({
   const client = typeof booking.clientId !== "string" ? booking.clientId : null;
 
   return (
-    <div className="group bg-white rounded-[2rem] border border-slate-100 p-6 hover:border-slate-900 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-slate-200/50">
+    <div className="group bg-white rounded-4xl border border-slate-100 p-6 hover:border-slate-900 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-slate-200/50">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="h-14 w-14 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 overflow-hidden shrink-0 border-2 border-white shadow-sm relative">

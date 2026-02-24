@@ -70,10 +70,9 @@ export default function BookingTimeSelection({
     queryFn: () =>
       availabilityService.getAvailableSlots(
         providerId,
-        selectedServices[0]?.id || "",
+        selectedServices.map((s) => s.id),
         selectedDate ? format(selectedDate, "yyyy-MM-dd") : "",
         selectedTeamMember?._id,
-        totalDuration,
       ),
     enabled: !!providerId && selectedServices.length > 0 && !!selectedDate,
   });
