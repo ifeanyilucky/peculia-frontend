@@ -42,7 +42,7 @@ export default function ProviderServices({
 
   if (services.length === 0) {
     return (
-      <div className="p-8 text-center bg-slate-50 rounded-3xl border border-slate-200">
+      <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200">
         <p className="text-slate-500">No services listed yet.</p>
       </div>
     );
@@ -65,8 +65,8 @@ export default function ProviderServices({
               onClick={() => setActiveCategory(category)}
               className={`whitespace-nowrap rounded-full px-6 py-2 text-sm font-bold transition-all ${
                 activeCategory === category
-                  ? "bg-slate-900 text-white shadow-lg"
-                  : "bg-transparent text-slate-600 hover:bg-slate-100"
+                  ? "bg-slate-900 text-white"
+                  : "bg-transparent text-slate-600 hover:bg-slate-100 border border-slate-200"
               }`}
             >
               {category}
@@ -88,7 +88,7 @@ export default function ProviderServices({
             {filteredServices.map((service) => (
               <div
                 key={service.id}
-                className="flex items-center justify-between rounded-3xl border border-slate-100 bg-white p-6 transition-all hover:border-slate-200 hover:shadow-xl hover:shadow-slate-100/50"
+                className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:border-slate-300"
               >
                 <div className="space-y-2">
                   <h4 className="font-peculiar text-xl font-bold text-slate-900">
@@ -102,7 +102,7 @@ export default function ProviderServices({
                       ₦{(service.price / 100).toLocaleString()}
                     </p>
                     {service.depositAmount > 0 && (
-                      <span className="text-xs font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
+                      <span className="text-xs font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full border border-green-100">
                         Save 10%
                       </span>
                     )}

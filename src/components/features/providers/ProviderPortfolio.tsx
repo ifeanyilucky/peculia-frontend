@@ -19,7 +19,7 @@ export default function ProviderPortfolio({
 
   if (images.length === 0) {
     return (
-      <div className="p-8 text-center bg-slate-50 rounded-3xl border border-slate-200">
+      <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200">
         <p className="text-slate-500">No portfolio images uploaded yet.</p>
       </div>
     );
