@@ -5,7 +5,9 @@ import { Booking } from "@/types/booking.types";
 export const bookingService = {
   createBooking: async (data: {
     providerProfileId: string;
-    serviceId: string;
+    serviceId?: string; // Legacy
+    serviceIds?: string[]; // New: support multiple services
+    teamMemberId?: string;
     scheduledDate: string;
     startTime: string;
     endTime: string;

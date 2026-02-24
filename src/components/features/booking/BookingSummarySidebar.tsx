@@ -5,6 +5,10 @@ import Image from "next/image";
 import { useBookingStore } from "@/store/booking.store";
 import { useRouter, useParams } from "next/navigation";
 import { formatCurrency, formatNumber } from "@/utils/formatters";
+import { useState } from "react";
+import { bookingService } from "@/services/booking.service";
+import { format } from "date-fns";
+import { Loader2 } from "lucide-react";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
@@ -20,21 +24,47 @@ export default function BookingSummarySidebar({
   const providerId = params?.providerId as string;
   const { selectedServices, totalPrice, selectedTeamMember, selectedSlot } =
     useBookingStore();
+  const [isBooking, setIsBooking] = useState(false);
 
   const isStepComplete = () => {
     if (currentStep === 1) return selectedServices.length > 0;
     if (currentStep === 2) return selectedServices.length > 0; // professional is optional
     if (currentStep === 3) return !!selectedSlot;
+    if (currentStep === 4) return true;
     return false;
   };
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     if (currentStep === 1) {
       router.push(`/book/${providerId}/professional`);
     } else if (currentStep === 2) {
       router.push(`/book/${providerId}/time`);
     } else if (currentStep === 3) {
       router.push(`/book/${providerId}/confirm`);
+    } else if (currentStep === 4) {
+      if (!selectedSlot) return;
+
+      setIsBooking(true);
+      try {
+        const booking = await bookingService.createBooking({
+          providerProfileId: provider._id,
+          serviceIds: selectedServices.map((s) => s.id),
+          teamMemberId: selectedTeamMember?._id,
+          scheduledDate: format(
+            useBookingStore.getState().selectedDate!,
+            "yyyy-MM-dd",
+          ),
+          startTime: selectedSlot.startTime,
+          endTime: selectedSlot.endTime,
+        });
+
+        // Redirect to success or payment
+        router.push(`/book/${providerId}/success?bookingId=${booking.id}`);
+      } catch (error) {
+        console.error("Booking failed:", error);
+      } finally {
+        setIsBooking(false);
+      }
     }
   };
 
@@ -144,10 +174,19 @@ export default function BookingSummarySidebar({
 
           <button
             onClick={handleContinue}
-            disabled={!isStepComplete()}
-            className="w-full rounded-full bg-slate-900 py-4 text-sm font-black text-white transition-all hover:bg-slate-800 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-slate-900/10"
+            disabled={!isStepComplete() || isBooking}
+            className="w-full rounded-full bg-slate-900 py-4 text-sm font-black text-white transition-all hover:bg-slate-800 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-slate-900/10 flex items-center justify-center gap-2"
           >
-            Continue
+            {isBooking ? (
+              <>
+                <Loader2 className="animate-spin" size={18} />
+                Processing...
+              </>
+            ) : currentStep === 4 ? (
+              "Confirm & Pay"
+            ) : (
+              "Continue"
+            )}
           </button>
         </div>
       </div>

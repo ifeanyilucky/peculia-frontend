@@ -43,6 +43,16 @@ export default function BookingTimeSelection({
     setSelectedSlot,
   } = useBookingStore();
 
+  // Week window state — anchored to Monday of the current week or today's week
+  const [weekStart, setWeekStart] = useState<Date>(
+    startOfWeek(selectedDate ?? today, { weekStartsOn: 1 }),
+  );
+
+  const weekDays = useMemo(
+    () => Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)),
+    [weekStart],
+  );
+
   const totalDuration = selectedServices.reduce(
     (acc, service) => acc + service.duration,
     0,
