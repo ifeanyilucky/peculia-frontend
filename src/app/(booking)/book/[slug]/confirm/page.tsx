@@ -50,21 +50,21 @@ export default function BookingConfirmPage() {
     <div className="min-h-screen bg-slate-50/30 flex flex-col">
       <BookingHeader currentStep={4} />
 
-      <main className="flex-1 mx-auto w-full max-w-7xl px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div className="mx-auto w-full max-w-7xl flex-1 px-6 py-12 lg:px-8">
+        <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
           {/* Main Content */}
-          <div className="lg:col-span-8">
-            <BookingConfirmation />
-          </div>
 
-          {/* Sidebar */}
-          <div className="lg:col-span-12">
-            {provider && (
-              <BookingSummarySidebar provider={provider} currentStep={4} slug={slug} />
-            )}
-          </div>
+          <BookingConfirmation />
+
+          {provider && (
+            <BookingSummarySidebar
+              provider={provider}
+              currentStep={4}
+              slug={slug}
+            />
+          )}
         </div>
-      </main>
+      </div>
     </div>
   );
 }
