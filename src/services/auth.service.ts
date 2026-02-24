@@ -9,6 +9,7 @@ export interface AuthResponse {
     lastName: string;
     role: "client" | "provider" | "admin";
     avatar?: string;
+    phone?: string;
   };
   accessToken: string;
   refreshToken: string;
@@ -60,7 +61,7 @@ export const authService = {
 
   updateProfile: async (data: any) => {
     const response = await api.patch<ApiSuccess<AuthResponse["user"]>>(
-      "/auth/profile",
+      "/users/me",
       data,
     );
     return response.data.data;

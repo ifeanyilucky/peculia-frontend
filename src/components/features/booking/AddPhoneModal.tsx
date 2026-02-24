@@ -4,7 +4,7 @@
  * AddPhoneModal
  *
  * Shown when an authenticated user does NOT have a phone number
- * on their profile. Captures the number, calls PATCH /auth/profile,
+ * on their profile. Captures the number, calls PATCH /users/me,
  * updates the Zustand auth store, then fires `onSuccess` to proceed
  * with booking confirmation.
  *

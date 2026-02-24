@@ -96,7 +96,7 @@ export default function BookingAuthModal({
   return (
     /* ── Backdrop ──────────────────────────────── */
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-[999999] flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm p-4"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       {/* ── Modal panel ──────────────────────────── */}

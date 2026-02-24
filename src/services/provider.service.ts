@@ -26,9 +26,7 @@ export const providerService = {
   },
 
   getProviderPublicProfile: async (id: string) => {
-    const response = await api.get<ApiSuccess<Provider>>(
-      `/providers/${id}/public`,
-    );
+    const response = await api.get<ApiSuccess<Provider>>(`/providers/${id}`);
     return response.data.data;
   },
 
