@@ -9,6 +9,7 @@ import ProviderReviewsList from "@/components/features/providers/ProviderReviews
 import { Suspense } from "react";
 import { availabilityService } from "@/services/availability.service";
 import ProviderLocation from "@/components/features/providers/ProviderLocation";
+import NearbyProviders from "@/components/features/providers/NearbyProviders";
 import { getOpeningStatus } from "@/utils/time.utils";
 import Script from "next/script";
 import { Loader2, Star, Clock, MapPin, ChevronDown } from "lucide-react";
@@ -63,6 +64,24 @@ export default async function ProviderProfilePage({
     const schedule = await availabilityService
       .getWeeklySchedule(provider._id)
       .catch(() => null);
+
+    // Fetch nearby providers
+    const nearbyProvidersData = await providerService
+      .discoverProviders({
+        lat: provider.location?.coordinates?.coordinates[1],
+        lng: provider.location?.coordinates?.coordinates[0],
+        city: !provider.location?.coordinates
+          ? provider.location?.city
+          : undefined,
+        limit: 5,
+        radiusKm: 20,
+      })
+      .catch(() => ({
+        results: [],
+        pagination: { total: 0, page: 1, limit: 5, totalPages: 0 },
+      }));
+
+    const nearbyProviders = nearbyProvidersData.results || [];
 
     const name = `${provider.userId.firstName} ${provider.userId.lastName}`;
     const businessName = provider.businessName;
@@ -248,6 +267,12 @@ export default async function ProviderProfilePage({
             </aside>
           </div>
         </div>
+
+        {/* Nearby Providers Section */}
+        <NearbyProviders
+          providers={nearbyProviders}
+          currentProviderId={provider._id}
+        />
 
         {/* Mobile Sticky CTA */}
         <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white/80 p-4 backdrop-blur-lg md:hidden">
