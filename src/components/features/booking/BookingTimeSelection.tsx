@@ -23,6 +23,12 @@ import { useBookingStore } from "@/store/booking.store";
 import { useRouter, useParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/utils/formatters";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
 
 interface BookingTimeSelectionProps {
   providerId: string;
@@ -102,10 +108,32 @@ export default function BookingTimeSelection({
           <ChevronRight size={14} className="text-slate-400 rotate-90" />
         </div>
 
-        {/* Calendar icon */}
-        <button className="h-10 w-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-900 hover:border-slate-300 transition-all shadow-sm">
-          <CalendarDays size={18} />
-        </button>
+        {/* Calendar icon dropdown */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <button className="h-10 w-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-900 hover:border-slate-300 transition-all shadow-sm">
+              <CalendarDays size={18} />
+            </button>
+          </PopoverTrigger>
+          <PopoverContent
+            className="w-auto p-0 border-none shadow-2xl"
+            align="end"
+          >
+            <Calendar
+              mode="single"
+              selected={selectedDate || undefined}
+              onSelect={(date) => {
+                if (date) {
+                  setSelectedDate(date);
+                  setSelectedSlot(null);
+                  setWeekStart(startOfWeek(date, { weekStartsOn: 1 }));
+                }
+              }}
+              disabled={(date) => isBefore(date, today)}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
       </div>
 
       {/* Week strip */}
