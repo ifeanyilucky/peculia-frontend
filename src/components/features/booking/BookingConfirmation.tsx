@@ -18,7 +18,7 @@ import { formatCurrency } from "@/utils/formatters";
 export default function BookingConfirmation() {
   const router = useRouter();
   const params = useParams();
-  const providerId = params?.providerId as string;
+  const slug = params?.slug as string;
   const {
     selectedProvider,
     selectedServices,
@@ -27,6 +27,9 @@ export default function BookingConfirmation() {
     selectedSlot,
     totalPrice,
   } = useBookingStore();
+
+  // Use slug from params or fallback to selectedProvider.slug
+  const providerSlug = slug || selectedProvider?.slug;
 
   if (!selectedDate || !selectedSlot || selectedServices.length === 0) {
     return (
@@ -39,7 +42,7 @@ export default function BookingConfirmation() {
           Please complete the previous steps first.
         </p>
         <button
-          onClick={() => router.push(`/book/${providerId}`)}
+          onClick={() => router.push(`/book/${providerSlug}/services`)}
           className="mt-6 px-6 py-3 rounded-full bg-slate-900 text-white font-bold"
         >
           Go back to services
@@ -90,7 +93,7 @@ export default function BookingConfirmation() {
                 <div>
                   <h4 className="font-black text-slate-900">{service.name}</h4>
                   <p className="text-sm text-slate-500 font-bold">
-                    {service.duration} mins • {formatCurrency(service.price)}
+                    {service.duration} mins • {formatCurrency(service.price / 100)}
                   </p>
                 </div>
               </div>
@@ -98,7 +101,7 @@ export default function BookingConfirmation() {
             <div className="pt-4 border-t border-slate-50 flex justify-between items-center">
               <span className="font-black text-slate-900">Total</span>
               <span className="font-black text-xl text-slate-900">
-                {formatCurrency(totalPrice)}
+                {formatCurrency(totalPrice / 100)}
               </span>
             </div>
           </div>
