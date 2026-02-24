@@ -146,7 +146,7 @@ function SuccessContent() {
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4">
               Booking ID: {booking.bookingRef}
             </p>
-            <div className="space-y-6">
+              <div className="space-y-6">
               {/* Pro & Location */}
               <div className="flex items-start gap-4">
                 <div className="mt-1 p-2.5 rounded-xl bg-slate-50 text-slate-600">
@@ -154,10 +154,14 @@ function SuccessContent() {
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-900 leading-tight">
-                    {booking.providerProfileId.businessName}
+                    {typeof booking.providerProfileId === "object" 
+                      ? booking.providerProfileId.businessName 
+                      : "Provider"}
                   </h3>
                   <p className="text-sm text-slate-500 mt-1">
-                    {booking.providerProfileId.location?.address}
+                    {typeof booking.providerProfileId === "object" 
+                      ? booking.providerProfileId.location?.address 
+                      : ""}
                   </p>
                 </div>
               </div>
