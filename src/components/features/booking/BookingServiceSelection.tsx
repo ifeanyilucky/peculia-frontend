@@ -96,7 +96,7 @@ export default function BookingServiceSelection({
               className={cn(
                 "group cursor-pointer rounded-xl border p-6 transition-all duration-200 hover:border-slate-300",
                 isSelected
-                  ? "border-indigo-500 bg-indigo-50/10 shadow-sm"
+                  ? "border-rose-600 bg-rose-50/10 shadow-sm"
                   : "border-slate-200 bg-white",
               )}
             >
@@ -135,7 +135,7 @@ export default function BookingServiceSelection({
 
                 <div className="shrink-0 flex items-center justify-center pt-1">
                   {isSelected ? (
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-500 text-white shadow-md">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-rose-600 text-white shadow-md">
                       <Check size={20} strokeWidth={3} />
                     </div>
                   ) : (
