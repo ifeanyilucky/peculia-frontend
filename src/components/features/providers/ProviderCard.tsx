@@ -24,7 +24,7 @@ export default function ProviderCard({
         className,
       )}
     >
-      <Link href={`/providers/${provider._id}`} className="block">
+      <Link href={`/providers/${provider.slug || provider._id}`} className="block">
         {/* Cover Image */}
         <div className="relative h-48 w-full overflow-hidden bg-slate-100">
           <Image

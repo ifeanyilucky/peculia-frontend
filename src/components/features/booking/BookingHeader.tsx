@@ -16,13 +16,16 @@ interface BookingHeaderProps {
 export default function BookingHeader({ currentStep }: BookingHeaderProps) {
   const router = useRouter();
   const params = useParams();
-  const providerId = params?.providerId as string;
-  const { selectedServices, resetBookingFlow } = useBookingStore();
+  const slug = params?.slug as string;
+  const { selectedProvider, selectedServices, resetBookingFlow } = useBookingStore();
   const [showExitModal, setShowExitModal] = useState(false);
+
+  // Use slug from params or from selectedProvider
+  const providerSlug = slug || selectedProvider?.slug;
 
   const getStepPath = (stepIndex: number) => {
     const paths = ["services", "professional", "time", "confirm"];
-    return `/book/${providerId}/${paths[stepIndex]}`;
+    return `/book/${providerSlug}/${paths[stepIndex]}`;
   };
 
   const handleExitAttempt = () => {
@@ -30,7 +33,7 @@ export default function BookingHeader({ currentStep }: BookingHeaderProps) {
       if (selectedServices.length > 0) {
         setShowExitModal(true);
       } else {
-        router.push(`/providers/${providerId}`);
+        router.push(`/providers/${providerSlug}`);
       }
     } else {
       router.push(getStepPath(currentStep - 2));
@@ -39,7 +42,7 @@ export default function BookingHeader({ currentStep }: BookingHeaderProps) {
 
   const handleConfirmExit = () => {
     resetBookingFlow();
-    router.push(`/providers/${providerId}`);
+    router.push(`/providers/${providerSlug}`);
   };
 
   const handleStepClick = (stepIndex: number) => {

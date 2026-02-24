@@ -261,7 +261,7 @@ export default function BookingSummarySidebar({
             } else {
               // Proceed based on current step
               if (currentStep === 3) {
-                router.push(`/book/${providerId}/confirm`);
+                router.push(`/book/${slug}/confirm`);
               } else {
                 submitBooking();
               }
@@ -278,7 +278,7 @@ export default function BookingSummarySidebar({
             setShowPhoneModal(false);
             // Proceed based on current step
             if (currentStep === 3) {
-              router.push(`/book/${providerId}/confirm`);
+              router.push(`/book/${slug}/confirm`);
             } else {
               submitBooking();
             }
