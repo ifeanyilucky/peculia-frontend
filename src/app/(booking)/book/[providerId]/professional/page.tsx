@@ -28,23 +28,21 @@ export default async function ProfessionalSelectionPage({
 }: ProfessionalPageProps) {
   const { providerId } = await params;
 
-  try {
-    const provider = await providerService.getProviderById(providerId);
-    if (!provider) notFound();
+  const provider = await providerService
+    .getProviderById(providerId)
+    .catch(() => null);
+  if (!provider) notFound();
 
-    return (
-      <div className="flex min-h-screen flex-col bg-[#FAFAFA]">
-        <BookingHeader currentStep={2} />
+  return (
+    <div className="flex min-h-screen flex-col bg-[#FAFAFA]">
+      <BookingHeader currentStep={2} />
 
-        <div className="mx-auto w-full max-w-7xl flex-1 px-6 py-12 lg:px-8">
-          <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
-            <BookingProfessionalSelection providerId={providerId} />
-            <BookingSummarySidebar provider={provider} currentStep={2} />
-          </div>
+      <div className="mx-auto w-full max-w-7xl flex-1 px-6 py-12 lg:px-8">
+        <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
+          <BookingProfessionalSelection providerId={providerId} />
+          <BookingSummarySidebar provider={provider} currentStep={2} />
         </div>
       </div>
-    );
-  } catch {
-    notFound();
-  }
+    </div>
+  );
 }
