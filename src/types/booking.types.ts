@@ -14,15 +14,21 @@ export interface Booking {
   bookingRef: string;
   clientId: string | ProviderUser;
   providerProfileId: string | Provider;
-  serviceId: string;
+  services: {
+    serviceId: string;
+    name: string;
+    price: number;
+    duration: number;
+    depositAmount: number;
+  }[];
+  totalDuration: number;
+  servicePrice: number; // Total price
+  depositAmount: number; // Total deposit
   teamMemberId?: string;
   scheduledDate: string;
   startTime: string;
   endTime: string;
   status: BookingStatus;
-  serviceName: string;
-  servicePrice: number;
-  depositAmount: number;
   depositPaid: boolean;
   depositPaidAt?: string;
   fullAmountPaid: boolean;
