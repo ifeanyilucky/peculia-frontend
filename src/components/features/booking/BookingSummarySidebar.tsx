@@ -81,8 +81,6 @@ export default function BookingSummarySidebar({
     } else if (currentStep === 2) {
       router.push(`/book/${providerId}/time`);
     } else if (currentStep === 3) {
-      router.push(`/book/${providerId}/confirm`);
-    } else if (currentStep === 4) {
       if (!selectedSlot) return;
 
       // ── Gate 1: Not authenticated → show auth modal ──
@@ -92,6 +90,21 @@ export default function BookingSummarySidebar({
       }
 
       // ── Gate 2: Authenticated but no phone → capture phone ──
+      if (!user?.phone) {
+        setShowPhoneModal(true);
+        return;
+      }
+
+      // ── Gate 3: All good → go to confirm ──
+      router.push(`/book/${providerId}/confirm`);
+    } else if (currentStep === 4) {
+      if (!selectedSlot) return;
+
+      // Double check gates just in case
+      if (!isAuthenticated) {
+        setShowAuthModal(true);
+        return;
+      }
       if (!user?.phone) {
         setShowPhoneModal(true);
         return;
@@ -235,7 +248,12 @@ export default function BookingSummarySidebar({
             if (!freshUser?.phone) {
               setShowPhoneModal(true);
             } else {
-              submitBooking();
+              // Proceed based on current step
+              if (currentStep === 3) {
+                router.push(`/book/${providerId}/confirm`);
+              } else {
+                submitBooking();
+              }
             }
           }}
           onClose={() => setShowAuthModal(false)}
@@ -247,7 +265,12 @@ export default function BookingSummarySidebar({
         <AddPhoneModal
           onSuccess={() => {
             setShowPhoneModal(false);
-            submitBooking();
+            // Proceed based on current step
+            if (currentStep === 3) {
+              router.push(`/book/${providerId}/confirm`);
+            } else {
+              submitBooking();
+            }
           }}
           onClose={() => setShowPhoneModal(false)}
         />

@@ -8,7 +8,8 @@ import BookingHeader from "@/components/features/booking/BookingHeader";
 import BookingSummarySidebar from "@/components/features/booking/BookingSummarySidebar";
 import BookingConfirmation from "@/components/features/booking/BookingConfirmation";
 import { Loader2 } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/auth.store";
 
 export default function BookingConfirmPage() {
   const params = useParams();
@@ -21,11 +22,21 @@ export default function BookingConfirmPage() {
     enabled: !!providerId,
   });
 
+  const { isAuthenticated, user } = useAuthStore();
+  const router = useRouter();
+
   useEffect(() => {
     if (provider) {
       setSelectedProvider(provider);
     }
   }, [provider, setSelectedProvider]);
+
+  // Safety guard: if not authed or missing phone, kick back to time selection
+  useEffect(() => {
+    if (!isLoading && (!isAuthenticated || !user?.phone)) {
+      router.push(`/book/${providerId}/time`);
+    }
+  }, [isAuthenticated, user, isLoading, providerId, router]);
 
   if (isLoading) {
     return (
