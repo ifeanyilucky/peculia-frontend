@@ -5,6 +5,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useBookingStore } from "@/store/booking.store";
 import { useRouter, useParams } from "next/navigation";
+import { formatCurrency, formatNumber } from "@/utils/formatters";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
@@ -54,7 +55,7 @@ export default function BookingSummarySidebar({
                 <span className="ml-0.5 text-yellow-400">★</span>
               </span>
               <span className="text-slate-300">•</span>
-              <span>({provider.totalReviews.toLocaleString()})</span>
+              <span>({formatNumber(provider.totalReviews)})</span>
             </div>
             <p className="mt-1 text-xs text-slate-500 truncate">
               {provider.location?.address ||
@@ -90,7 +91,7 @@ export default function BookingSummarySidebar({
                       </p>
                     </div>
                     <p className="text-sm font-black text-slate-900 tabular-nums shrink-0 mt-0.5">
-                      £{(service.price / 100).toLocaleString()}
+                      {formatCurrency(service.price / 100)}
                     </p>
                   </div>
                 ))}
@@ -131,9 +132,7 @@ export default function BookingSummarySidebar({
           <div className="flex items-center justify-between font-peculiar text-xl font-black text-slate-900 mb-6">
             <span>Total</span>
             <span>
-              {totalPrice > 0
-                ? `£${(totalPrice / 100).toLocaleString()}`
-                : "free"}
+              {totalPrice > 0 ? `${formatCurrency(totalPrice / 100)}` : "free"}
             </span>
           </div>
 
