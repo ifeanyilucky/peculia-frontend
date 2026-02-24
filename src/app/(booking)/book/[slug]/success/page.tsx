@@ -26,7 +26,7 @@ function SuccessContent() {
   const searchParams = useSearchParams();
   const params = useParams();
   const router = useRouter();
-  const providerId = params?.providerId as string;
+  const slug = params?.slug as string;
   const reference = searchParams?.get("reference");
   const bookingId = searchParams?.get("bookingId");
   const { resetBookingFlow } = useBookingStore();
@@ -100,7 +100,7 @@ function SuccessContent() {
         </h1>
         <p className="text-slate-500 mb-8">{errorMsg}</p>
         <Link
-          href={`/book/${providerId}/confirm`}
+          href={`/book/${slug}/confirm`}
           className="inline-flex items-center justify-center w-full bg-slate-900 text-white rounded-full py-4 font-black hover:bg-slate-800 transition-all"
         >
           Try Again

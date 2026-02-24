@@ -17,15 +17,15 @@ import { paymentService } from "@/services/payment.service";
 interface BookingSummarySidebarProps {
   provider: Provider;
   currentStep: number;
+  slug: string;
 }
 
 export default function BookingSummarySidebar({
   provider,
   currentStep,
+  slug,
 }: BookingSummarySidebarProps) {
   const router = useRouter();
-  const params = useParams();
-  const providerId = params?.providerId as string;
   const { selectedServices, totalPrice, selectedTeamMember, selectedSlot } =
     useBookingStore();
   const { isAuthenticated, user } = useAuthStore();
@@ -70,7 +70,7 @@ export default function BookingSummarySidebar({
         window.location.href = authorizationUrl;
       } else {
         // Otherwise (e.g. personal or free service), just go to success
-        router.push(`/book/${providerId}/success?bookingId=${booking.id}`);
+        router.push(`/book/${slug}/success?bookingId=${booking.id}`);
       }
     } catch (error) {
       console.error("Booking failed:", error);
@@ -82,15 +82,15 @@ export default function BookingSummarySidebar({
     selectedServices,
     selectedTeamMember,
     provider._id,
-    providerId,
+    slug,
     router,
   ]);
 
   const handleContinue = async () => {
     if (currentStep === 1) {
-      router.push(`/book/${providerId}/professional`);
+      router.push(`/book/${slug}/professional`);
     } else if (currentStep === 2) {
-      router.push(`/book/${providerId}/time`);
+      router.push(`/book/${slug}/time`);
     } else if (currentStep === 3) {
       if (!selectedSlot) return;
 
@@ -107,7 +107,7 @@ export default function BookingSummarySidebar({
       }
 
       // ── Gate 3: All good → go to confirm ──
-      router.push(`/book/${providerId}/confirm`);
+      router.push(`/book/${slug}/confirm`);
     } else if (currentStep === 4) {
       if (!selectedSlot) return;
 

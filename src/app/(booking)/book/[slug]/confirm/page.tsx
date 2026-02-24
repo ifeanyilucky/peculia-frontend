@@ -13,13 +13,13 @@ import { useAuthStore } from "@/store/auth.store";
 
 export default function BookingConfirmPage() {
   const params = useParams();
-  const providerId = params?.providerId as string;
+  const slug = params?.slug as string;
   const { setSelectedProvider } = useBookingStore();
 
   const { data: provider, isLoading } = useQuery({
-    queryKey: ["provider", "public", providerId],
-    queryFn: () => providerService.getProviderPublicProfile(providerId),
-    enabled: !!providerId,
+    queryKey: ["provider", "public", slug],
+    queryFn: () => providerService.getProviderPublicProfile(slug),
+    enabled: !!slug,
   });
 
   const { isAuthenticated, user } = useAuthStore();
@@ -34,9 +34,9 @@ export default function BookingConfirmPage() {
   // Safety guard: if not authed or missing phone, kick back to time selection
   useEffect(() => {
     if (!isLoading && (!isAuthenticated || !user?.phone)) {
-      router.push(`/book/${providerId}/time`);
+      router.push(`/book/${slug}/time`);
     }
-  }, [isAuthenticated, user, isLoading, providerId, router]);
+  }, [isAuthenticated, user, isLoading, slug, router]);
 
   if (isLoading) {
     return (
@@ -60,7 +60,7 @@ export default function BookingConfirmPage() {
           {/* Sidebar */}
           <div className="lg:col-span-12">
             {provider && (
-              <BookingSummarySidebar provider={provider} currentStep={4} />
+              <BookingSummarySidebar provider={provider} currentStep={4} slug={slug} />
             )}
           </div>
         </div>
