@@ -20,17 +20,33 @@ export default function BookingHeader({ currentStep }: BookingHeaderProps) {
   const { selectedServices, resetBookingFlow } = useBookingStore();
   const [showExitModal, setShowExitModal] = useState(false);
 
+  const getStepPath = (stepIndex: number) => {
+    const paths = ["services", "professional", "time", "confirm"];
+    return `/book/${providerId}/${paths[stepIndex]}`;
+  };
+
   const handleExitAttempt = () => {
-    if (selectedServices.length > 0) {
-      setShowExitModal(true);
+    if (currentStep === 1) {
+      if (selectedServices.length > 0) {
+        setShowExitModal(true);
+      } else {
+        router.push(`/providers/${providerId}`);
+      }
     } else {
-      router.back();
+      router.push(getStepPath(currentStep - 2));
     }
   };
 
   const handleConfirmExit = () => {
     resetBookingFlow();
     router.push(`/providers/${providerId}`);
+  };
+
+  const handleStepClick = (stepIndex: number) => {
+    const stepNum = stepIndex + 1;
+    if (stepNum < currentStep || (stepNum === 1 && currentStep !== 1)) {
+      router.push(getStepPath(stepIndex));
+    }
   };
 
   return (
@@ -45,27 +61,31 @@ export default function BookingHeader({ currentStep }: BookingHeaderProps) {
             <ArrowLeft size={20} />
           </button>
 
-          {/* Breadcrumb Navigation */}
           <nav className="hidden md:flex items-center gap-2 text-sm font-bold">
             {STEPS.map((step, index) => {
               const stepNum = index + 1;
               const isActive = stepNum === currentStep;
               const isCompleted = stepNum < currentStep;
+              const isClickable = isCompleted || stepNum !== currentStep;
 
               return (
                 <div key={step} className="flex items-center">
-                  <span
+                  <button
+                    onClick={() => handleStepClick(index)}
+                    disabled={!isClickable && !isCompleted}
                     className={cn(
-                      "transition-colors",
+                      "transition-all hover:opacity-80 active:scale-95 disabled:opacity-100 disabled:scale-100",
                       isActive
                         ? "text-slate-900"
                         : isCompleted
                           ? "text-slate-400"
                           : "text-slate-300",
+                      (isCompleted || isActive) && "cursor-pointer",
+                      !isCompleted && !isActive && "cursor-default",
                     )}
                   >
                     {step}
-                  </span>
+                  </button>
                   {index < STEPS.length - 1 && (
                     <span className="mx-3 text-slate-300">›</span>
                   )}

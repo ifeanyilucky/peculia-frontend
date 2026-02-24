@@ -74,8 +74,14 @@ api.interceptors.response.use(
       } catch (refreshError) {
         processQueue(refreshError, null);
         useAuthStore.getState().clearAuth();
+        // Only hard-redirect to login from protected routes.
+        // On public booking pages (/book/*) we let the UI handle the 401
+        // inline (via BookingAuthModal) without breaking the booking flow.
         if (typeof window !== "undefined") {
-          window.location.href = "/login";
+          const isPublicRoute = window.location.pathname.startsWith("/book");
+          if (!isPublicRoute) {
+            window.location.href = "/login";
+          }
         }
         return Promise.reject(refreshError);
       } finally {
