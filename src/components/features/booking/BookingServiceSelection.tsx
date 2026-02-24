@@ -5,6 +5,7 @@ import { useState, useMemo } from "react";
 import { Check, Plus } from "lucide-react";
 import { useBookingStore } from "@/store/booking.store";
 import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/utils/formatters";
 
 interface BookingServiceSelectionProps {
   services: Service[];
@@ -120,7 +121,7 @@ export default function BookingServiceSelection({
 
                   <div className="flex items-center gap-2 pt-2">
                     <p className="text-sm font-black text-slate-900">
-                      £{(service.price / 100).toLocaleString()}
+                      {formatCurrency(service.price / 100)}
                     </p>
                     {service.depositAmount > 0 && (
                       <span className="text-[10px] font-bold text-green-600">
