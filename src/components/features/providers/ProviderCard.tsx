@@ -24,7 +24,10 @@ export default function ProviderCard({
         className,
       )}
     >
-      <Link href={`/providers/${provider.slug || provider._id}`} className="block">
+      <Link
+        href={`/providers/${provider.slug || provider._id}`}
+        className="block"
+      >
         {/* Cover Image */}
         <div className="relative h-48 w-full overflow-hidden bg-slate-100 border-b border-slate-100">
           <Image
@@ -84,7 +87,9 @@ export default function ProviderCard({
           <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
             <div className="text-sm">
               <span className="text-slate-400">Starting from</span>
-              <p className="font-bold text-slate-900">₦5,000</p>
+              <p className="font-bold text-slate-900">
+                ₦{((provider.startingPrice || 500000) / 100).toLocaleString()}
+              </p>
             </div>
             <button className="rounded-full px-4 py-2 text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 transition-all border border-rose-100 uppercase tracking-tighter">
               View Profile

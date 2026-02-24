@@ -1,21 +1,6 @@
 import { Provider } from "@/types/provider.types";
 import { MapPin, Clock, ExternalLink } from "lucide-react";
-
-interface TimeSlot {
-  startTime: string;
-  endTime: string;
-}
-
-interface DaySchedule {
-  isOpen: boolean;
-  slots: TimeSlot[];
-}
-
-interface WeeklySchedule {
-  schedule: {
-    [key: string]: DaySchedule;
-  };
-}
+import { WeeklySchedule, DaySchedule } from "@/utils/time.utils";
 
 interface ProviderLocationProps {
   provider: Provider;
@@ -149,6 +134,11 @@ export default function ProviderLocation({
                   </li>
                 );
               })}
+              {!schedule?.schedule && (
+                <p className="text-center text-sm text-slate-400 py-4 italic">
+                  Complete schedule not available
+                </p>
+              )}
             </ul>
           </div>
 

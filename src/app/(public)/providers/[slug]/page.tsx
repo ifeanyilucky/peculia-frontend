@@ -7,11 +7,12 @@ import ProviderServices from "@/components/features/providers/ProviderServices";
 import ProviderPortfolio from "@/components/features/providers/ProviderPortfolio";
 import ProviderReviewsList from "@/components/features/providers/ProviderReviewsList";
 import { Suspense } from "react";
-import { Loader2, Star, Clock, MapPin, ChevronDown } from "lucide-react";
-import type { Metadata, ResolvingMetadata } from "next";
 import { availabilityService } from "@/services/availability.service";
 import ProviderLocation from "@/components/features/providers/ProviderLocation";
+import { getOpeningStatus } from "@/utils/time.utils";
 import Script from "next/script";
+import { Loader2, Star, Clock, MapPin, ChevronDown } from "lucide-react";
+import type { Metadata, ResolvingMetadata } from "next";
 
 interface ProviderProfilePageProps {
   params: Promise<{ slug: string }>;
@@ -66,6 +67,10 @@ export default async function ProviderProfilePage({
     const name = `${provider.userId.firstName} ${provider.userId.lastName}`;
     const businessName = provider.businessName;
 
+    // Calculate starting price (in kobo, displayed in Naira)
+    const startingPrice =
+      services?.length > 0 ? Math.min(...services.map((s) => s.price)) : 500000; // Default to ₦5,000 if no services (500,000 kobo)
+
     // Structured Data (JSON-LD)
     const jsonLd = {
       "@context": "https://schema.org",
@@ -85,6 +90,8 @@ export default async function ProviderProfilePage({
       },
     };
 
+    const openingStatus = getOpeningStatus(schedule);
+
     return (
       <div className="bg-white pb-24">
         {/* Schema.org Structured Data */}
@@ -95,7 +102,7 @@ export default async function ProviderProfilePage({
         />
 
         {/* Profile Header */}
-        <ProfileHeader provider={provider} />
+        <ProfileHeader provider={provider} schedule={schedule} />
 
         {/* Content Tabs/Grid */}
         <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
@@ -190,9 +197,20 @@ export default async function ProviderProfilePage({
                     <Clock size={20} className="mt-1 text-slate-400" />
                     <div>
                       <p className="font-bold text-slate-900">
-                        <span className="text-rose-600">Closed</span>
+                        <span
+                          className={
+                            openingStatus.isOpen
+                              ? "text-green-600"
+                              : "text-rose-600"
+                          }
+                        >
+                          {openingStatus.isOpen ? "Open" : "Closed"}
+                        </span>
                         <span className="ml-2 font-medium text-slate-500">
-                          — opens on Tuesday at 10:00
+                          {openingStatus.message.replace(
+                            /^(Open|Closed) - /,
+                            "— ",
+                          )}
                         </span>
                         <ChevronDown
                           size={16}
@@ -209,7 +227,18 @@ export default async function ProviderProfilePage({
                         {provider.location?.address ||
                           `${provider.location?.city}, ${provider.location?.state}`}
                       </p>
-                      <button className="mt-1 text-indigo-600 font-bold hover:underline">
+                      <button
+                        onClick={() => {
+                          const address =
+                            provider.location?.address ||
+                            `${provider.location?.city}, ${provider.location?.state}`;
+                          window.open(
+                            `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`,
+                            "_blank",
+                          );
+                        }}
+                        className="mt-1 text-indigo-600 font-bold hover:underline"
+                      >
                         Get directions
                       </button>
                     </div>
@@ -230,11 +259,16 @@ export default async function ProviderProfilePage({
               <p className="text-xs font-medium text-slate-500">
                 Starting price
               </p>
-              <p className="text-xl font-black text-slate-900">₦5,000</p>
+              <p className="text-xl font-black text-slate-900">
+                ₦{(startingPrice / 100).toLocaleString()}
+              </p>
             </div>
-            <button className="flex-1 rounded-full bg-rose-600 py-3 font-bold text-white transition-all active:scale-95">
+            <Link
+              href={`/book/${slug}/services`}
+              className="flex-1 rounded-full bg-rose-600 py-3 font-bold text-white transition-all active:scale-95 text-center"
+            >
               Book Appointment
-            </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -9,22 +9,36 @@ import {
   Heart,
   ChevronRight,
   Clock,
+  ExternalLink,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import PhotoViewer from "@/components/common/PhotoViewer";
 import SaveButton from "./SaveButton";
+import { getOpeningStatus, WeeklySchedule } from "@/utils/time.utils";
 
 import { SPECIALTIES } from "@/constants/specialties";
 
 interface ProfileHeaderProps {
   provider: Provider;
+  schedule?: WeeklySchedule;
 }
 
-export default function ProfileHeader({ provider }: ProfileHeaderProps) {
+export default function ProfileHeader({
+  provider,
+  schedule,
+}: ProfileHeaderProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const openingStatus = useMemo(() => getOpeningStatus(schedule), [schedule]);
+
+  const address =
+    provider.location?.address ||
+    `${provider.location?.city}, ${provider.location?.state}`;
+  const mapQuery = encodeURIComponent(address);
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
   const images = provider.portfolioImages || [];
 
   // Look up the label for the primary specialty
@@ -136,21 +150,32 @@ export default function ProfileHeader({ provider }: ProfileHeaderProps) {
 
               <div className="flex items-center gap-2">
                 <span className="h-1 w-1 rounded-full bg-slate-300" />
-                <span className="text-rose-600">Closed</span>
+                <span
+                  className={
+                    openingStatus.isOpen ? "text-green-600" : "text-rose-600"
+                  }
+                >
+                  {openingStatus.isOpen ? "Open" : "Closed"}
+                </span>
                 <span className="text-slate-500 font-medium">
-                  — opens on Tuesday at 10:00
+                  {openingStatus.message.replace(/^(Open|Closed) - /, "— ")}
                 </span>
               </div>
 
               <div className="flex items-center gap-2">
                 <span className="h-1 w-1 rounded-full bg-slate-300" />
-                <span className="text-slate-500 font-medium">
-                  {provider.location?.address ||
-                    `${city}, ${provider.location?.state}`}
+                <span className="text-slate-500 font-medium truncate max-w-[200px] sm:max-w-none">
+                  {address}
                 </span>
-                <button className="text-indigo-600 hover:underline">
+                <a
+                  href={mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 hover:underline flex items-center gap-1"
+                >
                   Get directions
-                </button>
+                  <ExternalLink size={12} />
+                </a>
               </div>
             </div>
           </div>

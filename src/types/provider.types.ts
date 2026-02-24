@@ -37,6 +37,7 @@ export interface Provider {
   totalReviews: number;
   totalBookings: number;
   subscriptionTier: "free" | "premium";
+  startingPrice?: number; // in kobo
   createdAt: string;
   updatedAt: string;
 }
