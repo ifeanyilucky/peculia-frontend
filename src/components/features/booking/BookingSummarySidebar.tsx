@@ -12,6 +12,7 @@ import { format } from "date-fns";
 import { Loader2, User as UserIcon } from "lucide-react";
 import BookingAuthModal from "@/components/features/booking/BookingAuthModal";
 import AddPhoneModal from "@/components/features/booking/AddPhoneModal";
+import { paymentService } from "@/services/payment.service";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
@@ -60,7 +61,17 @@ export default function BookingSummarySidebar({
         startTime: selectedSlot.startTime,
         endTime: selectedSlot.endTime,
       });
-      router.push(`/book/${providerId}/success?bookingId=${booking.id}`);
+
+      // If booking is pending payment, initialize Paystack
+      if (booking.status === "pending_payment") {
+        const { authorizationUrl } = await paymentService.initializePayment(
+          booking.id,
+        );
+        window.location.href = authorizationUrl;
+      } else {
+        // Otherwise (e.g. personal or free service), just go to success
+        router.push(`/book/${providerId}/success?bookingId=${booking.id}`);
+      }
     } catch (error) {
       console.error("Booking failed:", error);
     } finally {
