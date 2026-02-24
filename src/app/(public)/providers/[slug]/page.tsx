@@ -135,7 +135,7 @@ export default async function ProviderProfilePage({
 
             {/* Right Column: Sticky Sidebar (Desktop) */}
             <aside className="w-full space-y-8 lg:w-96 lg:shrink-0 lg:sticky lg:top-24">
-              <div className="rounded-[32px] border border-slate-100 bg-white p-8 shadow-2xl shadow-slate-200/50">
+              <div className="rounded-2xl border border-slate-200 bg-white p-8">
                 <h2 className="font-peculiar text-3xl font-black text-slate-900">
                   {provider.businessName}
                 </h2>
@@ -166,13 +166,13 @@ export default async function ProviderProfilePage({
                   </span>
                 </div>
 
-                <div className="mt-4 inline-flex rounded-lg bg-green-50 px-3 py-1 text-xs font-bold text-green-600">
+                <div className="mt-4 inline-flex rounded-lg bg-green-50 px-3 py-1 text-xs font-bold text-green-600 border border-green-100">
                   Deals
                 </div>
 
                 <Link
                   href={`/book/${slug}/services`}
-                  className="mt-8 flex justify-center w-full rounded-2xl bg-slate-900 py-4 text-lg font-black text-white shadow-xl shadow-slate-900/20 transition-all hover:bg-slate-800 active:scale-95"
+                  className="mt-8 flex justify-center w-full rounded-full bg-slate-900 py-4 text-lg font-black text-white transition-all hover:bg-slate-800 active:scale-95"
                 >
                   Book now
                 </Link>
@@ -216,7 +216,7 @@ export default async function ProviderProfilePage({
         </div>
 
         {/* Mobile Sticky CTA */}
-        <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-100 bg-white/80 p-4 backdrop-blur-lg md:hidden">
+        <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white/80 p-4 backdrop-blur-lg md:hidden">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
             <div>
               <p className="text-xs font-medium text-slate-500">
@@ -224,7 +224,7 @@ export default async function ProviderProfilePage({
               </p>
               <p className="text-xl font-black text-slate-900">₦5,000</p>
             </div>
-            <button className="flex-1 rounded-full bg-rose-600 py-3 font-bold text-white shadow-lg shadow-rose-200 transition-all active:scale-95">
+            <button className="flex-1 rounded-full bg-rose-600 py-3 font-bold text-white transition-all active:scale-95">
               Book Appointment
             </button>
           </div>

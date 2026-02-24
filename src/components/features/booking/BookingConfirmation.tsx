@@ -59,9 +59,9 @@ export default function BookingConfirmation() {
 
       <div className="space-y-6">
         {/* Date and Time Card */}
-        <div className="bg-white rounded-3xl border border-slate-100 p-6 shadow-sm">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6">
           <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-2xl bg-rose-50 flex items-center justify-center text-rose-600">
+            <div className="h-12 w-12 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600">
               <CalendarDays size={24} />
             </div>
             <div>
@@ -80,7 +80,7 @@ export default function BookingConfirmation() {
         </div>
 
         {/* Selected Services */}
-        <div className="bg-white rounded-3xl border border-slate-100 p-6 shadow-sm">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6">
           <p className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">
             Selected Services
           </p>
@@ -98,7 +98,7 @@ export default function BookingConfirmation() {
                 </div>
               </div>
             ))}
-            <div className="pt-4 border-t border-slate-50 flex justify-between items-center">
+            <div className="pt-4 border-t border-slate-100 flex justify-between items-center">
               <span className="font-black text-slate-900">Total</span>
               <span className="font-black text-xl text-slate-900">
                 {formatCurrency(totalPrice / 100)}
@@ -108,12 +108,12 @@ export default function BookingConfirmation() {
         </div>
 
         {/* Professional */}
-        <div className="bg-white rounded-3xl border border-slate-100 p-6 shadow-sm">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6">
           <p className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">
             Professional
           </p>
           <div className="flex items-center gap-4">
-            <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-slate-100">
+            <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-slate-100 border border-slate-200">
               {selectedTeamMember?.avatar || selectedProvider?.userId.avatar ? (
                 <Image
                   src={
@@ -149,9 +149,9 @@ export default function BookingConfirmation() {
 
         {/* Location (Simplified) */}
         {selectedProvider?.location?.address && (
-          <div className="bg-white rounded-3xl border border-slate-100 p-6 shadow-sm">
+          <div className="bg-white rounded-2xl border border-slate-200 p-6">
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
+              <div className="h-12 w-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
                 <MapPin size={24} />
               </div>
               <div>
@@ -170,7 +170,7 @@ export default function BookingConfirmation() {
         )}
 
         {/* Cancellation Policy */}
-        <div className="bg-slate-900 rounded-3xl p-6 text-white shadow-xl shadow-slate-900/10">
+        <div className="bg-slate-900 rounded-2xl p-6 text-white">
           <div className="flex items-start gap-4">
             <div className="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
               <ShieldCheck size={20} className="text-rose-400" />

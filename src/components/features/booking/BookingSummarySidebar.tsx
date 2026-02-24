@@ -130,10 +130,10 @@ export default function BookingSummarySidebar({
 
   return (
     <aside className="w-full lg:w-[400px] lg:shrink-0 h-fit lg:sticky lg:top-28">
-      <div className="rounded-4xl border border-slate-100 bg-white shadow-xl shadow-slate-200/50 flex flex-col min-h-[500px]">
+      <div className="rounded-2xl border border-slate-200 bg-white flex flex-col min-h-[500px]">
         {/* Provider Profile Info */}
-        <div className="p-6 flex items-start gap-4 border-b border-slate-100">
-          <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-slate-100">
+        <div className="p-6 flex items-start gap-4 border-b border-slate-200">
+          <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-slate-200">
             <Image
               src={provider.userId.avatar || "/images/placeholder-avatar.png"}
               alt={provider.businessName}
@@ -194,12 +194,12 @@ export default function BookingSummarySidebar({
               </div>
 
               {selectedTeamMember && (
-                <div className="mt-6 pt-6 border-t border-slate-50">
+                <div className="mt-6 pt-6 border-t border-slate-100">
                   <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
                     Chosen Professional
                   </p>
                   <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center overflow-hidden">
+                    <div className="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center overflow-hidden border border-slate-200">
                       {selectedTeamMember.avatar ? (
                         <Image
                           src={selectedTeamMember.avatar}
@@ -224,7 +224,7 @@ export default function BookingSummarySidebar({
         </div>
 
         {/* Total & Action Button */}
-        <div className="p-6 border-t border-slate-100 bg-slate-50/50 rounded-b-4xl">
+        <div className="p-6 border-t border-slate-200 bg-slate-50/50 rounded-b-2xl">
           <div className="flex items-center justify-between font-peculiar text-xl font-black text-slate-900 mb-6">
             <span>Total</span>
             <span>
@@ -235,7 +235,7 @@ export default function BookingSummarySidebar({
           <button
             onClick={handleContinue}
             disabled={!isStepComplete() || isBooking}
-            className="w-full rounded-full bg-slate-900 py-4 text-sm font-black text-white transition-all hover:bg-slate-800 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-slate-900/10 flex items-center justify-center gap-2"
+            className="w-full rounded-full bg-slate-900 py-4 text-sm font-black text-white transition-all hover:bg-slate-800 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {isBooking ? (
               <>

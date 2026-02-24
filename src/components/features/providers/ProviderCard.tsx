@@ -18,15 +18,15 @@ export default function ProviderCard({
 }: ProviderCardProps) {
   return (
     <motion.div
-      whileHover={{ y: -5 }}
+      whileHover={{ y: -2 }}
       className={cn(
-        "group h-full overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all hover:shadow-xl hover:shadow-rose-100",
+        "group h-full overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all hover:border-slate-300",
         className,
       )}
     >
       <Link href={`/providers/${provider.slug || provider._id}`} className="block">
         {/* Cover Image */}
-        <div className="relative h-48 w-full overflow-hidden bg-slate-100">
+        <div className="relative h-48 w-full overflow-hidden bg-slate-100 border-b border-slate-100">
           <Image
             src={
               provider.portfolioImages?.[0]?.url ||
@@ -34,10 +34,10 @@ export default function ProviderCard({
             }
             alt={provider.businessName}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
           {provider.isVerified && (
-            <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-[10px] font-bold text-rose-600 backdrop-blur-sm">
+            <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-[10px] font-bold text-rose-600 backdrop-blur-sm border border-slate-100">
               <CheckCircle2 size={12} />
               VERIFIED
             </div>
@@ -74,19 +74,19 @@ export default function ProviderCard({
             {provider.specialties.slice(0, 3).map((spec) => (
               <span
                 key={spec}
-                className="rounded-md bg-slate-50 px-2 py-1 text-[10px] font-medium text-slate-600"
+                className="rounded-md bg-slate-50 px-2 py-1 text-[10px] font-medium text-slate-600 border border-slate-100"
               >
                 {spec.replace("_", " ")}
               </span>
             ))}
           </div>
 
-          <div className="mt-6 flex items-center justify-between border-t border-slate-50 pt-4">
+          <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
             <div className="text-sm">
               <span className="text-slate-400">Starting from</span>
               <p className="font-bold text-slate-900">₦5,000</p>
             </div>
-            <button className="rounded-lg bg-rose-50 px-4 py-2 text-xs font-bold text-rose-600 transition-all group-hover:bg-rose-600 group-hover:text-white uppercase tracking-tighter">
+            <button className="rounded-full px-4 py-2 text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 transition-all border border-rose-100 uppercase tracking-tighter">
               View Profile
             </button>
           </div>

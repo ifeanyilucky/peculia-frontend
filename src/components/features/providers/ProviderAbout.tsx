@@ -19,8 +19,8 @@ export default function ProviderAbout({ provider }: ProviderAboutProps) {
       </section>
 
       <section className="grid gap-6 sm:grid-cols-2">
-        <div className="flex items-start gap-4 rounded-3xl border border-slate-100 p-6 bg-slate-50/50">
-          <div className="rounded-2xl bg-white p-3 shadow-sm text-rose-500">
+        <div className="flex items-start gap-4 rounded-2xl border border-slate-200 p-6 bg-slate-50/50">
+          <div className="rounded-xl bg-white p-3 text-rose-500 border border-slate-200">
             <Briefcase size={24} />
           </div>
           <div>
@@ -33,8 +33,8 @@ export default function ProviderAbout({ provider }: ProviderAboutProps) {
           </div>
         </div>
 
-        <div className="flex items-start gap-4 rounded-3xl border border-slate-100 p-6 bg-slate-50/50">
-          <div className="rounded-2xl bg-white p-3 shadow-sm text-rose-500">
+        <div className="flex items-start gap-4 rounded-2xl border border-slate-200 p-6 bg-slate-50/50">
+          <div className="rounded-xl bg-white p-3 text-rose-500 border border-slate-200">
             <Award size={24} />
           </div>
           <div>
@@ -56,7 +56,7 @@ export default function ProviderAbout({ provider }: ProviderAboutProps) {
           {provider.specialties.map((spec) => (
             <div
               key={spec}
-              className="flex items-center gap-2 rounded-2xl bg-white border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700"
+              className="flex items-center gap-2 rounded-full bg-white border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700"
             >
               <GraduationCap size={16} className="text-rose-500" />
               {spec.replace("_", " ")}
