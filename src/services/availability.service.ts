@@ -7,11 +7,13 @@ export const availabilityService = {
     providerProfileId: string,
     serviceId: string,
     date: string,
+    teamMemberId?: string,
+    totalDuration?: number,
   ) => {
     const response = await api.get<ApiSuccess<TimeSlot[]>>(
       `/availability/slots/${providerProfileId}`,
       {
-        params: { serviceId, date },
+        params: { serviceId, date, teamMemberId, totalDuration },
       },
     );
     return response.data.data;

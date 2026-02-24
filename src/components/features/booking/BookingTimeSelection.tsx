@@ -43,34 +43,29 @@ export default function BookingTimeSelection({
     setSelectedSlot,
   } = useBookingStore();
 
-  // Week window state — anchored to Monday of the current week or today's week
-  const [weekStart, setWeekStart] = useState<Date>(
-    startOfWeek(selectedDate ?? today, { weekStartsOn: 1 }),
+  const totalDuration = selectedServices.reduce(
+    (acc, service) => acc + service.duration,
+    0,
   );
-
-  const weekDays = useMemo(
-    () => Array.from({ length: 7 }, (_, i) => addDays(weekStart, i)),
-    [weekStart],
-  );
-
-  // The first selected service drives the slot query
-  const firstService = selectedServices[0];
 
   const { data: slots, isLoading: isLoadingSlots } = useQuery({
     queryKey: [
+      "availability",
       "slots",
       providerId,
-      firstService?.id,
-      selectedDate?.toISOString(),
+      selectedDate ? format(selectedDate, "yyyy-MM-dd") : null,
       selectedTeamMember?._id,
+      totalDuration,
     ],
     queryFn: () =>
       availabilityService.getAvailableSlots(
         providerId,
-        firstService?.id ?? "",
-        selectedDate!.toISOString(),
+        selectedServices[0]?.id || "",
+        selectedDate ? format(selectedDate, "yyyy-MM-dd") : "",
+        selectedTeamMember?._id,
+        totalDuration,
       ),
-    enabled: !!selectedDate && !!firstService?.id,
+    enabled: !!providerId && selectedServices.length > 0 && !!selectedDate,
   });
 
   const professionalLabel = selectedTeamMember
