@@ -3,18 +3,14 @@
 import { Booking } from "@/types/booking.types";
 import { format } from "date-fns";
 import {
-  CalendarDays,
   Clock,
-  MapPin,
   CheckCircle2,
   XCircle,
   AlertCircle,
-  ExternalLink,
   ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { ROUTES } from "@/constants/routes";
 
 interface ClientBookingCardProps {
   booking: Booking;
@@ -76,9 +72,9 @@ export default function ClientBookingCard({ booking }: ClientBookingCardProps) {
 
       {/* Provider & Service Info */}
       <div className="flex gap-6 flex-1 min-w-0">
-        <div className="h-16 w-16 lg:h-20 lg:w-20 rounded-[1.5rem] bg-slate-100 overflow-hidden relative border border-slate-50 shrink-0">
+        <div className="h-16 w-16 lg:h-20 lg:w-20 rounded-3xl bg-slate-100 overflow-hidden relative border border-slate-50 shrink-0">
           <div className="flex h-full w-full items-center justify-center bg-rose-50 text-rose-600 font-bold text-2xl">
-            {booking.serviceName[0]}
+            {booking.services[0]?.name[0]}
           </div>
         </div>
 
@@ -100,11 +96,20 @@ export default function ClientBookingCard({ booking }: ClientBookingCardProps) {
             )}
           </div>
           <h3 className="font-peculiar text-xl lg:text-2xl font-black text-slate-900 group-hover:text-rose-600 transition-colors truncate">
-            {booking.serviceName}
+            {booking.services[0]?.name}
+            {booking.services.length > 1 && (
+              <span className="ml-2 text-slate-400 text-sm font-bold">
+                + {booking.services.length - 1} more
+              </span>
+            )}
           </h3>
           <p className="text-slate-500 font-medium truncate mt-1 underline-offset-4 hover:underline decoration-rose-500 decoration-2 transition-all">
             with{" "}
-            <span className="font-bold text-slate-900">Provider Name...</span>
+            <span className="font-bold text-slate-900">
+              {typeof booking.providerProfileId === "object"
+                ? (booking.providerProfileId as any).businessName
+                : "Professional"}
+            </span>
           </p>
         </div>
       </div>

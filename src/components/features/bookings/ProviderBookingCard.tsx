@@ -72,7 +72,9 @@ export default function ProviderBookingCard({
             <div className="flex items-center gap-2 mt-1">
               <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1">
                 <Scissors size={12} />
-                {booking.serviceName}
+                {booking.services[0]?.name}
+                {booking.services.length > 1 &&
+                  ` + ${booking.services.length - 1} more`}
               </span>
             </div>
           </div>

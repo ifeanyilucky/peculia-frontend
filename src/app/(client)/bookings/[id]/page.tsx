@@ -16,6 +16,7 @@ import {
   AlertCircle,
   ChevronRight,
   MessageSquare,
+  Scissors,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -59,8 +60,8 @@ export default function BookingDetailPage() {
           Booking not found
         </h2>
         <p className="mt-4 text-slate-500 max-w-sm">
-          We couldn't retrieve the details for this booking. It might have been
-          deleted or the link is invalid.
+          We couldn&apos;t retrieve the details for this booking. It might have
+          been deleted or the link is invalid.
         </p>
         <button
           onClick={() => router.back()}
@@ -125,7 +126,12 @@ export default function BookingDetailPage() {
                 Reference: {booking.bookingRef}
               </span>
               <h1 className="font-peculiar text-4xl font-black text-slate-900">
-                {booking.serviceName}
+                {booking.services[0]?.name}
+                {booking.services.length > 1 && (
+                  <span className="ml-3 text-slate-400 text-xl font-bold">
+                    + {booking.services.length - 1} more
+                  </span>
+                )}
               </h1>
             </div>
 
@@ -242,6 +248,28 @@ export default function BookingDetailPage() {
 
               <div className="space-y-6">
                 <div className="bg-slate-50 rounded-3xl p-6 border border-slate-100">
+                  <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
+                    <Scissors size={14} />
+                    Services Included
+                  </div>
+                  <div className="space-y-3">
+                    {booking.services.map((service: any) => (
+                      <div
+                        key={service.serviceId}
+                        className="flex justify-between items-center group/service"
+                      >
+                        <p className="text-sm font-bold text-slate-900">
+                          {service.name}
+                        </p>
+                        <p className="text-xs font-medium text-slate-500">
+                          ₦{(service.price / 100).toLocaleString()}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-slate-50/50 rounded-3xl p-6 border border-slate-100">
                   <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
                     <FileText size={14} />
                     My Notes

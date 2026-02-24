@@ -32,8 +32,11 @@ export default function ClientDashboardPage() {
   const [showWelcome, setShowWelcome] = useState(false);
 
   useEffect(() => {
+    // Only show if not explicitly hidden
     const hidden = localStorage.getItem("peculia_welcome_hidden");
-    if (!hidden) setShowWelcome(true);
+    if (!hidden) {
+      setShowWelcome(true);
+    }
   }, []);
 
   const hideWelcome = () => {
@@ -193,8 +196,10 @@ export default function ClientDashboardPage() {
                           : "Booking Created"}
                     </p>
                     <p className="text-[11px] font-medium text-slate-400">
-                      {item.serviceName} •{" "}
-                      {format(new Date(item.updatedAt), "MMM d, h:mm a")}
+                      {item.services[0]?.name}
+                      {item.services.length > 1 &&
+                        ` + ${item.services.length - 1} more`}{" "}
+                      • {format(new Date(item.updatedAt), "MMM d, h:mm a")}
                     </p>
                   </div>
                 </div>

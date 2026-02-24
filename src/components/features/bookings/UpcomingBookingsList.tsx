@@ -7,7 +7,7 @@ import { format, isToday, isTomorrow } from "date-fns";
 import {
   Clock,
   User,
-  Scissors,
+  User,
   CheckCircle2,
   XCircle,
   Loader2,
@@ -86,7 +86,7 @@ export default function UpcomingBookingsList() {
         ) : (
           <div className="space-y-8 relative">
             {/* Timeline Line */}
-            <div className="absolute left-[1.125rem] top-2 bottom-2 w-0.5 bg-slate-50" />
+            <div className="absolute left-4.5 top-2 bottom-2 w-0.5 bg-slate-50" />
 
             {results.map((booking: any) => {
               const date = new Date(booking.scheduledDate);
@@ -126,7 +126,9 @@ export default function UpcomingBookingsList() {
                         </span>
                         <div className="h-1 w-1 rounded-full bg-slate-200" />
                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                          {booking.serviceName}
+                          {booking.services[0]?.name}
+                          {booking.services.length > 1 &&
+                            ` + ${booking.services.length - 1} more`}
                         </span>
                       </div>
 

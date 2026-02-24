@@ -4,9 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { bookingService } from "@/services/booking.service";
 import { CalendarDays, Clock, ChevronRight, Loader2 } from "lucide-react";
 import { format } from "date-fns";
-import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { Booking } from "@/types/booking.types";
 
 export default function UpcomingAppointments() {
@@ -65,13 +63,18 @@ export default function UpcomingAppointments() {
               <div className="h-16 w-16 rounded-2xl bg-slate-100 overflow-hidden relative border border-slate-50 shrink-0">
                 {/* Fallback avatar logic */}
                 <div className="flex h-full w-full items-center justify-center bg-rose-50 text-rose-600 font-bold text-xl">
-                  {booking.serviceName[0]}
+                  {booking.services[0]?.name[0]}
                 </div>
               </div>
 
               <div className="flex-1 min-w-0">
                 <h4 className="font-bold text-slate-900 truncate group-hover:text-rose-600 transition-colors">
-                  {booking.serviceName}
+                  {booking.services[0]?.name}
+                  {booking.services.length > 1 && (
+                    <span className="ml-2 text-slate-400 font-bold">
+                      + {booking.services.length - 1}
+                    </span>
+                  )}
                 </h4>
                 <p className="text-sm text-slate-500 truncate mt-0.5">
                   with{" "}
