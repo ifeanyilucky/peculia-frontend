@@ -86,7 +86,7 @@ export default function BookingTimeSelection({
       {/* Controls row */}
       <div className="flex items-center justify-between mb-6">
         {/* Professional pill */}
-        <div className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-200 bg-white shadow-sm cursor-default select-none">
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-200 bg-white cursor-default select-none">
           {selectedTeamMember ? (
             <User size={16} className="text-slate-500 shrink-0" />
           ) : (

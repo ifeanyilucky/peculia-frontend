@@ -1,8 +1,7 @@
 "use client";
 
-import { Service, Provider } from "@/types/provider.types";
+import { Provider } from "@/types/provider.types";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { useBookingStore } from "@/store/booking.store";
 import { useRouter, useParams } from "next/navigation";
 import { formatCurrency, formatNumber } from "@/utils/formatters";
@@ -19,8 +18,15 @@ export default function BookingSummarySidebar({
   const router = useRouter();
   const params = useParams();
   const providerId = params?.providerId as string;
-  const { selectedServices, totalPrice, totalDuration, selectedTeamMember } =
+  const { selectedServices, totalPrice, selectedTeamMember, selectedSlot } =
     useBookingStore();
+
+  const isStepComplete = () => {
+    if (currentStep === 1) return selectedServices.length > 0;
+    if (currentStep === 2) return selectedServices.length > 0; // professional is optional
+    if (currentStep === 3) return !!selectedSlot;
+    return false;
+  };
 
   const handleContinue = () => {
     if (currentStep === 1) {
@@ -138,7 +144,7 @@ export default function BookingSummarySidebar({
 
           <button
             onClick={handleContinue}
-            disabled={selectedServices.length === 0}
+            disabled={!isStepComplete()}
             className="w-full rounded-full bg-slate-900 py-4 text-sm font-black text-white transition-all hover:bg-slate-800 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-slate-900/10"
           >
             Continue
