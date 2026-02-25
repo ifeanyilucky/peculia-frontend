@@ -10,6 +10,7 @@ import BookingConfirmation from "@/components/features/booking/BookingConfirmati
 import { Loader2, Clock } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
+import { useBookingGuard } from "@/hooks/useBookingGuard";
 
 const TIMEOUT_MINUTES = 10;
 

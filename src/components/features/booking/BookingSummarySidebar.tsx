@@ -71,7 +71,7 @@ export default function BookingSummarySidebar({
     reference: string;
     bookingId: string;
   } | null>(null);
-  const initializedRef = useRef(false);
+  const lastInitializedRef = useRef<string | null>(null);
 
   const initializePayment = usePaystackPayment({
     email: user?.email || "",
@@ -87,21 +87,22 @@ export default function BookingSummarySidebar({
         );
       }
       setPaymentData(null);
-      initializedRef.current = false;
+      lastInitializedRef.current = null;
     },
     [paymentData, router, slug],
   );
 
   const handlePaymentClose = useCallback(() => {
     setPaymentData(null);
-    initializedRef.current = false;
+    lastInitializedRef.current = null;
   }, []);
 
   useEffect(() => {
-    if (paymentData && !initializedRef.current) {
-      initializedRef.current = true;
+    if (paymentData && lastInitializedRef.current !== paymentData.reference) {
+      lastInitializedRef.current = paymentData.reference;
 
       const timer = setTimeout(() => {
+        // @ts-ignore - react-paystack types are sometimes out of sync with their dynamic config support
         initializePayment({
           onSuccess: handlePaymentSuccess,
           onClose: handlePaymentClose,
@@ -109,7 +110,7 @@ export default function BookingSummarySidebar({
             reference: paymentData.reference,
             accessCode: paymentData.accessCode,
           },
-        } as any);
+        });
       }, 100);
 
       return () => clearTimeout(timer);
