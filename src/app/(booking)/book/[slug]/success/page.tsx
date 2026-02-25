@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
-import { useSearchParams, useParams, useRouter } from "next/navigation";
+import { useEffect, useState, Suspense, useRef } from "react";
+import { useSearchParams, useParams } from "next/navigation";
 import {
   CheckCircle,
   Calendar,
@@ -19,13 +19,21 @@ import { formatCurrency } from "@/utils/formatters";
 import { format } from "date-fns";
 import confetti from "canvas-confetti";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { AxiosError } from "axios";
+
+const triggerConfetti = () => {
+  confetti({
+    particleCount: 150,
+    spread: 70,
+    origin: { y: 0.6 },
+    colors: ["#E11D48", "#FB7185", "#F43F5E"],
+  });
+};
 
 function SuccessContent() {
   const searchParams = useSearchParams();
   const params = useParams();
-  const router = useRouter();
   const slug = params?.slug as string;
   const reference = searchParams?.get("reference");
   const bookingId = searchParams?.get("bookingId");
@@ -35,9 +43,15 @@ function SuccessContent() {
     "verifying" | "success" | "error"
   >("verifying");
   const [errorMsg, setErrorMsg] = useState("");
+  const hasTriggeredRes = useRef(false);
 
   // 1. Verify Payment if reference exists
-  const { data: paymentResult, isLoading: isVerifying } = useQuery({
+  const {
+    data: paymentResult,
+    isLoading: isVerifying,
+    isError: isVerifyError,
+    error: verifyError,
+  } = useQuery({
     queryKey: ["payment-verify", reference],
     queryFn: () => paymentService.verifyPayment(reference!),
     enabled: !!reference,
@@ -53,32 +67,45 @@ function SuccessContent() {
   });
 
   useEffect(() => {
+    if (hasTriggeredRes.current) return;
+
     if (reference) {
-      if (paymentResult?.status === "success") {
+      if (isVerifyError) {
+        setVerificationStatus("error");
+        const errorData = (verifyError as AxiosError<{ message: string }>)
+          ?.response?.data;
+        setErrorMsg(
+          errorData?.message ||
+            "We couldn't verify your payment. Please contact support if you were charged.",
+        );
+        hasTriggeredRes.current = true;
+      } else if (paymentResult?.status === "success") {
         setVerificationStatus("success");
         triggerConfetti();
         resetBookingFlow();
+        hasTriggeredRes.current = true;
       } else if (paymentResult?.status === "failed") {
         setVerificationStatus("error");
         setErrorMsg(
           "Your payment was not successful. Please try again or contact support.",
         );
+        hasTriggeredRes.current = true;
       }
     } else if (bookingId && booking) {
       setVerificationStatus("success");
       triggerConfetti();
       resetBookingFlow();
+      hasTriggeredRes.current = true;
     }
-  }, [reference, paymentResult, bookingId, booking, resetBookingFlow]);
-
-  const triggerConfetti = () => {
-    confetti({
-      particleCount: 150,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ["#E11D48", "#FB7185", "#F43F5E"],
-    });
-  };
+  }, [
+    reference,
+    paymentResult,
+    isVerifyError,
+    verifyError,
+    bookingId,
+    booking,
+    resetBookingFlow,
+  ]);
 
   if (isVerifying || isLoadingBooking) {
     return (
@@ -129,7 +156,7 @@ function SuccessContent() {
           Appointment Confirmed!
         </h1>
         <p className="text-slate-500 font-medium max-w-sm mx-auto">
-          We've sent a confirmation email to your inbox. You can also view
+          We&apos;ve sent a confirmation email to your inbox. You can also view
           details in your dashboard.
         </p>
       </motion.div>
@@ -146,7 +173,7 @@ function SuccessContent() {
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4">
               Booking ID: {booking.bookingRef}
             </p>
-              <div className="space-y-6">
+            <div className="space-y-6">
               {/* Pro & Location */}
               <div className="flex items-start gap-4">
                 <div className="mt-1 p-2.5 rounded-xl bg-slate-50 text-slate-600">
@@ -154,13 +181,13 @@ function SuccessContent() {
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-900 leading-tight">
-                    {typeof booking.providerProfileId === "object" 
-                      ? booking.providerProfileId.businessName 
+                    {typeof booking.providerProfileId === "object"
+                      ? (booking.providerProfileId as any).businessName
                       : "Provider"}
                   </h3>
                   <p className="text-sm text-slate-500 mt-1">
-                    {typeof booking.providerProfileId === "object" 
-                      ? booking.providerProfileId.location?.address 
+                    {typeof booking.providerProfileId === "object"
+                      ? (booking.providerProfileId as any).location?.address
                       : ""}
                   </p>
                 </div>
@@ -175,7 +202,9 @@ function SuccessContent() {
                       Date
                     </p>
                     <p className="text-sm font-bold text-slate-900">
-                      {format(new Date(booking.scheduledDate), "EEE, MMM d")}
+                      {booking.scheduledDate
+                        ? format(new Date(booking.scheduledDate), "EEE, MMM d")
+                        : "N/A"}
                     </p>
                   </div>
                 </div>
@@ -197,19 +226,21 @@ function SuccessContent() {
                 <p className="text-[10px] font-black text-slate-400 uppercase">
                   Services
                 </p>
-                {booking.services.map((s: any) => (
-                  <div
-                    key={s._id}
-                    className="flex justify-between items-center"
-                  >
-                    <span className="text-sm font-medium text-slate-600">
-                      {s.name}
-                    </span>
-                    <span className="text-sm font-bold text-slate-900">
-                      {formatCurrency(s.price / 100)}
-                    </span>
-                  </div>
-                ))}
+                {booking.services.map(
+                  (s: { _id: string; name: string; price: number }) => (
+                    <div
+                      key={s._id}
+                      className="flex justify-between items-center"
+                    >
+                      <span className="text-sm font-medium text-slate-600">
+                        {s.name}
+                      </span>
+                      <span className="text-sm font-bold text-slate-900">
+                        {formatCurrency(s.price / 100)}
+                      </span>
+                    </div>
+                  ),
+                )}
               </div>
             </div>
           </div>
@@ -219,7 +250,7 @@ function SuccessContent() {
               Total Paid
             </span>
             <span className="text-xl font-black text-rose-600">
-              {formatCurrency(booking.servicePrice / 100)}
+              {formatCurrency((booking.servicePrice || 0) / 100)}
             </span>
           </div>
         </motion.div>
