@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { clientService } from "@/services/client.service";
+import { useAuthStore } from "@/store/auth.store";
 import { Trash2 } from "lucide-react";
 import { sileo } from "sileo";
 
 export function DangerZoneTab() {
+  const router = useRouter();
+  const clearAuth = useAuthStore((state) => state.clearAuth);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState("");
 
@@ -20,7 +24,12 @@ export function DangerZoneTab() {
     setIsDeleting(true);
     try {
       await clientService.deleteAccount("DELETE");
-      // Handle logout/redirect is typically done via store clear and router.push
+      clearAuth();
+      sileo.success({
+        title: "Account Deleted",
+        description: "Your account has been permanently deleted.",
+      });
+      router.push("/");
     } catch {
       sileo.error({
         title: "Action Failed",

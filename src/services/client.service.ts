@@ -34,7 +34,7 @@ export const clientService = {
 
   deleteAccount: async (confirmation: string) => {
     if (confirmation !== "DELETE") throw new Error("Invalid confirmation");
-    const response = await api.delete<ApiSuccess<any>>("/clients/profile");
+    const response = await api.delete<ApiSuccess<any>>("/users/me");
     return response.data;
   },
 
