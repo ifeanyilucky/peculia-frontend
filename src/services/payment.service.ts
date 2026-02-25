@@ -14,9 +14,10 @@ export const paymentService = {
     return response.data.data;
   },
 
-  verifyPayment: async (reference: string) => {
+  verifyPayment: async (reference: string, bookingId?: string) => {
     const response = await api.get<ApiSuccess<Payment>>(
       `/payments/verify/${reference}`,
+      { params: { bookingId } },
     );
     return response.data.data;
   },

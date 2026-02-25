@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
@@ -21,6 +21,8 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams?.get("redirect");
   const setAuth = useAuthStore((state) => state.setAuth);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +46,12 @@ export default function LoginForm() {
         description: `Logged in as ${user.firstName}`,
       });
 
-      // Redirect based on role
+      // Redirect priority: redirect param > provider portal > role-based dashboard
+      if (redirect) {
+        window.location.href = decodeURIComponent(redirect);
+        return;
+      }
+
       if (user.role === "provider") {
         window.location.href = ROUTES.partnersPortal;
         return;

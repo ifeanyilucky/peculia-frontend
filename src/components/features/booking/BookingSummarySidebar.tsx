@@ -76,13 +76,16 @@ export default function BookingSummarySidebar({
 
   const paystackConfig = useMemo(
     () => ({
+      publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
       email: user?.email || "",
       amount: totalPrice,
-      publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
-      // Use snake_case as required by Paystack
+      // If we have an access_code, we use it (Backend initialized)
+      // Note: access_code is prioritized by Paystack popup
       access_code: paymentData?.access_code,
+      // Always pass the reference we expect to avoid Paystack generating a new one
+      reference: paymentData?.reference,
     }),
-    [user?.email, totalPrice, paymentData?.access_code],
+    [user?.email, totalPrice, paymentData?.access_code, paymentData?.reference],
   );
 
   const initializePayment = usePaystackPayment(paystackConfig);

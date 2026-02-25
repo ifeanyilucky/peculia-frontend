@@ -78,6 +78,7 @@ export const metadata: Metadata = {
 };
 
 import { CookieConsent } from "@/components/common/CookieConsent";
+import { ModalProvider } from "@/providers/ModalProvider";
 
 export default function RootLayout({
   children,
@@ -98,6 +99,7 @@ export default function RootLayout({
           <QueryProvider>
             <AuthProvider>
               {children}
+              <ModalProvider />
               <ToastProvider />
               <CookieConsent />
             </AuthProvider>

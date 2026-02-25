@@ -52,8 +52,9 @@ function SuccessContent() {
     isError: isVerifyError,
     error: verifyError,
   } = useQuery({
-    queryKey: ["payment-verify", reference],
-    queryFn: () => paymentService.verifyPayment(reference!),
+    queryKey: ["payment-verify", reference, bookingId],
+    queryFn: () =>
+      paymentService.verifyPayment(reference!, bookingId || undefined),
     enabled: !!reference,
     retry: 1,
   });

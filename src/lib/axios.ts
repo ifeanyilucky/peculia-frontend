@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useAuthStore } from "@/store/auth.store";
+import { useUIStore } from "@/store/ui.store";
 import { sileo } from "sileo";
 
 const api = axios.create({
@@ -8,6 +9,22 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+const handleAuthFailure = () => {
+  if (typeof window === "undefined") return;
+
+  const pathname = window.location.pathname;
+  const isBookingRoute = pathname.startsWith("/book");
+
+  if (isBookingRoute) {
+    // Show the login modal instead of redirecting
+    useUIStore.getState().openModal("booking-auth");
+  } else {
+    // Hard redirect to login with redirect param
+    const redirectUrl = encodeURIComponent(window.location.href);
+    window.location.href = `/login?redirect=${redirectUrl}`;
+  }
+};
 
 api.interceptors.request.use((config) => {
   const token = useAuthStore.getState().accessToken;
@@ -53,6 +70,12 @@ api.interceptors.response.use(
 
       const refreshToken = useAuthStore.getState().refreshToken;
 
+      if (!refreshToken) {
+        useAuthStore.getState().clearAuth();
+        handleAuthFailure();
+        return Promise.reject(error);
+      }
+
       try {
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh-token`,
@@ -74,15 +97,7 @@ api.interceptors.response.use(
       } catch (refreshError) {
         processQueue(refreshError, null);
         useAuthStore.getState().clearAuth();
-        // Only hard-redirect to login from protected routes.
-        // On public booking pages (/book/*) we let the UI handle the 401
-        // inline (via BookingAuthModal) without breaking the booking flow.
-        if (typeof window !== "undefined") {
-          const isPublicRoute = window.location.pathname.startsWith("/book");
-          if (!isPublicRoute) {
-            window.location.href = "/login";
-          }
-        }
+        handleAuthFailure();
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
