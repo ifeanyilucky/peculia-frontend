@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { debounce } from "lodash";
 import { bookingService } from "@/services/booking.service";
@@ -8,14 +8,12 @@ import BookingFilters, {
   BookingStatusFilter,
 } from "@/components/features/bookings/BookingFilters";
 import ClientBookingCard from "@/components/features/bookings/ClientBookingCard";
+import Pagination from "@/components/ui/Pagination";
 import {
   Loader2,
   Search,
   CalendarX,
-  ArrowLeft,
-  ArrowRight,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export default function MyBookingsPage() {
   const [currentTab, setCurrentTab] = useState<BookingStatusFilter>("all");
@@ -41,7 +39,6 @@ export default function MyBookingsPage() {
   const {
     data: bookings,
     isLoading,
-    isPlaceholderData,
   } = useQuery({
     queryKey: ["bookings", "client", currentTab, page, debouncedSearch],
     queryFn: () =>
@@ -52,8 +49,6 @@ export default function MyBookingsPage() {
         search: debouncedSearch || undefined,
       }),
   });
-
-  const totalPages = bookings?.data?.totalPages || 1;
 
   return (
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -128,44 +123,15 @@ export default function MyBookingsPage() {
         </div>
 
         {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex items-center justify-center gap-4 pt-10">
-            <button
-              disabled={page === 1}
-              onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-              className="h-12 w-12 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-slate-900 hover:border-slate-300 disabled:opacity-30 transition-all"
-            >
-              <ArrowLeft size={20} />
-            </button>
-
-            <div className="flex gap-2">
-              {[...Array(totalPages)].map((_, i) => {
-                const p = i + 1;
-                return (
-                  <button
-                    key={p}
-                    onClick={() => setPage(p)}
-                    className={cn(
-                      "h-12 w-12 rounded-2xl text-sm font-heavy transition-all",
-                      page === p
-                        ? "bg-slate-900 text-white border border-slate-200"
-                        : "bg-white text-slate-500 hover:bg-slate-50",
-                    )}
-                  >
-                    {p}
-                  </button>
-                );
-              })}
-            </div>
-
-            <button
-              disabled={page === totalPages || isPlaceholderData}
-              onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
-              className="h-12 w-12 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-slate-900 hover:border-slate-300 disabled:opacity-30 transition-all"
-            >
-              <ArrowRight size={20} />
-            </button>
-          </div>
+        {bookings?.data?.pagination && (
+          <Pagination
+            currentPage={bookings.data.pagination.page}
+            totalPages={bookings.data.pagination.totalPages}
+            onPageChange={setPage}
+            totalResults={bookings.data.pagination.totalResults}
+            limit={bookings.data.pagination.limit}
+            currentCount={bookings.data.results.length}
+          />
         )}
       </div>
     </div>
