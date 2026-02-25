@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
 import { ApiSuccess } from "@/types/api.types";
-import { PaymentInitResponse, Payment } from "@/types/payment.types";
+import { PaymentInitResponse, Payment, PaymentHistoryResponse } from "@/types/payment.types";
 
 export const paymentService = {
   initializePayment: async (bookingId: string) => {
@@ -17,11 +17,11 @@ export const paymentService = {
     return response.data.data;
   },
 
-  getPaymentHistory: async (params?: { page?: number; limit?: number }) => {
-    const response = await api.get<ApiSuccess<any>>("/payments/history", {
+  getPaymentHistory: async (params?: { page?: number; limit?: number }): Promise<PaymentHistoryResponse> => {
+    const response = await api.get<ApiSuccess<PaymentHistoryResponse>>("/payments/history", {
       params,
     });
-    return response.data.data;
+    return response.data.data.data;
   },
 
   getProviderEarnings: async () => {

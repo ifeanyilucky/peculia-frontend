@@ -7,10 +7,28 @@ export interface PaymentInitResponse {
   accessCode: string;
 }
 
+export interface PaymentBookingService {
+  serviceId: string;
+  name: string;
+  price: number;
+  duration: number;
+  depositAmount: number;
+  _id: string;
+  id: string;
+}
+
+export interface PaymentBooking {
+  _id: string;
+  bookingRef: string;
+  services: PaymentBookingService[];
+  id: string;
+}
+
 export interface Payment {
   id: string;
+  _id?: string;
   paymentRef: string;
-  bookingId: string;
+  bookingId: string | PaymentBooking;
   clientId: string;
   providerProfileId: string;
   type: PaymentType;
@@ -21,4 +39,17 @@ export interface Payment {
   gatewayRef?: string;
   paidAt?: string;
   createdAt: string;
+  updatedAt?: string;
+}
+
+export interface PaymentPagination {
+  page: number;
+  limit: number;
+  totalPages: number;
+  totalResults: number;
+}
+
+export interface PaymentHistoryResponse {
+  results: Payment[];
+  pagination: PaymentPagination;
 }

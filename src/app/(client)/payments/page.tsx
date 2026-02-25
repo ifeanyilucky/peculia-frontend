@@ -1,15 +1,23 @@
 "use client";
 
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { paymentService } from "@/services/payment.service";
 import PaymentHistoryTable from "@/components/features/payments/PaymentHistoryTable";
+import Pagination from "@/components/ui/Pagination";
 import { Loader2, Receipt, Download, Filter } from "lucide-react";
 
 export default function PaymentsPage() {
+  const [page, setPage] = useState(1);
+
   const { data: payments, isLoading } = useQuery({
-    queryKey: ["payments", "client"],
-    queryFn: () => paymentService.getPaymentHistory({ limit: 20 }),
+    queryKey: ["payments", "client", page],
+    queryFn: () => paymentService.getPaymentHistory({ limit: 20, page }),
   });
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
 
   return (
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -51,7 +59,19 @@ export default function PaymentsPage() {
             </p>
           </div>
         ) : (
-          <PaymentHistoryTable payments={payments?.results || []} />
+          <>
+            <PaymentHistoryTable payments={payments?.results || []} />
+            {payments?.pagination && (
+              <Pagination
+                currentPage={payments.pagination.page}
+                totalPages={payments.pagination.totalPages}
+                onPageChange={handlePageChange}
+                totalResults={payments.pagination.totalResults}
+                limit={payments.pagination.limit}
+                currentCount={payments.results.length}
+              />
+            )}
+          </>
         )}
       </div>
     </div>

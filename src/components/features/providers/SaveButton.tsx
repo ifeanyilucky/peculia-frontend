@@ -49,16 +49,27 @@ export default function SaveButton({
       if (isSaved) {
         await providerService.unsaveProvider(providerId);
         setIsSaved(false);
-        sileo.success({
-          title: "Removed",
-          description: "Provider removed from saved list",
+        sileo.show({
+          title: "Removed from saved",
+          description: "Provider removed from your saved list",
+          button: {
+            title: "Undo",
+            onClick: () => {
+              providerService.saveProvider(providerId);
+              setIsSaved(true);
+            },
+          },
         });
       } else {
         await providerService.saveProvider(providerId);
         setIsSaved(true);
-        sileo.success({
+        sileo.show({
           title: "Saved!",
           description: "Provider added to your saved list",
+          button: {
+            title: "View Saved",
+            onClick: () => router.push("/saved"),
+          },
         });
       }
     } catch (error: any) {
