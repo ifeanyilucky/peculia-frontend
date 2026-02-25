@@ -45,13 +45,13 @@ export default function ProviderLocation({
 
   return (
     <section className="space-y-10">
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
+      <div className="flex flex-col gap-8 lg:items-start">
         {/* Map Section */}
-        <div className="flex-1 space-y-4">
+        <div className="w-full space-y-4">
           <h3 className="font-peculiar text-2xl font-bold text-slate-900">
             Location
           </h3>
-          <div className="overflow-hidden rounded-2xl border border-slate-200 transition-shadow">
+          <div className="overflow-hidden rounded-2xl border border-slate-200">
             <iframe
               width="100%"
               height="350"
@@ -93,7 +93,7 @@ export default function ProviderLocation({
         </div>
 
         {/* Opening Hours Section */}
-        <div className="w-full lg:w-80 space-y-6">
+        <div className="w-full space-y-6">
           <div className="flex items-center gap-2">
             <Clock size={24} className="text-rose-500" />
             <h3 className="font-peculiar text-2xl font-bold text-slate-900">

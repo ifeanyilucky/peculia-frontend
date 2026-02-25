@@ -9,7 +9,7 @@ export function NotificationsTab() {
   const [smsNotifs, setSmsNotifs] = useState(false);
 
   return (
-    <section className="bg-white rounded-[2rem] border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+    <section className="bg-white rounded-4xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
       <div className="p-8 lg:p-10 space-y-8">
         <div className="flex items-center gap-4 border-b border-slate-50 pb-8">
           <div className="h-12 w-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
@@ -27,7 +27,7 @@ export function NotificationsTab() {
 
         <div className="space-y-5 max-w-2xl">
           {/* Email Toggle */}
-          <div className="flex items-center justify-between p-6 rounded-[1.5rem] bg-slate-50 border border-slate-100">
+          <div className="flex items-center justify-between p-6 rounded-3xl bg-slate-50 border border-slate-100">
             <div className="flex items-center gap-5">
               <div className="h-12 w-12 rounded-xl bg-white flex items-center justify-center text-slate-400 shrink-0">
                 <Mail size={20} strokeWidth={2.5} />
@@ -43,12 +43,14 @@ export function NotificationsTab() {
             </div>
             <button
               onClick={() => setEmailNotifs(!emailNotifs)}
-              className={cn("w-12 h-6 rounded-full transition-colors relative shrink-0",
+              className={cn(
+                "w-12 h-6 rounded-full transition-colors relative shrink-0",
                 emailNotifs ? "bg-emerald-500" : "bg-slate-200",
               )}
             >
               <span
-                className={cn("absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform",
+                className={cn(
+                  "absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform",
                   emailNotifs ? "translate-x-6" : "translate-x-0",
                 )}
               />
@@ -56,7 +58,7 @@ export function NotificationsTab() {
           </div>
 
           {/* SMS Toggle */}
-          <div className="flex items-center justify-between p-6 rounded-[1.5rem] bg-slate-50 border border-slate-100">
+          <div className="flex items-center justify-between p-6 rounded-3xl bg-slate-50 border border-slate-100">
             <div className="flex items-center gap-5">
               <div className="h-12 w-12 rounded-xl bg-white flex items-center justify-center text-slate-400 shrink-0">
                 <Smartphone size={20} strokeWidth={2.5} />
@@ -72,12 +74,14 @@ export function NotificationsTab() {
             </div>
             <button
               onClick={() => setSmsNotifs(!smsNotifs)}
-              className={cn("w-12 h-6 rounded-full transition-colors relative shrink-0",
+              className={cn(
+                "w-12 h-6 rounded-full transition-colors relative shrink-0",
                 smsNotifs ? "bg-emerald-500" : "bg-slate-200",
               )}
             >
               <span
-                className={cn("absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform",
+                className={cn(
+                  "absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform",
                   smsNotifs ? "translate-x-6" : "translate-x-0",
                 )}
               />

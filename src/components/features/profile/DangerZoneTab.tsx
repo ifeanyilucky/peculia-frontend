@@ -32,7 +32,7 @@ export function DangerZoneTab() {
   };
 
   return (
-    <section className="bg-rose-50/40 rounded-[2rem] border border-rose-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+    <section className="bg-rose-50/40 rounded-4xl border border-rose-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
       <div className="p-8 lg:p-10 space-y-8">
         <div className="flex items-center gap-4 border-b border-rose-100 pb-8">
           <div className="h-12 w-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center shrink-0">
@@ -46,7 +46,7 @@ export function DangerZoneTab() {
           </div>
         </div>
 
-        <div className="bg-white rounded-[1.5rem] p-8 lg:p-10 border border-rose-100 flex flex-col items-start gap-8 max-w-2xl">
+        <div className="bg-white rounded-3xl p-8 lg:p-10 border border-rose-100 flex flex-col items-start gap-8 max-w-2xl">
           <div className="space-y-2">
             <p className="text-base font-black text-slate-900">
               Delete Account

@@ -31,7 +31,7 @@ export const paymentService = {
         params,
       },
     );
-    return response.data.data;
+    return response.data.data.data;
   },
 
   getProviderEarnings: async () => {

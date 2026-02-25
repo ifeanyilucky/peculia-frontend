@@ -59,7 +59,7 @@ export function SecurityTab() {
   };
 
   return (
-    <section className="bg-white rounded-[2rem] border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+    <section className="bg-white rounded-4xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
       <div className="p-8 lg:p-10 space-y-8">
         <div className="flex items-center gap-4 border-b border-slate-50 pb-8">
           <div className="h-12 w-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">

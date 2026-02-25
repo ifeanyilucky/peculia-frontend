@@ -55,7 +55,7 @@ export function ProfileInfoTab() {
   };
 
   return (
-    <section className="bg-white rounded-[2rem] border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+    <section className="bg-white rounded-4xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
       <div className="p-8 lg:p-10 space-y-10">
         <div className="flex flex-col md:flex-row gap-10 items-start">
           {/* Avatar Upload */}
