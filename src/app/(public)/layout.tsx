@@ -61,6 +61,27 @@ export default function PublicLayout({
                   Pro Portal
                 </Link>
               </div>
+              <div className="flex flex-col gap-4">
+                <span className="font-bold text-slate-900">Legal</span>
+                <Link
+                  href="/terms-of-service"
+                  className="text-sm text-slate-500 hover:text-rose-600"
+                >
+                  Terms of Service
+                </Link>
+                <Link
+                  href="/privacy-policy"
+                  className="text-sm text-slate-500 hover:text-rose-600"
+                >
+                  Privacy Policy
+                </Link>
+                <Link
+                  href="/cookie-policy"
+                  className="text-sm text-slate-500 hover:text-rose-600"
+                >
+                  Cookie Policy
+                </Link>
+              </div>
             </div>
           </div>
           <div className="mt-12 border-t border-slate-50 pt-8 text-center text-xs text-slate-400">
