@@ -15,6 +15,7 @@ import AddPhoneModal from "@/components/features/booking/AddPhoneModal";
 import { paymentService } from "@/services/payment.service";
 import CenterModal from "@/components/common/CenterModal";
 import { usePaystackPayment } from "react-paystack";
+import { useMemo } from "react";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
@@ -67,17 +68,24 @@ export default function BookingSummarySidebar({
   const [showPhoneModal, setShowPhoneModal] = useState(false);
   const [showCancellationModal, setShowCancellationModal] = useState(false);
   const [paymentData, setPaymentData] = useState<{
-    accessCode: string;
+    access_code: string;
     reference: string;
     bookingId: string;
   } | null>(null);
   const lastInitializedRef = useRef<string | null>(null);
 
-  const initializePayment = usePaystackPayment({
-    email: user?.email || "",
-    amount: totalPrice,
-    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
-  });
+  const paystackConfig = useMemo(
+    () => ({
+      email: user?.email || "",
+      amount: totalPrice,
+      publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
+      // Use snake_case as required by Paystack
+      access_code: paymentData?.access_code,
+    }),
+    [user?.email, totalPrice, paymentData?.access_code],
+  );
+
+  const initializePayment = usePaystackPayment(paystackConfig);
 
   const handlePaymentSuccess = useCallback(
     async (trans: { reference: string }) => {
@@ -102,14 +110,10 @@ export default function BookingSummarySidebar({
       lastInitializedRef.current = paymentData.reference;
 
       const timer = setTimeout(() => {
-        // @ts-ignore - react-paystack types are sometimes out of sync with their dynamic config support
+        // @ts-ignore
         initializePayment({
           onSuccess: handlePaymentSuccess,
           onClose: handlePaymentClose,
-          config: {
-            reference: paymentData.reference,
-            accessCode: paymentData.accessCode,
-          },
         });
       }, 100);
 
@@ -139,7 +143,7 @@ export default function BookingSummarySidebar({
   };
 
   const submitBooking = useCallback(async (): Promise<void> => {
-    if (!selectedSlot) return;
+    if (!selectedSlot || isBooking) return;
     setIsBooking(true);
     try {
       const booking = await bookingService.createBooking({
@@ -159,7 +163,7 @@ export default function BookingSummarySidebar({
           booking.id || booking._id!,
         );
         setPaymentData({
-          accessCode: payment.accessCode,
+          access_code: payment.access_code,
           reference: payment.reference,
           bookingId: booking.id || booking._id!,
         });
@@ -177,9 +181,10 @@ export default function BookingSummarySidebar({
     selectedSlot,
     selectedServices,
     selectedTeamMember,
-    provider._id,
+    provider?._id,
     slug,
     router,
+    isBooking,
   ]);
 
   const handleContinue = async () => {

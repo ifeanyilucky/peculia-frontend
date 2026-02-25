@@ -4,7 +4,7 @@ export type PaymentType = "deposit" | "full_payment" | "refund";
 export interface PaymentInitResponse {
   authorizationUrl: string;
   reference: string;
-  accessCode: string;
+  access_code: string;
 }
 
 export interface PaymentBookingService {
