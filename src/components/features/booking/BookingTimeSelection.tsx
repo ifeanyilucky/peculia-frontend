@@ -10,6 +10,7 @@ import {
   isBefore,
   isSameDay,
   startOfWeek,
+  getDay,
 } from "date-fns";
 import {
   ChevronLeft,
@@ -34,6 +35,8 @@ interface BookingTimeSelectionProps {
   providerId: string;
 }
 
+const DAYS_MAP = [0, 1, 2, 3, 4, 5, 6];
+
 export default function BookingTimeSelection({
   providerId,
 }: BookingTimeSelectionProps) {
@@ -48,6 +51,44 @@ export default function BookingTimeSelection({
     selectedSlot,
     setSelectedSlot,
   } = useBookingStore();
+
+  const { data: schedule } = useQuery({
+    queryKey: ["availability", "schedule", providerId],
+    queryFn: () => availabilityService.getWeeklySchedule(providerId),
+    enabled: !!providerId,
+  });
+
+  const isDayOpen = (date: Date): boolean => {
+    if (!schedule?.schedule) return true;
+    const dayIndex = getDay(date);
+    const dayName = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][dayIndex];
+    const daySchedule = schedule.schedule[dayName];
+    return daySchedule?.isOpen && daySchedule?.slots?.length > 0;
+  };
+
+  const isDayDisabled = (date: Date): boolean => {
+    return isBefore(date, today) || !isDayOpen(date);
+  };
+
+  const getDisabledDays = (date: Date): boolean => {
+    return isDayDisabled(date);
+  };
+
+  const getOpenDaysInMonth = (date: Date): Date[] => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const openDays: Date[] = [];
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const currentDate = new Date(year, month, day);
+      if (!isDayDisabled(currentDate)) {
+        openDays.push(currentDate);
+      }
+    }
+
+    return openDays;
+  };
 
   // Week window state — anchored to Monday of the current week or today's week
   const [weekStart, setWeekStart] = useState<Date>(
@@ -123,13 +164,19 @@ export default function BookingTimeSelection({
               mode="single"
               selected={selectedDate || undefined}
               onSelect={(date) => {
-                if (date) {
+                if (date && !isDayDisabled(date)) {
                   setSelectedDate(date);
                   setSelectedSlot(null);
                   setWeekStart(startOfWeek(date, { weekStartsOn: 1 }));
                 }
               }}
-              disabled={(date) => isBefore(date, today)}
+              disabled={(date) => getDisabledDays(date)}
+              modifiers={{
+                open: getOpenDaysInMonth(new Date()),
+              }}
+              modifiersClassNames={{
+                open: "bg-rose-100 text-rose-700 font-bold",
+              }}
               initialFocus
             />
           </PopoverContent>
@@ -162,6 +209,8 @@ export default function BookingTimeSelection({
         <div className="grid grid-cols-7 gap-1">
           {weekDays.map((day) => {
             const isPast = isBefore(day, today);
+            const isClosed = !isDayOpen(day);
+            const isDisabled = isPast || isClosed;
             const isSelected = selectedDate
               ? isSameDay(day, selectedDate)
               : false;
@@ -169,14 +218,16 @@ export default function BookingTimeSelection({
             return (
               <button
                 key={day.toISOString()}
-                disabled={isPast}
+                disabled={isDisabled}
                 onClick={() => {
-                  setSelectedDate(day);
-                  setSelectedSlot(null);
+                  if (!isDisabled) {
+                    setSelectedDate(day);
+                    setSelectedSlot(null);
+                  }
                 }}
                 className={cn(
-                  "flex flex-col items-center gap-1 py-3 rounded-2xl transition-all",
-                  isPast
+                  "flex flex-col items-center gap-1 py-3 rounded-2xl transition-all relative",
+                  isDisabled
                     ? "opacity-30 cursor-not-allowed"
                     : isSelected
                       ? "bg-rose-600 text-white shadow-lg shadow-rose-200"
@@ -191,14 +242,25 @@ export default function BookingTimeSelection({
                 >
                   {format(day, "EEE")}
                 </span>
-                <span
-                  className={cn(
-                    "text-lg font-black",
-                    isSelected ? "text-white" : "text-slate-900",
-                  )}
-                >
-                  {format(day, "d")}
-                </span>
+                {isClosed ? (
+                  <span
+                    className={cn(
+                      "text-lg font-black line-through decoration-2",
+                      isSelected ? "text-white/50" : "text-slate-300",
+                    )}
+                  >
+                    {format(day, "d")}
+                  </span>
+                ) : (
+                  <span
+                    className={cn(
+                      "text-lg font-black",
+                      isSelected ? "text-white" : "text-slate-900",
+                    )}
+                  >
+                    {format(day, "d")}
+                  </span>
+                )}
               </button>
             );
           })}
