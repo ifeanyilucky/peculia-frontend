@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useBookingStore } from "@/store/booking.store";
 import { useAuthStore } from "@/store/auth.store";
 import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
 import { formatCurrency, formatNumber } from "@/utils/formatters";
 import { useState, useCallback } from "react";
 import { bookingService } from "@/services/booking.service";
@@ -13,6 +14,7 @@ import { Loader2, User as UserIcon } from "lucide-react";
 import BookingAuthModal from "@/components/features/booking/BookingAuthModal";
 import AddPhoneModal from "@/components/features/booking/AddPhoneModal";
 import { paymentService } from "@/services/payment.service";
+import CenterModal from "@/components/common/CenterModal";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
@@ -33,6 +35,7 @@ export default function BookingSummarySidebar({
   const [isBooking, setIsBooking] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showPhoneModal, setShowPhoneModal] = useState(false);
+  const [showCancellationModal, setShowCancellationModal] = useState(false);
 
   const isStepComplete = () => {
     if (currentStep === 1) return selectedServices.length > 0;
@@ -252,13 +255,21 @@ export default function BookingSummarySidebar({
             {currentStep === 4 && (
               <p className="text-sm text-slate-500 mt-2">
                 I agree to the{" "}
-                <span className="font-bold text-slate-900">
+                <Link
+                  href="/terms-of-service"
+                  target="_blank"
+                  className="font-bold text-slate-900 border-b border-slate-900/10 hover:border-slate-900 transition-colors"
+                >
                   terms of services
-                </span>{" "}
+                </Link>{" "}
                 and the{" "}
-                <span className="font-bold text-slate-900">
+                <button
+                  type="button"
+                  onClick={() => setShowCancellationModal(true)}
+                  className="font-bold text-slate-900 border-b border-slate-900/10 hover:border-slate-900 transition-colors"
+                >
                   cancellation policy
-                </span>
+                </button>
               </p>
             )}
           </div>
@@ -302,6 +313,35 @@ export default function BookingSummarySidebar({
           onClose={() => setShowPhoneModal(false)}
         />
       )}
+
+      {/* ── Cancellation Policy Modal ────────────── */}
+      <CenterModal
+        isOpen={showCancellationModal}
+        onClose={() => setShowCancellationModal(false)}
+        title="Cancellation Policy"
+      >
+        <div className="text-left">
+          <p className="text-sm text-slate-600 leading-relaxed">
+            You will not be charged if you cancel at least 24 hours before your
+            appointment starts.
+          </p>
+          <p className="mt-4 text-sm text-slate-600 leading-relaxed">
+            Otherwise, you will be charged{" "}
+            <span className="font-bold text-slate-900">
+              25% of service price
+            </span>{" "}
+            for cancelling with less than 24 hours notice and{" "}
+            <span className="font-bold text-slate-900">50%</span> if you fail to
+            show up at your appointment.
+          </p>
+          <button
+            onClick={() => setShowCancellationModal(false)}
+            className="mt-8 w-full rounded-full bg-slate-900 py-3 text-sm font-bold text-white transition-all hover:bg-slate-800"
+          >
+            Got it
+          </button>
+        </div>
+      </CenterModal>
     </aside>
   );
 }
