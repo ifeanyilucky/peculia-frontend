@@ -115,7 +115,7 @@ export default async function ProviderProfilePage({
     const providerData = {
       _id: provider._id,
       name: businessName || name,
-      image: provider.userId.avatar,
+      image: provider.portfolioImages?.[0]?.url || provider.userId.avatar,
       rating: provider.rating,
     };
 

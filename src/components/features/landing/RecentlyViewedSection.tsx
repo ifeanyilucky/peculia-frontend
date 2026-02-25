@@ -17,19 +17,25 @@ export default function RecentlyViewedSection() {
       lastName: p.name?.split(" ").slice(1).join(" ") || "",
       avatar: p.image,
     },
-    businessName: p.name || "",
-    slug: "",
-    specialties: [],
-    portfolioImages: [],
+    businessName: p.name || "Unknown",
+    slug: p._id,
+    specialties: p.category ? [p.category] : [],
+    portfolioImages: p.image
+      ? [{ url: p.image, publicId: "", caption: "" }]
+      : [],
     isVerified: false,
     rating: p.rating || 0,
     totalReviews: 0,
     totalBookings: 0,
     subscriptionTier: "free" as const,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    location: undefined,
+    bio: undefined,
+    yearsOfExperience: undefined,
+    startingPrice: undefined,
+    createdAt: new Date(p.viewedAt).toISOString(),
+    updatedAt: new Date(p.viewedAt).toISOString(),
   }));
-
+  console.log("providers", providers);
   return (
     <ProviderCarousel
       providers={providers}
