@@ -42,10 +42,16 @@ export default function BookingSummarySidebar({
     reference: string;
     bookingId: string;
   } | null>(null);
-  const paymentTriggered = useRef(false);
+  const initializedRef = useRef(false);
+
+  const generateReference = () => {
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).substring(2, 10);
+    return `PEC_${timestamp}_${random}`;
+  };
 
   const initializePayment = usePaystackPayment({
-    reference: paymentData?.reference || "",
+    reference: paymentData?.reference || generateReference(),
     email: user?.email || "",
     amount: totalPrice,
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
@@ -59,23 +65,29 @@ export default function BookingSummarySidebar({
         );
       }
       setPaymentData(null);
-      paymentTriggered.current = false;
+      initializedRef.current = false;
     },
     [paymentData, router, slug],
   );
 
   const handlePaymentClose = useCallback(() => {
     setPaymentData(null);
-    paymentTriggered.current = false;
+    initializedRef.current = false;
   }, []);
 
   useEffect(() => {
-    if (paymentData && !paymentTriggered.current) {
-      paymentTriggered.current = true;
-      initializePayment({
-        onSuccess: handlePaymentSuccess,
-        onClose: handlePaymentClose,
-      } as any);
+    if (paymentData && !initializedRef.current) {
+      initializedRef.current = true;
+      
+      // Small delay to ensure React has processed the state update
+      const timer = setTimeout(() => {
+        initializePayment({
+          onSuccess: handlePaymentSuccess,
+          onClose: handlePaymentClose,
+        } as any);
+      }, 100);
+
+      return () => clearTimeout(timer);
     }
   }, [
     paymentData,
