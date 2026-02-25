@@ -4,14 +4,10 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProviderCard from "../providers/ProviderCard";
-
-export interface Provider {
-  _id: string;
-  [key: string]: unknown;
-}
+import type { Provider as ProviderType } from "@/types/provider.types";
 
 interface ProviderCarouselProps {
-  providers: Provider[];
+  providers: ProviderType[];
   title: string;
   description?: string;
   href?: string;

@@ -11,6 +11,7 @@ import { availabilityService } from "@/services/availability.service";
 import ProviderLocation from "@/components/features/providers/ProviderLocation";
 import NearbyProviders from "@/components/features/providers/NearbyProviders";
 import { getOpeningStatus } from "@/utils/time.utils";
+import RecentlyViewedTracker from "@/components/features/providers/RecentlyViewedTracker";
 import Script from "next/script";
 import { Loader2, Star, Clock, MapPin, ChevronDown } from "lucide-react";
 import type { Metadata, ResolvingMetadata } from "next";
@@ -111,8 +112,16 @@ export default async function ProviderProfilePage({
 
     const openingStatus = getOpeningStatus(schedule);
 
+    const providerData = {
+      _id: provider._id,
+      name: businessName || name,
+      image: provider.userId.avatar,
+      rating: provider.rating,
+    };
+
     return (
-      <div className="bg-white pb-24">
+      <RecentlyViewedTracker provider={providerData}>
+        <div className="bg-white pb-24">
         {/* Schema.org Structured Data */}
         <Script
           id="provider-jsonld"
@@ -298,6 +307,7 @@ export default async function ProviderProfilePage({
           </div>
         </div>
       </div>
+      </RecentlyViewedTracker>
     );
   } catch (error) {
     console.error("Failed to load provider profile:", error);
