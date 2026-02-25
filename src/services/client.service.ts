@@ -25,8 +25,8 @@ export const clientService = {
   },
 
   updatePassword: async (data: PasswordUpdate) => {
-    const response = await api.patch<ApiSuccess<any>>(
-      "/clients/profile/password",
+    const response = await api.post<ApiSuccess<any>>(
+      "/auth/change-password",
       data,
     );
     return response.data;
