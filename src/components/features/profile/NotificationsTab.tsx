@@ -1,12 +1,83 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { clientService } from "@/services/client.service";
 import { Bell, Mail, Smartphone } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function NotificationsTab() {
   const [emailNotifs, setEmailNotifs] = useState(true);
-  const [smsNotifs, setSmsNotifs] = useState(false);
+  const [smsNotifs, setSmsNotifs] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    const fetchPreferences = async () => {
+      try {
+        const prefs = await clientService.getNotificationPreferences();
+        setEmailNotifs(prefs.email ?? true);
+        setSmsNotifs(prefs.sms ?? true);
+      } catch (error) {
+        console.error("Failed to fetch notification preferences:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchPreferences();
+  }, []);
+
+  const handleToggle = async (type: "email" | "sms", value: boolean) => {
+    const previousEmail = emailNotifs;
+    const previousSms = smsNotifs;
+
+    if (type === "email") {
+      setEmailNotifs(value);
+    } else {
+      setSmsNotifs(value);
+    }
+
+    setIsSaving(true);
+    try {
+      await clientService.updateNotificationPreferences({
+        email: type === "email" ? value : emailNotifs,
+        sms: type === "sms" ? value : smsNotifs,
+      });
+    } catch (error) {
+      if (type === "email") {
+        setEmailNotifs(previousEmail);
+      } else {
+        setSmsNotifs(previousSms);
+      }
+      console.error("Failed to update notification preferences:", error);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <section className="bg-white rounded-4xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+        <div className="p-8 lg:p-10 space-y-8">
+          <div className="flex items-center gap-4 border-b border-slate-50 pb-8">
+            <div className="h-12 w-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <Bell size={24} strokeWidth={2} />
+            </div>
+            <div>
+              <h3 className="text-xl font-black text-slate-900">
+                Notification Preferences
+              </h3>
+              <p className="text-sm font-medium text-slate-400 mt-1">
+                Control how and when you want to be notified.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center justify-center py-10">
+            <div className="h-6 w-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-white rounded-4xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
@@ -42,10 +113,12 @@ export function NotificationsTab() {
               </div>
             </div>
             <button
-              onClick={() => setEmailNotifs(!emailNotifs)}
+              onClick={() => handleToggle("email", !emailNotifs)}
+              disabled={isSaving}
               className={cn(
                 "w-12 h-6 rounded-full transition-colors relative shrink-0",
                 emailNotifs ? "bg-emerald-500" : "bg-slate-200",
+                isSaving && "opacity-50 cursor-not-allowed"
               )}
             >
               <span
@@ -73,10 +146,12 @@ export function NotificationsTab() {
               </div>
             </div>
             <button
-              onClick={() => setSmsNotifs(!smsNotifs)}
+              onClick={() => handleToggle("sms", !smsNotifs)}
+              disabled={isSaving}
               className={cn(
                 "w-12 h-6 rounded-full transition-colors relative shrink-0",
                 smsNotifs ? "bg-emerald-500" : "bg-slate-200",
+                isSaving && "opacity-50 cursor-not-allowed"
               )}
             >
               <span

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { clientService } from "@/services/client.service";
+import { PasswordStrengthMeter } from "@/components/features/auth/PasswordStrengthMeter";
 import { Lock, ShieldCheck } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,6 +32,7 @@ export function SecurityTab() {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm<PasswordFormValues>({
     resolver: zodResolver(passwordSchema),
   });
@@ -123,6 +125,7 @@ export function SecurityTab() {
                 {errors.newPassword.message}
               </p>
             )}
+            <PasswordStrengthMeter password={watch("newPassword")} />
           </div>
 
           <div className="space-y-2">

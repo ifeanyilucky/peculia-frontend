@@ -37,4 +37,20 @@ export const clientService = {
     const response = await api.delete<ApiSuccess<any>>("/clients/profile");
     return response.data;
   },
+
+  updateNotificationPreferences: async (preferences: {
+    email?: boolean;
+    sms?: boolean;
+  }) => {
+    const response = await api.patch<ApiSuccess<any>>(
+      "/users/me/notifications",
+      preferences,
+    );
+    return response.data.data;
+  },
+
+  getNotificationPreferences: async () => {
+    const response = await api.get<ApiSuccess<any>>("/users/me");
+    return response.data.data.user.notificationPreferences;
+  },
 };
