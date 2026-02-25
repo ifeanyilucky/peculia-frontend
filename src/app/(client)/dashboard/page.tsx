@@ -50,7 +50,7 @@ export default function ClientDashboardPage() {
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Welcome Banner */}
       {showWelcome && (
-        <div className="relative overflow-hidden rounded-2xl bg-slate-900 p-8 lg:p-12 text-white shadow-2xl shadow-slate-200">
+        <div className="relative overflow-hidden rounded-2xl bg-slate-900 p-8 lg:p-12 text-white border border-slate-200">
           <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-rose-600/20 blur-[100px]" />
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-64 w-64 rounded-full bg-blue-600/20 blur-[100px]" />
 
@@ -80,7 +80,7 @@ export default function ClientDashboardPage() {
             <div className="pt-4">
               <Link
                 href={ROUTES.public.explore}
-                className="inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-sm font-black text-slate-900 hover:bg-rose-600 hover:text-white transition-all shadow-xl shadow-white/5"
+                className="inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-sm font-black text-slate-900 hover:bg-rose-600 hover:text-white transition-all border border-slate-200"
               >
                 Find a Professional
                 <ArrowRight size={18} />
@@ -172,7 +172,7 @@ export default function ClientDashboardPage() {
 
                   <div
                     className={cn(
-                      "h-9 w-9 shrink-0 rounded-full flex items-center justify-center border-4 border-white shadow-sm z-10",
+                      "h-9 w-9 shrink-0 rounded-full flex items-center justify-center border-4 border-white z-10",
                       item.status === "completed"
                         ? "bg-green-100 text-green-600"
                         : item.status === "cancelled_by_client" ||

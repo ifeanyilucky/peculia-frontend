@@ -63,7 +63,7 @@ export default function PublicHeader() {
                 </button>
 
                 {isProfileOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-56 origin-top-right rounded-2xl bg-white p-2 shadow-xl ring-1 ring-slate-200/50">
+                  <div className="absolute right-0 top-full mt-2 w-56 origin-top-right rounded-2xl bg-white p-2 ring-1 ring-slate-200/50 border border-slate-200">
                     <div className="p-3 border-b border-slate-100">
                       <p className="text-sm font-bold text-slate-900">
                         {user?.firstName} {user?.lastName}
@@ -142,7 +142,7 @@ export default function PublicHeader() {
 
             {/* Dropdown Content */}
             {isMenuOpen && (
-              <div className="absolute right-0 top-full mt-2 w-72 origin-top-right rounded-2xl bg-white p-2 shadow-xl ring-1 ring-slate-200/50">
+              <div className="absolute right-0 top-full mt-2 w-72 origin-top-right rounded-2xl bg-white p-2 ring-1 ring-slate-200/50 border border-slate-200">
                 {isAuthenticated ? (
                   <>
                     <Link

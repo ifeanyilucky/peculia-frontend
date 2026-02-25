@@ -51,7 +51,7 @@ export default function ProviderLocation({
           <h3 className="font-peculiar text-2xl font-bold text-slate-900">
             Location
           </h3>
-          <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-sm transition-shadow hover:shadow-md">
+          <div className="overflow-hidden rounded-2xl border border-slate-200 transition-shadow">
             <iframe
               width="100%"
               height="350"
@@ -65,7 +65,7 @@ export default function ProviderLocation({
             />
             <div className="bg-slate-50 p-6">
               <div className="flex items-start gap-4">
-                <div className="rounded-xl bg-white p-3 text-rose-500 border border-slate-200 shadow-sm">
+                <div className="rounded-xl bg-white p-3 text-rose-500 border border-slate-200">
                   <MapPin size={24} />
                 </div>
                 <div className="flex-1">
@@ -101,7 +101,7 @@ export default function ProviderLocation({
             </h3>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6">
             <ul className="space-y-4">
               {days.map((day) => {
                 const daySchedule = schedule?.schedule?.[day];

@@ -43,7 +43,7 @@ export default function HowItWorks() {
               key={idx}
               className="relative z-10 flex flex-col items-center text-center"
             >
-              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-xl shadow-slate-200 transition-transform hover:scale-110">
+              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white transition-transform hover:scale-110 border border-slate-200">
                 {step.icon}
               </div>
               <h3 className="font-peculiar text-xl font-bold text-slate-900">

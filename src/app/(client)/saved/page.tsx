@@ -149,7 +149,7 @@ export default function SavedProvidersPage() {
                 <button
                   onClick={() => handleRemove(provider._id)}
                   disabled={unsaveMutation.isPending}
-                  className="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-white transition-all group-hover:opacity-100 shadow-lg"
+                  className="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-white transition-all group-hover:opacity-100 border border-slate-200"
                 >
                   {unsaveMutation.isPending ? (
                     <Loader2 size={18} className="animate-spin" />

@@ -41,7 +41,7 @@ export default function ProviderFilters({
     <aside
       className={cn(
         "space-y-8 sticky top-24",
-        !plain && "bg-white p-6 rounded-2xl border border-slate-100 shadow-sm",
+        !plain && "bg-white p-6 rounded-2xl border border-slate-100",
       )}
     >
       {showTitle && (

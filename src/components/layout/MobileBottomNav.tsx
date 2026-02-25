@@ -44,7 +44,7 @@ export default function MobileBottomNav() {
               {item.label}
             </span>
             {isActive && (
-              <div className="absolute -top-2 h-1 w-6 rounded-full bg-rose-600 shadow-[0_0_12px_rgba(225,29,72,0.4)]" />
+              <div className="absolute -top-2 h-1 w-6 rounded-full bg-rose-600 border border-slate-200" />
             )}
           </Link>
         );

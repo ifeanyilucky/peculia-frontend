@@ -78,7 +78,7 @@ export default function MyBookingsPage() {
               placeholder="Search by professional..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="h-12 w-full sm:w-64 pl-11 pr-4 rounded-2xl bg-white border border-slate-100 text-sm font-medium focus:border-rose-500 transition-all outline-none shadow-sm"
+              className="h-12 w-full sm:w-64 pl-11 pr-4 rounded-2xl bg-white border border-slate-100 text-sm font-medium focus:border-rose-500 transition-all outline-none"
             />
           </div>
         </div>
@@ -148,7 +148,7 @@ export default function MyBookingsPage() {
                     className={cn(
                       "h-12 w-12 rounded-2xl text-sm font-heavy transition-all",
                       page === p
-                        ? "bg-slate-900 text-white shadow-xl shadow-slate-200"
+                        ? "bg-slate-900 text-white border border-slate-200"
                         : "bg-white text-slate-500 hover:bg-slate-50",
                     )}
                   >

@@ -87,7 +87,7 @@ export default function PrivacyPolicyPage() {
                   3. Sharing with Providers
                 </h2>
               </div>
-              <div className="prose prose-slate dark:prose-invert max-w-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-sm">
+              <div className="prose prose-slate dark:prose-invert max-w-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8">
                 <p>
                   When you book a service, we share necessary information (like
                   your name and contact details) with the chosen Provider so

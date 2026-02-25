@@ -56,7 +56,7 @@ export const CookieConsent = () => {
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
         className="fixed bottom-6 left-6 right-6 md:left-auto md:right-8 md:max-w-md z-9999"
       >
-        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-800/50 rounded-3xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative">
+        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-800/50 rounded-3xl p-5 overflow-hidden relative">
           {/* Subtle background gradient */}
           <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -99,7 +99,7 @@ export const CookieConsent = () => {
             </button>
             <button
               onClick={handleAcceptAll}
-              className="px-4 py-2.5 text-sm font-black uppercase tracking-widest text-white bg-slate-900 dark:bg-rose-600 rounded-full hover:bg-rose-600 dark:hover:bg-rose-700 transition-all shadow-lg shadow-rose-500/10 flex-1 whitespace-nowrap"
+              className="px-4 py-2.5 text-sm font-black uppercase tracking-widest text-white bg-slate-900 dark:bg-rose-600 rounded-full hover:bg-rose-600 dark:hover:bg-rose-700 transition-all flex-1 whitespace-nowrap border border-slate-200"
             >
               Accept all
             </button>

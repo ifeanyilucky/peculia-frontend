@@ -65,7 +65,7 @@ export default function ServicesList({
         <div
           key={service.id}
           className={cn(
-            "group bg-white rounded-[2rem] border border-slate-100 p-8 hover:border-slate-900 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-slate-200/50 relative overflow-hidden",
+            "group bg-white rounded-[2rem] border border-slate-100 p-8 hover:border-slate-900 transition-all duration-300 relative overflow-hidden",
             !service.isActive && "opacity-75",
           )}
         >

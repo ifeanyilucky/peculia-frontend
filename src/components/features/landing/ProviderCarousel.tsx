@@ -91,7 +91,7 @@ export default function ProviderCarousel({
                 exit={{ opacity: 0, x: 10 }}
                 transition={{ duration: 0.2 }}
                 onClick={() => scroll("left")}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 bg-white shadow-xl border border-slate-200 rounded-full p-3 hover:bg-slate-50 hover:scale-110 active:scale-95 transition-all duration-200 hidden md:flex items-center justify-center"
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 bg-white border border-slate-200 rounded-full p-3 hover:bg-slate-50 hover:scale-110 active:scale-95 transition-all duration-200 hidden md:flex items-center justify-center"
                 aria-label="Scroll left"
               >
                 <ChevronLeft className="w-5 h-5 text-slate-700" />
@@ -107,7 +107,7 @@ export default function ProviderCarousel({
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.2 }}
                 onClick={() => scroll("right")}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 bg-white shadow-xl border border-slate-200 rounded-full p-3 hover:bg-slate-50 hover:scale-110 active:scale-95 transition-all duration-200 hidden md:flex items-center justify-center"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 bg-white border border-slate-200 rounded-full p-3 hover:bg-slate-50 hover:scale-110 active:scale-95 transition-all duration-200 hidden md:flex items-center justify-center"
                 aria-label="Scroll right"
               >
                 <ChevronRight className="w-5 h-5 text-slate-700" />

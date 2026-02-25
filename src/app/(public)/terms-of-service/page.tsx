@@ -83,7 +83,7 @@ export default function TermsOfServicePage() {
                   3. Booking & Payments
                 </h2>
               </div>
-              <div className="prose prose-slate dark:prose-invert max-w-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-sm">
+              <div className="prose prose-slate dark:prose-invert max-w-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8">
                 <ul className="list-disc pl-5 space-y-3 text-slate-600 dark:text-slate-400">
                   <li>
                     <strong>Appointments:</strong> Bookings are subject to

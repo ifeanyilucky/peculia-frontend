@@ -93,7 +93,7 @@ export default function CookiePolicyPage() {
                   Managing your preferences
                 </h2>
               </div>
-              <div className="prose prose-slate dark:prose-invert max-w-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-sm">
+              <div className="prose prose-slate dark:prose-invert max-w-none bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8">
                 <p>
                   You can change your cookie preferences at any time by clicking
                   the &quot;Preferences&quot; button in our cookie banner.

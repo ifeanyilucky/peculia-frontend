@@ -32,11 +32,11 @@ export default function PaymentsPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-slate-100 text-xs font-black uppercase tracking-widest text-slate-500 hover:border-slate-900 transition-all shadow-sm">
+          <button className="flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-slate-100 text-xs font-black uppercase tracking-widest text-slate-500 hover:border-slate-900 transition-all">
             <Download size={16} />
             Export CSV
           </button>
-          <button className="flex items-center justify-center h-12 w-12 rounded-2xl bg-slate-900 text-white shadow-xl shadow-slate-200 hover:bg-rose-600 transition-all">
+          <button className="flex items-center justify-center h-12 w-12 rounded-2xl bg-slate-900 text-white hover:bg-rose-600 transition-all border border-slate-200">
             <Filter size={18} />
           </button>
         </div>

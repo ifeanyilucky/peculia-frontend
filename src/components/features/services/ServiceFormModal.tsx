@@ -126,7 +126,7 @@ export default function ServiceFormModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="bg-white w-full max-w-xl rounded-2xl shadow-2xl shadow-slate-900/20 overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-300">
+      <div className="bg-white w-full max-w-xl rounded-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-300 border border-slate-200">
         {/* Header */}
         <div className="px-8 py-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
           <div>
@@ -288,7 +288,7 @@ export default function ServiceFormModal({
           <button
             onClick={handleSubmit(onSubmit)}
             disabled={isSubmitting}
-            className="flex-1 h-14 rounded-2xl bg-slate-900 text-sm font-black uppercase tracking-widest text-white hover:bg-rose-600 transition-all shadow-xl shadow-slate-200 flex items-center justify-center gap-3 disabled:opacity-70"
+            className="flex-1 h-14 rounded-2xl bg-slate-900 text-sm font-black uppercase tracking-widest text-white hover:bg-rose-600 transition-all border border-slate-200 flex items-center justify-center gap-3 disabled:opacity-70"
           >
             {isSubmitting ? (
               <Loader2 className="animate-spin" size={20} />

@@ -67,7 +67,7 @@ export default function ClientBookingCard({ booking }: ClientBookingCardProps) {
       : "Professional";
 
   return (
-    <div className="group relative bg-white rounded-[2rem] border border-slate-100 p-6 lg:p-7 hover:border-slate-200 hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.08)] transition-all duration-500 flex flex-col md:flex-row gap-6 md:items-center overflow-hidden">
+    <div className="group relative bg-white rounded-[2rem] border border-slate-100 p-6 lg:p-7 hover:border-slate-200 transition-all duration-500 flex flex-col md:flex-row gap-6 md:items-center overflow-hidden">
       {/* Subtle Side Indicator */}
       <div
         className={cn(
@@ -166,7 +166,7 @@ export default function ClientBookingCard({ booking }: ClientBookingCardProps) {
         {/* Dynamic Action Zone */}
         <div className="flex items-center gap-3">
           {booking.status === "pending_payment" && (
-            <button className="h-11 px-6 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-rose-600 transition-all shadow-lg shadow-slate-900/5 active:scale-95">
+            <button className="h-11 px-6 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-rose-600 transition-all active:scale-95 border border-slate-200">
               Pay Now
             </button>
           )}
@@ -178,7 +178,7 @@ export default function ClientBookingCard({ booking }: ClientBookingCardProps) {
           )}
 
           {booking.status === "completed" && (
-            <button className="h-11 px-6 bg-rose-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-rose-700 transition-all shadow-lg shadow-rose-600/10 active:scale-95">
+            <button className="h-11 px-6 bg-rose-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-rose-700 transition-all active:scale-95 border border-slate-200">
               Review
             </button>
           )}

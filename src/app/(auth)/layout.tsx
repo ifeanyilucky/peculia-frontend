@@ -22,23 +22,23 @@ export default function AuthLayout({
 
           <div className="relative z-10 flex h-full flex-col justify-between">
             <div>
-              <h1 className="font-peculiar text-4xl font-black text-white drop-shadow-md">
+              <h1 className="font-peculiar text-4xl font-black text-white">
                 Peculia.
               </h1>
             </div>
 
             <div className="max-w-md">
-              <h2 className="font-peculiar text-5xl font-blacker text-white drop-shadow-lg">
+              <h2 className="font-peculiar text-5xl font-blacker text-white">
                 Redefining Beauty <br /> & Wellness.
               </h2>
-              <p className="mt-6 text-lg text-slate-200 font-medium drop-shadow-md">
+              <p className="mt-6 text-lg text-slate-200 font-medium">
                 Join the premium platform for top-tier beauty professionals and
                 clients. Seamless bookings, verified experts, and stunning
                 results.
               </p>
             </div>
 
-            <div className="text-sm font-semibold text-slate-300 drop-shadow-md">
+            <div className="text-sm font-semibold text-slate-300">
               © {new Date().getFullYear()} Peculia. All rights reserved.
             </div>
           </div>

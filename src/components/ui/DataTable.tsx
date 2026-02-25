@@ -30,7 +30,7 @@ export default function DataTable<T extends { id: string }>({
   isAllSelected,
 }: DataTableProps<T>) {
   return (
-    <div className="w-full overflow-x-auto bg-white rounded-2xl border border-slate-100 shadow-xl shadow-slate-200/40">
+    <div className="w-full overflow-x-auto bg-white rounded-2xl border border-slate-100">
       <table className="w-full text-left text-sm whitespace-nowrap text-slate-600">
         <thead>
           <tr className="border-b border-slate-100 text-slate-500 font-bold uppercase tracking-wider text-[11px] bg-slate-50/50">

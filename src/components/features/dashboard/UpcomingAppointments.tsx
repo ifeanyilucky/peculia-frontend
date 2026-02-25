@@ -58,7 +58,7 @@ export default function UpcomingAppointments() {
             <Link
               key={booking.id}
               href={`/bookings/${booking.id}`}
-              className="group flex items-center gap-4 bg-white p-4 rounded-3xl border border-slate-100 hover:border-rose-200 hover:shadow-xl hover:shadow-rose-50 transition-all duration-300"
+              className="group flex items-center gap-4 bg-white p-4 rounded-3xl border border-slate-100 hover:border-rose-200 transition-all duration-300"
             >
               <div className="h-16 w-16 rounded-2xl bg-slate-100 overflow-hidden relative border border-slate-50 shrink-0">
                 {/* Fallback avatar logic */}

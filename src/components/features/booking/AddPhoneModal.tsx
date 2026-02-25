@@ -67,7 +67,7 @@ export default function AddPhoneModal({
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       {/* ── Modal panel ──────────────────────────── */}
-      <div className="relative w-full max-w-md bg-white rounded-4xl shadow-2xl shadow-slate-900/20 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
+      <div className="relative w-full max-w-md bg-white rounded-4xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300 border border-slate-200">
         {/* Close */}
         <button
           onClick={onClose}

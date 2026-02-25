@@ -54,14 +54,14 @@ export default function BookingProfessionalSelection({
           className={cn(
             "group cursor-pointer rounded-2xl border-2 p-6 transition-all duration-300",
             selectedTeamMember === null
-              ? "border-rose-600 bg-rose-50/10 shadow-lg shadow-rose-100"
+              ? "border-rose-600 bg-rose-50/10"
               : "border-slate-100 bg-white hover:border-slate-200",
           )}
         >
           <div className="flex items-center gap-4">
             <div
               className={cn(
-                "h-16 w-16 rounded-full flex items-center justify-center transition-colors shadow-inner",
+                "h-16 w-16 rounded-full flex items-center justify-center transition-colors border border-slate-200",
                 selectedTeamMember === null
                   ? "bg-rose-100 text-rose-600"
                   : "bg-slate-50 text-slate-400 group-hover:bg-slate-100",
@@ -78,7 +78,7 @@ export default function BookingProfessionalSelection({
               </p>
             </div>
             {selectedTeamMember === null && (
-              <div className="h-8 w-8 rounded-full bg-rose-600 text-white flex items-center justify-center shadow-lg animate-in zoom-in duration-300">
+              <div className="h-8 w-8 rounded-full bg-rose-600 text-white flex items-center justify-center animate-in zoom-in duration-300 border border-slate-200">
                 <Check size={18} strokeWidth={3} />
               </div>
             )}
@@ -93,12 +93,12 @@ export default function BookingProfessionalSelection({
             className={cn(
               "group cursor-pointer rounded-2xl border-2 p-6 transition-all duration-300",
               selectedTeamMember?._id === member._id
-                ? "border-rose-600 bg-rose-50/10 shadow-lg shadow-rose-100"
+                ? "border-rose-600 bg-rose-50/10"
                 : "border-slate-100 bg-white hover:border-slate-200",
             )}
           >
             <div className="flex items-center gap-4">
-              <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-2 border-white shadow-md">
+              <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-2 border-white">
                 {member.avatar ? (
                   <Image
                     src={member.avatar}
@@ -131,7 +131,7 @@ export default function BookingProfessionalSelection({
                 )}
               </div>
               {selectedTeamMember?._id === member._id && (
-                <div className="h-8 w-8 rounded-full bg-rose-600 text-white flex items-center justify-center shadow-lg animate-in zoom-in duration-300">
+                <div className="h-8 w-8 rounded-full bg-rose-600 text-white flex items-center justify-center animate-in zoom-in duration-300 border border-slate-200">
                   <Check size={18} strokeWidth={3} />
                 </div>
               )}

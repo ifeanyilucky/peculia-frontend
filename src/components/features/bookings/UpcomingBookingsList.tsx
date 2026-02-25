@@ -72,7 +72,7 @@ export default function UpcomingBookingsList() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-slate-100 p-8 shadow-sm">
+      <div className="bg-white rounded-2xl border border-slate-100 p-8">
         {results.length === 0 ? (
           <div className="py-12 text-center space-y-4">
             <div className="h-16 w-16 mx-auto rounded-full bg-slate-50 flex items-center justify-center text-slate-200">
@@ -96,7 +96,7 @@ export default function UpcomingBookingsList() {
                   {/* Timeline Dot */}
                   <div
                     className={cn(
-                      "absolute left-0 top-1.5 h-9 w-9 rounded-full flex items-center justify-center border-4 border-white shadow-sm z-10 transition-transform group-hover:scale-110",
+                      "absolute left-0 top-1.5 h-9 w-9 rounded-full flex items-center justify-center border-4 border-white z-10 transition-transform group-hover:scale-110",
                       isEventToday
                         ? "bg-rose-600 text-white"
                         : "bg-slate-900 text-white",
@@ -160,14 +160,14 @@ export default function UpcomingBookingsList() {
                     <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={() => handleAction(booking.id, "complete")}
-                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-green-50 text-green-600 text-[10px] font-black uppercase tracking-widest hover:bg-green-600 hover:text-white transition-all shadow-sm"
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-green-50 text-green-600 text-[10px] font-black uppercase tracking-widest hover:bg-green-600 hover:text-white transition-all border border-slate-200"
                       >
                         <CheckCircle2 size={14} />
                         Complete
                       </button>
                       <button
                         onClick={() => handleAction(booking.id, "no-show")}
-                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-50 text-slate-600 text-[10px] font-black uppercase tracking-widest hover:bg-rose-600 hover:text-white transition-all shadow-sm"
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-50 text-slate-600 text-[10px] font-black uppercase tracking-widest hover:bg-rose-600 hover:text-white transition-all border border-slate-200"
                       >
                         <XCircle size={14} />
                         No-Show

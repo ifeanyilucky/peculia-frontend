@@ -38,7 +38,7 @@ export default function Testimonials() {
           {testimonials.map((t, idx) => (
             <div
               key={idx}
-              className="relative rounded-3xl bg-white p-8 shadow-sm transition-all hover:shadow-xl"
+              className="relative rounded-3xl bg-white p-8 border border-slate-200 transition-all hover:border-slate-300"
             >
               <Quote className="absolute top-6 right-8 h-12 w-12 text-rose-400/10" />
               <div className="flex gap-1">
@@ -54,7 +54,9 @@ export default function Testimonials() {
                 &ldquo;{t.text}&rdquo;
               </p>
               <div className="mt-8 pt-8 border-t border-slate-50">
-                <p className="font-peculiar font-bold text-slate-900">{t.name}</p>
+                <p className="font-peculiar font-bold text-slate-900">
+                  {t.name}
+                </p>
                 <p className="text-sm text-slate-500">{t.role}</p>
               </div>
             </div>

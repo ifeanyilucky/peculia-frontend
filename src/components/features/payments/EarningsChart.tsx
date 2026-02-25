@@ -28,7 +28,7 @@ export default function EarningsChart() {
   const [view, setView] = useState<"weekly" | "monthly">("weekly");
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 p-8 shadow-sm h-full flex flex-col">
+    <div className="bg-white rounded-2xl border border-slate-100 p-8 h-full flex flex-col">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
           <h3 className="font-peculiar text-xl font-bold text-slate-900">
@@ -45,7 +45,7 @@ export default function EarningsChart() {
             className={cn(
               "px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all",
               view === "weekly"
-                ? "bg-white text-slate-900 shadow-sm"
+                ? "bg-white text-slate-900 border border-slate-200"
                 : "text-slate-400 hover:text-slate-600",
             )}
           >
@@ -56,7 +56,7 @@ export default function EarningsChart() {
             className={cn(
               "px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all",
               view === "monthly"
-                ? "bg-white text-slate-900 shadow-sm"
+                ? "bg-white text-slate-900 border border-slate-200"
                 : "text-slate-400 hover:text-slate-600",
             )}
           >

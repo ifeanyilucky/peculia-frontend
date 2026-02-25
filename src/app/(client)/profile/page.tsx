@@ -203,12 +203,12 @@ export default function ClientProfilePage() {
         <div className="flex-1 min-w-0">
           {/* ---- PROFILE TAB ---- */}
           {activeTab === "profile" && (
-            <section className="bg-white rounded-[2rem] border border-slate-100 overflow-hidden shadow-sm animate-in fade-in zoom-in-95 duration-300">
+            <section className="bg-white rounded-[2rem] border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
               <div className="p-8 lg:p-10 space-y-10">
                 <div className="flex flex-col md:flex-row gap-10 items-start">
                   {/* Avatar Upload */}
                   <div className="relative group shrink-0">
-                    <div className="h-32 w-32 rounded-3xl bg-slate-900 overflow-hidden border-4 border-white shadow-xl relative">
+                    <div className="h-32 w-32 rounded-3xl bg-slate-900 overflow-hidden border-4 border-white relative">
                       {user?.avatar ? (
                         <Image
                           src={user.avatar}
@@ -222,7 +222,7 @@ export default function ClientProfilePage() {
                         </div>
                       )}
                     </div>
-                    <button className="absolute -bottom-3 -right-3 h-12 w-12 rounded-[1.25rem] bg-rose-600 text-white flex items-center justify-center shadow-lg border-4 border-white hover:bg-rose-700 transition-all hover:scale-105 active:scale-95">
+                    <button className="absolute -bottom-3 -right-3 h-12 w-12 rounded-[1.25rem] bg-rose-600 text-white flex items-center justify-center border-4 border-white hover:bg-rose-700 transition-all hover:scale-105 active:scale-95">
                       <Camera size={18} strokeWidth={2.5} />
                     </button>
                   </div>
@@ -245,7 +245,7 @@ export default function ClientProfilePage() {
                           />
                           <input
                             {...regProfile("firstName")}
-                            className="h-14 w-full pl-12 pr-4 bg-slate-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:border-rose-200 focus:shadow-[0_0_0_4px_rgba(225,29,72,0.05)] transition-all outline-none text-slate-900 placeholder:text-slate-400"
+                            className="h-14 w-full pl-12 pr-4 bg-slate-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:border-rose-200 transition-all outline-none text-slate-900 placeholder:text-slate-400"
                           />
                         </div>
                         {profileErrors.firstName && (
@@ -267,7 +267,7 @@ export default function ClientProfilePage() {
                           />
                           <input
                             {...regProfile("lastName")}
-                            className="h-14 w-full pl-12 pr-4 bg-slate-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:border-rose-200 focus:shadow-[0_0_0_4px_rgba(225,29,72,0.05)] transition-all outline-none text-slate-900"
+                            className="h-14 w-full pl-12 pr-4 bg-slate-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:border-rose-200 transition-all outline-none text-slate-900"
                           />
                         </div>
                         {profileErrors.lastName && (
@@ -310,7 +310,7 @@ export default function ClientProfilePage() {
                           <input
                             {...regProfile("phone")}
                             placeholder="+234..."
-                            className="h-14 w-full pl-12 pr-4 bg-slate-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:border-rose-200 focus:shadow-[0_0_0_4px_rgba(225,29,72,0.05)] transition-all outline-none text-slate-900"
+                            className="h-14 w-full pl-12 pr-4 bg-slate-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:border-rose-200 transition-all outline-none text-slate-900"
                           />
                         </div>
                       </div>
@@ -320,7 +320,7 @@ export default function ClientProfilePage() {
                       <button
                         type="submit"
                         disabled={isUpdatingProfile}
-                        className="flex items-center gap-2 rounded-xl bg-slate-900 px-8 h-14 text-[10px] font-black uppercase tracking-[0.15em] text-white hover:bg-rose-600 transition-all shadow-lg shadow-slate-900/5 disabled:opacity-50 active:scale-95"
+                        className="flex items-center gap-2 rounded-xl bg-slate-900 px-8 h-14 text-[10px] font-black uppercase tracking-[0.15em] text-white hover:bg-rose-600 transition-all disabled:opacity-50 active:scale-95 border border-slate-200"
                       >
                         {isUpdatingProfile ? (
                           <Loader2 className="animate-spin" size={16} />
@@ -338,7 +338,7 @@ export default function ClientProfilePage() {
 
           {/* ---- SECURITY TAB ---- */}
           {activeTab === "security" && (
-            <section className="bg-white rounded-[2rem] border border-slate-100 overflow-hidden shadow-sm animate-in fade-in zoom-in-95 duration-300">
+            <section className="bg-white rounded-[2rem] border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
               <div className="p-8 lg:p-10 space-y-8">
                 <div className="flex items-center gap-4 border-b border-slate-50 pb-8">
                   <div className="h-12 w-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
@@ -371,7 +371,7 @@ export default function ClientProfilePage() {
                       <input
                         {...regPassword("currentPassword")}
                         type="password"
-                        className="h-14 w-full pl-12 pr-4 bg-slate-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:border-rose-200 focus:shadow-[0_0_0_4px_rgba(225,29,72,0.05)] transition-all outline-none text-slate-900"
+                        className="h-14 w-full pl-12 pr-4 bg-slate-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:border-rose-200 transition-all outline-none text-slate-900"
                       />
                     </div>
                     {passwordErrors.currentPassword && (
@@ -394,7 +394,7 @@ export default function ClientProfilePage() {
                       <input
                         {...regPassword("newPassword")}
                         type="password"
-                        className="h-14 w-full pl-12 pr-4 bg-slate-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:border-rose-200 focus:shadow-[0_0_0_4px_rgba(225,29,72,0.05)] transition-all outline-none text-slate-900"
+                        className="h-14 w-full pl-12 pr-4 bg-slate-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:border-rose-200 transition-all outline-none text-slate-900"
                       />
                     </div>
                     {passwordErrors.newPassword && (
@@ -417,7 +417,7 @@ export default function ClientProfilePage() {
                       <input
                         {...regPassword("confirmPassword")}
                         type="password"
-                        className="h-14 w-full pl-12 pr-4 bg-slate-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:border-rose-200 focus:shadow-[0_0_0_4px_rgba(225,29,72,0.05)] transition-all outline-none text-slate-900"
+                        className="h-14 w-full pl-12 pr-4 bg-slate-50 border border-transparent rounded-2xl text-sm font-bold focus:bg-white focus:border-rose-200 transition-all outline-none text-slate-900"
                       />
                     </div>
                     {passwordErrors.confirmPassword && (
@@ -445,7 +445,7 @@ export default function ClientProfilePage() {
 
           {/* ---- NOTIFICATIONS TAB (Mock) ---- */}
           {activeTab === "notifications" && (
-            <section className="bg-white rounded-[2rem] border border-slate-100 overflow-hidden shadow-sm animate-in fade-in zoom-in-95 duration-300">
+            <section className="bg-white rounded-[2rem] border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
               <div className="p-8 lg:p-10 space-y-8">
                 <div className="flex items-center gap-4 border-b border-slate-50 pb-8">
                   <div className="h-12 w-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
@@ -533,7 +533,7 @@ export default function ClientProfilePage() {
             <section className="bg-rose-50/40 rounded-[2rem] border border-rose-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
               <div className="p-8 lg:p-10 space-y-8">
                 <div className="flex items-center gap-4 border-b border-rose-100 pb-8">
-                  <div className="h-12 w-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center shadow-lg shadow-rose-200 shrink-0">
+                  <div className="h-12 w-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center shrink-0 border border-slate-200">
                     <Trash2 size={24} strokeWidth={2} />
                   </div>
                   <div>
@@ -546,7 +546,7 @@ export default function ClientProfilePage() {
                   </div>
                 </div>
 
-                <div className="bg-white rounded-[1.5rem] p-8 lg:p-10 border border-rose-100 flex flex-col items-start gap-8 shadow-sm max-w-2xl">
+                <div className="bg-white rounded-[1.5rem] p-8 lg:p-10 border border-rose-100 flex flex-col items-start gap-8 max-w-2xl">
                   <div className="space-y-2">
                     <p className="text-base font-black text-slate-900">
                       Delete Account
@@ -569,12 +569,12 @@ export default function ClientProfilePage() {
                           setDeleteConfirmation(e.target.value.toUpperCase())
                         }
                         placeholder="DELETE"
-                        className="h-14 w-full sm:w-64 px-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-black tracking-[0.2em] focus:bg-white focus:border-rose-300 focus:shadow-[0_0_0_4px_rgba(225,29,72,0.05)] outline-none transition-all text-slate-900"
+                        className="h-14 w-full sm:w-64 px-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-black tracking-[0.2em] focus:bg-white focus:border-rose-300 outline-none transition-all text-slate-900"
                       />
                       <button
                         onClick={onDeleteAccount}
                         disabled={isDeleting || deleteConfirmation !== "DELETE"}
-                        className="h-14 px-8 w-full sm:w-auto rounded-2xl bg-rose-600 text-white text-[10px] font-black uppercase tracking-widest hover:bg-rose-700 disabled:opacity-30 disabled:cursor-not-allowed transition-all shrink-0 active:scale-95 shadow-lg shadow-rose-600/20"
+                        className="h-14 px-8 w-full sm:w-auto rounded-2xl bg-rose-600 text-white text-[10px] font-black uppercase tracking-widest hover:bg-rose-700 disabled:opacity-30 disabled:cursor-not-allowed transition-all shrink-0 active:scale-95 border border-slate-200"
                       >
                         Delete Account
                       </button>

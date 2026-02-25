@@ -152,12 +152,12 @@ export default function BookingTimeSelection({
         {/* Calendar icon dropdown */}
         <Popover>
           <PopoverTrigger asChild>
-            <button className="h-10 w-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-900 hover:border-slate-300 transition-all shadow-sm">
+            <button className="h-10 w-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-900 hover:border-slate-300 transition-all">
               <CalendarDays size={18} />
             </button>
           </PopoverTrigger>
           <PopoverContent
-            className="w-auto p-0 border-none shadow-2xl"
+            className="w-auto p-0 border-none"
             align="end"
           >
             <Calendar
@@ -230,7 +230,7 @@ export default function BookingTimeSelection({
                   isDisabled
                     ? "opacity-30 cursor-not-allowed"
                     : isSelected
-                      ? "bg-rose-600 text-white shadow-lg shadow-rose-200"
+                      ? "bg-rose-600 text-white border border-slate-200"
                       : "hover:bg-slate-50 text-slate-600",
                 )}
               >
@@ -306,7 +306,7 @@ export default function BookingTimeSelection({
                   className={cn(
                     "w-full text-left px-6 py-4 rounded-xl border transition-all font-bold text-sm",
                     isSelected
-                      ? "bg-rose-600 border-rose-600 text-white shadow-md shadow-rose-100"
+                      ? "bg-rose-600 border-rose-600 text-white"
                       : "bg-white border-slate-100 text-slate-700 hover:border-slate-200 hover:bg-slate-50",
                   )}
                 >

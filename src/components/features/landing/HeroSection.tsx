@@ -82,7 +82,7 @@ export default function HeroSection() {
           transition={{ duration: 0.6 }}
           className="flex flex-col items-center text-center max-w-4xl"
         >
-          {/* <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-sm font-bold text-slate-700 shadow-sm transition-colors hover:bg-slate-50 mb-8 cursor-pointer">
+          {/* <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-sm font-bold text-slate-700 transition-colors hover:bg-slate-50 mb-8 cursor-pointer">
             <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs text-rose-600 uppercase tracking-wider">
               New
             </span>
@@ -106,7 +106,7 @@ export default function HeroSection() {
           >
             <form
               onSubmit={handleSearch}
-              className="flex flex-col gap-3 rounded-[32px] border border-slate-100 bg-white p-3 shadow-xl shadow-rose-100/50 lg:flex-row lg:items-center lg:gap-0 lg:rounded-full"
+              className="flex flex-col gap-3 rounded-[32px] border border-slate-100 bg-white p-3 lg:flex-row lg:items-center lg:gap-0 lg:rounded-full"
             >
               <div className="flex flex-1 items-center px-4 py-2 lg:border-r lg:border-slate-100 lg:py-0">
                 <Search className="mr-3 text-slate-400 shrink-0" size={20} />
@@ -169,7 +169,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="mt-16 w-full lg:max-w-[1000px] h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl relative"
+          className="mt-16 w-full lg:max-w-[1000px] h-[400px] lg:h-[500px] rounded-2xl overflow-hidden relative border border-slate-200"
         >
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent z-10" />
           <Image

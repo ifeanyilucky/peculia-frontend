@@ -39,7 +39,7 @@ export default function CenterModal({
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-300 p-6">
       <div
         className={cn(
-          "bg-white w-full rounded-[32px] shadow-2xl animate-in zoom-in-95 duration-300 overflow-hidden relative focus:outline-none",
+          "bg-white w-full rounded-[32px] animate-in zoom-in-95 duration-300 overflow-hidden relative focus:outline-none border border-slate-200",
           maxWidth,
         )}
       >

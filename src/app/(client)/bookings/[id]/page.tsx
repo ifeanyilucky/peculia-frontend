@@ -213,7 +213,7 @@ export default function BookingDetailPage() {
         {/* CTA based on status */}
         <div className="flex items-center gap-3 shrink-0">
           {booking.status === "pending_payment" && (
-            <button className="h-12 px-8 rounded-xl bg-slate-900 text-white text-xs font-black uppercase tracking-widest hover:bg-rose-600 transition-all shadow-lg shadow-slate-900/5 active:scale-95">
+            <button className="h-12 px-8 rounded-xl bg-slate-900 text-white text-xs font-black uppercase tracking-widest hover:bg-rose-600 transition-all active:scale-95 border border-slate-200">
               Pay {formatCurrency(booking.depositAmount / 100)}
             </button>
           )}
@@ -249,7 +249,7 @@ export default function BookingDetailPage() {
                 >
                   <div
                     className={cn(
-                      "h-9 w-9 rounded-full flex items-center justify-center border-4 border-white shadow-sm transition-all duration-500 shrink-0",
+                      "h-9 w-9 rounded-full flex items-center justify-center border-4 border-white transition-all duration-500 shrink-0",
                       step.done
                         ? "bg-slate-900 text-white"
                         : "bg-slate-50 text-slate-300",
@@ -421,7 +421,7 @@ export default function BookingDetailPage() {
           <div className="rounded-[1.5rem] bg-white border border-slate-100 p-6">
             <div className="flex flex-col items-center text-center gap-3 pb-6 border-b border-slate-50">
               {/* Avatar */}
-              <div className="h-20 w-20 rounded-2xl bg-slate-900 text-white flex items-center justify-center text-2xl font-peculiar font-black shadow-xl shadow-slate-900/10">
+              <div className="h-20 w-20 rounded-2xl bg-slate-900 text-white flex items-center justify-center text-2xl font-peculiar font-black border border-slate-200">
                 {providerInitial}
               </div>
               <div>

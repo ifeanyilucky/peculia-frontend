@@ -39,7 +39,7 @@ export default function DashboardHeader() {
                 : "Client Account"}
             </p>
           </div>
-          <div className="h-10 w-10 rounded-2xl bg-slate-900 overflow-hidden relative border-2 border-white shadow-lg">
+          <div className="h-10 w-10 rounded-2xl bg-slate-900 overflow-hidden relative border-2 border-white">
             {user?.avatar ? (
               <Image
                 src={user.avatar}

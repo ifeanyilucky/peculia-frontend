@@ -20,7 +20,7 @@ interface PayoutsTableProps {
 
 export default function PayoutsTable({ payouts }: PayoutsTableProps) {
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+    <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden flex flex-col">
       <div className="p-8 border-b border-slate-50 bg-slate-50/30 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div>
           <h3 className="font-peculiar text-xl font-bold text-slate-900">
@@ -40,10 +40,10 @@ export default function PayoutsTable({ payouts }: PayoutsTableProps) {
             <input
               type="text"
               placeholder="Search..."
-              className="h-12 w-48 bg-white border border-slate-100 rounded-2xl pl-11 pr-4 text-xs font-bold outline-none focus:border-slate-900 transition-all shadow-sm"
+              className="h-12 w-48 bg-white border border-slate-100 rounded-2xl pl-11 pr-4 text-xs font-bold outline-none focus:border-slate-900 transition-all"
             />
           </div>
-          <button className="h-12 w-12 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-slate-900 transition-all shadow-sm">
+          <button className="h-12 w-12 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-slate-900 transition-all">
             <Filter size={18} />
           </button>
         </div>

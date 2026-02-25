@@ -18,7 +18,7 @@ export default function Error({
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 px-6 text-center">
-      <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-rose-100 text-rose-600 shadow-2xl shadow-rose-100 mb-8">
+      <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-rose-100 text-rose-600 mb-8 border border-slate-200">
         <AlertCircle size={40} />
       </div>
 
@@ -41,7 +41,7 @@ export default function Error({
       <div className="mt-12 flex flex-col sm:flex-row items-center gap-4">
         <button
           onClick={() => reset()}
-          className="h-14 px-8 rounded-2xl bg-slate-900 text-xs font-black uppercase tracking-widest text-white hover:bg-rose-600 transition-all shadow-xl shadow-slate-200 flex items-center gap-2"
+          className="h-14 px-8 rounded-2xl bg-slate-900 text-xs font-black uppercase tracking-widest text-white hover:bg-rose-600 transition-all flex items-center gap-2 border border-slate-200"
         >
           <RotateCcw size={18} />
           Try Again

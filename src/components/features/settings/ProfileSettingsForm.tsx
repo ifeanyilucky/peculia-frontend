@@ -50,7 +50,7 @@ export default function ProfileSettingsForm() {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
       <div className="p-8 border-b border-slate-50 bg-slate-50/30 flex items-center justify-between">
         <div>
           <h3 className="font-peculiar text-xl font-bold text-slate-900">
@@ -129,7 +129,7 @@ export default function ProfileSettingsForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full sm:w-auto h-14 px-10 rounded-2xl bg-slate-900 text-xs font-black uppercase tracking-widest text-white hover:bg-rose-600 transition-all shadow-xl shadow-slate-200 flex items-center justify-center gap-2"
+            className="w-full sm:w-auto h-14 px-10 rounded-2xl bg-slate-900 text-xs font-black uppercase tracking-widest text-white hover:bg-rose-600 transition-all flex items-center justify-center gap-2 border border-slate-200"
           >
             {isSubmitting ? (
               <Loader2 className="animate-spin" size={18} />

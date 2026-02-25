@@ -29,7 +29,7 @@ export default function StatCard({
   };
 
   return (
-    <div className="group p-8 rounded-2xl bg-white border border-slate-100 hover:border-slate-900 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-slate-200/50">
+    <div className="group p-8 rounded-2xl bg-white border border-slate-100 hover:border-slate-900 transition-all duration-300">
       <div className="flex items-start justify-between">
         <div
           className={cn(

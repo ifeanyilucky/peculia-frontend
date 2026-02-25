@@ -59,7 +59,7 @@ export default function ForBusinessPage() {
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
                 <Link
                   href={ROUTES.partnersPortal}
-                  className="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white rounded-full text-lg font-bold hover:bg-rose-600 transition-all shadow-xl shadow-rose-100 flex items-center justify-center gap-2 group"
+                  className="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white rounded-full text-lg font-bold hover:bg-rose-600 transition-all flex items-center justify-center gap-2 group border border-slate-200"
                 >
                   Join as a Partner
                   <ArrowRight
@@ -83,7 +83,7 @@ export default function ForBusinessPage() {
             transition={{ duration: 0.8 }}
             className="flex-1 relative"
           >
-            <div className="relative w-full aspect-[4/5] max-w-[500px] mx-auto rounded-[2rem] overflow-hidden shadow-2xl">
+            <div className="relative w-full aspect-[4/5] max-w-[500px] mx-auto rounded-[2rem] overflow-hidden border border-slate-200">
               <Image
                 src="/images/Lash_Technician_5k.webp"
                 alt="Productive beauty professional"
@@ -95,7 +95,7 @@ export default function ForBusinessPage() {
 
               {/* Floating badges */}
               <div className="absolute bottom-6 left-6 right-6 flex flex-col gap-3">
-                <div className="bg-white/90 backdrop-blur-md p-4 rounded-2xl flex items-center gap-4 shadow-xl">
+                <div className="bg-white/90 backdrop-blur-md p-4 rounded-2xl flex items-center gap-4 border border-slate-200">
                   <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
                     <CheckCircle2 size={24} />
                   </div>
@@ -208,7 +208,7 @@ export default function ForBusinessPage() {
               <motion.div
                 key={i}
                 variants={fadeUp}
-                className="bg-white border border-slate-100 p-8 rounded-[2rem] hover:shadow-xl hover:border-rose-100 transition-all group"
+                className="bg-white border border-slate-100 p-8 rounded-[2rem] hover:border-rose-100 transition-all group"
               >
                 <div className="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                   {feature.icon}
@@ -272,7 +272,7 @@ export default function ForBusinessPage() {
             ].map((img, i) => (
               <div
                 key={i}
-                className="flex-shrink-0 w-[400px] h-[500px] rounded-3xl overflow-hidden shadow-2xl relative group mx-3"
+                className="flex-shrink-0 w-[400px] h-[500px] rounded-3xl overflow-hidden relative group mx-3 border border-slate-200"
               >
                 <Image
                   src={img}
@@ -289,7 +289,7 @@ export default function ForBusinessPage() {
 
       {/* CTA Final */}
       <section className="py-32 px-6">
-        <div className="max-w-5xl mx-auto bg-rose-600 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden shadow-2xl shadow-rose-200">
+        <div className="max-w-5xl mx-auto bg-rose-600 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden border border-slate-200">
           <div className="absolute top-0 right-0 -mr-24 -mt-24 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 -ml-24 -mb-24 w-96 h-96 bg-black/10 rounded-full blur-3xl" />
 
@@ -305,7 +305,7 @@ export default function ForBusinessPage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link
                 href={ROUTES.partnersPortal}
-                className="w-full sm:w-auto px-10 py-5 bg-white text-rose-600 rounded-full text-xl font-black hover:bg-slate-50 transition-all shadow-xl"
+                className="w-full sm:w-auto px-10 py-5 bg-white text-rose-600 rounded-full text-xl font-black hover:bg-slate-50 transition-all border border-slate-200"
               >
                 Join Now
               </Link>

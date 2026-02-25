@@ -138,7 +138,7 @@ export default function WeeklyScheduleEditor({
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+    <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden flex flex-col">
       <div className="p-8 border-b border-slate-50 flex items-center justify-between bg-slate-50/30">
         <div>
           <h3 className="font-peculiar text-xl font-bold text-slate-900">
@@ -151,7 +151,7 @@ export default function WeeklyScheduleEditor({
         <button
           onClick={handleSave}
           disabled={isSaving}
-          className="h-12 px-6 rounded-2xl bg-slate-900 text-xs font-black uppercase tracking-widest text-white hover:bg-rose-600 transition-all shadow-lg flex items-center gap-2 disabled:opacity-70"
+          className="h-12 px-6 rounded-2xl bg-slate-900 text-xs font-black uppercase tracking-widest text-white hover:bg-rose-600 transition-all flex items-center gap-2 disabled:opacity-70 border border-slate-200"
         >
           {isSaving ? (
             <Loader2 size={16} className="animate-spin" />
@@ -179,7 +179,7 @@ export default function WeeklyScheduleEditor({
                   >
                     <div
                       className={cn(
-                        "absolute top-1 left-1 h-4 w-4 rounded-full bg-white transition-all shadow-sm",
+                        "absolute top-1 left-1 h-4 w-4 rounded-full bg-white transition-all border border-slate-200",
                         day.isAvailable && "translate-x-5",
                       )}
                     />
@@ -261,7 +261,7 @@ export default function WeeklyScheduleEditor({
                 <div className="lg:opacity-0 group-hover:opacity-100 transition-all">
                   <button
                     onClick={() => copyToAll(dayIdx)}
-                    className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-white border border-slate-100 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:border-slate-900 hover:text-slate-900 shadow-sm transition-all"
+                    className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-white border border-slate-100 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:border-slate-900 hover:text-slate-900 transition-all"
                   >
                     <Copy size={14} />
                     Copy to all

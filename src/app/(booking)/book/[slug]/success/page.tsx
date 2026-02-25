@@ -140,7 +140,7 @@ function SuccessContent() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white rounded-4xl border border-slate-100 shadow-xl shadow-slate-200/50 overflow-hidden mb-8"
+          className="bg-white rounded-4xl border border-slate-100 overflow-hidden mb-8"
         >
           <div className="p-8 border-b border-slate-50">
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4">

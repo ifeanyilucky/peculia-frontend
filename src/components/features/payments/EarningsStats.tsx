@@ -25,7 +25,7 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {/* Main Balance Card */}
-      <div className="lg:col-span-1 p-8 rounded-2xl bg-slate-900 text-white shadow-2xl shadow-slate-200">
+      <div className="lg:col-span-1 p-8 rounded-2xl bg-slate-900 text-white border border-slate-200">
         <div className="flex items-center justify-between mb-8">
           <div className="h-12 w-12 rounded-2xl bg-white/10 flex items-center justify-center backdrop-blur-md">
             <Wallet className="text-white" size={24} />
@@ -58,7 +58,7 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
       </div>
 
       {/* Pending Earnings */}
-      <div className="p-8 rounded-2xl bg-white border border-slate-100 shadow-sm flex flex-col justify-between">
+      <div className="p-8 rounded-2xl bg-white border border-slate-100 flex flex-col justify-between">
         <div className="flex items-center justify-between">
           <div className="h-12 w-12 rounded-2xl bg-amber-50 flex items-center justify-center">
             <Clock className="text-amber-600" size={24} />
@@ -82,7 +82,7 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
       </div>
 
       {/* Month Summary */}
-      <div className="p-8 rounded-2xl bg-white border border-slate-100 shadow-sm flex flex-col justify-between">
+      <div className="p-8 rounded-2xl bg-white border border-slate-100 flex flex-col justify-between">
         <div className="flex items-center justify-between">
           <div className="h-12 w-12 rounded-2xl bg-rose-50 flex items-center justify-center">
             <TrendingUp className="text-rose-600" size={24} />

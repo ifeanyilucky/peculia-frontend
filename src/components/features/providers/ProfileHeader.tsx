@@ -244,7 +244,7 @@ export default function ProfileHeader({
                 className="object-cover transition-transform duration-700 hover:scale-105"
               />
               <button
-                className="absolute bottom-6 right-6 rounded-lg bg-white/90 px-4 py-2 text-xs font-black text-slate-900 shadow-xl backdrop-blur-sm transition-all hover:bg-white hover:scale-105 active:scale-95"
+                className="absolute bottom-6 right-6 rounded-lg bg-white/90 px-4 py-2 text-xs font-black text-slate-900 backdrop-blur-sm transition-all hover:bg-white hover:scale-105 active:scale-95 border border-slate-200"
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelectedIndex(2);

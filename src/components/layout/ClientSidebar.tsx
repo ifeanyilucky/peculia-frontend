@@ -30,7 +30,7 @@ export default function ClientSidebar() {
   return (
     <aside className="hidden lg:flex h-screen w-72 flex-col border-r border-slate-100 bg-white sticky top-0">
       <div className="flex items-center gap-2 px-8 py-8">
-        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-lg shadow-slate-200">
+        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-900 text-white border border-slate-200">
           <Sparkles size={24} />
         </div>
         <span className="font-peculiar text-2xl font-black text-slate-900">
@@ -48,7 +48,7 @@ export default function ClientSidebar() {
               className={cn(
                 "group flex items-center gap-3 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all duration-300",
                 isActive
-                  ? "bg-slate-900 text-white shadow-xl shadow-slate-200"
+                  ? "bg-slate-900 text-white border border-slate-200"
                   : "text-slate-500 hover:bg-slate-50 hover:text-slate-900",
               )}
             >

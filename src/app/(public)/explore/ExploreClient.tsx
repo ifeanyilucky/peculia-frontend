@@ -82,7 +82,7 @@ export default function ExploreClient() {
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="absolute bottom-0 left-0 right-0 max-h-[90vh] overflow-y-auto rounded-t-[32px] bg-white p-8 shadow-2xl"
+              className="absolute bottom-0 left-0 right-0 max-h-[90vh] overflow-y-auto rounded-t-[32px] bg-white p-8 border border-slate-200"
             >
               <div className="mb-8 flex items-center justify-between">
                 <h2 className="font-peculiar text-2xl font-black text-slate-900">
@@ -101,7 +101,7 @@ export default function ExploreClient() {
               <div className="sticky bottom-0 mt-8 border-t border-slate-100 bg-white pt-6">
                 <button
                   onClick={() => setIsMobileFiltersOpen(false)}
-                  className="w-full rounded-2xl bg-rose-600 py-4 text-sm font-bold text-white shadow-lg shadow-rose-200 transition-all hover:bg-rose-700 active:scale-[0.98]"
+                  className="w-full rounded-2xl bg-rose-600 py-4 text-sm font-bold text-white transition-all hover:bg-rose-700 active:scale-[0.98] border border-slate-200"
                 >
                   Show Results
                 </button>
