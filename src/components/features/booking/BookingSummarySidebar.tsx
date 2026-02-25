@@ -44,14 +44,7 @@ export default function BookingSummarySidebar({
   } | null>(null);
   const initializedRef = useRef(false);
 
-  const generateReference = () => {
-    const timestamp = Date.now();
-    const random = Math.random().toString(36).substring(2, 10);
-    return `PEC_${timestamp}_${random}`;
-  };
-
   const initializePayment = usePaystackPayment({
-    reference: paymentData?.reference || generateReference(),
     email: user?.email || "",
     amount: totalPrice,
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
@@ -79,11 +72,14 @@ export default function BookingSummarySidebar({
     if (paymentData && !initializedRef.current) {
       initializedRef.current = true;
       
-      // Small delay to ensure React has processed the state update
       const timer = setTimeout(() => {
         initializePayment({
           onSuccess: handlePaymentSuccess,
           onClose: handlePaymentClose,
+          config: {
+            reference: paymentData.reference,
+            accessCode: paymentData.accessCode,
+          },
         } as any);
       }, 100);
 

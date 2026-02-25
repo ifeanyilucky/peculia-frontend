@@ -9,6 +9,7 @@ import {
   XCircle,
   AlertCircle,
   ChevronRight,
+  ArrowUpRight,
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -20,209 +21,180 @@ interface ClientBookingCardProps {
 export default function ClientBookingCard({ booking }: ClientBookingCardProps) {
   const statusConfig: Record<
     string,
-    { label: string; color: string; icon: any }
+    { label: string; color: string; dot: string }
   > = {
     pending_payment: {
-      label: "Awaiting Payment",
-      color: "text-amber-600 bg-amber-50",
-      icon: AlertCircle,
+      label: "Action Required",
+      color: "text-amber-600",
+      dot: "bg-amber-400",
     },
     confirmed: {
       label: "Confirmed",
-      color: "text-green-600 bg-green-50",
-      icon: CheckCircle2,
+      color: "text-emerald-600",
+      dot: "bg-emerald-400",
     },
     in_progress: {
       label: "In Progress",
-      color: "text-blue-600 bg-blue-50",
-      icon: Clock,
+      color: "text-blue-600",
+      dot: "bg-blue-400",
     },
     completed: {
       label: "Completed",
-      color: "text-slate-600 bg-slate-50",
-      icon: CheckCircle2,
+      color: "text-slate-500",
+      dot: "bg-slate-300",
     },
     cancelled_by_client: {
       label: "Cancelled",
-      color: "text-rose-600 bg-rose-50",
-      icon: XCircle,
+      color: "text-rose-500",
+      dot: "bg-rose-400",
     },
     cancelled_by_provider: {
       label: "Cancelled by Pro",
-      color: "text-rose-600 bg-rose-50",
-      icon: XCircle,
+      color: "text-rose-500",
+      dot: "bg-rose-400",
     },
   };
 
   const config = statusConfig[booking.status] || {
     label: booking.status,
-    color: "text-slate-400 bg-slate-50",
-    icon: Clock,
+    color: "text-slate-400",
+    dot: "bg-slate-200",
   };
-  const StatusIcon = config.icon;
+
+  const providerName =
+    typeof booking.providerProfileId === "object"
+      ? (booking.providerProfileId as any).businessName
+      : "Professional";
 
   return (
-    <div className="group bg-white rounded-2xl border border-slate-100 p-6 lg:p-8 hover:border-rose-200 hover:shadow-2xl hover:shadow-rose-50 transition-all duration-500 relative flex flex-col lg:flex-row gap-8">
-      {/* Visual Indicator */}
+    <div className="group relative bg-white rounded-[2rem] border border-slate-100 p-6 lg:p-7 hover:border-slate-200 hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.08)] transition-all duration-500 flex flex-col md:flex-row gap-6 md:items-center overflow-hidden">
+      {/* Subtle Side Indicator */}
       <div
         className={cn(
-          "absolute top-0 left-0 bottom-0 w-2 h-full rounded-l-[2.5rem]",
-          config.color.split(" ")[1],
+          "absolute left-0 top-0 bottom-0 w-1.5 transition-opacity duration-500",
+          config.dot,
+          "opacity-40 group-hover:opacity-100",
         )}
       />
 
-      {/* Provider & Service Info */}
-      <div className="flex gap-6 flex-1 min-w-0">
-        <div className="h-16 w-16 lg:h-20 lg:w-20 rounded-3xl bg-slate-100 overflow-hidden relative border border-slate-50 shrink-0">
-          <div className="flex h-full w-full items-center justify-center bg-rose-50 text-rose-600 font-bold text-2xl">
-            {booking.services[0]?.name[0]}
+      {/* Main Content Area */}
+      <div className="flex-1 flex items-start sm:items-center gap-5 min-w-0">
+        {/* Minimal Avatar/Icon */}
+        <div className="relative shrink-0">
+          <div className="h-16 w-16 lg:h-18 lg:w-18 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100/50 group-hover:bg-white group-hover:border-slate-200 transition-all duration-500">
+            <span className="text-xl font-peculiar font-black text-slate-800">
+              {booking.services[0]?.name[0]}
+            </span>
           </div>
+          {/* Status Dot Overlay */}
+          <div
+            className={cn(
+              "absolute -bottom-1 -right-1 h-4 w-4 rounded-full border-2 border-white ring-2 ring-transparent transition-all",
+              config.dot,
+            )}
+          />
         </div>
 
-        <div className="flex-1 min-w-0 flex flex-col justify-center">
-          <div className="flex items-center gap-3 mb-2">
+        <div className="flex-1 min-w-0">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-1">
             <span
               className={cn(
-                "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
+                "text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5",
                 config.color,
               )}
             >
-              <StatusIcon size={12} strokeWidth={3} />
               {config.label}
             </span>
             {booking.depositPaid && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-500/10 text-green-600 rounded-full text-[10px] font-black uppercase tracking-widest">
-                Deposit Paid
-              </span>
+              <>
+                <span className="h-1 w-1 rounded-full bg-slate-300" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">
+                  Paid
+                </span>
+              </>
             )}
           </div>
-          <h3 className="font-peculiar text-xl lg:text-2xl font-black text-slate-900 group-hover:text-rose-600 transition-colors truncate">
+
+          <h3 className="font-peculiar text-xl lg:text-2xl font-black text-slate-900 truncate tracking-tight">
             {booking.services[0]?.name}
             {booking.services.length > 1 && (
-              <span className="ml-2 text-slate-400 text-sm font-bold">
-                + {booking.services.length - 1} more
+              <span className="ml-2 text-slate-400 text-sm font-medium">
+                +{booking.services.length - 1}
               </span>
             )}
           </h3>
-          <p className="text-slate-500 font-medium truncate mt-1 underline-offset-4 hover:underline decoration-rose-500 decoration-2 transition-all">
-            with{" "}
-            <span className="font-bold text-slate-900">
-              {typeof booking.providerProfileId === "object"
-                ? (booking.providerProfileId as any).businessName
-                : "Professional"}
-            </span>
+
+          <p className="text-slate-400 text-sm font-medium mt-0.5 truncate uppercase tracking-wider text-[11px]">
+            {providerName}
           </p>
         </div>
       </div>
 
-      {/* Date & Time Grid */}
-      <div className="flex flex-col sm:flex-row gap-6 lg:gap-10 border-t lg:border-t-0 lg:border-l border-slate-50 pt-6 lg:pt-0 lg:pl-10">
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-400 group-hover:bg-rose-50 group-hover:text-rose-600 transition-colors">
-              <CalendarDays size={18} />
-            </div>
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+      {/* Vertical Divider (Desktop) */}
+      <div className="hidden md:block w-px h-12 bg-slate-100" />
+
+      {/* Details & Actions */}
+      <div className="flex flex-col sm:flex-row md:items-center gap-6 lg:gap-10 shrink-0">
+        <div className="flex items-center gap-8">
+          {/* Date */}
+          <div className="space-y-1">
+            <div className="flex items-center gap-1.5 text-slate-400 group-hover:text-slate-600 transition-colors">
+              <CalendarDays size={14} strokeWidth={2.5} />
+              <span className="text-[10px] font-black uppercase tracking-[0.15em]">
                 Date
-              </p>
-              <p className="font-bold text-slate-900">
-                {format(new Date(booking.scheduledDate), "MMM do, yyyy")}
-              </p>
+              </span>
             </div>
+            <p className="text-sm font-bold text-slate-900">
+              {format(new Date(booking.scheduledDate), "MMM do")}
+            </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
-              <Clock size={18} />
-            </div>
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+          {/* Time */}
+          <div className="space-y-1">
+            <div className="flex items-center gap-1.5 text-slate-400 group-hover:text-slate-600 transition-colors">
+              <Clock size={14} strokeWidth={2.5} />
+              <span className="text-[10px] font-black uppercase tracking-[0.15em]">
                 Time
-              </p>
-              <p className="font-bold text-slate-900">{booking.startTime}</p>
+              </span>
             </div>
+            <p className="text-sm font-bold text-slate-900">
+              {booking.startTime}
+            </p>
           </div>
         </div>
 
-        <div className="flex items-end lg:items-center">
+        {/* Dynamic Action Zone */}
+        <div className="flex items-center gap-3">
+          {booking.status === "pending_payment" && (
+            <button className="h-11 px-6 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-rose-600 transition-all shadow-lg shadow-slate-900/5 active:scale-95">
+              Pay Now
+            </button>
+          )}
+
+          {booking.status === "confirmed" && (
+            <button className="h-11 px-5 border border-slate-200 text-slate-400 rounded-xl text-[10px] font-black uppercase tracking-widest hover:text-rose-500 hover:border-rose-100 transition-all active:scale-95">
+              Cancel
+            </button>
+          )}
+
+          {booking.status === "completed" && (
+            <button className="h-11 px-6 bg-rose-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-rose-700 transition-all shadow-lg shadow-rose-600/10 active:scale-95">
+              Review
+            </button>
+          )}
+
           <Link
             href={`/bookings/${booking.id}`}
-            className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-900 text-white shadow-xl shadow-slate-200 hover:bg-rose-600 hover:scale-110 transition-all duration-300 group/btn"
+            className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-50 text-slate-900 hover:bg-slate-900 hover:text-white transition-all active:scale-95 group/link"
           >
-            <ChevronRight
-              size={24}
-              className="group-hover/btn:translate-x-1 transition-transform"
+            <ArrowUpRight
+              size={18}
+              strokeWidth={2.5}
+              className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
             />
           </Link>
         </div>
       </div>
-
-      {/* Action Buttons Float (Bottom) */}
-      <div className="mt-2 flex flex-wrap gap-3 border-t border-slate-50 pt-6 lg:absolute lg:right-6 lg:top-6 lg:border-0 lg:mt-0 lg:pt-0">
-        {booking.status === "pending_payment" && (
-          <button className="flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-rose-600 transition-all shadow-lg shadow-slate-100">
-            <CreditCard size={14} />
-            Pay Deposit
-          </button>
-        )}
-
-        {booking.status === "confirmed" && (
-          <button className="flex items-center gap-2 px-6 py-2.5 border-2 border-slate-100 text-slate-400 rounded-xl text-xs font-black uppercase tracking-widest hover:border-rose-200 hover:text-rose-600 transition-all">
-            <XCircle size={14} />
-            Cancel Booking
-          </button>
-        )}
-
-        {booking.status === "completed" && (
-          <button className="flex items-center gap-2 px-6 py-2.5 bg-rose-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-rose-700 transition-all shadow-lg shadow-rose-100">
-            <Sparkles size={14} />
-            Leave Review
-          </button>
-        )}
-      </div>
     </div>
-  );
-}
-
-// Sub-component for icons
-function CreditCard({ size, className }: { size: number; className?: string }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <rect width="20" height="14" x="2" y="5" rx="2" />
-      <line x1="2" x2="22" y1="10" y2="10" />
-    </svg>
-  );
-}
-
-function Sparkles({ size, className }: { size: number; className?: string }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-      <path d="M5 3v4" />
-      <path d="M19 17v4" />
-      <path d="M3 5h4" />
-      <path d="M17 19h4" />
-    </svg>
   );
 }
