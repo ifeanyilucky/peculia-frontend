@@ -17,11 +17,54 @@ import {
   ChevronRight,
   MessageSquare,
   Scissors,
+  ArrowUpRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import Image from "next/image";
 import { formatCurrency } from "@/utils/formatters";
+
+/** Maps booking status to display-friendly label + color. */
+const STATUS_CONFIG: Record<
+  string,
+  { label: string; color: string; dot: string; bg: string }
+> = {
+  pending_payment: {
+    label: "Action Required",
+    color: "text-amber-600",
+    dot: "bg-amber-400",
+    bg: "bg-amber-50",
+  },
+  confirmed: {
+    label: "Confirmed",
+    color: "text-emerald-600",
+    dot: "bg-emerald-400",
+    bg: "bg-emerald-50",
+  },
+  in_progress: {
+    label: "In Progress",
+    color: "text-blue-600",
+    dot: "bg-blue-400",
+    bg: "bg-blue-50",
+  },
+  completed: {
+    label: "Completed",
+    color: "text-slate-600",
+    dot: "bg-slate-300",
+    bg: "bg-slate-50",
+  },
+  cancelled_by_client: {
+    label: "Cancelled",
+    color: "text-rose-500",
+    dot: "bg-rose-400",
+    bg: "bg-rose-50",
+  },
+  cancelled_by_provider: {
+    label: "Cancelled by Pro",
+    color: "text-rose-500",
+    dot: "bg-rose-400",
+    bg: "bg-rose-50",
+  },
+};
 
 export default function BookingDetailPage() {
   const { id } = useParams();
@@ -36,37 +79,41 @@ export default function BookingDetailPage() {
     queryFn: () => bookingService.getBookingById(id as string),
     enabled: !!id,
   });
-
+  console.log({ booking });
+  /* ---- Loading State ---- */
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-        <div className="relative h-16 w-16">
-          <div className="absolute inset-0 rounded-full border-4 border-slate-100" />
-          <div className="absolute inset-0 rounded-full border-4 border-rose-600 border-t-transparent animate-spin" />
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-5">
+        <div className="relative h-14 w-14">
+          <div className="absolute inset-0 rounded-full border-[3px] border-slate-100" />
+          <div className="absolute inset-0 rounded-full border-[3px] border-slate-900 border-t-transparent animate-spin" />
         </div>
-        <p className="text-sm font-black uppercase tracking-widest text-slate-400">
-          Loading details...
+        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+          Loading booking…
         </p>
       </div>
     );
   }
 
+  /* ---- Error State ---- */
   if (isError || !booking) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-6">
-        <div className="h-20 w-20 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mb-6">
-          <AlertCircle size={40} />
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-6 gap-6">
+        <div className="h-16 w-16 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center">
+          <AlertCircle size={32} strokeWidth={1.5} />
         </div>
-        <h2 className="font-peculiar text-3xl font-bold text-slate-900">
-          Booking not found
-        </h2>
-        <p className="mt-4 text-slate-500 max-w-sm">
-          We couldn&apos;t retrieve the details for this booking. It might have
-          been deleted or the link is invalid.
-        </p>
+        <div className="space-y-2">
+          <h2 className="font-peculiar text-3xl font-black text-slate-900">
+            Booking not found
+          </h2>
+          <p className="text-slate-400 text-sm max-w-xs">
+            We couldn&apos;t retrieve this booking. The link may be invalid or
+            the booking has been removed.
+          </p>
+        </div>
         <button
           onClick={() => router.back()}
-          className="mt-8 rounded-full bg-slate-900 px-8 py-3 font-bold text-white hover:bg-rose-600 transition-all"
+          className="h-12 px-8 rounded-xl bg-slate-900 text-white text-xs font-black uppercase tracking-widest hover:bg-rose-600 transition-all active:scale-95"
         >
           Go Back
         </button>
@@ -74,119 +121,153 @@ export default function BookingDetailPage() {
     );
   }
 
+  const status = STATUS_CONFIG[booking.status] || {
+    label: booking.status,
+    color: "text-slate-400",
+    dot: "bg-slate-200",
+    bg: "bg-slate-50",
+  };
+
+  const providerName =
+    typeof booking.providerProfileId === "object"
+      ? (booking.providerProfileId as any).businessName
+      : "Professional";
+
+  const providerInitial = providerName?.[0] ?? "P";
+
   const timelineSteps = [
     {
       label: "Booked",
       date: booking.createdAt,
-      status: "completed",
+      done: true,
       icon: CalendarDays,
     },
     {
       label: "Deposit Paid",
       date: booking.depositPaidAt,
-      status: booking.depositPaid ? "completed" : "pending",
+      done: booking.depositPaid,
       icon: CreditCard,
     },
     {
       label: "In Session",
       date: null,
-      status:
-        booking.status === "in_progress" || booking.status === "completed"
-          ? "completed"
-          : "pending",
+      done: booking.status === "in_progress" || booking.status === "completed",
       icon: Clock,
     },
     {
       label: "Completed",
       date: booking.completedAt,
-      status: booking.status === "completed" ? "completed" : "pending",
+      done: booking.status === "completed",
       icon: CheckCircle2,
     },
   ];
 
+  const remainingBalance = (booking.servicePrice - booking.depositAmount) / 100;
+
   return (
-    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      {/* Top Nav */}
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      {/* Back Nav */}
       <button
         onClick={() => router.back()}
-        className="group flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-slate-900 transition-colors"
+        className="group inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-slate-400 hover:text-slate-900 transition-colors"
       >
         <ArrowLeft
-          size={18}
+          size={16}
+          strokeWidth={2.5}
           className="group-hover:-translate-x-1 transition-transform"
         />
-        Back to History
+        Bookings
       </button>
 
-      <div className="grid gap-10 lg:grid-cols-3">
-        {/* Left Side: Booking Info */}
-        <div className="lg:col-span-2 space-y-8">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 px-2">
-            <div className="space-y-1">
-              <span className="inline-block px-3 py-1 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest mb-2">
-                Reference: {booking.bookingRef}
-              </span>
-              <h1 className="font-peculiar text-4xl font-black text-slate-900">
-                {booking.services[0]?.name}
-                {booking.services.length > 1 && (
-                  <span className="ml-3 text-slate-400 text-xl font-bold">
-                    + {booking.services.length - 1} more
-                  </span>
-                )}
-              </h1>
-            </div>
-
-            <div className="flex items-center gap-3">
-              {booking.status === "pending_payment" && (
-                <button className="rounded-full bg-rose-600 px-8 py-4 text-sm font-black text-white hover:bg-rose-700 transition-all shadow-xl shadow-rose-100">
-                  Pay Deposit {formatCurrency(booking.depositAmount / 100)}
-                </button>
+      {/* Page Header */}
+      <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+        <div className="space-y-2">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="px-3 py-1 rounded-lg bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-[0.15em]">
+              {booking.bookingRef}
+            </span>
+            <span
+              className={cn(
+                "inline-flex items-center gap-2 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-[0.15em]",
+                status.bg,
+                status.color,
               )}
-              {booking.status === "confirmed" && (
-                <button className="rounded-full border-2 border-slate-100 bg-white px-8 py-4 text-sm font-black text-slate-500 hover:text-rose-600 hover:border-rose-100 transition-all">
-                  Request Change
-                </button>
-              )}
-            </div>
+            >
+              <span className={cn("h-1.5 w-1.5 rounded-full", status.dot)} />
+              {status.label}
+            </span>
           </div>
+          <h1 className="font-peculiar text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
+            {booking.services[0]?.name}
+            {booking.services.length > 1 && (
+              <span className="ml-3 text-slate-300 text-xl">
+                +{booking.services.length - 1}
+              </span>
+            )}
+          </h1>
+          <p className="text-slate-400 text-sm font-medium uppercase tracking-widest text-[11px]">
+            {providerName}
+          </p>
+        </div>
 
-          {/* Timeline Widget */}
-          <div className="rounded-2xl bg-white border border-slate-100 p-8 shadow-sm">
-            <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-8 border-b border-slate-50 pb-4">
+        {/* CTA based on status */}
+        <div className="flex items-center gap-3 shrink-0">
+          {booking.status === "pending_payment" && (
+            <button className="h-12 px-8 rounded-xl bg-slate-900 text-white text-xs font-black uppercase tracking-widest hover:bg-rose-600 transition-all shadow-lg shadow-slate-900/5 active:scale-95">
+              Pay {formatCurrency(booking.depositAmount / 100)}
+            </button>
+          )}
+          {booking.status === "confirmed" && (
+            <button className="h-12 px-6 rounded-xl border border-slate-200 text-slate-400 text-xs font-black uppercase tracking-widest hover:text-rose-500 hover:border-rose-100 transition-all active:scale-95">
+              Request Change
+            </button>
+          )}
+          {booking.status === "completed" && (
+            <button className="h-12 px-8 rounded-xl bg-rose-600 text-white text-xs font-black uppercase tracking-widest hover:bg-rose-700 transition-all active:scale-95">
+              Leave Review
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="grid gap-8 lg:grid-cols-3">
+        {/* ---- Left Column ---- */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* Journey Timeline */}
+          <div className="rounded-[1.5rem] bg-white border border-slate-100 p-6 lg:p-8">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-8">
               Booking Journey
-            </h3>
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 relative">
-              {/* Connector line (desktop) */}
-              <div className="absolute top-4.5 left-0 w-full h-0.5 bg-slate-50 hidden md:block" />
+            </p>
+            <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              {/* Hairline connector (desktop) */}
+              <div className="absolute top-[18px] left-0 right-0 h-px bg-slate-100 hidden md:block" />
 
-              {timelineSteps.map((step, i) => (
+              {timelineSteps.map((step) => (
                 <div
                   key={step.label}
-                  className="relative z-10 flex flex-row md:flex-col items-center gap-4 text-left md:text-center flex-1"
+                  className="relative z-10 flex flex-row md:flex-col items-center gap-4 md:gap-3 text-left md:text-center flex-1"
                 >
                   <div
                     className={cn(
-                      "h-9 w-9 rounded-full flex items-center justify-center border-4 border-white shadow-md transition-all duration-500",
-                      step.status === "completed"
-                        ? "bg-slate-900 text-white scale-110"
+                      "h-9 w-9 rounded-full flex items-center justify-center border-4 border-white shadow-sm transition-all duration-500 shrink-0",
+                      step.done
+                        ? "bg-slate-900 text-white"
                         : "bg-slate-50 text-slate-300",
                     )}
                   >
-                    <step.icon size={16} strokeWidth={3} />
+                    <step.icon size={15} strokeWidth={2.5} />
                   </div>
-                  <div className="space-y-1">
+                  <div>
                     <p
                       className={cn(
-                        "text-xs font-black uppercase tracking-widest",
-                        step.status === "completed"
-                          ? "text-slate-900"
-                          : "text-slate-300",
+                        "text-[10px] font-black uppercase tracking-widest",
+                        step.done ? "text-slate-900" : "text-slate-300",
                       )}
                     >
                       {step.label}
                     </p>
                     {step.date && (
-                      <p className="text-[10px] font-bold text-slate-400">
+                      <p className="text-[10px] font-medium text-slate-400 mt-0.5">
                         {format(new Date(step.date), "MMM d")}
                       </p>
                     )}
@@ -196,181 +277,196 @@ export default function BookingDetailPage() {
             </div>
           </div>
 
-          {/* Details Card */}
-          <div className="rounded-2xl bg-white border border-slate-100 overflow-hidden shadow-sm">
-            <div className="p-8 lg:p-10 grid gap-10 md:grid-cols-2">
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="h-12 w-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
-                    <CalendarDays size={20} />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                      Appointment Date
-                    </p>
-                    <p className="text-lg font-bold text-slate-900">
-                      {format(
-                        new Date(booking.scheduledDate),
-                        "EEEE, MMMM do, yyyy",
-                      )}
-                    </p>
-                  </div>
+          {/* Appointment Details */}
+          <div className="rounded-[1.5rem] bg-white border border-slate-100 p-6 lg:p-8">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">
+              Appointment Details
+            </p>
+            <div className="grid sm:grid-cols-3 gap-6">
+              {/* Date */}
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5 text-slate-400">
+                  <CalendarDays size={14} strokeWidth={2.5} />
+                  <span className="text-[10px] font-black uppercase tracking-[0.15em]">
+                    Date
+                  </span>
                 </div>
-
-                <div className="flex gap-4">
-                  <div className="h-12 w-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                    <Clock size={20} />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                      Time & Duration
-                    </p>
-                    <p className="text-lg font-bold text-slate-900">
-                      {booking.startTime} (
-                      {booking.endTime && "to " + booking.endTime})
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="h-12 w-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-                    <MapPin size={20} />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                      Location
-                    </p>
-                    <p className="text-lg font-bold text-slate-900">
-                      Provider Address or Remote
-                    </p>
-                  </div>
-                </div>
+                <p className="text-sm font-bold text-slate-900">
+                  {format(new Date(booking.scheduledDate), "EEE, MMM do yyyy")}
+                </p>
               </div>
 
-              <div className="space-y-6">
-                <div className="bg-slate-50 rounded-3xl p-6 border border-slate-100">
-                  <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
-                    <Scissors size={14} />
-                    Services Included
-                  </div>
-                  <div className="space-y-3">
-                    {booking.services.map((service: any) => (
-                      <div
-                        key={service.serviceId}
-                        className="flex justify-between items-center group/service"
-                      >
-                        <p className="text-sm font-bold text-slate-900">
-                          {service.name}
-                        </p>
-                        <p className="text-xs font-medium text-slate-500">
-                          {formatCurrency(service.price / 100).toLocaleString()}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
+              {/* Time */}
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5 text-slate-400">
+                  <Clock size={14} strokeWidth={2.5} />
+                  <span className="text-[10px] font-black uppercase tracking-[0.15em]">
+                    Time
+                  </span>
                 </div>
-
-                <div className="bg-slate-50/50 rounded-3xl p-6 border border-slate-100">
-                  <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
-                    <FileText size={14} />
-                    My Notes
-                  </div>
-                  <p className="text-sm font-medium text-slate-600 italic leading-relaxed">
-                    {booking.notes || "No additional instructions provided."}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-slate-900/5 p-8 lg:p-10 border-t border-slate-100">
-              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6">
-                <CreditCard size={14} />
-                Payment Summary
+                <p className="text-sm font-bold text-slate-900">
+                  {booking.startTime}
+                  {booking.endTime && (
+                    <span className="text-slate-400 font-medium">
+                      {" "}
+                      — {booking.endTime}
+                    </span>
+                  )}
+                </p>
               </div>
 
-              <div className="max-w-md space-y-3">
-                <div className="flex justify-between text-sm font-medium">
-                  <span className="text-slate-500">Service Fee</span>
-                  <span className="text-slate-900">
-                    {formatCurrency(booking.servicePrice / 100)}
+              {/* Location */}
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-1.5 text-slate-400">
+                  <MapPin size={14} strokeWidth={2.5} />
+                  <span className="text-[10px] font-black uppercase tracking-[0.15em]">
+                    Location
                   </span>
                 </div>
-                <div className="flex justify-between text-sm font-bold border-b border-white/50 pb-3">
-                  <span className="text-rose-600">Deposit Paid</span>
-                  <span className="text-rose-600">
-                    - {formatCurrency(booking.depositAmount / 100)}
-                  </span>
-                </div>
-                <div className="flex justify-between items-end pt-2">
-                  <span className="text-xs font-black uppercase tracking-widest text-slate-400">
-                    Remaining Balance
-                  </span>
-                  <span className="text-3xl font-peculiar font-black text-slate-900">
-                    {formatCurrency(
-                      (booking.servicePrice - booking.depositAmount) / 100,
-                    )}
-                  </span>
-                </div>
-                <p className="text-[10px] text-slate-400 font-bold italic pt-2">
-                  To be paid directly to the professional at the appointment.
+                <p className="text-sm font-bold text-slate-900">
+                  Provider Address
                 </p>
               </div>
             </div>
           </div>
+
+          {/* Services & Notes */}
+          <div className="grid sm:grid-cols-2 gap-6">
+            {/* Services */}
+            <div className="rounded-[1.5rem] bg-white border border-slate-100 p-6 lg:p-8">
+              <div className="flex items-center gap-2 text-slate-400 mb-5">
+                <Scissors size={14} strokeWidth={2.5} />
+                <p className="text-[10px] font-black uppercase tracking-[0.2em]">
+                  Services
+                </p>
+              </div>
+              <div className="space-y-4">
+                {booking.services.map((service: any) => (
+                  <div
+                    key={service.serviceId}
+                    className="flex justify-between items-start gap-4"
+                  >
+                    <div>
+                      <p className="text-sm font-bold text-slate-900">
+                        {service.name}
+                      </p>
+                      <p className="text-[10px] text-slate-400 font-medium mt-0.5">
+                        {service.duration} min
+                      </p>
+                    </div>
+                    <p className="text-sm font-bold text-slate-900 shrink-0">
+                      {formatCurrency(service.price / 100)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Notes */}
+            <div className="rounded-[1.5rem] bg-white border border-slate-100 p-6 lg:p-8">
+              <div className="flex items-center gap-2 text-slate-400 mb-5">
+                <FileText size={14} strokeWidth={2.5} />
+                <p className="text-[10px] font-black uppercase tracking-[0.2em]">
+                  My Notes
+                </p>
+              </div>
+              <p className="text-sm font-medium text-slate-500 leading-relaxed">
+                {booking.notes || "No additional instructions provided."}
+              </p>
+            </div>
+          </div>
+
+          {/* Payment Summary */}
+          <div className="rounded-[1.5rem] bg-white border border-slate-100 p-6 lg:p-8">
+            <div className="flex items-center gap-2 text-slate-400 mb-6">
+              <CreditCard size={14} strokeWidth={2.5} />
+              <p className="text-[10px] font-black uppercase tracking-[0.2em]">
+                Payment Summary
+              </p>
+            </div>
+
+            <div className="max-w-sm space-y-3">
+              <div className="flex justify-between text-sm">
+                <span className="text-slate-500 font-medium">Service Fee</span>
+                <span className="text-slate-900 font-bold">
+                  {formatCurrency(booking.servicePrice / 100)}
+                </span>
+              </div>
+              <div className="flex justify-between text-sm pb-4 border-b border-slate-100">
+                <span className="text-emerald-600 font-medium">
+                  Deposit Paid
+                </span>
+                <span className="text-emerald-600 font-bold">
+                  − {formatCurrency(booking.depositAmount / 100)}
+                </span>
+              </div>
+              <div className="flex justify-between items-end pt-1">
+                <span className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400">
+                  Due at Appointment
+                </span>
+                <span className="text-2xl font-peculiar font-black text-slate-900">
+                  {formatCurrency(remainingBalance)}
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-400 font-medium pt-1 italic">
+                Payable directly to the professional on the day.
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Right Side: Professional Card */}
-        <div className="space-y-6">
-          <h3 className="font-peculiar text-xl font-bold text-slate-900 px-2">
-            Managed By
-          </h3>
-
-          <div className="rounded-2xl bg-white border border-slate-100 p-8 shadow-sm space-y-6">
-            <div className="flex flex-col items-center text-center">
-              <div className="relative h-24 w-24 rounded-4xl bg-slate-900 overflow-hidden border-4 border-white shadow-2xl mb-4">
-                {/* Placeholder avatar */}
+        {/* ---- Right Sidebar ---- */}
+        <div className="space-y-5">
+          {/* Provider Card */}
+          <div className="rounded-[1.5rem] bg-white border border-slate-100 p-6">
+            <div className="flex flex-col items-center text-center gap-3 pb-6 border-b border-slate-50">
+              {/* Avatar */}
+              <div className="h-20 w-20 rounded-2xl bg-slate-900 text-white flex items-center justify-center text-2xl font-peculiar font-black shadow-xl shadow-slate-900/10">
+                {providerInitial}
               </div>
-              <h4 className="text-xl font-black text-slate-900">
-                Professional Business
-              </h4>
-              <p className="text-sm font-medium text-slate-500">
-                Beauty & Esthetics Professional
-              </p>
-
-              <div className="flex items-center gap-1.5 mt-2">
-                <ShieldCheck size={14} className="text-green-500" />
-                <span className="text-[10px] font-black uppercase tracking-widest text-green-600">
+              <div>
+                <h4 className="text-base font-black text-slate-900">
+                  {providerName}
+                </h4>
+                <p className="text-[11px] font-medium text-slate-400 mt-0.5 uppercase tracking-wider">
+                  Beauty Professional
+                </p>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <ShieldCheck
+                  size={13}
+                  strokeWidth={2.5}
+                  className="text-emerald-500"
+                />
+                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">
                   Verified Pro
                 </span>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 pt-4">
-              <button className="flex items-center justify-center gap-2 h-12 rounded-xl bg-slate-50 text-xs font-black uppercase tracking-widest text-slate-500 hover:bg-slate-100 transition-all">
-                <MessageSquare size={16} />
-                Chat
-              </button>
+            <div className="grid grid-cols-1 gap-3 pt-5">
               <Link
-                href="/explore"
-                className="flex items-center justify-center gap-2 h-12 rounded-xl border border-slate-100 text-xs font-black uppercase tracking-widest text-slate-500 hover:border-slate-300 transition-all"
+                href={`/providers/${(booking.providerProfileId as any)?.slug}`}
+                className="flex items-center justify-center gap-1.5 h-11 rounded-xl border border-slate-100 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:border-slate-200 transition-all active:scale-95"
               >
                 Profile
-                <ChevronRight size={16} />
+                <ArrowUpRight size={13} strokeWidth={2.5} />
               </Link>
             </div>
           </div>
 
-          <div className="rounded-4xl bg-rose-50/50 border border-rose-100 p-6 flex gap-4">
-            <div className="h-10 w-10 shrink-0 rounded-full bg-rose-600 text-white flex items-center justify-center">
-              <ShieldCheck size={20} />
+          {/* Assurance Card */}
+          <div className="rounded-[1.5rem] bg-rose-50 border border-rose-100 p-6 flex gap-4">
+            <div className="h-9 w-9 shrink-0 rounded-xl bg-rose-600 text-white flex items-center justify-center">
+              <ShieldCheck size={18} strokeWidth={2} />
             </div>
             <div className="space-y-1">
-              <h4 className="text-xs font-black uppercase tracking-widest text-rose-600">
+              <h4 className="text-[10px] font-black uppercase tracking-widest text-rose-600">
                 Peculia Assurance
               </h4>
-              <p className="text-[11px] font-medium text-rose-800/60 leading-relaxed">
+              <p className="text-[11px] font-medium text-rose-900/50 leading-relaxed">
                 Your booking is protected. If the professional cancels, your
-                deposit will be refunded automatically.
+                deposit is automatically refunded.
               </p>
             </div>
           </div>
