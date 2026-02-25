@@ -13,12 +13,12 @@ export default function AuthLayout({
         <div className="relative hidden w-1/2 flex-col p-12 text-white lg:flex overflow-hidden">
           {/* Background Image */}
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: "url('/images/nail-tech.jpg')" }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[10s] hover:scale-110"
+            style={{ backgroundImage: "url('/images/salon-1.webp')" }}
           />
-          {/* Dark overlay for readability */}
-          <div className="absolute inset-0 bg-slate-900/60" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent" />
+          {/* Soft overlay for readability and elegance */}
+          <div className="absolute inset-0 bg-rose-950/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
 
           <div className="relative z-10 flex h-full flex-col justify-between">
             <div>
