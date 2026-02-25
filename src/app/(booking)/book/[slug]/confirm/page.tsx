@@ -3,13 +3,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { providerService } from "@/services/provider.service";
 import { useBookingStore } from "@/store/booking.store";
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import BookingHeader from "@/components/features/booking/BookingHeader";
 import BookingSummarySidebar from "@/components/features/booking/BookingSummarySidebar";
 import BookingConfirmation from "@/components/features/booking/BookingConfirmation";
-import { Loader2 } from "lucide-react";
+import { Loader2, Clock, X } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
+import { cn } from "@/lib/utils";
+
+const TIMEOUT_MINUTES = 10;
 
 export default function BookingConfirmPage() {
   const params = useParams();
@@ -25,6 +28,58 @@ export default function BookingConfirmPage() {
   const { isAuthenticated, user } = useAuthStore();
   const router = useRouter();
 
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [isTimedOut, setIsTimedOut] = useState(false);
+
+  // Initialize timeout on mount
+  useEffect(() => {
+    if (!isLoading && isAuthenticated && user?.phone) {
+      setTimeLeft(TIMEOUT_MINUTES * 60);
+    }
+  }, [isLoading, isAuthenticated, user?.phone]);
+
+  // Countdown timer
+  useEffect(() => {
+    if (timeLeft === null || timeLeft <= 0 || isTimedOut) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev === null || prev <= 1) {
+          setIsTimedOut(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft, isTimedOut]);
+
+  // Reset/resume timer when user interacts
+  const resetTimer = useCallback(() => {
+    if (!isTimedOut) {
+      setTimeLeft(TIMEOUT_MINUTES * 60);
+    }
+  }, [isTimedOut]);
+
+  useEffect(() => {
+    const events = ["mousedown", "keydown", "scroll", "touchstart"];
+    events.forEach((event) => {
+      window.addEventListener(event, resetTimer);
+    });
+    return () => {
+      events.forEach((event) => {
+        window.removeEventListener(event, resetTimer);
+      });
+    };
+  }, [resetTimer]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  };
+
   useEffect(() => {
     if (provider) {
       setSelectedProvider(provider);
@@ -38,6 +93,10 @@ export default function BookingConfirmPage() {
     }
   }, [isAuthenticated, user, isLoading, slug, router]);
 
+  const handleStartOver = () => {
+    router.push(`/book/${slug}/services`);
+  };
+
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center p-8 bg-white">
@@ -49,6 +108,18 @@ export default function BookingConfirmPage() {
   return (
     <div className="min-h-screen bg-slate-50/30 flex flex-col">
       <BookingHeader currentStep={4} />
+
+      {/* Timeout warning bar */}
+      {timeLeft !== null && !isTimedOut && timeLeft <= 60 && (
+        <div className="bg-amber-50 border-b border-amber-200 px-6 py-3">
+          <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 text-amber-700">
+            <Clock size={18} className="animate-pulse" />
+            <span className="font-bold text-sm">
+              Time remaining to confirm: {formatTime(timeLeft)}
+            </span>
+          </div>
+        </div>
+      )}
 
       <div className="mx-auto w-full max-w-7xl flex-1 px-6 py-12 lg:px-8">
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
@@ -65,6 +136,30 @@ export default function BookingConfirmPage() {
           )}
         </div>
       </div>
+
+      {/* Timeout Modal */}
+      {isTimedOut && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-3xl p-8 max-w-md mx-4 text-center shadow-2xl">
+            <div className="w-16 h-16 rounded-full bg-rose-100 flex items-center justify-center mx-auto mb-6">
+              <Clock className="w-8 h-8 text-rose-600" />
+            </div>
+            <h2 className="font-peculiar text-2xl font-black text-slate-900 mb-3">
+              Session Timeout
+            </h2>
+            <p className="text-slate-600 mb-8">
+              You didn't complete your booking within {TIMEOUT_MINUTES} minutes.
+              Your selected slots may no longer be available.
+            </p>
+            <button
+              onClick={handleStartOver}
+              className="w-full py-4 px-6 rounded-full bg-rose-600 text-white font-bold hover:bg-rose-700 transition-colors"
+            >
+              Start New Booking
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
