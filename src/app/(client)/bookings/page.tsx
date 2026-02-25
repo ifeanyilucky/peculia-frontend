@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { debounce } from "lodash";
 import { bookingService } from "@/services/booking.service";
 import BookingFilters, {
   BookingStatusFilter,
@@ -19,19 +20,36 @@ import { cn } from "@/lib/utils";
 export default function MyBookingsPage() {
   const [currentTab, setCurrentTab] = useState<BookingStatusFilter>("all");
   const [page, setPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const LIMIT = 10;
+
+  const debouncedSetSearch = useCallback(
+    debounce((value: string) => {
+      setDebouncedSearch(value);
+      setPage(1);
+    }, 500),
+    [],
+  );
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    debouncedSetSearch(value);
+  };
 
   const {
     data: bookings,
     isLoading,
     isPlaceholderData,
   } = useQuery({
-    queryKey: ["bookings", "client", currentTab, page],
+    queryKey: ["bookings", "client", currentTab, page, debouncedSearch],
     queryFn: () =>
       bookingService.getMyBookings({
         status: currentTab === "all" ? undefined : currentTab,
         page,
         limit: LIMIT,
+        search: debouncedSearch || undefined,
       }),
   });
 
@@ -58,6 +76,8 @@ export default function MyBookingsPage() {
             <input
               type="text"
               placeholder="Search by professional..."
+              value={searchQuery}
+              onChange={handleSearchChange}
               className="h-12 w-full sm:w-64 pl-11 pr-4 rounded-2xl bg-white border border-slate-100 text-sm font-medium focus:border-rose-500 transition-all outline-none shadow-sm"
             />
           </div>
@@ -88,7 +108,11 @@ export default function MyBookingsPage() {
                 No {currentTab !== "all" ? currentTab : ""} bookings found.
               </p>
               <button
-                onClick={() => setCurrentTab("all")}
+                onClick={() => {
+                  setCurrentTab("all");
+                  setSearchQuery("");
+                  setDebouncedSearch("");
+                }}
                 className="mt-4 text-xs font-black uppercase tracking-widest text-rose-600 hover:underline"
               >
                 Clear Filters
