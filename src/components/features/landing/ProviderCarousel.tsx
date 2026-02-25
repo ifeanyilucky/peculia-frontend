@@ -5,18 +5,29 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProviderCard from "../providers/ProviderCard";
 
-interface FeaturedProvidersProps {
-  providers: Array<{
-    _id: string;
-    [key: string]: unknown;
-  }>;
+export interface Provider {
+  _id: string;
+  [key: string]: unknown;
 }
 
-export default function FeaturedProviders({ providers }: FeaturedProvidersProps) {
+interface ProviderCarouselProps {
+  providers: Provider[];
+  title: string;
+  description?: string;
+  href?: string;
+  hrefLabel?: string;
+}
+
+export default function ProviderCarousel({
+  providers,
+  title,
+  description,
+  href,
+  hrefLabel,
+}: ProviderCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
 
   const checkScroll = useCallback(() => {
     const el = scrollRef.current;
@@ -62,25 +73,20 @@ export default function FeaturedProviders({ providers }: FeaturedProvidersProps)
         <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <h2 className="font-peculiar text-4xl font-bold text-slate-900">
-              Featured Professionals
+              {title}
             </h2>
-            <p className="mt-4 text-lg text-slate-600">
-              Top-rated experts handpicked for quality and reliability.
-            </p>
+            {description && (
+              <p className="mt-4 text-lg text-slate-600">{description}</p>
+            )}
           </div>
-          <a
-            href="/explore"
-            className="font-bold text-rose-600 hover:underline"
-          >
-            View All Professionals →
-          </a>
+          {href && hrefLabel && (
+            <a href={href} className="font-bold text-rose-600 hover:underline">
+              {hrefLabel} →
+            </a>
+          )}
         </div>
 
-        <div
-          className="relative group"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
+        <div className="relative group">
           <AnimatePresence>
             {canScrollLeft && (
               <motion.button
