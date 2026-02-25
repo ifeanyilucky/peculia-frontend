@@ -4,8 +4,7 @@ import { Provider } from "@/types/provider.types";
 import Image from "next/image";
 import { useBookingStore } from "@/store/booking.store";
 import { useAuthStore } from "@/store/auth.store";
-import { useRouter, useParams } from "next/navigation";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { formatCurrency, formatNumber } from "@/utils/formatters";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { bookingService } from "@/services/booking.service";
@@ -29,9 +28,39 @@ export default function BookingSummarySidebar({
   slug,
 }: BookingSummarySidebarProps) {
   const router = useRouter();
-  const { selectedServices, totalPrice, selectedTeamMember, selectedSlot } =
-    useBookingStore();
+  const {
+    selectedServices,
+    totalPrice,
+    selectedTeamMember,
+    selectedSlot,
+    selectedProvider,
+    resetBookingFlow,
+    setSelectedProvider,
+  } = useBookingStore();
   const { isAuthenticated, user } = useAuthStore();
+
+  // Handle provider mismatch or initialization
+  useEffect(() => {
+    if (!selectedProvider || selectedProvider._id !== provider._id) {
+      if (currentStep === 1) {
+        // If we're on step 1, just set the provider
+        setSelectedProvider(provider);
+      } else {
+        // If we're further in the flow but the provider is different/missing, reset
+        resetBookingFlow();
+        setSelectedProvider(provider);
+        router.replace(`/book/${slug}/services`);
+      }
+    }
+  }, [
+    provider,
+    selectedProvider,
+    currentStep,
+    setSelectedProvider,
+    resetBookingFlow,
+    router,
+    slug,
+  ]);
 
   const [isBooking, setIsBooking] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -71,7 +100,7 @@ export default function BookingSummarySidebar({
   useEffect(() => {
     if (paymentData && !initializedRef.current) {
       initializedRef.current = true;
-      
+
       const timer = setTimeout(() => {
         initializePayment({
           onSuccess: handlePaymentSuccess,
@@ -93,10 +122,18 @@ export default function BookingSummarySidebar({
   ]);
 
   const isStepComplete = () => {
+    const state = useBookingStore.getState();
     if (currentStep === 1) return selectedServices.length > 0;
     if (currentStep === 2) return selectedServices.length > 0;
-    if (currentStep === 3) return !!selectedSlot;
-    if (currentStep === 4) return true;
+    if (currentStep === 3) return selectedServices.length > 0;
+    if (currentStep === 4) {
+      return (
+        selectedServices.length > 0 &&
+        !!state.selectedDate &&
+        !!selectedSlot &&
+        state.selectedProvider?._id === provider._id
+      );
+    }
     return false;
   };
 
@@ -278,12 +315,10 @@ export default function BookingSummarySidebar({
                 </h4>
                 <div className="flex items-center gap-3">
                   <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-slate-100">
-                    {selectedTeamMember?.avatar ||
-                    provider.userId.avatar ? (
+                    {selectedTeamMember?.avatar || provider.userId.avatar ? (
                       <Image
                         src={
-                          selectedTeamMember?.avatar ||
-                          provider.userId.avatar!
+                          selectedTeamMember?.avatar || provider.userId.avatar!
                         }
                         alt="Professional"
                         fill
@@ -372,8 +407,8 @@ export default function BookingSummarySidebar({
       >
         <div className="text-center">
           <p className="text-slate-600 mb-6">
-            You can cancel for free up to 24 hours before your appointment.
-            Late cancellations may incur a fee.
+            You can cancel for free up to 24 hours before your appointment. Late
+            cancellations may incur a fee.
           </p>
           <button
             onClick={() => setShowCancellationModal(false)}

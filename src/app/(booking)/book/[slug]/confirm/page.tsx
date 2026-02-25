@@ -27,6 +27,8 @@ export default function BookingConfirmPage() {
   const { isAuthenticated, user } = useAuthStore();
   const { setSelectedProvider } = useBookingStore();
 
+  const { isReady, hasHydrated } = useBookingGuard(4);
+
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [isTimedOut, setIsTimedOut] = useState(false);
 
@@ -86,7 +88,13 @@ export default function BookingConfirmPage() {
     };
   }, [resetTimer]);
 
-  if (isLoading) {
+  useEffect(() => {
+    if (hasHydrated && !isAuthenticated) {
+      router.replace(`/book/${slug}/services`);
+    }
+  }, [hasHydrated, isAuthenticated, router, slug]);
+
+  if (isLoading || !hasHydrated || !isReady || !isAuthenticated) {
     return (
       <div className="flex min-h-screen items-center justify-center p-8 bg-white">
         <Loader2 className="animate-spin text-rose-600" size={40} />
