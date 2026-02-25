@@ -248,6 +248,20 @@ export default function BookingSummarySidebar({
               "Continue"
             )}
           </button>
+          <div className="mt-6">
+            {currentStep === 4 && (
+              <p className="text-sm text-slate-500 mt-2">
+                I agree to the{" "}
+                <span className="font-bold text-slate-900">
+                  terms of services
+                </span>{" "}
+                and the{" "}
+                <span className="font-bold text-slate-900">
+                  cancellation policy
+                </span>
+              </p>
+            )}
+          </div>
         </div>
       </div>
 
