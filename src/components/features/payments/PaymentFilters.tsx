@@ -79,7 +79,10 @@ export default function PaymentFilters({
           <select
             value={filters.status}
             onChange={(e) =>
-              onFilterChange({ ...filters, status: e.target.value })
+              onFilterChange({
+                ...filters,
+                status: e.target.value as PaymentStatus | "",
+              })
             }
             className="w-full h-12 px-4 rounded-2xl bg-slate-50 border border-transparent text-sm font-bold text-slate-900 focus:bg-white focus:border-slate-900 transition-all outline-none appearance-none cursor-pointer"
           >
@@ -99,7 +102,10 @@ export default function PaymentFilters({
           <select
             value={filters.type}
             onChange={(e) =>
-              onFilterChange({ ...filters, type: e.target.value })
+              onFilterChange({
+                ...filters,
+                type: e.target.value as PaymentType | "",
+              })
             }
             className="w-full h-12 px-4 rounded-2xl bg-slate-50 border border-transparent text-sm font-bold text-slate-900 focus:bg-white focus:border-slate-900 transition-all outline-none appearance-none cursor-pointer"
           >

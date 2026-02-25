@@ -32,9 +32,7 @@ export const paymentService = {
     // Filter out empty strings to avoid backend validation errors
     const filteredParams = params
       ? Object.fromEntries(
-          Object.entries(params).filter(
-            ([_, v]) => v !== "" && v !== undefined,
-          ),
+          Object.entries(params).filter(([, v]) => v !== "" && v !== undefined),
         )
       : undefined;
 
