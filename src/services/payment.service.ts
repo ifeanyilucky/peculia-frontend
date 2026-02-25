@@ -24,11 +24,24 @@ export const paymentService = {
   getPaymentHistory: async (params?: {
     page?: number;
     limit?: number;
+    status?: string;
+    type?: string;
+    startDate?: string;
+    endDate?: string;
   }): Promise<PaymentHistoryResponse> => {
+    // Filter out empty strings to avoid backend validation errors
+    const filteredParams = params
+      ? Object.fromEntries(
+          Object.entries(params).filter(
+            ([_, v]) => v !== "" && v !== undefined,
+          ),
+        )
+      : undefined;
+
     const response = await api.get<ApiSuccess<PaymentHistoryResponse>>(
       "/payments/history",
       {
-        params,
+        params: filteredParams,
       },
     );
     return response.data.data.data;

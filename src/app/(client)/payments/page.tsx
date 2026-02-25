@@ -6,17 +6,52 @@ import { paymentService } from "@/services/payment.service";
 import PaymentHistoryTable from "@/components/features/payments/PaymentHistoryTable";
 import Pagination from "@/components/ui/Pagination";
 import { Loader2, Receipt, Download, Filter } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { PaymentStatus, PaymentType } from "@/types/payment.types";
+import PaymentFilters from "@/components/features/payments/PaymentFilters";
 
 export default function PaymentsPage() {
   const [page, setPage] = useState(1);
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState({
+    status: "" as PaymentStatus | "",
+    type: "" as PaymentType | "",
+    startDate: "",
+    endDate: "",
+  });
 
   const { data: payments, isLoading } = useQuery({
-    queryKey: ["payments", "client", page],
-    queryFn: () => paymentService.getPaymentHistory({ limit: 20, page }),
+    queryKey: ["payments", "client", page, filters],
+    queryFn: () =>
+      paymentService.getPaymentHistory({
+        limit: 20,
+        page,
+        ...filters,
+      }),
   });
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
+  };
+
+  const handleFilterChange = (newFilters: {
+    status?: PaymentStatus | "";
+    type?: PaymentType | "";
+    startDate?: string;
+    endDate?: string;
+  }) => {
+    setFilters(newFilters as typeof filters);
+    setPage(1);
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      status: "",
+      type: "",
+      startDate: "",
+      endDate: "",
+    });
+    setPage(1);
   };
 
   return (
@@ -36,11 +71,29 @@ export default function PaymentsPage() {
             <Download size={16} />
             Export CSV
           </button>
-          <button className="flex items-center justify-center h-12 w-12 rounded-2xl bg-slate-900 text-white hover:bg-rose-600 transition-all border border-slate-200">
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className={cn(
+              "flex items-center justify-center h-12 w-12 rounded-2xl transition-all border",
+              showFilters
+                ? "bg-slate-900 text-white border-slate-900"
+                : "bg-white text-slate-900 border-slate-200 hover:border-slate-900",
+            )}
+          >
             <Filter size={18} />
           </button>
         </div>
       </div>
+
+      {showFilters && (
+        <div className="px-2 animate-in fade-in slide-in-from-top-4 duration-500">
+          <PaymentFilters
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            onClear={clearFilters}
+          />
+        </div>
+      )}
 
       <div className="min-h-[400px]">
         {isLoading ? (
