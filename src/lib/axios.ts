@@ -54,6 +54,9 @@ api.interceptors.response.use(
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
+      console.log(
+        `[Axios] 401 Error on ${originalRequest.url}. Triggering refresh/logout logic.`,
+      );
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
@@ -71,12 +74,14 @@ api.interceptors.response.use(
       const refreshToken = useAuthStore.getState().refreshToken;
 
       if (!refreshToken) {
+        console.log("[Axios] No refresh token found. Clearing auth.");
         useAuthStore.getState().clearAuth();
         handleAuthFailure();
         return Promise.reject(error);
       }
 
       try {
+        console.log("[Axios] Attempting token refresh...");
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh-token`,
           {
@@ -91,10 +96,12 @@ api.interceptors.response.use(
         } = response.data.data;
         useAuthStore.getState().setAuth(user, accessToken, newRefreshToken);
 
+        console.log("[Axios] Token refreshed successfully.");
         processQueue(null, accessToken);
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
+        console.error("[Axios] Refresh token expired or invalid. Logging out.");
         processQueue(refreshError, null);
         useAuthStore.getState().clearAuth();
         handleAuthFailure();

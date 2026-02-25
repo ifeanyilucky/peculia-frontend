@@ -72,30 +72,38 @@ function SuccessContent() {
 
     if (reference) {
       if (isVerifyError) {
-        setVerificationStatus("error");
-        const errorData = (verifyError as AxiosError<{ message: string }>)
-          ?.response?.data;
-        setErrorMsg(
-          errorData?.message ||
-            "We couldn't verify your payment. Please contact support if you were charged.",
-        );
+        setTimeout(() => {
+          setVerificationStatus("error");
+          const errorData = (verifyError as AxiosError<{ message: string }>)
+            ?.response?.data;
+          setErrorMsg(
+            errorData?.message ||
+              "We couldn't verify your payment. Please contact support if you were charged.",
+          );
+        }, 0);
         hasTriggeredRes.current = true;
       } else if (paymentResult?.status === "success") {
-        setVerificationStatus("success");
-        triggerConfetti();
-        resetBookingFlow();
+        setTimeout(() => {
+          setVerificationStatus("success");
+          triggerConfetti();
+          resetBookingFlow();
+        }, 0);
         hasTriggeredRes.current = true;
       } else if (paymentResult?.status === "failed") {
-        setVerificationStatus("error");
-        setErrorMsg(
-          "Your payment was not successful. Please try again or contact support.",
-        );
+        setTimeout(() => {
+          setVerificationStatus("error");
+          setErrorMsg(
+            "Your payment was not successful. Please try again or contact support.",
+          );
+        }, 0);
         hasTriggeredRes.current = true;
       }
     } else if (bookingId && booking) {
-      setVerificationStatus("success");
-      triggerConfetti();
-      resetBookingFlow();
+      setTimeout(() => {
+        setVerificationStatus("success");
+        triggerConfetti();
+        resetBookingFlow();
+      }, 0);
       hasTriggeredRes.current = true;
     }
   }, [

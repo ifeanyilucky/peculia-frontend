@@ -4,6 +4,7 @@ import { Provider } from "@/types/provider.types";
 import Image from "next/image";
 import { useBookingStore } from "@/store/booking.store";
 import { useAuthStore } from "@/store/auth.store";
+import { useUIStore } from "@/store/ui.store";
 import { useRouter } from "next/navigation";
 import { formatCurrency, formatNumber } from "@/utils/formatters";
 import { useState, useCallback, useEffect, useRef } from "react";
@@ -38,7 +39,7 @@ export default function BookingSummarySidebar({
     resetBookingFlow,
     setSelectedProvider,
   } = useBookingStore();
-  const { isAuthenticated, user } = useAuthStore();
+  const { user } = useAuthStore();
 
   // Handle provider mismatch or initialization
   useEffect(() => {
@@ -64,7 +65,7 @@ export default function BookingSummarySidebar({
   ]);
 
   const [isBooking, setIsBooking] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
+  const { openModal } = useUIStore();
   const [showPhoneModal, setShowPhoneModal] = useState(false);
   const [showCancellationModal, setShowCancellationModal] = useState(false);
   const [paymentData, setPaymentData] = useState<{
@@ -191,6 +192,10 @@ export default function BookingSummarySidebar({
   ]);
 
   const handleContinue = async () => {
+    // Read fresh auth state to avoid stale closures after modal login
+    const { isAuthenticated: freshAuth, user: freshUser } =
+      useAuthStore.getState();
+
     if (currentStep === 1) {
       router.push(`/book/${slug}/professional`);
     } else if (currentStep === 2) {
@@ -198,12 +203,12 @@ export default function BookingSummarySidebar({
     } else if (currentStep === 3) {
       if (!selectedSlot) return;
 
-      if (!isAuthenticated) {
-        setShowAuthModal(true);
+      if (!freshAuth) {
+        openModal("booking-auth", { onSuccess: () => handleContinue() });
         return;
       }
 
-      if (!user?.phone) {
+      if (!freshUser?.phone) {
         setShowPhoneModal(true);
         return;
       }
@@ -212,11 +217,11 @@ export default function BookingSummarySidebar({
     } else if (currentStep === 4) {
       if (!selectedSlot) return;
 
-      if (!isAuthenticated) {
-        setShowAuthModal(true);
+      if (!freshAuth) {
+        openModal("booking-auth", { onSuccess: () => handleContinue() });
         return;
       }
-      if (!user?.phone) {
+      if (!freshUser?.phone) {
         setShowPhoneModal(true);
         return;
       }
@@ -427,20 +432,6 @@ export default function BookingSummarySidebar({
           </button>
         </div>
       </CenterModal>
-
-      {showAuthModal && (
-        <BookingAuthModal
-          onSuccess={() => {
-            setShowAuthModal(false);
-            if (currentStep === 4) {
-              submitBooking();
-            } else {
-              handleContinue();
-            }
-          }}
-          onClose={() => setShowAuthModal(false)}
-        />
-      )}
 
       {showPhoneModal && (
         <AddPhoneModal
