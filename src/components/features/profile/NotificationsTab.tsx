@@ -14,7 +14,9 @@ export function NotificationsTab() {
   useEffect(() => {
     const fetchPreferences = async () => {
       try {
+        console.log("Fetching notification preferences...");
         const prefs = await clientService.getNotificationPreferences();
+        console.log("Preferences fetched:", prefs);
         setEmailNotifs(prefs.email ?? true);
         setSmsNotifs(prefs.sms ?? true);
       } catch (error) {
@@ -27,6 +29,7 @@ export function NotificationsTab() {
   }, []);
 
   const handleToggle = async (type: "email" | "sms", value: boolean) => {
+    console.log("handleToggle called:", type, value);
     const previousEmail = emailNotifs;
     const previousSms = smsNotifs;
 
@@ -38,17 +41,22 @@ export function NotificationsTab() {
 
     setIsSaving(true);
     try {
+      console.log("Calling API with:", {
+        email: type === "email" ? value : emailNotifs,
+        sms: type === "sms" ? value : smsNotifs,
+      });
       await clientService.updateNotificationPreferences({
         email: type === "email" ? value : emailNotifs,
         sms: type === "sms" ? value : smsNotifs,
       });
+      console.log("API call successful");
     } catch (error) {
+      console.error("Failed to update notification preferences:", error);
       if (type === "email") {
         setEmailNotifs(previousEmail);
       } else {
         setSmsNotifs(previousSms);
       }
-      console.error("Failed to update notification preferences:", error);
     } finally {
       setIsSaving(false);
     }
