@@ -7,7 +7,7 @@ import { useAuthStore } from "@/store/auth.store";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { formatCurrency, formatNumber } from "@/utils/formatters";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { bookingService } from "@/services/booking.service";
 import { format } from "date-fns";
 import { Loader2, User as UserIcon } from "lucide-react";
@@ -15,6 +15,7 @@ import BookingAuthModal from "@/components/features/booking/BookingAuthModal";
 import AddPhoneModal from "@/components/features/booking/AddPhoneModal";
 import { paymentService } from "@/services/payment.service";
 import CenterModal from "@/components/common/CenterModal";
+import { usePaystackPayment } from "react-paystack";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
@@ -36,6 +37,52 @@ export default function BookingSummarySidebar({
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showPhoneModal, setShowPhoneModal] = useState(false);
   const [showCancellationModal, setShowCancellationModal] = useState(false);
+  const [paymentData, setPaymentData] = useState<{
+    accessCode: string;
+    reference: string;
+    bookingId: string;
+  } | null>(null);
+  const paymentTriggered = useRef(false);
+
+  const initializePayment = usePaystackPayment({
+    reference: paymentData?.reference || "",
+    email: user?.email || "",
+    amount: totalPrice,
+    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
+  });
+
+  const handlePaymentSuccess = useCallback(
+    async (trans: { reference: string }) => {
+      if (paymentData?.bookingId) {
+        router.push(
+          `/book/${slug}/success?bookingId=${paymentData.bookingId}&reference=${trans.reference}`,
+        );
+      }
+      setPaymentData(null);
+      paymentTriggered.current = false;
+    },
+    [paymentData, router, slug],
+  );
+
+  const handlePaymentClose = useCallback(() => {
+    setPaymentData(null);
+    paymentTriggered.current = false;
+  }, []);
+
+  useEffect(() => {
+    if (paymentData && !paymentTriggered.current) {
+      paymentTriggered.current = true;
+      initializePayment({
+        onSuccess: handlePaymentSuccess,
+        onClose: handlePaymentClose,
+      } as any);
+    }
+  }, [
+    paymentData,
+    initializePayment,
+    handlePaymentSuccess,
+    handlePaymentClose,
+  ]);
 
   const isStepComplete = () => {
     if (currentStep === 1) return selectedServices.length > 0;
@@ -45,11 +92,7 @@ export default function BookingSummarySidebar({
     return false;
   };
 
-  /**
-   * Core booking submission — called after auth + phone are guaranteed.
-   * Extracted so it can be re-triggered from both modal onSuccess callbacks.
-   */
-  const submitBooking = useCallback(async () => {
+  const submitBooking = useCallback(async (): Promise<void> => {
     if (!selectedSlot) return;
     setIsBooking(true);
     try {
@@ -65,14 +108,16 @@ export default function BookingSummarySidebar({
         endTime: selectedSlot.endTime,
       });
 
-      // If booking is pending payment, initialize Paystack
       if (booking.status === "pending_payment") {
-        const { authorizationUrl } = await paymentService.initializePayment(
+        const payment = await paymentService.initializePayment(
           booking.id || booking._id!,
         );
-        window.location.href = authorizationUrl;
+        setPaymentData({
+          accessCode: payment.accessCode,
+          reference: payment.reference,
+          bookingId: booking.id || booking._id!,
+        });
       } else {
-        // Otherwise (e.g. personal or free service), just go to success
         router.push(
           `/book/${slug}/success?bookingId=${booking.id || booking._id!}`,
         );
@@ -99,24 +144,20 @@ export default function BookingSummarySidebar({
     } else if (currentStep === 3) {
       if (!selectedSlot) return;
 
-      // ── Gate 1: Not authenticated → show auth modal ──
       if (!isAuthenticated) {
         setShowAuthModal(true);
         return;
       }
 
-      // ── Gate 2: Authenticated but no phone → capture phone ──
       if (!user?.phone) {
         setShowPhoneModal(true);
         return;
       }
 
-      // ── Gate 3: All good → go to confirm ──
       router.push(`/book/${slug}/confirm`);
     } else if (currentStep === 4) {
       if (!selectedSlot) return;
 
-      // Double check gates just in case
       if (!isAuthenticated) {
         setShowAuthModal(true);
         return;
@@ -126,222 +167,242 @@ export default function BookingSummarySidebar({
         return;
       }
 
-      // ── Gate 3: All good → submit directly ──
       await submitBooking();
     }
   };
 
   return (
-    <aside className="w-full lg:w-[400px] lg:shrink-0 h-fit lg:sticky lg:top-28">
-      <div className="rounded-2xl border border-slate-200 bg-white flex flex-col min-h-[500px]">
-        {/* Provider Profile Info */}
-        <div className="p-6 flex items-start gap-4 border-b border-slate-200">
-          <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-slate-200">
-            <Image
-              src={provider.userId.avatar || "/images/placeholder-avatar.png"}
-              alt={provider.businessName}
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div>
-            <h3 className="font-bold text-slate-900 leading-tight">
-              {provider.businessName}
-            </h3>
-            <div className="mt-1 flex items-center gap-1.5 text-xs font-medium text-slate-500">
-              <span className="flex items-center text-yellow-500 font-bold">
-                {provider.rating.toFixed(1)}
-                <span className="ml-0.5 text-yellow-400">★</span>
-              </span>
-              <span className="text-slate-300">•</span>
-              <span>({formatNumber(provider.totalReviews)})</span>
+    <>
+      <aside className="w-full lg:w-[400px] lg:shrink-0 h-fit lg:sticky lg:top-28">
+        <div className="rounded-2xl border border-slate-200 bg-white flex flex-col min-h-[500px]">
+          <div className="p-6 flex items-start gap-4 border-b border-slate-200">
+            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-slate-200">
+              <Image
+                src={provider.userId.avatar || "/images/placeholder-avatar.png"}
+                alt={provider.businessName}
+                fill
+                className="object-cover"
+              />
             </div>
-            <p className="mt-1 text-xs text-slate-500 truncate">
-              {provider.location?.address ||
-                provider.location?.city ||
-                "Address not provided"}
-            </p>
-          </div>
-        </div>
-
-        {/* Selected Services Info */}
-        <div className="flex-1 p-6 flex flex-col">
-          {selectedServices.length === 0 ? (
-            <div className="flex-1 flex items-center justify-center text-sm font-medium text-slate-400">
-              No services selected
-            </div>
-          ) : (
-            <div className="flex-1 space-y-4 overflow-y-auto">
-              <div className="space-y-4">
-                {selectedServices.map((service) => (
-                  <div
-                    key={service.id}
-                    className="flex items-start justify-between gap-4"
-                  >
-                    <div className="space-y-1">
-                      <p className="text-sm font-bold text-slate-900">
-                        {service.name}
-                      </p>
-                      <p className="text-[11px] font-medium text-slate-500">
-                        {service.duration} mins •{" "}
-                        {selectedTeamMember
-                          ? `${selectedTeamMember.firstName} ${selectedTeamMember.lastName}`
-                          : "Any professional"}
-                      </p>
-                    </div>
-                    <p className="text-sm font-black text-slate-900 tabular-nums shrink-0 mt-0.5">
-                      {formatCurrency(service.price / 100)}
-                    </p>
-                  </div>
-                ))}
+            <div>
+              <h3 className="font-bold text-slate-900 leading-tight">
+                {provider.businessName}
+              </h3>
+              <p className="text-sm font-medium text-slate-500">
+                {provider.location?.city || "Nigeria"}
+              </p>
+              <div className="flex items-center gap-1 mt-1">
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className={`h-3.5 w-3.5 ${
+                        i < Math.floor(provider.rating)
+                          ? "text-yellow-400"
+                          : "text-slate-200"
+                      }`}
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <span className="text-xs font-bold text-slate-500">
+                  ({formatNumber(provider.totalReviews)})
+                </span>
               </div>
+            </div>
+          </div>
 
-              {selectedTeamMember && (
-                <div className="mt-6 pt-6 border-t border-slate-100">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
-                    Chosen Professional
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center overflow-hidden border border-slate-200">
-                      {selectedTeamMember.avatar ? (
-                        <Image
-                          src={selectedTeamMember.avatar}
-                          alt={selectedTeamMember.firstName}
-                          width={32}
-                          height={32}
-                          className="object-cover"
-                        />
-                      ) : (
-                        <UserIcon size={16} className="text-slate-400" />
-                      )}
+          <div className="flex-1 p-6 space-y-6">
+            {currentStep >= 1 && selectedServices.length > 0 && (
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                  Services
+                </h4>
+                <div className="space-y-3">
+                  {selectedServices.map((service) => (
+                    <div
+                      key={service.id}
+                      className="flex justify-between items-start"
+                    >
+                      <div>
+                        <p className="font-bold text-slate-900">
+                          {service.name}
+                        </p>
+                        <p className="text-xs text-slate-500 font-medium">
+                          {service.duration} mins
+                        </p>
+                      </div>
+                      <p className="font-bold text-slate-900">
+                        {formatCurrency(service.price / 100)}
+                      </p>
                     </div>
-                    <p className="text-xs font-bold text-slate-900">
-                      {selectedTeamMember.firstName}{" "}
-                      {selectedTeamMember.lastName}
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {currentStep >= 2 && selectedSlot && (
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                  Date & Time
+                </h4>
+                <div className="bg-slate-50 rounded-xl p-4">
+                  <p className="font-bold text-slate-900">
+                    {format(
+                      useBookingStore.getState().selectedDate!,
+                      "EEEE, MMM d, yyyy",
+                    )}
+                  </p>
+                  <p className="text-sm text-slate-500 font-medium mt-1">
+                    {selectedSlot.startTime} - {selectedSlot.endTime}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {currentStep >= 3 && (
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                  Professional
+                </h4>
+                <div className="flex items-center gap-3">
+                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-slate-100">
+                    {selectedTeamMember?.avatar ||
+                    provider.userId.avatar ? (
+                      <Image
+                        src={
+                          selectedTeamMember?.avatar ||
+                          provider.userId.avatar!
+                        }
+                        alt="Professional"
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <UserIcon size={20} className="text-slate-400" />
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <p className="font-bold text-slate-900 text-sm">
+                      {selectedTeamMember
+                        ? `${selectedTeamMember.firstName} ${selectedTeamMember.lastName}`
+                        : "Any professional"}
                     </p>
                   </div>
                 </div>
-              )}
-            </div>
-          )}
-        </div>
+              </div>
+            )}
 
-        {/* Total & Action Button */}
-        <div className="p-6 border-t border-slate-200 bg-slate-50/50 rounded-b-2xl">
-          <div className="flex items-center justify-between font-peculiar text-xl font-black text-slate-900 mb-6">
-            <span>Total</span>
-            <span>
-              {totalPrice > 0 ? `${formatCurrency(totalPrice / 100)}` : "free"}
-            </span>
+            {currentStep === 4 && (
+              <div className="space-y-4 pt-4 border-t border-slate-100">
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-slate-500">Subtotal</span>
+                  <span className="font-bold text-slate-900">
+                    {formatCurrency(totalPrice / 100)}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-slate-500">Service Fee</span>
+                  <span className="font-bold text-slate-900">
+                    {formatCurrency(0)}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center pt-4 border-t border-slate-200">
+                  <span className="font-black text-slate-900">Total</span>
+                  <span className="font-black text-xl text-slate-900">
+                    {formatCurrency(totalPrice / 100)}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
 
-          <button
-            onClick={handleContinue}
-            disabled={!isStepComplete() || isBooking}
-            className="w-full rounded-full bg-slate-900 py-4 text-sm font-black text-white transition-all hover:bg-slate-800 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-          >
-            {isBooking ? (
-              <>
-                <Loader2 className="animate-spin" size={18} />
-                Processing...
-              </>
-            ) : currentStep === 4 ? (
-              "Confirm & Pay"
+          <div className="p-6 border-t border-slate-200">
+            {currentStep === 4 ? (
+              <button
+                onClick={handleContinue}
+                disabled={isBooking || !isStepComplete() || isBooking}
+                className="w-full py-4 px-6 rounded-full bg-rose-600 text-white font-bold hover:bg-rose-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {isBooking ? (
+                  <>
+                    <Loader2 className="animate-spin" size={20} />
+                    Processing...
+                  </>
+                ) : (
+                  "Confirm & Pay"
+                )}
+              </button>
             ) : (
-              "Continue"
+              <button
+                onClick={handleContinue}
+                disabled={!isStepComplete()}
+                className="w-full py-4 px-6 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Continue
+              </button>
             )}
-          </button>
-          <div className="mt-6">
-            {currentStep === 4 && (
-              <p className="text-sm text-slate-500 mt-2">
-                I agree to the{" "}
-                <Link
-                  href="/terms-of-service"
-                  target="_blank"
-                  className="font-bold text-slate-900 border-b border-slate-900/10 hover:border-slate-900 transition-colors"
-                >
-                  terms of services
-                </Link>{" "}
-                and the{" "}
-                <button
-                  type="button"
-                  onClick={() => setShowCancellationModal(true)}
-                  className="font-bold text-slate-900 border-b border-slate-900/10 hover:border-slate-900 transition-colors"
-                >
-                  cancellation policy
-                </button>
+
+            {currentStep < 4 && (
+              <p className="text-center text-xs font-medium text-slate-400 mt-3">
+                Step {currentStep} of 4
               </p>
             )}
           </div>
         </div>
-      </div>
+      </aside>
 
-      {/* ── Booking Auth Modal (unauthenticated users) ────────────── */}
+      <CenterModal
+        isOpen={showCancellationModal}
+        onClose={() => setShowCancellationModal(false)}
+        title="Cancellation Policy"
+      >
+        <div className="text-center">
+          <p className="text-slate-600 mb-6">
+            You can cancel for free up to 24 hours before your appointment.
+            Late cancellations may incur a fee.
+          </p>
+          <button
+            onClick={() => setShowCancellationModal(false)}
+            className="px-8 py-3 rounded-full bg-slate-900 text-white font-bold"
+          >
+            Got it
+          </button>
+        </div>
+      </CenterModal>
+
       {showAuthModal && (
         <BookingAuthModal
           onSuccess={() => {
             setShowAuthModal(false);
-            // After auth, check phone gate immediately
-            const freshUser = useAuthStore.getState().user;
-            if (!freshUser?.phone) {
-              setShowPhoneModal(true);
+            if (currentStep === 4) {
+              submitBooking();
             } else {
-              // Proceed based on current step
-              if (currentStep === 3) {
-                router.push(`/book/${slug}/confirm`);
-              } else {
-                submitBooking();
-              }
+              handleContinue();
             }
           }}
           onClose={() => setShowAuthModal(false)}
         />
       )}
 
-      {/* ── Add Phone Modal (authed users without phone) ────────────── */}
       {showPhoneModal && (
         <AddPhoneModal
           onSuccess={() => {
             setShowPhoneModal(false);
-            // Proceed based on current step
-            if (currentStep === 3) {
-              router.push(`/book/${slug}/confirm`);
-            } else {
+            if (currentStep === 4) {
               submitBooking();
+            } else {
+              handleContinue();
             }
           }}
           onClose={() => setShowPhoneModal(false)}
         />
       )}
-
-      {/* ── Cancellation Policy Modal ────────────── */}
-      <CenterModal
-        isOpen={showCancellationModal}
-        onClose={() => setShowCancellationModal(false)}
-        title="Cancellation Policy"
-      >
-        <div className="text-left">
-          <p className="text-sm text-slate-600 leading-relaxed">
-            You will not be charged if you cancel at least 24 hours before your
-            appointment starts.
-          </p>
-          <p className="mt-4 text-sm text-slate-600 leading-relaxed">
-            Otherwise, you will be charged{" "}
-            <span className="font-bold text-slate-900">
-              25% of service price
-            </span>{" "}
-            for cancelling with less than 24 hours notice and{" "}
-            <span className="font-bold text-slate-900">50%</span> if you fail to
-            show up at your appointment.
-          </p>
-          <button
-            onClick={() => setShowCancellationModal(false)}
-            className="mt-8 w-full rounded-full bg-slate-900 py-3 text-sm font-bold text-white transition-all hover:bg-slate-800"
-          >
-            Got it
-          </button>
-        </div>
-      </CenterModal>
-    </aside>
+    </>
   );
 }

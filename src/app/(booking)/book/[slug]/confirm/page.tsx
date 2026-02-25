@@ -10,43 +10,35 @@ import BookingConfirmation from "@/components/features/booking/BookingConfirmati
 import { Loader2, Clock } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
-import { PaystackConsumer } from "react-paystack";
 
 const TIMEOUT_MINUTES = 10;
 
-interface PaystackConfig {
-  reference: string;
-  email: string;
-  amount: number;
-  publicKey: string;
-  accessCode?: string;
-  onSuccess: (trans: { reference: string }) => void;
-  onClose: () => void;
-}
+export default function BookingConfirmPage() {
+  const params = useParams();
+  const slug = params?.slug as string;
+  const router = useRouter();
 
-function BookingContent({
-  provider,
-  slug,
-  initializePayment,
-  timeLeft,
-  isTimedOut,
-  setTimeLeft,
-  setIsTimedOut,
-  formatTime,
-  handleStartOver,
-}: {
-  provider: any;
-  slug: string;
-  initializePayment: (config: PaystackConfig) => void;
-  timeLeft: number | null;
-  isTimedOut: boolean;
-  setTimeLeft: React.Dispatch<React.SetStateAction<number | null>>;
-  setIsTimedOut: React.Dispatch<React.SetStateAction<boolean>>;
-  formatTime: (s: number) => string;
-  handleStartOver: () => void;
-}) {
+  const { data: provider, isLoading } = useQuery({
+    queryKey: ["provider", "public", slug],
+    queryFn: () => providerService.getProviderPublicProfile(slug),
+    enabled: !!slug,
+  });
+
   const { isAuthenticated, user } = useAuthStore();
   const { setSelectedProvider } = useBookingStore();
+
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [isTimedOut, setIsTimedOut] = useState(false);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  };
+
+  const handleStartOver = () => {
+    router.push(`/book/${slug}/services`);
+  };
 
   useEffect(() => {
     if (provider) {
@@ -55,12 +47,10 @@ function BookingContent({
   }, [provider, setSelectedProvider]);
 
   useEffect(() => {
-    if (!timeLeft && timeLeft !== null && !isTimedOut) return;
-
-    if (timeLeft === null && isAuthenticated && user?.phone) {
+    if (!isLoading && isAuthenticated && user?.phone) {
       setTimeLeft(TIMEOUT_MINUTES * 60);
     }
-  }, [timeLeft, isAuthenticated, user?.phone]);
+  }, [isLoading, isAuthenticated, user?.phone]);
 
   useEffect(() => {
     if (timeLeft === null || timeLeft <= 0 || isTimedOut) return;
@@ -76,7 +66,7 @@ function BookingContent({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft, isTimedOut, setIsTimedOut]);
+  }, [timeLeft, isTimedOut]);
 
   const resetTimer = useCallback(() => {
     if (!isTimedOut) {
@@ -95,6 +85,14 @@ function BookingContent({
       });
     };
   }, [resetTimer]);
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center p-8 bg-white">
+        <Loader2 className="animate-spin text-rose-600" size={40} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50/30 flex flex-col">
@@ -120,7 +118,6 @@ function BookingContent({
               provider={provider}
               currentStep={4}
               slug={slug}
-              initializePayment={initializePayment}
             />
           )}
         </div>
@@ -149,62 +146,5 @@ function BookingContent({
         </div>
       )}
     </div>
-  );
-}
-
-export default function BookingConfirmPage() {
-  const params = useParams();
-  const slug = params?.slug as string;
-  const router = useRouter();
-
-  const { data: provider, isLoading } = useQuery({
-    queryKey: ["provider", "public", slug],
-    queryFn: () => providerService.getProviderPublicProfile(slug),
-    enabled: !!slug,
-  });
-
-  const { isAuthenticated, user } = useAuthStore();
-
-  const [timeLeft, setTimeLeft] = useState<number | null>(null);
-  const [isTimedOut, setIsTimedOut] = useState(false);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
-  };
-
-  const handleStartOver = () => {
-    router.push(`/book/${slug}/services`);
-  };
-
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center p-8 bg-white">
-        <Loader2 className="animate-spin text-rose-600" size={40} />
-      </div>
-    );
-  }
-
-  return (
-    <PaystackConsumer
-      config={{
-        publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
-      }}
-    >
-      {({ initializePayment }) => (
-        <BookingContent
-          provider={provider}
-          slug={slug}
-          initializePayment={initializePayment}
-          timeLeft={timeLeft}
-          isTimedOut={isTimedOut}
-          setTimeLeft={setTimeLeft}
-          setIsTimedOut={setIsTimedOut}
-          formatTime={formatTime}
-          handleStartOver={handleStartOver}
-        />
-      )}
-    </PaystackConsumer>
   );
 }
