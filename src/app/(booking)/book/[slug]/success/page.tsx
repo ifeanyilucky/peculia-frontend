@@ -236,9 +236,9 @@ function SuccessContent() {
                   Services
                 </p>
                 {booking.services.map(
-                  (s: { _id: string; name: string; price: number }) => (
+                  (s: { serviceId: string; name: string; price: number }) => (
                     <div
-                      key={s._id}
+                      key={s.serviceId}
                       className="flex justify-between items-center"
                     >
                       <span className="text-sm font-medium text-slate-600">

@@ -1,5 +1,4 @@
-"use client";
-
+import { useEffect } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { providerService } from "@/services/provider.service";
 import { queryKeys } from "@/constants/queryKeys";
@@ -10,9 +9,13 @@ import { DiscoveryFilters } from "@/types/provider.types";
 
 interface ProviderGridProps {
   filters: DiscoveryFilters;
+  onResultsCount?: (count: number) => void;
 }
 
-export default function ProviderGrid({ filters }: ProviderGridProps) {
+export default function ProviderGrid({
+  filters,
+  onResultsCount,
+}: ProviderGridProps) {
   const {
     data,
     fetchNextPage,
@@ -34,6 +37,14 @@ export default function ProviderGrid({ filters }: ProviderGridProps) {
         ? lastPage.pagination.page + 1
         : undefined,
   });
+
+  // Report total results count back to parent
+  const totalResults = data?.pages[0]?.pagination?.total || 0;
+  useEffect(() => {
+    if (onResultsCount) {
+      onResultsCount(totalResults);
+    }
+  }, [totalResults, onResultsCount]);
 
   const { elementRef } = useIntersectionObserver(() => {
     if (hasNextPage && !isFetchingNextPage) {

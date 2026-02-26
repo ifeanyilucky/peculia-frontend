@@ -69,6 +69,41 @@ export default function ProviderCard({
               {specialty}
             </p>
           </div>
+
+          {/* Services Section */}
+          <div className="mt-4 space-y-2">
+            {(provider.services?.slice(0, 3) || []).map((service: any) => (
+              <div
+                key={service.id || service._id}
+                className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100 group-hover:border-slate-200 transition-colors"
+              >
+                <div>
+                  <p className="text-sm font-bold text-slate-900 leading-none">
+                    {service.name}
+                  </p>
+                  <p className="text-[10px] font-bold text-slate-400 mt-1">
+                    {service.duration} mins
+                  </p>
+                </div>
+                <p className="text-sm font-black text-slate-900">
+                  ₦{(service.price / 100).toLocaleString()}
+                </p>
+              </div>
+            ))}
+
+            {provider.services && provider.services.length > 3 && (
+              <p className="text-xs font-black text-rose-600 mt-2 hover:underline cursor-pointer">
+                See all {provider.services.length} services
+              </p>
+            )}
+            {(!provider.services || provider.services.length === 0) && (
+              <div className="py-2">
+                <p className="text-xs font-bold text-slate-400 italic">
+                  Loading services...
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </Link>
     </motion.div>

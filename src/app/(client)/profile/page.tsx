@@ -131,27 +131,6 @@ export default function ClientProfilePage() {
     }
   };
 
-  const onDeleteAccount = async () => {
-    if (deleteConfirmation !== "DELETE") {
-      sileo.error({
-        title: "Invalid Input",
-        description: 'Please type "DELETE" to confirm.',
-      });
-      return;
-    }
-    setIsDeleting(true);
-    try {
-      await clientService.deleteAccount("DELETE");
-      // Handle logout/redirect is typically done via store clear and router.push
-    } catch {
-      sileo.error({
-        title: "Action Failed",
-        description: "Could not delete your account at this time.",
-      });
-    } finally {
-      setIsDeleting(false);
-    }
-  };
 
   return (
     <div className="max-w-5xl mx-auto space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
