@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { SlidersHorizontal, Map as MapIcon, X, MapPin } from "lucide-react";
+import {
+  SlidersHorizontal,
+  Map as MapIcon,
+  X,
+  MapPin,
+  ChevronDown,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import ExploreFilterModal from "@/components/features/providers/ExploreFilterModal";
@@ -35,29 +41,65 @@ export default function ExploreClient() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-white">
+    <div className="w-full mx-auto max-w-[1440px] min-h-screen bg-white">
       {/* Filters Bar */}
-      <div className="sticky top-[80px]  w-full bg-white border-b border-slate-100 py-4 px-6 lg:px-12">
-        <div className="mx-auto max-w-[1440px] flex items-center justify-between">
-          <p className="text-sm font-bold text-slate-500">
-            <span className="text-slate-900">{resultsCount} professionals</span>{" "}
-            found
-          </p>
+      <div className="sticky top-[80px] z-30 w-full bg-white border-b border-slate-100 py-4 lg:px-12">
+        <div className=" flex flex-col gap-4">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-bold text-slate-500">
+              <span className="text-slate-900">
+                {resultsCount} professionals
+              </span>{" "}
+              found
+            </p>
 
-          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setShowMap(!showMap)}
+                className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 hover:border-slate-900 transition-all text-sm font-bold text-slate-900"
+              >
+                <MapIcon size={16} />
+                {showMap ? "Hide map" : "Show map"}
+              </button>
+            </div>
+          </div>
+
+          {/* Quick Filter Chips (Mobile/Tablet) */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
             <button
               onClick={() => setIsFilterModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 hover:border-slate-900 transition-all text-sm font-bold text-slate-900"
+              className="flex items-center justify-center p-2.5 rounded-full border border-slate-200 bg-white hover:border-slate-900 shrink-0"
             >
-              <SlidersHorizontal size={16} />
-              Filters
+              <SlidersHorizontal size={18} className="text-slate-900" />
+            </button>
+            <div className="h-6 w-px bg-slate-200 mx-1 shrink-0" />
+            <button
+              onClick={() => setIsFilterModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white whitespace-nowrap text-sm font-bold text-slate-900 hover:border-slate-900"
+            >
+              Sort
+              <ChevronDown size={14} className="text-slate-500" />
             </button>
             <button
-              onClick={() => setShowMap(!showMap)}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 hover:border-slate-900 transition-all text-sm font-bold text-slate-900"
+              onClick={() => setIsFilterModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white whitespace-nowrap text-sm font-bold text-slate-900 hover:border-slate-900"
             >
-              <MapIcon size={16} />
-              {showMap ? "Hide map" : "Show map"}
+              Price
+              <ChevronDown size={14} className="text-slate-500" />
+            </button>
+            <button
+              onClick={() => setIsFilterModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white whitespace-nowrap text-sm font-bold text-slate-900 hover:border-slate-900"
+            >
+              Type
+              <ChevronDown size={14} className="text-slate-500" />
+            </button>
+            <button
+              onClick={() => setIsFilterModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white whitespace-nowrap text-sm font-bold text-slate-900 hover:border-slate-900"
+            >
+              Options
+              <ChevronDown size={14} className="text-slate-500" />
             </button>
           </div>
         </div>
@@ -91,7 +133,7 @@ export default function ExploreClient() {
         {/* Left Column: Grid */}
         <div
           className={cn(
-            "transition-all duration-500 ease-in-out px-6 lg:px-12 py-8",
+            "transition-all duration-500 ease-in-out lg:px-12 py-8",
             showMap
               ? "w-full lg:w-[60%] xl:w-[65%]"
               : "w-full max-w-7xl mx-auto",

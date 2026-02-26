@@ -8,6 +8,8 @@ import {
   ChevronDown,
   Calendar,
   Search as SearchIcon,
+  Map as MapIcon,
+  ArrowLeft,
 } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,6 +19,7 @@ import {
   LocationDropdown,
   DateTimeDropdown,
 } from "./ExploreFilterPopups";
+import MobileSearchModal from "./MobileSearchModal";
 import { ROUTES } from "@/constants/routes";
 import { format } from "date-fns";
 
@@ -25,6 +28,7 @@ export default function ExploreHeader() {
   const searchParams = useSearchParams();
   const { isAuthenticated, user, clearAuth } = useAuthStore();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
 
   // Filter States
@@ -118,18 +122,45 @@ export default function ExploreHeader() {
           {/* Left: Logo */}
           <Link
             href="/"
-            className="font-peculiar text-2xl font-black text-slate-900 tracking-tight shrink-0"
+            className={cn(
+              "font-peculiar text-2xl font-black text-slate-900 tracking-tight shrink-0 transition-all",
+              activeSegment ? "hidden sm:block" : "block"
+            )}
           >
             peculia
           </Link>
 
-          {/* Center: Expanding Search Bar */}
+          {/* Center: Search Bar (Responsive) */}
           <div className="flex-1 flex justify-center max-w-4xl transition-all duration-500">
+            {/* Mobile Search Bar (Compact) */}
+            <div
+              onClick={() => setIsMobileSearchOpen(true)}
+              className="flex sm:hidden items-center justify-between w-full bg-white border border-slate-200 rounded-full px-4 py-2 hover:shadow-md transition-all cursor-pointer"
+            >
+              <div className="flex items-center gap-3">
+                <div className="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center">
+                  <ArrowLeft size={16} className="text-slate-900" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs font-black text-slate-900 line-clamp-1">
+                    {treatment || "All treatments and venues"}
+                  </span>
+                  <span className="text-[10px] font-medium text-slate-500">
+                    {time} • {location || "Current location"}
+                  </span>
+                </div>
+              </div>
+              <div className="h-8 w-8 rounded-full border border-slate-200 flex items-center justify-center">
+                <MapIcon size={14} className="text-slate-900" />
+              </div>
+            </div>
+
+            {/* Desktop Search Bar (Expanding) */}
             <div
               className={cn(
-                "relative flex items-center bg-white border border-slate-200 rounded-full transition-all duration-500 shadow-sm hover:shadow-md",
+                "hidden sm:flex items-center bg-white border border-slate-200 rounded-full transition-all duration-500 shadow-sm hover:shadow-md w-full",
                 activeSegment
-                  ? "p-1.5 bg-slate-50 border-slate-300 ring-4 ring-slate-100/30 scale-105"
+                  ? "p-1.5 bg-slate-50 border-slate-300 ring-4 ring-slate-100/30 scale-100 lg:scale-105"
                   : "p-1.5",
               )}
             >
@@ -137,13 +168,15 @@ export default function ExploreHeader() {
               <div
                 onClick={() => setActiveSegment("treatment")}
                 className={cn(
-                  "group relative flex flex-col justify-center px-6 py-2 rounded-full cursor-pointer transition-all duration-300",
+                  "group relative flex flex-col justify-center px-4 sm:px-6 py-2 rounded-full cursor-pointer transition-all duration-300",
                   activeSegment === "treatment"
-                    ? "bg-white shadow-lg min-w-[240px]"
-                    : "hover:bg-slate-100 flex-1",
+                    ? "bg-white shadow-lg min-w-[140px] sm:min-w-[240px] flex-1"
+                    : activeSegment
+                      ? "hidden lg:flex lg:flex-1"
+                      : "hover:bg-slate-100 flex-1",
                 )}
               >
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-slate-900 transition-colors">
+                <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-slate-900 transition-colors">
                   Treatments
                 </span>
                 <input
@@ -174,19 +207,21 @@ export default function ExploreHeader() {
                 </AnimatePresence>
               </div>
 
-              <div className="h-8 w-px bg-slate-200" />
+              <div className={cn("h-8 w-px bg-slate-200", activeSegment ? "hidden sm:block" : "block")} />
 
               {/* Location Segment */}
               <div
                 onClick={() => setActiveSegment("location")}
                 className={cn(
-                  "group relative flex flex-col justify-center px-6 py-2 rounded-full cursor-pointer transition-all duration-300",
+                  "group relative flex flex-col justify-center px-4 lg:px-6 py-2 rounded-full cursor-pointer transition-all duration-300",
                   activeSegment === "location"
-                    ? "bg-white shadow-lg min-w-[240px]"
-                    : "hover:bg-slate-100 flex-1",
+                    ? "bg-white shadow-lg min-w-[200px] lg:min-w-[240px] flex-1"
+                    : activeSegment
+                      ? "hidden lg:flex lg:flex-1"
+                      : "hover:bg-slate-100 flex-1",
                 )}
               >
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-slate-900 transition-colors">
+                <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-slate-900 transition-colors">
                   Where
                 </span>
                 <input
@@ -217,24 +252,26 @@ export default function ExploreHeader() {
                 </AnimatePresence>
               </div>
 
-              <div className="h-8 w-px bg-slate-200" />
+              <div className={cn("h-8 w-px bg-slate-200", activeSegment ? "hidden sm:block" : "block")} />
 
               {/* Time Segment */}
               <div
                 onClick={() => setActiveSegment("time")}
                 className={cn(
-                  "group relative flex flex-col justify-center px-6 py-2 rounded-full cursor-pointer transition-all duration-300",
+                  "group relative flex flex-col justify-center px-4 lg:px-6 py-2 rounded-full cursor-pointer transition-all duration-300",
                   activeSegment === "time"
-                    ? "bg-white shadow-lg min-w-[200px]"
-                    : "hover:bg-slate-100 flex-1",
+                    ? "bg-white shadow-lg min-w-[140px] lg:min-w-[200px] flex-1"
+                    : activeSegment
+                      ? "hidden lg:flex lg:flex-1"
+                      : "hover:bg-slate-100 flex-1",
                 )}
               >
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-slate-900 transition-colors">
+                <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-slate-900 transition-colors">
                   When
                 </span>
                 <div className="flex items-center gap-2">
                   <Calendar size={14} className="text-slate-400" />
-                  <span className="text-sm font-bold text-slate-900 truncate max-w-[120px]">
+                  <span className="text-sm font-bold text-slate-900 truncate max-w-[80px] sm:max-w-[120px]">
                     {time}
                   </span>
                 </div>
@@ -249,7 +286,6 @@ export default function ExploreHeader() {
                       <DateTimeDropdown
                         onSelect={(date, t) => {
                           setTime(`${format(date, "MMM d")}, ${t}`);
-                          // Automatically close or switch to search? Let's leave it open for time slots.
                         }}
                       />
                     </motion.div>
@@ -262,7 +298,7 @@ export default function ExploreHeader() {
                 onClick={handleSearch}
                 className={cn(
                   "flex items-center justify-center gap-2 rounded-full bg-slate-900 text-white font-bold transition-all duration-500 active:scale-95",
-                  activeSegment ? "px-8 py-3.5 ml-2" : "h-11 w-11 ml-4",
+                  activeSegment ? "px-8 py-3.5 ml-2" : "h-11 w-11 lg:ml-4",
                 )}
               >
                 <SearchIcon size={activeSegment ? 20 : 18} />
@@ -273,8 +309,13 @@ export default function ExploreHeader() {
             </div>
           </div>
 
-          {/* Right: Profile Actions */}
-          <div className="relative shrink-0" ref={profileRef}>
+          <div
+            className={cn(
+              "relative shrink-0 transition-all",
+              activeSegment ? "hidden sm:block" : "block"
+            )}
+            ref={profileRef}
+          >
             <button
               onClick={() => setIsProfileOpen(!isProfileOpen)}
               className="flex items-center gap-2 rounded-full border border-slate-200 bg-white p-1.5 transition-shadow hover:shadow-sm"
@@ -341,6 +382,27 @@ export default function ExploreHeader() {
           </div>
         </div>
       </header>
+      <MobileSearchModal
+        isOpen={isMobileSearchOpen}
+        onClose={() => setIsMobileSearchOpen(false)}
+        initialTreatment={treatment}
+        initialLocation={location}
+        initialTime={time}
+        onApply={(data) => {
+          setTreatment(data.treatment);
+          setLocation(data.location);
+          setTime(data.time);
+          // Trigger search after modal apply
+          const params = new URLSearchParams(searchParams.toString());
+          if (data.treatment) params.set("specialty", data.treatment);
+          else params.delete("specialty");
+          if (data.location) params.set("city", data.location);
+          else params.delete("city");
+          if (data.time !== "Any time") params.set("time", data.time);
+          else params.delete("time");
+          router.push(`/explore?${params.toString()}`);
+        }}
+      />
     </>
   );
 }
