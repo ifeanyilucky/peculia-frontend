@@ -10,11 +10,13 @@ import { DiscoveryFilters } from "@/types/provider.types";
 interface ProviderGridProps {
   filters: DiscoveryFilters;
   onResultsCount?: (count: number) => void;
+  onProvidersLoad?: (providers: any[]) => void;
 }
 
 export default function ProviderGrid({
   filters,
   onResultsCount,
+  onProvidersLoad,
 }: ProviderGridProps) {
   const {
     data,
@@ -38,13 +40,23 @@ export default function ProviderGrid({
         : undefined,
   });
 
+  // Collect all providers across all pages
+  const allProviders = data?.pages.flatMap((page) => page.results) || [];
+
   // Report total results count back to parent
   const totalResults = data?.pages[0]?.pagination?.total || 0;
+  
   useEffect(() => {
     if (onResultsCount) {
       onResultsCount(totalResults);
     }
   }, [totalResults, onResultsCount]);
+
+  useEffect(() => {
+    if (onProvidersLoad) {
+      onProvidersLoad(allProviders);
+    }
+  }, [allProviders, onProvidersLoad]);
 
   const { elementRef } = useIntersectionObserver(() => {
     if (hasNextPage && !isFetchingNextPage) {
@@ -74,8 +86,6 @@ export default function ProviderGrid({
       </div>
     );
   }
-
-  const allProviders = data?.pages.flatMap((page) => page.results) || [];
 
   if (allProviders.length === 0) {
     return (

@@ -90,6 +90,9 @@ export interface DiscoveryFilters {
   lng?: number;
   radiusKm?: number;
   sort?: string;
+  date?: string;
+  time?: string;
+  maxPrice?: number;
   page?: number;
   limit?: number;
 }

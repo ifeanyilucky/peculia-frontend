@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import CenterModal from "@/components/common/CenterModal";
-import { SlidersHorizontal, Heart, MapPin, Star, User, Users, Baby, Accessibility, Car, Train, ShowerHead, Lock, Bath, Waves, Wind, X } from "lucide-react";
+import { Heart, MapPin, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ExploreFilterModalProps {
@@ -18,34 +18,10 @@ export default function ExploreFilterModal({
 }: ExploreFilterModalProps) {
   const [sortBy, setSortBy] = useState("Best match");
   const [price, setPrice] = useState(387080);
-  const [venueType, setVenueType] = useState("Everyone");
-  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
-
-  const amenities = [
-    { id: "pet", label: "Pet-friendly", icon: Heart },
-    { id: "adults", label: "Adults only", icon: Users },
-    { id: "kid", label: "Kid-friendly", icon: Baby },
-    { id: "wheelchair", label: "Wheelchair accessible", icon: Accessibility },
-    { id: "parking", label: "Parking available", icon: Car },
-    { id: "transport", label: "Near public transport", icon: Train },
-    { id: "showers", label: "Showers", icon: ShowerHead },
-    { id: "lockers", label: "Lockers", icon: Lock },
-    { id: "towels", label: "Bath towels", icon: Bath },
-    { id: "pool", label: "Swimming pool", icon: Waves },
-    { id: "sauna", label: "Sauna", icon: Wind },
-  ];
-
-  const handleToggleAmenity = (id: string) => {
-    setSelectedAmenities(prev =>
-      prev.includes(id) ? prev.filter(a => a !== id) : [...prev, id]
-    );
-  };
 
   const handleClearAll = () => {
     setSortBy("Best match");
     setPrice(387080);
-    setVenueType("Everyone");
-    setSelectedAmenities([]);
   };
 
   return (
@@ -101,49 +77,6 @@ export default function ExploreFilterModal({
           />
         </section>
 
-        {/* Venue Type */}
-        <section>
-          <h4 className="text-sm font-black text-slate-900 mb-4 uppercase tracking-widest">Venue type</h4>
-          <div className="flex flex-wrap gap-2">
-            {["Everyone", "Female only", "Male only"].map((type) => (
-              <button
-                key={type}
-                onClick={() => setVenueType(type)}
-                className={cn(
-                  "px-6 py-2.5 rounded-full border text-sm font-bold transition-all",
-                  venueType === type
-                    ? "bg-rose-600 border-rose-600 text-white shadow-md shadow-rose-200"
-                    : "border-slate-200 text-slate-600 hover:border-slate-900"
-                )}
-              >
-                {type}
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {/* Amenities */}
-        <section>
-          <h4 className="text-sm font-black text-slate-900 mb-4 uppercase tracking-widest">Amenities</h4>
-          <div className="flex flex-wrap gap-2">
-            {amenities.map((amenity) => (
-              <button
-                key={amenity.id}
-                onClick={() => handleToggleAmenity(amenity.id)}
-                className={cn(
-                  "flex items-center gap-2 px-4 py-2.5 rounded-full border text-sm font-bold transition-all",
-                  selectedAmenities.includes(amenity.id)
-                    ? "border-slate-900 bg-slate-900 text-white shadow-md"
-                    : "border-slate-200 text-slate-600 hover:border-slate-900"
-                )}
-              >
-                <amenity.icon size={16} />
-                {amenity.label}
-              </button>
-            ))}
-          </div>
-        </section>
-
         {/* Footer Actions */}
         <div className="pt-6 flex items-center gap-4 border-t border-slate-100 mt-8">
           <button
@@ -153,7 +86,7 @@ export default function ExploreFilterModal({
             Clear all
           </button>
           <button
-            onClick={() => onApply({ sortBy, price, venueType, selectedAmenities })}
+            onClick={() => onApply({ sortBy, price })}
             className="flex-[2] py-4 bg-slate-900 text-white text-sm font-black rounded-2xl hover:bg-slate-800 transition-all shadow-lg active:scale-95"
           >
             Apply

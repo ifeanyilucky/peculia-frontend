@@ -102,7 +102,7 @@ export default function ExploreHeader() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setActiveSegment(null)}
-            className="fixed inset-0 z-40 bg-slate-900/10 backdrop-blur-[2px]"
+            className="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-[2px]"
           />
         )}
       </AnimatePresence>
