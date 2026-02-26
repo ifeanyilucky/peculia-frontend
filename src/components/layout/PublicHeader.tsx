@@ -2,9 +2,17 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { ROUTES } from "@/constants/routes";
-import { Menu, Globe, ArrowRight, User, LogOut, Bookmark, Calendar } from "lucide-react";
+import {
+  Menu,
+  Globe,
+  ArrowRight,
+  User,
+  LogOut,
+  Bookmark,
+  Calendar,
+} from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
 
 export default function PublicHeader() {
@@ -13,6 +21,7 @@ export default function PublicHeader() {
   const menuRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const pathname = usePathname();
   const { isAuthenticated, user, clearAuth } = useAuthStore();
 
   // Close menu when clicking outside
@@ -21,7 +30,10 @@ export default function PublicHeader() {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsMenuOpen(false);
       }
-      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
         setIsProfileOpen(false);
       }
     }
@@ -34,6 +46,10 @@ export default function PublicHeader() {
     setIsProfileOpen(false);
     router.push("/");
   };
+
+  if (pathname === "/explore" || pathname.startsWith("/explore/")) {
+    return null;
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b border-slate-100">
