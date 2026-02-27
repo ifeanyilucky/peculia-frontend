@@ -235,14 +235,6 @@ export default function BookingSummarySidebar({
       <aside className="w-full lg:w-[400px] lg:shrink-0 h-fit lg:sticky lg:top-28">
         <div className="rounded-2xl border border-slate-200 bg-white flex flex-col min-h-[500px]">
           <div className="p-6 flex items-start gap-4 border-b border-slate-200">
-            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-slate-200">
-              <Image
-                src={provider.userId.avatar || "/images/placeholder-avatar.png"}
-                alt={provider.businessName}
-                fill
-                className="object-cover"
-              />
-            </div>
             <div>
               <h3 className="font-bold text-slate-900 leading-tight">
                 {provider.businessName}
