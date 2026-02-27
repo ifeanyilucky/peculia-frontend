@@ -31,7 +31,12 @@ export default function BookingConfirmation() {
   // Use slug from params or fallback to selectedProvider.slug
   const providerSlug = slug || selectedProvider?.slug;
 
-  if (!selectedDate || !selectedSlot || selectedServices.length === 0) {
+  if (
+    !selectedDate ||
+    !selectedSlot ||
+    selectedServices.length === 0 ||
+    !selectedProvider
+  ) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
         <AlertCircle size={48} className="text-slate-300 mb-4" />
@@ -93,7 +98,8 @@ export default function BookingConfirmation() {
                 <div>
                   <h4 className="font-black text-slate-900">{service.name}</h4>
                   <p className="text-sm text-slate-500 font-bold">
-                    {service.duration} mins • {formatCurrency(service.price / 100)}
+                    {service.duration} mins •{" "}
+                    {formatCurrency(service.price / 100)}
                   </p>
                 </div>
               </div>

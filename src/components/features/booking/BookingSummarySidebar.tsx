@@ -7,16 +7,15 @@ import { useAuthStore } from "@/store/auth.store";
 import { useUIStore } from "@/store/ui.store";
 import { useRouter } from "next/navigation";
 import { formatCurrency, formatNumber } from "@/utils/formatters";
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import { bookingService } from "@/services/booking.service";
 import { format } from "date-fns";
-import { Loader2, User as UserIcon } from "lucide-react";
+import { Loader2, User as UserIcon, RefreshCw } from "lucide-react";
 import BookingAuthModal from "@/components/features/booking/BookingAuthModal";
 import AddPhoneModal from "@/components/features/booking/AddPhoneModal";
 import { paymentService } from "@/services/payment.service";
 import CenterModal from "@/components/common/CenterModal";
 import { usePaystackPayment } from "react-paystack";
-import { useMemo } from "react";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
@@ -36,6 +35,7 @@ export default function BookingSummarySidebar({
     selectedTeamMember,
     selectedSlot,
     selectedProvider,
+    selectedDate,
     resetBookingFlow,
     setSelectedProvider,
   } = useBookingStore();
@@ -65,6 +65,9 @@ export default function BookingSummarySidebar({
   ]);
 
   const [isBooking, setIsBooking] = useState(false);
+  /** True when the user closed the Paystack popup without completing payment.
+   * We keep paymentData alive so they can resume without creating a new booking. */
+  const [paymentPaused, setPaymentPaused] = useState(false);
   const { openModal } = useUIStore();
   const [showPhoneModal, setShowPhoneModal] = useState(false);
   const [showCancellationModal, setShowCancellationModal] = useState(false);
@@ -74,6 +77,9 @@ export default function BookingSummarySidebar({
     bookingId: string;
   } | null>(null);
   const lastInitializedRef = useRef<string | null>(null);
+  /** Ref-based in-flight lock — prevents double submits that slip through
+   * React's async re-render cycle before `isBooking` state updates. */
+  const isSubmittingRef = useRef(false);
 
   const paystackConfig = useMemo(
     () => ({
@@ -99,17 +105,31 @@ export default function BookingSummarySidebar({
         );
       }
       setPaymentData(null);
+      setPaymentPaused(false);
       lastInitializedRef.current = null;
     },
     [paymentData, router, slug],
   );
 
+  /** User closed the Paystack popup without paying. Keep paymentData alive so
+   * they can retry without creating a duplicate booking. */
   const handlePaymentClose = useCallback(() => {
-    setPaymentData(null);
-    lastInitializedRef.current = null;
+    setPaymentPaused(true);
+    lastInitializedRef.current = null; // Allow re-opening
   }, []);
 
+  /** Resume an existing payment — re-opens the Paystack popup with the same
+   * access_code, no new booking or payment record is created. */
+  const handleResumePayment = useCallback(() => {
+    if (!paymentData) return;
+    setPaymentPaused(false);
+    // Resetting the tracker allows the useEffect below to re-trigger Paystack
+    lastInitializedRef.current = null;
+  }, [paymentData]);
+
   useEffect(() => {
+    // Don't open the popup when payment is paused (user closed it)
+    if (paymentPaused) return;
     if (paymentData && lastInitializedRef.current !== paymentData.reference) {
       lastInitializedRef.current = paymentData.reference;
 
@@ -125,29 +145,37 @@ export default function BookingSummarySidebar({
     }
   }, [
     paymentData,
+    paymentPaused,
     initializePayment,
     handlePaymentSuccess,
     handlePaymentClose,
   ]);
 
+  /**
+   * Determines whether the current step is fully filled in.
+   * Reads from store state at component scope — no hook inside render.
+   */
   const isStepComplete = () => {
-    const state = useBookingStore.getState();
     if (currentStep === 1) return selectedServices.length > 0;
-    if (currentStep === 2) return selectedServices.length > 0;
+    // Step 2 (time selection) also needs a slot chosen
+    if (currentStep === 2) return selectedServices.length > 0 && !!selectedSlot;
     if (currentStep === 3) return selectedServices.length > 0;
     if (currentStep === 4) {
       return (
         selectedServices.length > 0 &&
-        !!state.selectedDate &&
+        !!selectedDate &&
         !!selectedSlot &&
-        state.selectedProvider?._id === provider._id
+        selectedProvider?._id === provider._id
       );
     }
     return false;
   };
 
   const submitBooking = useCallback(async (): Promise<void> => {
-    if (!selectedSlot || isBooking) return;
+    // Ref-based guard prevents double-submits that slip through before React
+    // re-renders with the updated `isBooking` state (e.g. rapid tap on mobile).
+    if (!selectedSlot || isSubmittingRef.current) return;
+    isSubmittingRef.current = true;
     setIsBooking(true);
     try {
       const booking = await bookingService.createBooking({
@@ -171,6 +199,7 @@ export default function BookingSummarySidebar({
           reference: payment.reference,
           bookingId: booking.id || booking._id!,
         });
+        setPaymentPaused(false);
       } else {
         router.push(
           `/book/${slug}/success?bookingId=${booking.id || booking._id!}`,
@@ -180,6 +209,7 @@ export default function BookingSummarySidebar({
       console.error("Booking failed:", error);
     } finally {
       setIsBooking(false);
+      isSubmittingRef.current = false;
     }
   }, [
     selectedSlot,
@@ -188,7 +218,6 @@ export default function BookingSummarySidebar({
     provider?._id,
     slug,
     router,
-    isBooking,
   ]);
 
   const handleContinue = async () => {
@@ -372,10 +401,29 @@ export default function BookingSummarySidebar({
           </div>
 
           <div className="p-6 border-t border-slate-200">
+            {/* Resume Payment banner — shown when user closed the popup mid-flow */}
+            {paymentPaused && paymentData && (
+              <div className="mb-3 rounded-2xl bg-amber-50 border border-amber-200 p-4">
+                <p className="text-sm font-bold text-amber-800 mb-2">
+                  Payment not completed
+                </p>
+                <p className="text-xs text-amber-700 mb-3">
+                  Your booking is saved. Click below to complete your payment.
+                </p>
+                <button
+                  onClick={handleResumePayment}
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-full bg-amber-600 text-white font-bold text-sm hover:bg-amber-700 transition-colors"
+                >
+                  <RefreshCw size={16} />
+                  Resume Payment
+                </button>
+              </div>
+            )}
+
             {currentStep === 4 ? (
               <button
                 onClick={handleContinue}
-                disabled={isBooking || !isStepComplete() || isBooking}
+                disabled={isBooking || !isStepComplete() || paymentPaused}
                 className="w-full py-4 px-6 rounded-full bg-rose-600 text-white font-bold hover:bg-rose-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isBooking ? (
