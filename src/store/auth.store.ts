@@ -9,6 +9,7 @@ interface User {
   role: "client" | "provider" | "admin";
   avatar?: string;
   phone?: string;
+  isDiscoverable?: boolean;
 }
 
 interface AuthState {
