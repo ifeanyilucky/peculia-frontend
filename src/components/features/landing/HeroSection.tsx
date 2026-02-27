@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Search, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/constants/routes";
-import { SPECIALTIES } from "@/constants/specialties";
+import { useSpecialties } from "@/hooks/useSpecialties";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -59,6 +59,7 @@ export default function HeroSection() {
   const [city, setCity] = useState("");
   const [specialty, setSpecialty] = useState("");
   const router = useRouter();
+  const { data: specialties = [], isLoading } = useSpecialties();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,9 +115,12 @@ export default function HeroSection() {
                   value={specialty}
                   onChange={(e) => setSpecialty(e.target.value)}
                   className="w-full bg-transparent text-sm font-bold text-slate-900 focus:outline-none appearance-none truncate"
+                  disabled={isLoading}
                 >
-                  <option value="">All treatments & venues</option>
-                  {SPECIALTIES.map((spec) => (
+                  <option value="">
+                    {isLoading ? "Loading..." : "All treatments & venues"}
+                  </option>
+                  {specialties.map((spec) => (
                     <option key={spec.id} value={spec.id}>
                       {spec.label}
                     </option>

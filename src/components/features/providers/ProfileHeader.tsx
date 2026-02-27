@@ -14,7 +14,7 @@ import {
 } from "@/utils/time.utils";
 import { useEffect } from "react";
 
-import { SPECIALTIES } from "@/constants/specialties";
+import { useSpecialties } from "@/hooks/useSpecialties";
 
 interface ProfileHeaderProps {
   provider: Provider;
@@ -29,6 +29,7 @@ export default function ProfileHeader({
 }: ProfileHeaderProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
+  const { data: specialties = [], isLoading } = useSpecialties();
 
   useEffect(() => {
     setMounted(true);
@@ -48,10 +49,11 @@ export default function ProfileHeader({
 
   // Look up the label for the primary specialty
   const specialtyId = provider.specialties?.[0];
-  const specialtyLabel =
-    SPECIALTIES.find((s) => s.id === specialtyId)?.label ||
-    specialtyId?.replace("_", " ") ||
-    "Health & Beauty";
+  const specialtyLabel = isLoading
+    ? "Loading..."
+    : specialties.find((s) => s.id === specialtyId)?.label ||
+      specialtyId?.replace("_", " ") ||
+      "Health & Beauty";
 
   const city = provider.location?.city || "London";
   const area = provider.location?.state; // Using state as the "Area" (e.g., Fulham)

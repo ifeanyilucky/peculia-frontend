@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { SPECIALTIES } from "@/constants/specialties";
+import { useSpecialties } from "@/hooks/useSpecialties";
 import {
   Search,
   MapPin,
@@ -35,7 +35,9 @@ export function TreatmentDropdown({
   onSelect: (id: string) => void;
   searchQuery?: string;
 }) {
-  const filteredSpecialties = SPECIALTIES.filter((spec) =>
+  const { data: specialties = [], isLoading } = useSpecialties();
+
+  const filteredSpecialties = specialties.filter((spec) =>
     spec.label.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
@@ -45,7 +47,9 @@ export function TreatmentDropdown({
         {searchQuery ? "Search Results" : "Popular Treatments"}
       </p>
       <div className="grid gap-1">
-        {filteredSpecialties.length > 0 ? (
+        {isLoading ? (
+          <p className="p-4 text-sm text-slate-500">Loading treatments...</p>
+        ) : filteredSpecialties.length > 0 ? (
           filteredSpecialties.map((spec) => (
             <button
               key={spec.id}
@@ -62,7 +66,9 @@ export function TreatmentDropdown({
             </button>
           ))
         ) : (
-          <p className="p-4 text-sm text-slate-500 italic">No treatments found</p>
+          <p className="p-4 text-sm text-slate-500 italic">
+            No treatments found
+          </p>
         )}
       </div>
     </div>
@@ -111,7 +117,9 @@ export function LocationDropdown({
             </button>
           ))
         ) : (
-          <p className="p-4 text-sm text-slate-500 italic">No locations found</p>
+          <p className="p-4 text-sm text-slate-500 italic">
+            No locations found
+          </p>
         )}
       </div>
     </div>

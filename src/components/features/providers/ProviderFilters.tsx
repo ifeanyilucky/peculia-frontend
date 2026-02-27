@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { SPECIALTIES } from "@/constants/specialties";
+import { useSpecialties } from "@/hooks/useSpecialties";
 import { Star, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +16,7 @@ export default function ProviderFilters({
 }: ProviderFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { data: specialties = [], isLoading } = useSpecialties();
 
   const currentSpecialty = searchParams.get("specialty") || "";
   const currentCity = searchParams.get("city") || "";
@@ -62,23 +63,27 @@ export default function ProviderFilters({
       <div className="space-y-4">
         <p className="text-sm font-bold text-slate-900">Specialty</p>
         <div className="flex flex-col gap-2">
-          {SPECIALTIES.map((spec) => (
-            <label
-              key={spec.id}
-              className="flex items-center gap-3 cursor-pointer group"
-            >
-              <input
-                type="radio"
-                name="specialty"
-                checked={currentSpecialty === spec.id}
-                onChange={() => updateFilter("specialty", spec.id)}
-                className="h-4 w-4 rounded-full border-slate-300 text-rose-600 focus:ring-rose-600"
-              />
-              <span className="text-sm text-slate-600 group-hover:text-slate-900">
-                {spec.label}
-              </span>
-            </label>
-          ))}
+          {isLoading ? (
+            <p className="text-sm text-slate-500">Loading specialties...</p>
+          ) : (
+            specialties.map((spec) => (
+              <label
+                key={spec.id}
+                className="flex items-center gap-3 cursor-pointer group"
+              >
+                <input
+                  type="radio"
+                  name="specialty"
+                  checked={currentSpecialty === spec.id}
+                  onChange={() => updateFilter("specialty", spec.id)}
+                  className="h-4 w-4 rounded-full border-slate-300 text-rose-600 focus:ring-rose-600"
+                />
+                <span className="text-sm text-slate-600 group-hover:text-slate-900">
+                  {spec.label}
+                </span>
+              </label>
+            ))
+          )}
         </div>
       </div>
 
