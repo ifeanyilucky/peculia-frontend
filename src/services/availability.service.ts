@@ -10,11 +10,11 @@ export const availabilityService = {
     teamMemberId?: string,
   ) => {
     const response = await api.get<ApiSuccess<TimeSlot[]>>(
-      `/availability/slots/${providerProfileId}`,
+      `/providers/${providerProfileId}/availability/slots`,
       {
         params: { serviceIds, date, teamMemberId },
         paramsSerializer: {
-          indexes: null, // this makes array serialization look like `?serviceIds=1&serviceIds=2` instead of `serviceIds[]=1`
+          indexes: null,
         },
       },
     );
@@ -27,7 +27,7 @@ export const availabilityService = {
     year: number,
   ) => {
     const response = await api.get<ApiSuccess<BlockedDate[]>>(
-      `/availability/blocked/${providerProfileId}`,
+      `/providers/${providerProfileId}/availability/blocked`,
       {
         params: { month, year },
       },
@@ -37,14 +37,14 @@ export const availabilityService = {
 
   getWeeklySchedule: async (providerProfileId: string) => {
     const response = await api.get<ApiSuccess<any>>(
-      `/availability/schedule/${providerProfileId}`,
+      `/providers/${providerProfileId}/availability`,
     );
     return response.data.data;
   },
 
   saveWeeklySchedule: async (data: any) => {
     const response = await api.post<ApiSuccess<any>>(
-      "/availability/schedule",
+      "/providers/me/availability",
       data,
     );
     return response.data.data;
@@ -56,7 +56,7 @@ export const availabilityService = {
     isFullDay: boolean;
   }) => {
     const response = await api.post<ApiSuccess<BlockedDate>>(
-      "/availability/block",
+      "/providers/me/availability/block",
       data,
     );
     return response.data.data;
@@ -64,7 +64,7 @@ export const availabilityService = {
 
   unblockDate: async (id: string) => {
     const response = await api.delete<ApiSuccess<void>>(
-      `/availability/block/${id}`,
+      `/providers/me/availability/block/${id}`,
     );
     return response.data.data;
   },
