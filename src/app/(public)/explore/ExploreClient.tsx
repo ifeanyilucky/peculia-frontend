@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
   SlidersHorizontal,
@@ -23,6 +23,14 @@ export default function ExploreClient() {
   const [resultsCount, setResultsCount] = useState(0);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [providers, setProviders] = useState<Provider[]>([]);
+
+  const handleResultsCount = useCallback((count: number) => {
+    setResultsCount(count);
+  }, []);
+
+  const handleProvidersLoad = useCallback((p: Provider[]) => {
+    setProviders(p);
+  }, []);
 
   const filters: DiscoveryFilters = {
     specialty: searchParams.get("specialty") || undefined,
@@ -141,8 +149,8 @@ export default function ExploreClient() {
         >
           <ProviderGrid
             filters={filters}
-            onResultsCount={(count) => setResultsCount(count)}
-            onProvidersLoad={(p) => setProviders(p)}
+            onResultsCount={handleResultsCount}
+            onProvidersLoad={handleProvidersLoad}
           />
         </div>
 

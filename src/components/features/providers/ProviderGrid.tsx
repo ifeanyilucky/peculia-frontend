@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { providerService } from "@/services/provider.service";
 import { queryKeys } from "@/constants/queryKeys";
@@ -41,22 +41,32 @@ export default function ProviderGrid({
   });
 
   // Collect all providers across all pages
-  const allProviders = data?.pages.flatMap((page) => page.results) || [];
+  const allProviders = useMemo(
+    () => data?.pages.flatMap((page) => page.results) || [],
+    [data?.pages],
+  );
 
   // Report total results count back to parent
   const totalResults = data?.pages[0]?.pagination?.total || 0;
-  
+
   useEffect(() => {
     if (onResultsCount) {
       onResultsCount(totalResults);
     }
   }, [totalResults, onResultsCount]);
 
+  const prevProvidersRef = React.useRef(allProviders);
+  const prevProviders = prevProvidersRef.current;
+  const providersChanged =
+    allProviders.length !== prevProviders.length ||
+    allProviders.some((p, i) => p._id !== prevProviders[i]?._id);
+
   useEffect(() => {
-    if (onProvidersLoad) {
+    if (onProvidersLoad && providersChanged) {
+      prevProvidersRef.current = allProviders;
       onProvidersLoad(allProviders);
     }
-  }, [allProviders, onProvidersLoad]);
+  }, [allProviders, onProvidersLoad, providersChanged]);
 
   const { elementRef } = useIntersectionObserver(() => {
     if (hasNextPage && !isFetchingNextPage) {
