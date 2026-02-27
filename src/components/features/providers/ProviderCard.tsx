@@ -6,6 +6,7 @@ import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Provider } from "@/types/provider.types";
 import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/utils/formatters";
 
 interface ProviderCardProps {
   provider: Provider;
@@ -29,7 +30,7 @@ export default function ProviderCard({
         className="block space-y-4"
       >
         {/* Cover Image */}
-        <div className="relative aspect-3/2 w-full overflow-hidden rounded-4xl bg-slate-100">
+        <div className="relative aspect-3/2 w-full overflow-hidden rounded-2xl bg-slate-100">
           <Image
             src={
               provider.portfolioImages?.[0]?.url ||
@@ -75,7 +76,7 @@ export default function ProviderCard({
             {(provider.services?.slice(0, 3) || []).map((service: any) => (
               <div
                 key={service.id || service._id}
-                className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100 group-hover:border-slate-200 transition-colors"
+                className="flex items-center justify-between p-3 rounded-sm bg-slate-50 border border-slate-100 group-hover:border-slate-200 transition-colors"
               >
                 <div>
                   <p className="text-sm font-bold text-slate-900 leading-none">
@@ -86,7 +87,7 @@ export default function ProviderCard({
                   </p>
                 </div>
                 <p className="text-sm font-black text-slate-900">
-                  ₦{(service.price / 100).toLocaleString()}
+                  {formatCurrency(service.price)}
                 </p>
               </div>
             ))}

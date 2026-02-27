@@ -41,7 +41,7 @@ export default function ExploreClient() {
   };
 
   return (
-    <div className="w-full mx-auto max-w-[1440px] min-h-screen bg-white">
+    <div className="w-full mx-auto  min-h-screen bg-white">
       {/* Filters Bar */}
       <div className="sticky top-[80px] z-30 w-full bg-white border-b border-slate-100 py-4 lg:px-12">
         <div className=" flex flex-col gap-4">
