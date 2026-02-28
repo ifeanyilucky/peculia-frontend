@@ -8,6 +8,7 @@ import ProviderReviewsList from "@/components/features/providers/ProviderReviews
 import { Suspense } from "react";
 import { availabilityService } from "@/services/availability.service";
 import ProviderLocation from "@/components/features/providers/ProviderLocation";
+import ProviderTeam from "@/components/features/providers/ProviderTeam";
 import NearbyProviders from "@/components/features/providers/NearbyProviders";
 import { getOpeningStatus } from "@/utils/time.utils";
 import RecentlyViewedTracker from "@/components/features/providers/RecentlyViewedTracker";
@@ -80,8 +81,12 @@ export default async function ProviderProfilePage({
       })
       .catch(() => ({
         results: [],
-        pagination: { total: 0, page: 1, limit: 5, totalPages: 0 },
+        pagination: { totalResults: 0, page: 1, limit: 5, totalPages: 0 },
       }));
+
+    const team = await providerService
+      .getProviderTeam(provider._id)
+      .catch(() => []);
 
     const nearbyProviders = nearbyProvidersData.results || [];
 
@@ -146,6 +151,8 @@ export default async function ProviderProfilePage({
                   services={services}
                   providerId={provider._id}
                 />
+                <hr className="border-slate-100" />
+                <ProviderTeam team={team} />
 
                 <hr className="border-slate-100" />
                 <ProviderAbout provider={provider} />
