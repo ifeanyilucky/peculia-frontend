@@ -90,6 +90,8 @@ export default function BookingSummarySidebar({
 
       openPaystackModal({
         key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
+        email: user.email,
+        amount: totalPrice,
         access_code: accessCode,
         onClose: () => {
           setPaymentPaused(true);
@@ -103,7 +105,7 @@ export default function BookingSummarySidebar({
         },
       });
     },
-    [user?.email, router, slug],
+    [user?.email, totalPrice, router, slug],
   );
 
   /** Resume an existing payment — re-opens the Paystack popup with the same
