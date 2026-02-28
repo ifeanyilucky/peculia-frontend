@@ -3,16 +3,17 @@
 import { Provider } from "@/types/provider.types";
 import { CheckCircle2, Star, Share2, ExternalLink } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import PhotoViewer from "@/components/common/PhotoViewer";
 import SaveButton from "./SaveButton";
+import Breadcrumbs, { BreadcrumbItem } from "@/components/ui/Breadcrumbs";
 import {
   getOpeningStatus,
   WeeklySchedule,
   OpeningStatus,
 } from "@/utils/time.utils";
 import { useEffect } from "react";
+import { sileo } from "sileo";
 
 import { useSpecialties } from "@/hooks/useSpecialties";
 
@@ -68,53 +69,55 @@ export default function ProfileHeader({
     setSelectedIndex((prev) => (prev! === images.length - 1 ? 0 : prev! + 1));
   };
 
+  const breadcrumbItems: BreadcrumbItem[] = [
+    { label: "Home", href: "/" },
+    {
+      label: specialtyLabel as string,
+      href: `/explore?specialty=${specialtyId}`,
+    },
+    { label: city, href: `/explore?city=${city}` },
+    ...(area
+      ? [{ label: area, href: `/explore?city=${city}&state=${area}` }]
+      : []),
+    { label: provider.businessName },
+  ];
+
+  const handleShare = async () => {
+    const shareData = {
+      title: `${provider.businessName} on Peculia`,
+      text:
+        provider.bio?.substring(0, 100) ||
+        `Book ${provider.businessName} on Peculia!`,
+      url: window.location.href,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.error("Error sharing:", err);
+      }
+    } else {
+      // Fallback: copy to clipboard
+      try {
+        await navigator.clipboard.writeText(shareData.url);
+        // You could add a toast here if sileo/sonner was imported
+        sileo.success({
+          title: "Copied!",
+          description: "Link copied to clipboard!",
+        });
+      } catch (err) {
+        console.error("Failed to copy:", err);
+      }
+    }
+  };
+
   return (
     <div className="bg-white">
       {/* Breadcrumbs */}
-      <nav className="mx-auto max-w-7xl px-6 py-4 lg:px-8">
-        <ol className="flex items-center gap-2 text-xs font-medium text-slate-500">
-          <li>
-            <Link href="/" className="hover:text-rose-600">
-              Home
-            </Link>
-          </li>
-          <span className="text-slate-300 mx-1">.</span>
-          <li>
-            <Link
-              href={`/explore?specialty=${specialtyId}`}
-              className="hover:text-rose-600 capitalize"
-            >
-              {specialtyLabel}
-            </Link>
-          </li>
-          <span className="text-slate-300 mx-1">.</span>
-          <li>
-            <Link
-              href={`/explore?city=${city}`}
-              className="hover:text-rose-600"
-            >
-              {city}
-            </Link>
-          </li>
-          {area && (
-            <>
-              <span className="text-slate-300 mx-1">.</span>
-              <li>
-                <Link
-                  href={`/explore?city=${city}&state=${area}`}
-                  className="hover:text-rose-600"
-                >
-                  {area}
-                </Link>
-              </li>
-            </>
-          )}
-          <span className="text-slate-300 mx-1">.</span>
-          <li className="text-slate-900 font-bold truncate max-w-[150px] sm:max-w-none">
-            {provider.businessName}
-          </li>
-        </ol>
-      </nav>
+      <div className="mx-auto max-w-7xl px-6 py-4 lg:px-8">
+        <Breadcrumbs items={breadcrumbItems} />
+      </div>
 
       {/* Business Info Section */}
       <section className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
@@ -188,7 +191,10 @@ export default function ProfileHeader({
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 transition-all hover:bg-slate-50 active:scale-90">
+            <button
+              onClick={handleShare}
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 transition-all hover:bg-slate-50 active:scale-90"
+            >
               <Share2 size={20} className="text-slate-600" />
             </button>
             <SaveButton providerId={provider._id} size="lg" />
