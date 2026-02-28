@@ -75,23 +75,28 @@ export default function LoginForm() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="font-peculiar text-3xl font-bold">Login</h2>
-        <p className="text-sm text-muted-foreground">
+        <h2 className="font-peculiar text-3xl font-bold text-slate-900">
+          Login
+        </h2>
+        <p className="text-sm text-slate-500">
           Enter your credentials to access your account
         </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="space-y-2">
-          <label className="text-sm font-medium leading-none" htmlFor="email">
-            Email
+          <label
+            className="text-sm font-semibold text-slate-700 leading-none"
+            htmlFor="email"
+          >
+            Email Address
           </label>
           <input
             {...register("email")}
             id="email"
             type="email"
-            placeholder="name@example.com"
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            placeholder="e.g. name@example.com"
+            className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
           />
           {errors.email && (
             <p className="text-xs font-medium text-rose-500">
@@ -103,14 +108,14 @@ export default function LoginForm() {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <label
-              className="text-sm font-medium leading-none"
+              className="text-sm font-semibold text-slate-700 leading-none"
               htmlFor="password"
             >
               Password
             </label>
             <Link
               href={ROUTES.auth.forgotPassword}
-              className="text-xs text-rose-600 hover:underline"
+              className="text-xs font-bold text-rose-600 hover:text-rose-700 transition-colors"
             >
               Forgot password?
             </Link>
@@ -120,14 +125,14 @@ export default function LoginForm() {
               {...register("password")}
               id="password"
               type={showPassword ? "text" : "password"}
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pr-10"
+              className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50 pr-12"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
             >
-              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </div>
           {errors.password && (
@@ -140,7 +145,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="inline-flex h-10 w-full items-center justify-center rounded-md bg-rose-600 px-4 py-2 text-sm font-medium text-white ring-offset-background transition-colors hover:bg-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+          className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-bold text-white transition-all hover:bg-slate-800 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
         >
           {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
           {isLoading ? "Logging in..." : "Login"}

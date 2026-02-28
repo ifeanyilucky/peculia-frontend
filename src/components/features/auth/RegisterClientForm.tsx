@@ -107,10 +107,10 @@ export default function RegisterClientForm() {
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
-        <h2 className="font-peculiar text-3xl font-bold">
+        <h2 className="font-peculiar text-3xl font-bold text-slate-900">
           Create an Account
         </h2>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-slate-500">
           Sign up as a client to start booking beauty professionals
         </p>
       </div>
@@ -119,7 +119,7 @@ export default function RegisterClientForm() {
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <label
-              className="text-sm font-medium leading-none"
+              className="text-sm font-semibold text-slate-700 leading-none"
               htmlFor="firstName"
             >
               First Name
@@ -127,8 +127,8 @@ export default function RegisterClientForm() {
             <input
               {...register("firstName")}
               id="firstName"
-              placeholder="John"
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50"
+              placeholder="e.g. John"
+              className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
             />
             {errors.firstName && (
               <p className="text-xs font-medium text-rose-500">
@@ -138,7 +138,7 @@ export default function RegisterClientForm() {
           </div>
           <div className="space-y-2">
             <label
-              className="text-sm font-medium leading-none"
+              className="text-sm font-semibold text-slate-700 leading-none"
               htmlFor="lastName"
             >
               Last Name
@@ -146,8 +146,8 @@ export default function RegisterClientForm() {
             <input
               {...register("lastName")}
               id="lastName"
-              placeholder="Doe"
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50"
+              placeholder="e.g. Doe"
+              className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
             />
             {errors.lastName && (
               <p className="text-xs font-medium text-rose-500">
@@ -158,15 +158,18 @@ export default function RegisterClientForm() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium leading-none" htmlFor="email">
-            Email
+          <label
+            className="text-sm font-semibold text-slate-700 leading-none"
+            htmlFor="email"
+          >
+            Email Address
           </label>
           <input
             {...register("email")}
             id="email"
             type="email"
-            placeholder="john@example.com"
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50"
+            placeholder="e.g. john@example.com"
+            className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
           />
           {errors.email && (
             <p className="text-xs font-medium text-rose-500">
@@ -177,7 +180,7 @@ export default function RegisterClientForm() {
 
         <div className="space-y-2">
           <label
-            className="text-sm font-medium leading-none"
+            className="text-sm font-semibold text-slate-700 leading-none"
             htmlFor="password"
           >
             Password
@@ -186,7 +189,7 @@ export default function RegisterClientForm() {
             {...register("password")}
             id="password"
             type="password"
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50"
+            className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
           />
           <PasswordStrengthMeter password={password} />
           {errors.password && (
@@ -198,7 +201,7 @@ export default function RegisterClientForm() {
 
         <div className="space-y-2">
           <label
-            className="text-sm font-medium leading-none"
+            className="text-sm font-semibold text-slate-700 leading-none"
             htmlFor="confirmPassword"
           >
             Confirm Password
@@ -207,7 +210,7 @@ export default function RegisterClientForm() {
             {...register("confirmPassword")}
             id="confirmPassword"
             type="password"
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50"
+            className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
           />
           {errors.confirmPassword && (
             <p className="text-xs font-medium text-rose-500">
@@ -243,7 +246,7 @@ export default function RegisterClientForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="inline-flex h-10 w-full items-center justify-center rounded-md bg-rose-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
+          className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-bold text-white transition-all hover:bg-slate-800 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
         >
           {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
           {isLoading ? "Creating account..." : "Sign Up"}
