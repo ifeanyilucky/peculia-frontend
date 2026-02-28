@@ -8,7 +8,9 @@ import { Booking } from "@/types/booking.types";
 import BookingFilters, {
   BookingStatusFilter,
 } from "@/components/features/bookings/BookingFilters";
-import ClientBookingCard from "@/components/features/bookings/ClientBookingCard";
+import SmallBookingCard from "@/components/features/bookings/SmallBookingCard";
+import RightSideModal from "@/components/ui/RightSideModal";
+import BookingDetailsView from "@/components/features/bookings/BookingDetailsView";
 import Pagination from "@/components/ui/Pagination";
 import { Loader2, Search, CalendarX } from "lucide-react";
 
@@ -17,6 +19,8 @@ export default function MyBookingsPage() {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const LIMIT = 10;
 
   const debouncedSetSearch = useMemo(
@@ -49,11 +53,11 @@ export default function MyBookingsPage() {
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
         <div className="space-y-2">
-          <h1 className="font-peculiar text-4xl font-black text-slate-900">
-            My Bookings
+          <h1 className="font-peculiar text-5xl font-black text-slate-900 tracking-tight">
+            Appointments
           </h1>
           <p className="text-lg text-slate-500 font-medium">
-            Manage and track all your professional appointments.
+            Manage your style journey and upcoming sessions.
           </p>
         </div>
 
@@ -109,10 +113,33 @@ export default function MyBookingsPage() {
               </button>
             </div>
           ) : (
-            <div className="grid gap-6">
-              {bookings?.results?.map((booking: Booking) => (
-                <ClientBookingCard key={booking.id} booking={booking} />
-              ))}
+            <div className="space-y-8">
+              {/* Group bookings by status like in screenshot? Or just list? */}
+              {/* For now, matching the screenshot's "Upcoming" section look */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 px-2">
+                  <h2 className="text-xl font-peculiar font-black text-slate-900">
+                    Upcoming
+                  </h2>
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-[11px] font-black text-white">
+                    {bookings?.results?.length || 0}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {bookings?.results?.map((booking: Booking) => (
+                    <SmallBookingCard
+                      key={booking.id}
+                      booking={booking}
+                      isSelected={selectedBooking?.id === booking.id}
+                      onClick={() => {
+                        setSelectedBooking(booking);
+                        setIsModalOpen(true);
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -129,6 +156,14 @@ export default function MyBookingsPage() {
           />
         )}
       </div>
+
+      <RightSideModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Appointment Details"
+      >
+        {selectedBooking && <BookingDetailsView booking={selectedBooking} />}
+      </RightSideModal>
     </div>
   );
 }
