@@ -36,6 +36,10 @@ export default function BookingDetailsView({
     provider?.portfolioImages?.[0]?.url ||
     provider?.userId?.avatar ||
     "/placeholder-business.png";
+
+  const formatPrice = (price: number) => {
+    return (price / 100).toLocaleString();
+  };
   const address = provider?.location?.address;
   const importantInfo = provider?.bio;
   const locationInstructions = provider?.location?.directions;
@@ -63,7 +67,7 @@ export default function BookingDetailsView({
   };
 
   // Calculations
-  const subtotal = booking.servicePrice;
+  const subtotal = booking.servicePrice / 100;
   const tax = subtotal * 0.075; // 7.5% VAT placeholder
   const total = subtotal + tax;
 
@@ -112,21 +116,21 @@ export default function BookingDetailsView({
   return (
     <div className="flex flex-col h-full animate-in fade-in duration-500">
       {/* Hero Image */}
-      <div className="relative h-64 w-full">
+      <div className="relative h-48 w-full">
         <Image
           src={businessLogo}
           alt={businessName}
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent flex items-end p-6">
-          <h1 className="text-3xl font-peculiar font-black text-white">
+        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent flex items-end p-4">
+          <h1 className="text-2xl font-peculiar font-black text-white">
             {businessName}
           </h1>
         </div>
       </div>
 
-      <div className="p-6 space-y-8">
+      <div className="p-5 space-y-6">
         {/* Status Badge */}
         <div
           className={cn(
@@ -139,8 +143,8 @@ export default function BookingDetailsView({
         </div>
 
         {/* Date and Time */}
-        <div className="space-y-1">
-          <h2 className="text-3xl font-peculiar font-black text-slate-900 leading-tight">
+        <div className="space-y-0.5">
+          <h2 className="text-xl font-peculiar font-bold text-slate-900 leading-tight">
             {format(new Date(booking.scheduledDate), "eee, d MMM yyyy")} at{" "}
             {booking.startTime}
           </h2>
@@ -175,27 +179,27 @@ export default function BookingDetailsView({
         </div>
 
         {/* Overview Section */}
-        <div className="space-y-6 pt-4 border-t border-slate-100">
-          <h3 className="text-sm font-black uppercase tracking-[0.2em] text-slate-400">
+        <div className="space-y-4 pt-4 border-t border-slate-100">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
             Overview
           </h3>
-          <div className="space-y-6">
+          <div className="space-y-3">
             {booking.services.map((service, idx) => (
               <div
                 key={idx}
                 className="flex justify-between items-start group cursor-pointer"
               >
-                <div className="space-y-1">
-                  <p className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                <div className="space-y-0.5">
+                  <p className="text-sm font-medium text-slate-900 group-hover:text-indigo-600 transition-colors">
                     {service.name}
                   </p>
-                  <p className="text-[12px] text-slate-400 font-medium">
+                  <p className="text-[11px] text-slate-400 font-medium">
                     {service.duration} mins
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="font-bold text-slate-900">
-                    ₦{service.price.toLocaleString()}
+                  <p className="text-sm font-medium text-slate-900">
+                    ₦{formatPrice(service.price)}
                   </p>
                 </div>
               </div>
@@ -219,27 +223,25 @@ export default function BookingDetailsView({
           </div>
         </div>
 
-        {/* More Details */}
-        <div className="space-y-6 pt-4 border-t border-slate-100">
-          <div className="space-y-2">
-            <h3 className="text-sm font-black uppercase tracking-[0.2em] text-slate-400">
+{/* More Details */}
+        <div className="space-y-4 pt-4 border-t border-slate-100">
+          <div className="space-y-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
               More details
             </h3>
-            <div className="space-y-4">
-              <div className="space-y-1">
-                <p className="font-bold text-slate-900">Cancellation policy</p>
-                <p className="text-sm text-slate-500 font-medium">
+            <div className="space-y-3">
+              <div className="space-y-0.5">
+                <p className="text-sm font-medium text-slate-900">Cancellation policy</p>
+                <p className="text-xs text-slate-500 font-medium">
                   Cancel for free anytime.
                 </p>
               </div>
 
-              <div className="space-y-2">
-                <p className="font-bold text-slate-900">Important info</p>
-                <div className="text-[13px] text-slate-500 leading-relaxed font-medium bg-slate-50 p-4 rounded-2xl border border-slate-100 whitespace-pre-line">
+              <div className="space-y-1.5">
+                <p className="text-sm font-medium text-slate-900">Important info</p>
+                <div className="text-xs text-slate-500 leading-relaxed font-medium bg-slate-50 p-3 rounded-xl border border-slate-100 whitespace-pre-line">
                   {importantInfo ||
-                    `At ${businessName}, our services are strictly by booking, and payment must be made to secure your appointment(s). Please make payments to the designated account corresponding to the location where your appointment is booked.
-                  
-                  PLEASE NOTE: 💳 Cashless Policy: We do not accept cash payments at the studio.`}
+                    `At ${businessName}, our services are strictly by booking, and payment must be made to secure your appointment(s).`}
                 </div>
               </div>
             </div>
@@ -247,12 +249,12 @@ export default function BookingDetailsView({
         </div>
 
         {/* Getting There */}
-        <div className="space-y-4 pt-4 border-t border-slate-100">
-          <h3 className="text-sm font-black uppercase tracking-[0.2em] text-slate-400">
+        <div className="space-y-3 pt-4 border-t border-slate-100">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
             Getting there
           </h3>
           <div
-            className="relative h-48 w-full rounded-2xl overflow-hidden border border-slate-100 cursor-pointer group"
+            className="relative h-40 w-full rounded-xl overflow-hidden border border-slate-100 cursor-pointer group"
             onClick={handleGetDirections}
           >
             <Image
@@ -262,17 +264,17 @@ export default function BookingDetailsView({
               className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
             />
             <div className="absolute inset-0 bg-slate-900/10 flex items-center justify-center">
-              <div className="bg-white px-4 py-2 rounded-full shadow-xl flex items-center gap-2 transform group-hover:scale-105 transition-transform">
-                <MapPin size={16} className="text-indigo-600" />
-                <span className="text-sm font-bold text-slate-900">
+              <div className="bg-white px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 transform group-hover:scale-105 transition-transform">
+                <MapPin size={14} className="text-indigo-600" />
+                <span className="text-xs font-medium text-slate-900">
                   View on Google Maps
                 </span>
               </div>
             </div>
           </div>
           {locationInstructions && (
-            <p className="text-[13px] text-slate-500 leading-relaxed font-medium mt-2 bg-slate-50/50 p-4 rounded-xl">
-              <span className="font-bold text-slate-900 flex items-center gap-2 mb-1">
+            <p className="text-xs text-slate-500 leading-relaxed font-medium mt-1 bg-slate-50/50 p-3 rounded-xl">
+              <span className="font-medium text-slate-900 flex items-center gap-1.5 mb-1">
                 <Building2 size={14} className="text-indigo-600" />
                 Directions
               </span>
@@ -281,21 +283,21 @@ export default function BookingDetailsView({
           )}
         </div>
 
-        {/* Deposit Info (Sticky indicator logic could go here) */}
+        {/* Deposit Info */}
         {booking.depositPaid ? (
-          <div className="flex items-center gap-2 px-6 py-4 bg-emerald-50 text-emerald-700 rounded-2xl border border-emerald-100 text-sm font-bold">
-            <CheckCircle2 size={18} />
-            Deposit of ₦{booking.depositAmount.toLocaleString()} paid
+          <div className="flex items-center gap-2 px-4 py-3 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-100 text-xs font-medium">
+            <CheckCircle2 size={14} />
+            Deposit of ₦{formatPrice(booking.depositAmount)} paid
           </div>
         ) : (
           booking.depositAmount > 0 && (
-            <button className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-[12px] hover:bg-rose-600 transition-all active:scale-95 shadow-lg shadow-slate-900/10">
-              Pay Deposit ₦{booking.depositAmount.toLocaleString()}
+            <button className="w-full py-3.5 bg-slate-900 text-white rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-rose-600 transition-all active:scale-[0.98] shadow-md">
+              Pay Deposit ₦{formatPrice(booking.depositAmount)}
             </button>
           )
         )}
-        <p className="text-xs font-black uppercase text-center tracking-[0.2em] text-slate-400">
-          Booking reference {booking.bookingRef}
+        <p className="text-[10px] font-bold uppercase text-center tracking-wider text-slate-400">
+          Ref: {booking.bookingRef}
         </p>
       </div>
 
@@ -324,7 +326,7 @@ export default function BookingDetailsView({
                 {businessName}
               </p>
               <p className="text-sm font-medium text-slate-400">
-                ₦{booking.servicePrice.toLocaleString()} •{" "}
+                ₦{formatPrice(booking.servicePrice)} •{" "}
                 {booking.services.length} item
                 {booking.services.length !== 1 && "s"}
               </p>

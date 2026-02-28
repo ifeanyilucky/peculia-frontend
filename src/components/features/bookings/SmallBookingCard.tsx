@@ -24,6 +24,10 @@ export default function SmallBookingCard({
     provider?.userId?.avatar ||
     "/placeholder-business.png";
 
+  const formatPrice = (price: number) => {
+    return (price / 100).toLocaleString();
+  };
+
   return (
     <button
       onClick={onClick}
@@ -53,7 +57,7 @@ export default function SmallBookingCard({
         </p>
         <div className="flex items-center gap-1.5 mt-1">
           <span className="text-slate-400 text-[11px] font-bold">
-            ₦{booking.servicePrice.toLocaleString()}
+            ₦{formatPrice(booking.servicePrice)}
           </span>
           <span className="h-0.5 w-0.5 rounded-full bg-slate-300" />
           <span className="text-slate-400 text-[11px] font-medium">
