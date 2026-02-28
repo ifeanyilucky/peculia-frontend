@@ -131,6 +131,12 @@ export default function BookingSummarySidebar({
     // Don't open the popup when payment is paused (user closed it)
     if (paymentPaused) return;
     if (paymentData && lastInitializedRef.current !== paymentData.reference) {
+      if (!user?.email) {
+        setBookingError(
+          "Your session appears to be missing email data. Please reload the page.",
+        );
+        return;
+      }
       lastInitializedRef.current = paymentData.reference;
 
       const timer = setTimeout(() => {
@@ -149,21 +155,23 @@ export default function BookingSummarySidebar({
     initializePayment,
     handlePaymentSuccess,
     handlePaymentClose,
+    user?.email,
   ]);
 
-  /**
-   * Determines whether the current step is fully filled in.
-   * Reads from store state at component scope — no hook inside render.
-   */
   const isStepComplete = () => {
     if (currentStep === 1) return selectedServices.length > 0;
     // Step 2 (time selection) also needs a slot chosen
     if (currentStep === 2) return selectedServices.length > 0 && !!selectedSlot;
     if (currentStep === 3) return selectedServices.length > 0;
     if (currentStep === 4) {
+      // selectedDate may be a string (Zustand JSON deserialization from localStorage)
+      // so we coerce it and validate it's a real date before allowing submit.
+      const rawDate = selectedDate;
+      const dateIsValid =
+        !!rawDate && !isNaN(new Date(rawDate as string | Date).getTime());
       return (
         selectedServices.length > 0 &&
-        !!selectedDate &&
+        dateIsValid &&
         !!selectedSlot &&
         selectedProvider?._id === provider._id
       );
@@ -171,21 +179,31 @@ export default function BookingSummarySidebar({
     return false;
   };
 
+  const [bookingError, setBookingError] = useState<string | null>(null);
+
   const submitBooking = useCallback(async (): Promise<void> => {
     // Ref-based guard prevents double-submits that slip through before React
     // re-renders with the updated `isBooking` state (e.g. rapid tap on mobile).
     if (!selectedSlot || isSubmittingRef.current) return;
     isSubmittingRef.current = true;
     setIsBooking(true);
+    setBookingError(null);
     try {
+      // Coerce selectedDate to a real Date — Zustand persists Date as an ISO
+      // string in localStorage, so after hydration it comes back as a string.
+      // Passing a raw string to date-fns format() produces "Invalid Date".
+      const rawDate = useBookingStore.getState().selectedDate;
+      const safeDate = rawDate ? new Date(rawDate) : null;
+      if (!safeDate || isNaN(safeDate.getTime())) {
+        setBookingError("Please go back and re-select your date.");
+        return;
+      }
+
       const booking = await bookingService.createBooking({
         providerProfileId: provider._id,
         serviceIds: selectedServices.map((s) => s.id),
         teamMemberId: selectedTeamMember?._id,
-        scheduledDate: format(
-          useBookingStore.getState().selectedDate!,
-          "yyyy-MM-dd",
-        ),
+        scheduledDate: format(safeDate, "yyyy-MM-dd"),
         startTime: selectedSlot.startTime,
         endTime: selectedSlot.endTime,
       });
@@ -205,8 +223,14 @@ export default function BookingSummarySidebar({
           `/book/${slug}/success?bookingId=${booking.id || booking._id!}`,
         );
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Booking failed:", error);
+      const msg =
+        (error as { response?: { data?: { message?: string } } })?.response
+          ?.data?.message ||
+        (error as { message?: string })?.message ||
+        "Something went wrong. Please try again.";
+      setBookingError(msg);
     } finally {
       setIsBooking(false);
       isSubmittingRef.current = false;
@@ -401,6 +425,15 @@ export default function BookingSummarySidebar({
           </div>
 
           <div className="p-6 border-t border-slate-200">
+            {/* Booking error banner */}
+            {bookingError && (
+              <div className="mb-3 rounded-2xl bg-rose-50 border border-rose-200 p-4">
+                <p className="text-sm font-bold text-rose-700">
+                  {bookingError}
+                </p>
+              </div>
+            )}
+
             {/* Resume Payment banner — shown when user closed the popup mid-flow */}
             {paymentPaused && paymentData && (
               <div className="mb-3 rounded-2xl bg-amber-50 border border-amber-200 p-4">

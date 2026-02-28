@@ -35,9 +35,12 @@ api.interceptors.request.use((config) => {
 });
 
 let isRefreshing = false;
-let failedQueue: any[] = [];
+let failedQueue: Array<{
+  resolve: (value?: string | null) => void;
+  reject: (reason?: unknown) => void;
+}> = [];
 
-const processQueue = (error: any, token: string | null = null) => {
+const processQueue = (error: unknown, token: string | null = null) => {
   failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error);
@@ -89,12 +92,17 @@ api.interceptors.response.use(
           },
         );
 
-        const {
-          accessToken,
-          refreshToken: newRefreshToken,
-          user,
-        } = response.data.data;
-        useAuthStore.getState().setAuth(user, accessToken, newRefreshToken);
+        const { accessToken, refreshToken: newRefreshToken } =
+          response.data.data;
+
+        // Preserve the existing user object instead of overwriting with undefined
+        // since the refresh endpoint only returns tokens, not the user profile.
+        const currentUser = useAuthStore.getState().user;
+        if (currentUser) {
+          useAuthStore
+            .getState()
+            .setAuth(currentUser, accessToken, newRefreshToken);
+        }
 
         console.log("[Axios] Token refreshed successfully.");
         processQueue(null, accessToken);
