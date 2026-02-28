@@ -7,7 +7,7 @@ import { useAuthStore } from "@/store/auth.store";
 import { useUIStore } from "@/store/ui.store";
 import { useRouter } from "next/navigation";
 import { formatCurrency, formatNumber } from "@/utils/formatters";
-import { useState, useCallback, useEffect, useRef, useMemo } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { bookingService } from "@/services/booking.service";
 import { format } from "date-fns";
 import { Loader2, User as UserIcon, RefreshCw } from "lucide-react";
@@ -15,7 +15,7 @@ import BookingAuthModal from "@/components/features/booking/BookingAuthModal";
 import AddPhoneModal from "@/components/features/booking/AddPhoneModal";
 import { paymentService } from "@/services/payment.service";
 import CenterModal from "@/components/common/CenterModal";
-import { usePaystackPayment } from "react-paystack";
+import { openPaystackModal } from "@/utils/paystack";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
@@ -76,87 +76,47 @@ export default function BookingSummarySidebar({
     reference: string;
     bookingId: string;
   } | null>(null);
-  const lastInitializedRef = useRef<string | null>(null);
   /** Ref-based in-flight lock — prevents double submits that slip through
    * React's async re-render cycle before `isBooking` state updates. */
   const isSubmittingRef = useRef(false);
 
-  const paystackConfig = useMemo(
-    () => ({
-      publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
-      email: user?.email || "",
-      amount: totalPrice,
-      // If we have an access_code, we use it (Backend initialized)
-      // Note: access_code is prioritized by Paystack popup
-      access_code: paymentData?.access_code,
-      // Always pass the reference we expect to avoid Paystack generating a new one
-      reference: paymentData?.reference,
-    }),
-    [user?.email, totalPrice, paymentData?.access_code, paymentData?.reference],
-  );
-
-  const initializePayment = usePaystackPayment(paystackConfig);
-
-  const handlePaymentSuccess = useCallback(
-    async (trans: { reference: string }) => {
-      if (paymentData?.bookingId) {
-        router.push(
-          `/book/${slug}/success?bookingId=${paymentData.bookingId}&reference=${trans.reference}`,
-        );
+  // Directly call openPaystackModal without depending on a useEffect cycle
+  const triggerPaymentModal = useCallback(
+    (accessCode: string, reference: string, bookingId: string) => {
+      if (!user?.email) {
+        setBookingError("Your session appears to be missing email data.");
+        return;
       }
-      setPaymentData(null);
-      setPaymentPaused(false);
-      lastInitializedRef.current = null;
-    },
-    [paymentData, router, slug],
-  );
 
-  /** User closed the Paystack popup without paying. Keep paymentData alive so
-   * they can retry without creating a duplicate booking. */
-  const handlePaymentClose = useCallback(() => {
-    setPaymentPaused(true);
-    lastInitializedRef.current = null; // Allow re-opening
-  }, []);
+      openPaystackModal({
+        key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
+        access_code: accessCode,
+        onClose: () => {
+          setPaymentPaused(true);
+        },
+        callback: (response) => {
+          router.push(
+            `/book/${slug}/success?bookingId=${bookingId}&reference=${response.reference}`,
+          );
+          setPaymentData(null);
+          setPaymentPaused(false);
+        },
+      });
+    },
+    [user?.email, router, slug],
+  );
 
   /** Resume an existing payment — re-opens the Paystack popup with the same
    * access_code, no new booking or payment record is created. */
   const handleResumePayment = useCallback(() => {
     if (!paymentData) return;
     setPaymentPaused(false);
-    // Resetting the tracker allows the useEffect below to re-trigger Paystack
-    lastInitializedRef.current = null;
-  }, [paymentData]);
-
-  useEffect(() => {
-    // Don't open the popup when payment is paused (user closed it)
-    if (paymentPaused) return;
-    if (paymentData && lastInitializedRef.current !== paymentData.reference) {
-      if (!user?.email) {
-        setBookingError(
-          "Your session appears to be missing email data. Please reload the page.",
-        );
-        return;
-      }
-      lastInitializedRef.current = paymentData.reference;
-
-      const timer = setTimeout(() => {
-        // @ts-ignore
-        initializePayment({
-          onSuccess: handlePaymentSuccess,
-          onClose: handlePaymentClose,
-        });
-      }, 100);
-
-      return () => clearTimeout(timer);
-    }
-  }, [
-    paymentData,
-    paymentPaused,
-    initializePayment,
-    handlePaymentSuccess,
-    handlePaymentClose,
-    user?.email,
-  ]);
+    triggerPaymentModal(
+      paymentData.access_code,
+      paymentData.reference,
+      paymentData.bookingId,
+    );
+  }, [paymentData, triggerPaymentModal]);
 
   const isStepComplete = () => {
     if (currentStep === 1) return selectedServices.length > 0;
@@ -220,6 +180,12 @@ export default function BookingSummarySidebar({
           bookingId: booking.id || booking._id!,
         });
         setPaymentPaused(false);
+        // Trigger Paystack directly here
+        triggerPaymentModal(
+          payment.access_code,
+          payment.reference,
+          booking.id || booking._id!,
+        );
       } else {
         router.push(
           `/book/${slug}/success?bookingId=${booking.id || booking._id!}`,
@@ -244,6 +210,7 @@ export default function BookingSummarySidebar({
     provider?._id,
     slug,
     router,
+    triggerPaymentModal,
   ]);
 
   const handleContinue = async () => {
