@@ -14,9 +14,9 @@ export interface ApiError {
 export interface PaginatedData<T> {
   results: T[];
   pagination: {
-    total: number;
     page: number;
     limit: number;
     totalPages: number;
+    totalResults: number;
   };
 }

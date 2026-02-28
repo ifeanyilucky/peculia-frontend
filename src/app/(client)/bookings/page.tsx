@@ -1,19 +1,16 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { debounce } from "lodash";
 import { bookingService } from "@/services/booking.service";
+import { Booking } from "@/types/booking.types";
 import BookingFilters, {
   BookingStatusFilter,
 } from "@/components/features/bookings/BookingFilters";
 import ClientBookingCard from "@/components/features/bookings/ClientBookingCard";
 import Pagination from "@/components/ui/Pagination";
-import {
-  Loader2,
-  Search,
-  CalendarX,
-} from "lucide-react";
+import { Loader2, Search, CalendarX } from "lucide-react";
 
 export default function MyBookingsPage() {
   const [currentTab, setCurrentTab] = useState<BookingStatusFilter>("all");
@@ -22,11 +19,12 @@ export default function MyBookingsPage() {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const LIMIT = 10;
 
-  const debouncedSetSearch = useCallback(
-    debounce((value: string) => {
-      setDebouncedSearch(value);
-      setPage(1);
-    }, 500),
+  const debouncedSetSearch = useMemo(
+    () =>
+      debounce((value: string) => {
+        setDebouncedSearch(value);
+        setPage(1);
+      }, 500),
     [],
   );
 
@@ -36,10 +34,7 @@ export default function MyBookingsPage() {
     debouncedSetSearch(value);
   };
 
-  const {
-    data: bookings,
-    isLoading,
-  } = useQuery({
+  const { data: bookings, isLoading } = useQuery({
     queryKey: ["bookings", "client", currentTab, page, debouncedSearch],
     queryFn: () =>
       bookingService.getMyBookings({
@@ -96,7 +91,7 @@ export default function MyBookingsPage() {
                 Loading your history...
               </p>
             </div>
-          ) : bookings?.data?.results?.length === 0 ? (
+          ) : bookings?.results?.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 bg-white rounded-2xl border-2 border-dashed border-slate-100 italic text-slate-400">
               <CalendarX size={48} className="mb-4 opacity-10" />
               <p className="text-lg font-medium">
@@ -115,7 +110,7 @@ export default function MyBookingsPage() {
             </div>
           ) : (
             <div className="grid gap-6">
-              {bookings?.data?.results?.map((booking: any) => (
+              {bookings?.results?.map((booking: Booking) => (
                 <ClientBookingCard key={booking.id} booking={booking} />
               ))}
             </div>
@@ -123,14 +118,14 @@ export default function MyBookingsPage() {
         </div>
 
         {/* Pagination */}
-        {bookings?.data?.pagination && (
+        {bookings?.pagination && (
           <Pagination
-            currentPage={bookings.data.pagination.page}
-            totalPages={bookings.data.pagination.totalPages}
+            currentPage={bookings.pagination.page}
+            totalPages={bookings.pagination.totalPages}
             onPageChange={setPage}
-            totalResults={bookings.data.pagination.totalResults}
-            limit={bookings.data.pagination.limit}
-            currentCount={bookings.data.results.length}
+            totalResults={bookings.pagination.totalResults}
+            limit={bookings.pagination.limit}
+            currentCount={bookings.results.length}
           />
         )}
       </div>

@@ -47,7 +47,7 @@ export default function ProviderGrid({
   );
 
   // Report total results count back to parent
-  const totalResults = data?.pages[0]?.pagination?.total || 0;
+  const totalResults = data?.pages[0]?.pagination?.totalResults || 0;
 
   useEffect(() => {
     if (onResultsCount) {
