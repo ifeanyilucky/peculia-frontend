@@ -160,9 +160,11 @@ export default function BookingSummarySidebar({
 
   const isStepComplete = () => {
     if (currentStep === 1) return selectedServices.length > 0;
-    // Step 2 (time selection) also needs a slot chosen
-    if (currentStep === 2) return selectedServices.length > 0 && !!selectedSlot;
-    if (currentStep === 3) return selectedServices.length > 0;
+    // Step 2 is Professional Selection. A specific professional is optional (can be null for "Any").
+    // We only need to ensure services are selected.
+    if (currentStep === 2) return selectedServices.length > 0;
+    // Step 3 is Time Selection. We need a slot chosen.
+    if (currentStep === 3) return selectedServices.length > 0 && !!selectedSlot;
     if (currentStep === 4) {
       // selectedDate may be a string (Zustand JSON deserialization from localStorage)
       // so we coerce it and validate it's a real date before allowing submit.
