@@ -1,14 +1,10 @@
 "use client";
 
 import { Booking } from "@/types/booking.types";
+import { Provider } from "@/types/provider.types";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-
-interface ProviderProfile {
-  businessName: string;
-  logo: string;
-}
 
 interface SmallBookingCardProps {
   booking: Booking;
@@ -21,9 +17,12 @@ export default function SmallBookingCard({
   isSelected,
   onClick,
 }: SmallBookingCardProps) {
-  const provider = booking.providerProfileId as ProviderProfile;
+  const provider = booking.providerProfileId as unknown as Provider;
   const businessName = provider?.businessName || "Professional";
-  const businessLogo = provider?.logo || "/placeholder-business.png";
+  const businessLogo =
+    provider?.portfolioImages?.[0]?.url ||
+    provider?.userId?.avatar ||
+    "/placeholder-business.png";
 
   return (
     <button

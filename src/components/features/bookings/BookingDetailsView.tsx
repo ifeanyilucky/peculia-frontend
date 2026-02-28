@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { Booking } from "@/types/booking.types";
+import { Provider } from "@/types/provider.types";
 import { format } from "date-fns";
 import {
   Calendar,
@@ -10,19 +12,13 @@ import {
   CheckCircle2,
   Clock,
   ChevronRight,
+  CalendarClock,
+  CalendarX,
 } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-
-// Assuming ProviderProfile is part of your types or can be defined here
-// If ProviderProfile is not defined in booking.types, you might need to define it.
-// For this change, we'll assume it's either implicitly available or we define a minimal one.
-interface ProviderProfile {
-  businessName: string;
-  logo: string;
-  address: string;
-  // Add other properties of ProviderProfile if known
-}
+import CenterModal from "@/components/common/CenterModal";
+import { useRouter } from "next/navigation";
 
 interface BookingDetailsViewProps {
   booking: Booking;
@@ -31,17 +27,22 @@ interface BookingDetailsViewProps {
 export default function BookingDetailsView({
   booking,
 }: BookingDetailsViewProps) {
-  // Assuming booking.providerProfileId actually holds the ProviderProfile object
-  // If it's just an ID, then the logic for businessName, logo, address would need to fetch the profile.
-  // Based on the usage, it appears to be the full profile object.
-  const provider = booking.providerProfileId as ProviderProfile;
+  const router = useRouter();
+  const [isManageModalOpen, setIsManageModalOpen] = useState(false);
+
+  const provider = booking.providerProfileId as unknown as Provider;
   const businessName = provider?.businessName || "Professional";
-  const businessLogo = provider?.logo || "/placeholder-business.png";
-  const address = provider?.address;
+  const businessLogo =
+    provider?.portfolioImages?.[0]?.url ||
+    provider?.userId?.avatar ||
+    "/placeholder-business.png";
+  const address = provider?.location?.address;
+  const importantInfo = provider?.bio;
+  const locationInstructions = provider?.location?.directions;
 
   const statusConfig: Record<
     string,
-    { label: string; color: string; icon: any }
+    { label: string; color: string; icon: React.ElementType }
   > = {
     confirmed: {
       label: "Confirmed",
@@ -53,13 +54,59 @@ export default function BookingDetailsView({
       color: "bg-amber-500 text-white",
       icon: Clock,
     },
-    // Add other statuses as needed
   };
 
   const status = statusConfig[booking.status] || {
     label: booking.status,
     color: "bg-slate-500 text-white",
     icon: CheckCircle2,
+  };
+
+  // Calculations
+  const subtotal = booking.servicePrice;
+  const tax = subtotal * 0.075; // 7.5% VAT placeholder
+  const total = subtotal + tax;
+
+  // Handlers
+  const handleAddToCalendar = () => {
+    // Basic conversion for YYYYMMDDTHHMMSSZ format required by Google Calendar
+    try {
+      const dtStart = new Date(
+        `${booking.scheduledDate.split("T")[0]}T${booking.startTime}:00Z`,
+      );
+      const dtEnd = new Date(
+        `${booking.scheduledDate.split("T")[0]}T${booking.endTime}:00Z`,
+      );
+      const startStr = dtStart.toISOString().replace(/-|:|\.\d+/g, "");
+      const endStr = dtEnd.toISOString().replace(/-|:|\.\d+/g, "");
+
+      const title = encodeURIComponent(`Appointment at ${businessName}`);
+      const details = encodeURIComponent(`Booking Ref: ${booking.bookingRef}`);
+      const loc = encodeURIComponent(address || "");
+      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startStr}/${endStr}&details=${details}&location=${loc}`;
+      window.open(url, "_blank");
+    } catch (error) {
+      console.error("Error creating calendar link", error);
+    }
+  };
+
+  const handleGetDirections = () => {
+    if (address) {
+      window.open(
+        `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`,
+        "_blank",
+      );
+    }
+  };
+
+  const handleManageAppointment = () => {
+    setIsManageModalOpen(true);
+  };
+
+  const handleVenueDetails = () => {
+    if (provider?.slug) {
+      router.push(`/providers/${provider.slug}`);
+    }
   };
 
   return (
@@ -107,38 +154,38 @@ export default function BookingDetailsView({
           <ActionItem
             icon={Calendar}
             label="Add to calendar"
-            onClick={() => {}}
+            onClick={handleAddToCalendar}
           />
           <ActionItem
             icon={MapPin}
             label="Get directions"
             description={address}
-            onClick={() => {}}
+            onClick={handleGetDirections}
           />
           <ActionItem
             icon={Settings}
             label="Manage appointment"
-            onClick={() => {}}
+            onClick={handleManageAppointment}
           />
           <ActionItem
             icon={Building2}
             label="Venue details"
-            onClick={() => {}}
+            onClick={handleVenueDetails}
           />
         </div>
 
         {/* Overview Section */}
-        <div className="space-y-4 pt-4 border-t border-slate-100">
+        <div className="space-y-6 pt-4 border-t border-slate-100">
           <h3 className="text-sm font-black uppercase tracking-[0.2em] text-slate-400">
             Overview
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-6">
             {booking.services.map((service, idx) => (
               <div
                 key={idx}
-                className="flex justify-between items-center group cursor-pointer"
+                className="flex justify-between items-start group cursor-pointer"
               >
-                <div className="space-y-0.5">
+                <div className="space-y-1">
                   <p className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
                     {service.name}
                   </p>
@@ -147,40 +194,166 @@ export default function BookingDetailsView({
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="font-black font-peculiar text-slate-900">
+                  <p className="font-bold text-slate-900">
                     ₦{service.price.toLocaleString()}
                   </p>
                 </div>
               </div>
             ))}
           </div>
+
+          {/* Detailed Pricing */}
+          <div className="space-y-3 pt-6 border-t border-slate-100/50">
+            <div className="flex justify-between text-slate-500 font-medium text-sm">
+              <span>Subtotal</span>
+              <span>₦{subtotal.toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between text-slate-500 font-medium text-sm">
+              <span>Tax</span>
+              <span>₦{tax.toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between text-slate-900 font-black text-lg pt-1">
+              <span>Total</span>
+              <span className="font-peculiar">₦{total.toLocaleString()}</span>
+            </div>
+          </div>
         </div>
 
-        {/* Total & Deposit Info */}
-        <div className="pt-6 space-y-3">
-          <div className="flex justify-between items-center py-4 px-6 bg-slate-50 rounded-2xl border border-slate-100">
-            <span className="font-black uppercase tracking-widest text-[11px] text-slate-400">
-              Total Price
-            </span>
-            <span className="text-xl font-peculiar font-black text-slate-900">
-              ₦{booking.servicePrice.toLocaleString()}
-            </span>
-          </div>
+        {/* More Details */}
+        <div className="space-y-6 pt-4 border-t border-slate-100">
+          <div className="space-y-2">
+            <h3 className="text-sm font-black uppercase tracking-[0.2em] text-slate-400">
+              More details
+            </h3>
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <p className="font-bold text-slate-900">Cancellation policy</p>
+                <p className="text-sm text-slate-500 font-medium">
+                  Cancel for free anytime.
+                </p>
+              </div>
 
-          {booking.depositPaid ? (
-            <div className="flex items-center gap-2 px-4 py-3 bg-emerald-50 text-emerald-700 rounded-xl text-sm font-bold">
-              <CheckCircle2 size={16} />
-              Deposit of ₦{booking.depositAmount.toLocaleString()} paid
+              <div className="space-y-2">
+                <p className="font-bold text-slate-900">Important info</p>
+                <div className="text-[13px] text-slate-500 leading-relaxed font-medium bg-slate-50 p-4 rounded-2xl border border-slate-100 whitespace-pre-line">
+                  {importantInfo ||
+                    `At ${businessName}, our services are strictly by booking, and payment must be made to secure your appointment(s). Please make payments to the designated account corresponding to the location where your appointment is booked.
+                  
+                  PLEASE NOTE: 💳 Cashless Policy: We do not accept cash payments at the studio.`}
+                </div>
+              </div>
             </div>
-          ) : (
-            booking.depositAmount > 0 && (
-              <button className="w-full py-4 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-[12px] hover:bg-indigo-600 transition-all active:scale-95">
-                Pay Deposit ₦{booking.depositAmount.toLocaleString()}
-              </button>
-            )
+          </div>
+        </div>
+
+        {/* Getting There */}
+        <div className="space-y-4 pt-4 border-t border-slate-100">
+          <h3 className="text-sm font-black uppercase tracking-[0.2em] text-slate-400">
+            Getting there
+          </h3>
+          <div
+            className="relative h-48 w-full rounded-2xl overflow-hidden border border-slate-100 cursor-pointer group"
+            onClick={handleGetDirections}
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop"
+              alt="Map Placeholder"
+              fill
+              className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+            />
+            <div className="absolute inset-0 bg-slate-900/10 flex items-center justify-center">
+              <div className="bg-white px-4 py-2 rounded-full shadow-xl flex items-center gap-2 transform group-hover:scale-105 transition-transform">
+                <MapPin size={16} className="text-indigo-600" />
+                <span className="text-sm font-bold text-slate-900">
+                  View on Google Maps
+                </span>
+              </div>
+            </div>
+          </div>
+          {locationInstructions && (
+            <p className="text-[13px] text-slate-500 leading-relaxed font-medium mt-2 bg-slate-50/50 p-4 rounded-xl">
+              <span className="font-bold text-slate-900 flex items-center gap-2 mb-1">
+                <Building2 size={14} className="text-indigo-600" />
+                Directions
+              </span>
+              {locationInstructions}
+            </p>
           )}
         </div>
+
+        {/* Deposit Info (Sticky indicator logic could go here) */}
+        {booking.depositPaid ? (
+          <div className="flex items-center gap-2 px-6 py-4 bg-emerald-50 text-emerald-700 rounded-2xl border border-emerald-100 text-sm font-bold">
+            <CheckCircle2 size={18} />
+            Deposit of ₦{booking.depositAmount.toLocaleString()} paid
+          </div>
+        ) : (
+          booking.depositAmount > 0 && (
+            <button className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest text-[12px] hover:bg-rose-600 transition-all active:scale-95 shadow-lg shadow-slate-900/10">
+              Pay Deposit ₦{booking.depositAmount.toLocaleString()}
+            </button>
+          )
+        )}
+        <p className="text-xs font-black uppercase text-center tracking-[0.2em] text-slate-400">
+          Booking reference {booking.bookingRef}
+        </p>
       </div>
+
+      {/* Manage Appointment Modal */}
+      <CenterModal
+        isOpen={isManageModalOpen}
+        onClose={() => setIsManageModalOpen(false)}
+        title="Manage appointment"
+      >
+        <div className="text-left mt-2">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="relative h-16 w-16 rounded-2xl overflow-hidden shrink-0 border border-slate-100">
+              <Image
+                src={businessLogo}
+                alt={businessName}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <p className="font-bold text-slate-900">
+                {format(new Date(booking.scheduledDate), "eee, d MMM yyyy")} at{" "}
+                {booking.startTime}
+              </p>
+              <p className="text-sm font-medium text-slate-500">
+                {businessName}
+              </p>
+              <p className="text-sm font-medium text-slate-400">
+                ₦{booking.servicePrice.toLocaleString()} •{" "}
+                {booking.services.length} item
+                {booking.services.length !== 1 && "s"}
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-2 border-t border-slate-100 pt-6">
+            <button className="w-full flex items-center gap-3 py-4 px-2 hover:bg-slate-50 rounded-xl transition-all group">
+              <CalendarClock
+                size={20}
+                className="text-slate-500 group-hover:text-slate-900"
+              />
+              <span className="font-bold text-slate-900 text-[15px]">
+                Reschedule appointment
+              </span>
+            </button>
+
+            <button className="w-full flex items-center gap-3 py-4 px-2 hover:bg-slate-50 rounded-xl transition-all group">
+              <CalendarX
+                size={20}
+                className="text-slate-500 group-hover:text-slate-900"
+              />
+              <span className="font-bold text-slate-900 text-[15px]">
+                Cancel appointment
+              </span>
+            </button>
+          </div>
+        </div>
+      </CenterModal>
     </div>
   );
 }
