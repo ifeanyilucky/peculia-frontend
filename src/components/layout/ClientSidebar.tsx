@@ -17,9 +17,12 @@ import { ROUTES } from "@/constants/routes";
 
 const NAV_ITEMS = [
   { label: "Dashboard", href: ROUTES.client.dashboard, icon: LayoutDashboard },
-  { label: "My Bookings", href: ROUTES.client.bookings, icon: CalendarDays },
+  {
+    label: "My Appointments",
+    href: ROUTES.client.bookings,
+    icon: CalendarDays,
+  },
   { label: "Saved Professionals", href: "/saved", icon: Bookmark },
-  { label: "Payments", href: ROUTES.client.payments, icon: CreditCard },
   { label: "My Profile", href: "/profile", icon: UserCircle2 },
 ];
 

@@ -37,13 +37,12 @@ export const paymentService = {
         )
       : undefined;
 
-    const response = await api.get<ApiSuccess<PaymentHistoryResponse>>(
-      "/payments/history",
-      {
-        params: filteredParams,
-      },
-    );
-    return response.data.data;
+    const response = await api.get<
+      ApiSuccess<{ data: PaymentHistoryResponse }>
+    >("/payments/history", {
+      params: filteredParams,
+    });
+    return response.data.data.data;
   },
 
   getProviderEarnings: async () => {
