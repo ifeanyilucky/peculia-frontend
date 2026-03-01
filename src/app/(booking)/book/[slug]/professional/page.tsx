@@ -18,7 +18,7 @@ export default function ProfessionalSelectionPage() {
     queryFn: () => providerService.getProviderPublicProfile(slug),
     enabled: !!slug,
   });
-
+  console.log(provider);
   const { isReady, hasHydrated } = useBookingGuard(2);
 
   if (!hasHydrated || isProviderLoading || !isReady) {

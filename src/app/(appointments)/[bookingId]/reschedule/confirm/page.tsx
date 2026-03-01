@@ -45,7 +45,7 @@ export default function RescheduleConfirmPage() {
 
   const { data: provider } = useQuery({
     queryKey: ["provider", providerId],
-    queryFn: () => providerService.getProviderById(providerId),
+    queryFn: () => providerService.getProviderById(providerId!),
     enabled: !!providerId,
   });
 
@@ -108,7 +108,7 @@ export default function RescheduleConfirmPage() {
         scheduledDate: format(selectedDate, "yyyy-MM-dd"),
         startTime: selectedSlot.startTime,
         endTime: selectedSlot.endTime,
-        teamMemberId: selectedTeamMember,
+        teamMemberId: selectedTeamMember?._id,
       });
       setShowSuccessModal(true);
     } catch (error) {

@@ -24,7 +24,7 @@ export default function RescheduleProfessionalPage() {
 
   const { data: provider } = useQuery({
     queryKey: ["provider", providerId],
-    queryFn: () => providerService.getProviderById(providerId),
+    queryFn: () => providerService.getProviderById(providerId!),
     enabled: !!providerId,
   });
 
