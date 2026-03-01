@@ -15,7 +15,6 @@ import {
   ChevronRight,
   CalendarClock,
   CalendarX,
-  CreditCard,
   AlertCircle,
   Ban,
 } from "lucide-react";

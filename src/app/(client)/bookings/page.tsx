@@ -20,6 +20,15 @@ import { isToday, isTomorrow, isThisWeek, isPast, format } from "date-fns";
  * Groups an array of bookings into labelled date sections.
  * Order: Today → Tomorrow → This Week → Upcoming → Past.
  */
+/** Statuses that are considered "done" regardless of scheduled date */
+const TERMINAL_STATUSES = new Set([
+  "cancelled_by_client",
+  "cancelled_by_provider",
+  "expired",
+  "no_show",
+  "completed",
+]);
+
 function groupBookings(bookings: Booking[]): {
   label: string;
   items: Booking[];
@@ -33,6 +42,11 @@ function groupBookings(bookings: Booking[]): {
   ];
 
   for (const b of bookings) {
+    // Terminal-status bookings always go to Past, regardless of scheduled date
+    if (TERMINAL_STATUSES.has(b.status)) {
+      sections[4].items.push(b);
+      continue;
+    }
     const d = new Date(b.scheduledDate);
     if (isToday(d)) sections[0].items.push(b);
     else if (isTomorrow(d)) sections[1].items.push(b);
