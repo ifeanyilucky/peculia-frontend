@@ -16,6 +16,7 @@ import Pagination from "@/components/ui/Pagination";
 import { Loader2, Search, CalendarX, Plus, CalendarClock } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { isToday, isTomorrow, isThisWeek, isPast, format } from "date-fns";
 import { formatCurrency } from "@/utils/formatters";
 
@@ -307,6 +308,7 @@ function ManageAppointmentModalContent({
   booking: Booking;
   onClose: () => void;
 }) {
+  const router = useRouter();
   const provider = booking.providerProfileId as unknown as {
     businessName?: string;
     portfolioImages?: { url: string }[];
@@ -341,7 +343,13 @@ function ManageAppointmentModalContent({
       </div>
 
       <div className="space-y-1 border-t border-slate-100 pt-5">
-        <button className="w-full flex items-center gap-3 py-4 px-2 hover:bg-slate-50 rounded-xl transition-all group">
+        <button 
+          onClick={() => {
+            onClose();
+            router.push(`/appointments/${booking.id}/reschedule/professional`);
+          }}
+          className="w-full flex items-center gap-3 py-4 px-2 hover:bg-slate-50 rounded-xl transition-all group"
+        >
           <CalendarClock
             size={20}
             className="text-slate-400 group-hover:text-slate-900"

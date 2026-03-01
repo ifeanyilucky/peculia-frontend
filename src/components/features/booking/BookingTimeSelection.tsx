@@ -33,12 +33,14 @@ import { Calendar } from "@/components/ui/calendar";
 
 interface BookingTimeSelectionProps {
   providerId: string;
+  onTimeSelect?: () => void;
 }
 
 const DAYS_MAP = [0, 1, 2, 3, 4, 5, 6];
 
 export default function BookingTimeSelection({
   providerId,
+  onTimeSelect,
 }: BookingTimeSelectionProps) {
   const router = useRouter();
   const today = startOfToday();
@@ -263,8 +265,17 @@ export default function BookingTimeSelection({
                 )}
               </button>
             );
-          })}
+            })}
         </div>
+
+        {onTimeSelect && selectedSlot && (
+          <button
+            onClick={onTimeSelect}
+            className="w-full mt-6 py-4 bg-rose-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-rose-700 transition-all active:scale-[0.98]"
+          >
+            Continue
+          </button>
+        )}
       </div>
 
       {/* Time slots */}
