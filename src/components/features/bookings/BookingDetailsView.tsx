@@ -259,24 +259,36 @@ export default function BookingDetailsView({
           <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
             Getting there
           </h3>
-          <div
-            className="relative h-40 w-full rounded-xl overflow-hidden border border-slate-100 cursor-pointer group"
-            onClick={handleGetDirections}
-          >
-            <Image
-              src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop"
-              alt="Map Placeholder"
-              fill
-              className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-            />
-            <div className="absolute inset-0 bg-slate-900/10 flex items-center justify-center">
-              <div className="bg-white px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 transform group-hover:scale-105 transition-transform">
-                <MapPin size={14} className="text-indigo-600" />
-                <span className="text-xs font-medium text-slate-900">
-                  View on Google Maps
-                </span>
+          <div className="relative h-44 w-full rounded-xl overflow-hidden border border-slate-100 group">
+            {address ? (
+              <iframe
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                scrolling="no"
+                marginHeight={0}
+                marginWidth={0}
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
+                className="grayscale contrast-[1.1] opacity-80 group-hover:opacity-100 transition-opacity"
+                title="Venue Location Map"
+              />
+            ) : (
+              <div className="h-full w-full bg-slate-50 flex items-center justify-center">
+                <p className="text-xs text-slate-400 font-medium">
+                  Address not available
+                </p>
               </div>
-            </div>
+            )}
+
+            <button
+              onClick={handleGetDirections}
+              className="absolute bottom-3 right-3 bg-white px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 transform hover:scale-105 transition-transform border border-slate-100"
+            >
+              <MapPin size={14} className="text-indigo-600" />
+              <span className="text-xs font-medium text-slate-900">
+                Open in Maps
+              </span>
+            </button>
           </div>
           {locationInstructions && (
             <p className="text-xs text-slate-500 leading-relaxed font-medium mt-1 bg-slate-50/50 p-3 rounded-xl">
