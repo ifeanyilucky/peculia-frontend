@@ -7,6 +7,13 @@ export interface Location {
     type: "Point";
     coordinates: [number, number];
   };
+  directions?: string;
+  aptSuite?: string;
+  district?: string;
+  county?: string;
+  postcode?: string;
+  lat?: number;
+  lng?: number;
 }
 
 export interface PortfolioImage {
@@ -31,14 +38,14 @@ export interface Provider {
   specialties: string[];
   location?: Location;
   portfolioImages: PortfolioImage[];
-  yearsOfExperience?: number;
+  yearsOfExperience?: string | number;
   isVerified: boolean;
   rating: number;
   totalReviews: number;
   totalBookings: number;
   subscriptionTier: "free" | "premium";
   startingPrice?: number; // in kobo
-  services?: any[]; // For discovery results
+  services?: Service[]; // For discovery results
   createdAt: string;
   updatedAt: string;
 }
