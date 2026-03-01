@@ -3,7 +3,7 @@ import { HelpSearch } from "@/components/help/HelpSearch";
 
 export default function HelpCenterPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-card py-20 lg:py-32">
         <div className="container relative z-10 text-center">
@@ -27,7 +27,7 @@ export default function HelpCenterPage() {
           <AudienceCard
             audience="customers"
             title="For Customers"
-            description="Booking service, managing appointments, payments, and account settings for clients."
+            description="Booking services, managing appointments, payments, and account settings for clients."
             image="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=800"
             href="/help/customers"
           />
@@ -41,30 +41,34 @@ export default function HelpCenterPage() {
         </div>
       </section>
 
-      {/* Popular Section (Future) */}
+      {/* FAQ Section */}
       <section className="border-t border-border bg-muted/30 py-20">
         <div className="container">
           <h2 className="mb-12 text-center text-3xl font-bold">
             Frequently Asked Questions
           </h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="mb-4 font-bold">How do I book an appointment?</h3>
-              <p className="text-muted-foreground">
+            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm transition-all hover:shadow-md">
+              <h3 className="mb-4 text-lg font-bold">
+                How do I book an appointment?
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Simply search for a professional, select a service, and pick a
                 time slot that works for you.
               </p>
             </div>
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="mb-4 font-bold">Can I cancel my booking?</h3>
-              <p className="text-muted-foreground">
+            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm transition-all hover:shadow-md">
+              <h3 className="mb-4 text-lg font-bold">
+                Can I cancel my booking?
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Yes, you can cancel appointments through your dashboard, subject
                 to the professional's cancellation policy.
               </p>
             </div>
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="mb-4 font-bold">How do payouts work?</h3>
-              <p className="text-muted-foreground">
+            <div className="rounded-2xl border border-border bg-card p-8 shadow-sm transition-all hover:shadow-md">
+              <h3 className="mb-4 text-lg font-bold">How do payouts work?</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Payouts are processed automatically to your linked bank account
                 after the service is completed.
               </p>

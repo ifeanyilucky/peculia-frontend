@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Search, X, ChevronRight } from "lucide-react";
-import { HELP_ARTICLES } from "@/constants/help-data";
+import { helpService } from "@/services/help.service";
 import Link from "next/link";
 import { Audience } from "@/types/help.types";
 
@@ -17,19 +17,29 @@ export const HelpSearch = ({
 }: HelpSearchProps) => {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [results, setResults] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const results = useMemo(() => {
-    if (!query.trim()) return [];
+  useEffect(() => {
+    const search = async () => {
+      if (!query.trim()) {
+        setResults([]);
+        return;
+      }
 
-    return HELP_ARTICLES.filter((article) => {
-      const matchesQuery =
-        article.title.toLowerCase().includes(query.toLowerCase()) ||
-        article.content.toLowerCase().includes(query.toLowerCase());
+      setIsLoading(true);
+      try {
+        const data = await helpService.searchArticles(query, audience);
+        setResults(data);
+      } catch (error) {
+        console.error("Search failed:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-      const matchesAudience = audience ? article.audience === audience : true;
-
-      return matchesQuery && matchesAudience;
-    }).slice(0, 5);
+    const timer = setTimeout(search, 300);
+    return () => clearTimeout(timer);
   }, [query, audience]);
 
   return (
@@ -47,13 +57,20 @@ export const HelpSearch = ({
           placeholder={placeholder}
           className="w-full rounded-full border border-border bg-card py-4 pl-12 pr-12 text-lg shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
         />
-        {query && (
-          <button
-            onClick={() => setQuery("")}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-          >
-            <X className="h-5 w-5" />
-          </button>
+        {(query || isLoading) && (
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+            {isLoading && (
+              <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+            )}
+            {query && (
+              <button
+                onClick={() => setQuery("")}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            )}
+          </div>
         )}
       </div>
 
@@ -63,8 +80,8 @@ export const HelpSearch = ({
             <div className="flex flex-col">
               {results.map((article) => (
                 <Link
-                  key={article.id}
-                  href={`/help/${article.audience}/${article.categoryId}/${article.slug}`}
+                  key={article._id}
+                  href={`/help/${article.audience}/${article.categoryId.slug || "article"}/${article.slug}`}
                   className="flex items-center justify-between p-4 hover:bg-muted/50 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
@@ -76,9 +93,11 @@ export const HelpSearch = ({
               ))}
             </div>
           ) : (
-            <div className="p-8 text-center text-muted-foreground">
-              No articles found matching "{query}"
-            </div>
+            !isLoading && (
+              <div className="p-8 text-center text-muted-foreground">
+                No articles found matching "{query}"
+              </div>
+            )
           )}
         </div>
       )}

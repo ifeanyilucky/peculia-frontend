@@ -1,10 +1,11 @@
-import { HELP_CATEGORIES } from "@/constants/help-data";
+import { helpService } from "@/services/help.service";
 import { CategoryGrid } from "@/components/help/CategoryGrid";
 import { HelpSearch } from "@/components/help/HelpSearch";
 import { Audience } from "@/types/help.types";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+import Image from "next/image";
 
 export default async function AudienceDashboardPage({
   params,
@@ -17,7 +18,7 @@ export default async function AudienceDashboardPage({
     return notFound();
   }
 
-  const categories = HELP_CATEGORIES.filter((cat) => cat.audience === audience);
+  const categories = await helpService.getCategories(audience);
 
   const title =
     audience === "customers"
@@ -73,10 +74,11 @@ export default async function AudienceDashboardPage({
                 </Link>
               </div>
               <div className="relative aspect-video overflow-hidden rounded-2xl shadow-2xl">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=800"
                   alt="Getting Started"
-                  className="h-full w-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
             </div>

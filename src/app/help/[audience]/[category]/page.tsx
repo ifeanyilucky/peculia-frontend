@@ -1,7 +1,7 @@
-import { HELP_CATEGORIES, HELP_ARTICLES } from "@/constants/help-data";
+import { helpService } from "@/services/help.service";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, FileText } from "lucide-react";
+import { ChevronRight, FileText } from "lucide-react";
 
 export default async function CategoryPage({
   params,
@@ -10,16 +10,18 @@ export default async function CategoryPage({
 }) {
   const { audience, category: categorySlug } = await params;
 
-  const category = HELP_CATEGORIES.find(
-    (cat) => cat.slug === categorySlug && cat.audience === audience,
+  const categories = await helpService.getCategories(audience);
+  const category = categories.find(
+    (cat: { slug: string }) => cat.slug === categorySlug,
   );
 
   if (!category) {
     return notFound();
   }
 
-  const articles = HELP_ARTICLES.filter(
-    (art) => art.categoryId === category.id,
+  const articles = await helpService.getArticlesByCategory(
+    category._id,
+    audience,
   );
 
   return (
@@ -50,26 +52,36 @@ export default async function CategoryPage({
         </header>
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          {articles.map((article) => (
-            <Link
-              key={article.id}
-              href={`/help/${audience}/${categorySlug}/${article.slug}`}
-              className="flex items-center justify-between rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-md"
-            >
-              <div className="flex items-center gap-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted text-muted-foreground">
-                  <FileText className="h-5 w-5" />
+          {articles.map(
+            (article: {
+              _id: string;
+              slug: string;
+              title: string;
+              lastUpdated: string;
+            }) => (
+              <Link
+                key={article._id}
+                href={`/help/${audience}/${categorySlug}/${article.slug}`}
+                className="flex items-center justify-between rounded-xl border border-border bg-card p-6 transition-all hover:border-primary/50 hover:shadow-md"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                    <FileText className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-foreground">
+                      {article.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Updated{" "}
+                      {new Date(article.lastUpdated).toLocaleDateString()}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-bold text-foreground">{article.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Updated {article.lastUpdated}
-                  </p>
-                </div>
-              </div>
-              <ChevronRight className="h-5 w-5 text-muted-foreground" />
-            </Link>
-          ))}
+                <ChevronRight className="h-5 w-5 text-muted-foreground" />
+              </Link>
+            ),
+          )}
 
           {articles.length === 0 && (
             <div className="col-span-full rounded-2xl border border-dashed border-border p-12 text-center">
