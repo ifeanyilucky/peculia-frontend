@@ -118,6 +118,17 @@ export const HELP_ARTICLES: HelpArticle[] = [
     helpfulCount: 85,
     notHelpfulCount: 5,
   },
+  {
+    id: "ca-miss",
+    slug: "missed-appointment",
+    title: "What happens if I miss my appointment?",
+    content: "No-shows affect our professionals deeply...",
+    categoryId: "c1",
+    audience: "customers",
+    lastUpdated: "2024-03-01",
+    helpfulCount: 45,
+    notHelpfulCount: 0,
+  },
   // Payments
   {
     id: "ca3",
@@ -129,6 +140,17 @@ export const HELP_ARTICLES: HelpArticle[] = [
     lastUpdated: "2024-03-01",
     helpfulCount: 210,
     notHelpfulCount: 12,
+  },
+  {
+    id: "ca-refund",
+    slug: "refund-policy",
+    title: "Refund policy explained",
+    content: "Our refund policy is designed to be fair...",
+    categoryId: "c2",
+    audience: "customers",
+    lastUpdated: "2024-03-01",
+    helpfulCount: 180,
+    notHelpfulCount: 8,
   },
 
   // --- PROFESSIONAL ARTICLES ---
@@ -144,6 +166,17 @@ export const HELP_ARTICLES: HelpArticle[] = [
     helpfulCount: 320,
     notHelpfulCount: 1,
   },
+  {
+    id: "pa-services",
+    slug: "adding-services",
+    title: "Adding services to your profile",
+    content: "Display your skills effectively...",
+    categoryId: "p1",
+    audience: "professionals",
+    lastUpdated: "2024-03-01",
+    helpfulCount: 95,
+    notHelpfulCount: 2,
+  },
   // Managing Bookings
   {
     id: "pa2",
@@ -155,5 +188,28 @@ export const HELP_ARTICLES: HelpArticle[] = [
     lastUpdated: "2024-03-01",
     helpfulCount: 145,
     notHelpfulCount: 3,
+  },
+  {
+    id: "pa-no-show",
+    slug: "no-show-management",
+    title: "No-show management",
+    content: "Protect your business from cancellations...",
+    categoryId: "p2",
+    audience: "professionals",
+    lastUpdated: "2024-03-01",
+    helpfulCount: 210,
+    notHelpfulCount: 0,
+  },
+  // Deposits & Payments
+  {
+    id: "pa-deposit-settings",
+    slug: "setting-deposit-percentage",
+    title: "Setting deposit percentage",
+    content: "Control your upfront earnings...",
+    categoryId: "p3",
+    audience: "professionals",
+    lastUpdated: "2024-03-01",
+    helpfulCount: 165,
+    notHelpfulCount: 4,
   },
 ];
