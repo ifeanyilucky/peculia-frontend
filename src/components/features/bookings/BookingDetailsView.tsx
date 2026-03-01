@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/utils/formatters";
 import CenterModal from "@/components/common/CenterModal";
 import { useRouter } from "next/navigation";
 
@@ -36,10 +37,6 @@ export default function BookingDetailsView({
     provider?.portfolioImages?.[0]?.url ||
     provider?.userId?.avatar ||
     "/placeholder-business.png";
-
-  const formatPrice = (price: number) => {
-    return (price / 100).toLocaleString();
-  };
   const address = provider?.location?.address;
   const importantInfo = provider?.bio;
   const locationInstructions = provider?.location?.directions;
@@ -199,7 +196,7 @@ export default function BookingDetailsView({
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-medium text-slate-900">
-                    ₦{formatPrice(service.price)}
+                    {formatCurrency(service.price / 100)}
                   </p>
                 </div>
               </div>
@@ -287,12 +284,12 @@ export default function BookingDetailsView({
         {booking.depositPaid ? (
           <div className="flex items-center gap-2 px-4 py-3 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-100 text-xs font-medium">
             <CheckCircle2 size={14} />
-            Deposit of ₦{formatPrice(booking.depositAmount)} paid
+            Deposit of {formatCurrency(booking.depositAmount / 100)} paid
           </div>
         ) : (
           booking.depositAmount > 0 && (
             <button className="w-full py-3.5 bg-slate-900 text-white rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-rose-600 transition-all active:scale-[0.98] shadow-md">
-              Pay Deposit ₦{formatPrice(booking.depositAmount)}
+              Pay Deposit {formatCurrency(booking.depositAmount / 100)}
             </button>
           )
         )}
@@ -326,7 +323,7 @@ export default function BookingDetailsView({
                 {businessName}
               </p>
               <p className="text-sm font-medium text-slate-400">
-                ₦{formatPrice(booking.servicePrice)} •{" "}
+                {formatCurrency(booking.servicePrice / 100)} •{" "}
                 {booking.services.length} item
                 {booking.services.length !== 1 && "s"}
               </p>
