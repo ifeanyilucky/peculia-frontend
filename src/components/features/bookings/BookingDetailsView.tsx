@@ -55,6 +55,11 @@ export default function BookingDetailsView({
       color: "bg-amber-500 text-white",
       icon: Clock,
     },
+    expired: {
+      label: "Expired",
+      color: "bg-slate-400 text-white",
+      icon: Clock,
+    },
   };
 
   const status = statusConfig[booking.status] || {
@@ -220,7 +225,7 @@ export default function BookingDetailsView({
           </div>
         </div>
 
-{/* More Details */}
+        {/* More Details */}
         <div className="space-y-4 pt-4 border-t border-slate-100">
           <div className="space-y-3">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
@@ -228,14 +233,18 @@ export default function BookingDetailsView({
             </h3>
             <div className="space-y-3">
               <div className="space-y-0.5">
-                <p className="text-sm font-medium text-slate-900">Cancellation policy</p>
+                <p className="text-sm font-medium text-slate-900">
+                  Cancellation policy
+                </p>
                 <p className="text-xs text-slate-500 font-medium">
                   Cancel for free anytime.
                 </p>
               </div>
 
               <div className="space-y-1.5">
-                <p className="text-sm font-medium text-slate-900">Important info</p>
+                <p className="text-sm font-medium text-slate-900">
+                  Important info
+                </p>
                 <div className="text-xs text-slate-500 leading-relaxed font-medium bg-slate-50 p-3 rounded-xl border border-slate-100 whitespace-pre-line">
                   {importantInfo ||
                     `At ${businessName}, our services are strictly by booking, and payment must be made to secure your appointment(s).`}

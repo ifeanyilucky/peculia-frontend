@@ -210,10 +210,6 @@ export default async function ProviderProfilePage({
                     </span>
                   </div>
 
-                  <div className="mt-4 inline-flex rounded-lg bg-green-50 px-3 py-1 text-xs font-bold text-green-600 border border-green-100">
-                    Deals
-                  </div>
-
                   <Link
                     href={`/book/${slug}/services`}
                     className="mt-8 flex justify-center w-full rounded-full bg-slate-900 py-4 text-lg font-black text-white transition-all hover:bg-slate-800 active:scale-95"

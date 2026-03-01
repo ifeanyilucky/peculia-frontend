@@ -18,7 +18,7 @@ export default function RecentlyViewedSection() {
       avatar: p.image,
     },
     businessName: p.name || "Unknown",
-    slug: p._id,
+    slug: p.slug,
     specialties: p.category ? [p.category] : [],
     portfolioImages: p.image
       ? [{ url: p.image, publicId: "", caption: "" }]
@@ -41,6 +41,7 @@ export default function RecentlyViewedSection() {
       providers={providers}
       title="Recently Viewed"
       description="Pick up where you left off"
+      showServices={false}
     />
   );
 }

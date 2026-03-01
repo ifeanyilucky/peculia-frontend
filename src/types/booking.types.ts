@@ -7,6 +7,7 @@ export type BookingStatus =
   | "completed"
   | "cancelled_by_client"
   | "cancelled_by_provider"
+  | "expired"
   | "no_show";
 
 export interface Booking {

@@ -64,6 +64,12 @@ const STATUS_CONFIG: Record<
     dot: "bg-rose-400",
     bg: "bg-rose-50",
   },
+  expired: {
+    label: "Expired",
+    color: "text-slate-400",
+    dot: "bg-slate-300",
+    bg: "bg-slate-50",
+  },
 };
 
 export default function BookingDetailPage() {

@@ -53,6 +53,11 @@ export default function ClientBookingCard({ booking }: ClientBookingCardProps) {
       color: "text-rose-500",
       dot: "bg-rose-400",
     },
+    expired: {
+      label: "Expired",
+      color: "text-slate-400",
+      dot: "bg-slate-300",
+    },
   };
 
   const config = statusConfig[booking.status] || {

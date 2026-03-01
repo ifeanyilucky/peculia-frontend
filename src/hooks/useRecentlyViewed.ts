@@ -17,7 +17,7 @@ export interface RecentlyViewedProvider {
 
 function getStoredProviders(): RecentlyViewedProvider[] {
   if (typeof window === "undefined") return [];
-  
+
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     return stored ? JSON.parse(stored) : [];
@@ -28,7 +28,7 @@ function getStoredProviders(): RecentlyViewedProvider[] {
 
 function setStoredProviders(providers: RecentlyViewedProvider[]): void {
   if (typeof window === "undefined") return;
-  
+
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(providers));
   } catch (error) {
@@ -37,8 +37,11 @@ function setStoredProviders(providers: RecentlyViewedProvider[]): void {
 }
 
 export function useRecentlyViewed() {
-  const [recentlyViewed, setRecentlyViewed] = useState<RecentlyViewedProvider[]>([]);
+  const [recentlyViewed, setRecentlyViewed] = useState<
+    RecentlyViewedProvider[]
+  >([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  console.log("recentlyViewed", recentlyViewed);
 
   useEffect(() => {
     setRecentlyViewed(getStoredProviders());
@@ -52,7 +55,7 @@ export function useRecentlyViewed() {
         { ...provider, viewedAt: Date.now() },
         ...filtered,
       ].slice(0, MAX_RECENT);
-      
+
       setStoredProviders(updated);
       return updated;
     });
