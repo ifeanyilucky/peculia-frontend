@@ -11,10 +11,13 @@ import BookingFilters, {
 import SmallBookingCard from "@/components/features/bookings/SmallBookingCard";
 import RightSideModal from "@/components/ui/RightSideModal";
 import BookingDetailsView from "@/components/features/bookings/BookingDetailsView";
+import CenterModal from "@/components/common/CenterModal";
 import Pagination from "@/components/ui/Pagination";
-import { Loader2, Search, CalendarX, Plus } from "lucide-react";
+import { Loader2, Search, CalendarX, Plus, CalendarClock } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { isToday, isTomorrow, isThisWeek, isPast, format } from "date-fns";
+import { formatCurrency } from "@/utils/formatters";
 
 /**
  * Groups an array of bookings into labelled date sections.
@@ -65,6 +68,7 @@ export default function MyBookingsPage() {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isManageModalOpen, setIsManageModalOpen] = useState(false);
   const LIMIT = 20;
 
   const debouncedSetSearch = useMemo(
@@ -266,11 +270,96 @@ export default function MyBookingsPage() {
         onClose={() => setIsModalOpen(false)}
         title="Appointment Details"
       >
-        {selectedBooking && <BookingDetailsView booking={selectedBooking} />}
+        {selectedBooking && (
+          <BookingDetailsView
+            booking={selectedBooking}
+            onManageClick={() => {
+              setIsManageModalOpen(true);
+            }}
+          />
+        )}
       </RightSideModal>
+
+      {/* Manage Appointment Modal */}
+      <CenterModal
+        isOpen={isManageModalOpen}
+        onClose={() => setIsManageModalOpen(false)}
+        title="Manage appointment"
+      >
+        {selectedBooking && (
+          <ManageAppointmentModalContent
+            booking={selectedBooking}
+            onClose={() => setIsManageModalOpen(false)}
+          />
+        )}
+      </CenterModal>
     </div>
   );
 }
 
 // Needed to silence unused import warning — format is used indirectly by date-fns helpers
 void format;
+
+function ManageAppointmentModalContent({
+  booking,
+  onClose,
+}: {
+  booking: Booking;
+  onClose: () => void;
+}) {
+  const provider = booking.providerProfileId as unknown as {
+    businessName?: string;
+    portfolioImages?: { url: string }[];
+  };
+  const businessName = provider?.businessName || "Professional";
+  const businessLogo =
+    provider?.portfolioImages?.[0]?.url || "/placeholder-business.png";
+  const serviceTotal = (booking.servicePrice || 0) / 100;
+
+  return (
+    <div className="text-left mt-2">
+      <div className="flex items-center gap-4 mb-8">
+        <div className="relative h-14 w-14 rounded-2xl overflow-hidden shrink-0 border border-slate-100">
+          <Image
+            src={businessLogo}
+            alt={businessName}
+            fill
+            className="object-cover"
+          />
+        </div>
+        <div>
+          <p className="font-bold text-slate-900">
+            {format(new Date(booking.scheduledDate), "eee, d MMM yyyy")} at{" "}
+            {booking.startTime}
+          </p>
+          <p className="text-sm font-medium text-slate-500">{businessName}</p>
+          <p className="text-sm font-medium text-slate-400">
+            {formatCurrency(serviceTotal)} · {booking.services.length} item
+            {booking.services.length !== 1 && "s"}
+          </p>
+        </div>
+      </div>
+
+      <div className="space-y-1 border-t border-slate-100 pt-5">
+        <button className="w-full flex items-center gap-3 py-4 px-2 hover:bg-slate-50 rounded-xl transition-all group">
+          <CalendarClock
+            size={20}
+            className="text-slate-400 group-hover:text-slate-900"
+          />
+          <span className="font-bold text-slate-900 text-[15px]">
+            Reschedule appointment
+          </span>
+        </button>
+        <button className="w-full flex items-center gap-3 py-4 px-2 hover:bg-rose-50 rounded-xl transition-all group">
+          <CalendarX
+            size={20}
+            className="text-slate-400 group-hover:text-rose-500"
+          />
+          <span className="font-bold text-rose-500 text-[15px]">
+            Cancel appointment
+          </span>
+        </button>
+      </div>
+    </div>
+  );
+}

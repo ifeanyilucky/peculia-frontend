@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Booking } from "@/types/booking.types";
 import { Provider } from "@/types/provider.types";
 import { format } from "date-fns";
@@ -13,19 +12,17 @@ import {
   XCircle,
   Clock,
   ChevronRight,
-  CalendarClock,
-  CalendarX,
   AlertCircle,
   Ban,
 } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/utils/formatters";
-import CenterModal from "@/components/common/CenterModal";
 import { useRouter } from "next/navigation";
 
 interface BookingDetailsViewProps {
   booking: Booking;
+  onManageClick?: () => void;
 }
 
 /** Maps every booking status to display config. */
@@ -81,9 +78,9 @@ const isActionable = (status: string) =>
 
 export default function BookingDetailsView({
   booking,
+  onManageClick,
 }: BookingDetailsViewProps) {
   const router = useRouter();
-  const [isManageModalOpen, setIsManageModalOpen] = useState(false);
 
   const provider = booking.providerProfileId as unknown as Provider;
   const businessName = provider?.businessName || "Professional";
@@ -221,7 +218,7 @@ export default function BookingDetailsView({
             <ActionItem
               icon={Settings}
               label="Manage appointment"
-              onClick={() => setIsManageModalOpen(true)}
+              onClick={onManageClick}
             />
           )}
           <ActionItem
@@ -357,60 +354,6 @@ export default function BookingDetailsView({
           Ref: {booking.bookingRef}
         </p>
       </div>
-
-      {/* ── Manage Appointment Modal ── */}
-      <CenterModal
-        isOpen={isManageModalOpen}
-        onClose={() => setIsManageModalOpen(false)}
-        title="Manage appointment"
-      >
-        <div className="text-left mt-2">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="relative h-14 w-14 rounded-2xl overflow-hidden shrink-0 border border-slate-100">
-              <Image
-                src={businessLogo}
-                alt={businessName}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div>
-              <p className="font-bold text-slate-900">
-                {format(new Date(booking.scheduledDate), "eee, d MMM yyyy")} at{" "}
-                {booking.startTime}
-              </p>
-              <p className="text-sm font-medium text-slate-500">
-                {businessName}
-              </p>
-              <p className="text-sm font-medium text-slate-400">
-                {formatCurrency(serviceTotal)} · {booking.services.length} item
-                {booking.services.length !== 1 && "s"}
-              </p>
-            </div>
-          </div>
-
-          <div className="space-y-1 border-t border-slate-100 pt-5">
-            <button className="w-full flex items-center gap-3 py-4 px-2 hover:bg-slate-50 rounded-xl transition-all group">
-              <CalendarClock
-                size={20}
-                className="text-slate-400 group-hover:text-slate-900"
-              />
-              <span className="font-bold text-slate-900 text-[15px]">
-                Reschedule appointment
-              </span>
-            </button>
-            <button className="w-full flex items-center gap-3 py-4 px-2 hover:bg-rose-50 rounded-xl transition-all group">
-              <CalendarX
-                size={20}
-                className="text-slate-400 group-hover:text-rose-500"
-              />
-              <span className="font-bold text-rose-500 text-[15px]">
-                Cancel appointment
-              </span>
-            </button>
-          </div>
-        </div>
-      </CenterModal>
     </div>
   );
 }
