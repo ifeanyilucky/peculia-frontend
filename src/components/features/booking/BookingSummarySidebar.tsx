@@ -75,6 +75,7 @@ export default function BookingSummarySidebar({
     access_code: string;
     reference: string;
     bookingId: string;
+    amount: number;
   } | null>(null);
   /** Ref-based in-flight lock — prevents double submits that slip through
    * React's async re-render cycle before `isBooking` state updates. */
@@ -82,7 +83,12 @@ export default function BookingSummarySidebar({
 
   // Directly call openPaystackModal without depending on a useEffect cycle
   const triggerPaymentModal = useCallback(
-    (accessCode: string, reference: string, bookingId: string) => {
+    (
+      accessCode: string,
+      reference: string,
+      bookingId: string,
+      amount: number,
+    ) => {
       if (!user?.email) {
         setBookingError("Your session appears to be missing email data.");
         return;
@@ -91,7 +97,7 @@ export default function BookingSummarySidebar({
       openPaystackModal({
         key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
         email: user.email,
-        amount: totalPrice,
+        amount: Math.round(amount),
         access_code: accessCode,
         onClose: () => {
           setPaymentPaused(true);
@@ -105,7 +111,7 @@ export default function BookingSummarySidebar({
         },
       });
     },
-    [user?.email, totalPrice, router, slug],
+    [user?.email, router, slug],
   );
 
   /** Resume an existing payment — re-opens the Paystack popup with the same
@@ -117,6 +123,7 @@ export default function BookingSummarySidebar({
       paymentData.access_code,
       paymentData.reference,
       paymentData.bookingId,
+      paymentData.amount,
     );
   }, [paymentData, triggerPaymentModal]);
 
@@ -180,6 +187,7 @@ export default function BookingSummarySidebar({
           access_code: payment.access_code,
           reference: payment.reference,
           bookingId: booking.id || booking._id!,
+          amount: booking.depositAmount,
         });
         setPaymentPaused(false);
         // Trigger Paystack directly here
@@ -187,6 +195,7 @@ export default function BookingSummarySidebar({
           payment.access_code,
           payment.reference,
           booking.id || booking._id!,
+          booking.depositAmount,
         );
       } else {
         router.push(
