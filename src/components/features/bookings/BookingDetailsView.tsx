@@ -218,7 +218,7 @@ export default function BookingDetailsView({
             <ActionItem
               icon={Settings}
               label="Manage appointment"
-              onClick={onManageClick}
+              onClick={onManageClick || (() => {})}
             />
           )}
           <ActionItem

@@ -12,17 +12,19 @@ export default function RescheduleProfessionalPage() {
   const router = useRouter();
   const bookingId = params?.bookingId as string;
 
-  const { data: booking, isLoading: isBookingLoading } = useQuery({
+  const { data: booking, isLoading: isBookingLoading, error: bookingError } = useQuery({
     queryKey: ["booking", bookingId],
     queryFn: () => bookingService.getBookingById(bookingId),
     enabled: !!bookingId,
   });
 
-  const providerId = typeof booking?.providerProfileId === "object" 
-    ? booking.providerProfileId._id 
-    : booking?.providerProfileId;
+  const providerId = booking
+    ? (typeof booking.providerProfileId === "object"
+      ? (booking.providerProfileId as any)._id
+      : booking.providerProfileId)
+    : undefined;
 
-  const { data: provider } = useQuery({
+  const { data: provider, isLoading: isProviderLoading } = useQuery({
     queryKey: ["provider", providerId],
     queryFn: () => providerService.getProviderById(providerId!),
     enabled: !!providerId,
@@ -32,7 +34,7 @@ export default function RescheduleProfessionalPage() {
     router.push(`/appointments/${bookingId}/reschedule/time`);
   };
 
-  if (isBookingLoading || !booking) {
+  if (isBookingLoading || isProviderLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center p-8 bg-white">
         <Loader2 className="animate-spin text-rose-600" size={40} />
@@ -40,7 +42,15 @@ export default function RescheduleProfessionalPage() {
     );
   }
 
-  if (!provider) {
+  if (bookingError || !booking) {
+    return (
+      <div className="flex min-h-screen items-center justify-center p-8 bg-white">
+        <p className="text-slate-500">Unable to load booking. Please try again.</p>
+      </div>
+    );
+  }
+
+  if (!provider || !providerId) {
     return (
       <div className="flex min-h-screen items-center justify-center p-8 bg-white">
         <p className="text-slate-500">Provider not found</p>

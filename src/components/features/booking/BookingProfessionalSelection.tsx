@@ -10,10 +10,12 @@ import Image from "next/image";
 
 interface BookingProfessionalSelectionProps {
   providerId: string;
+  onSelect?: (professionalId: string) => void;
 }
 
 export default function BookingProfessionalSelection({
   providerId,
+  onSelect,
 }: BookingProfessionalSelectionProps) {
   const { selectedTeamMember, setSelectedTeamMember } = useBookingStore();
 
@@ -50,7 +52,10 @@ export default function BookingProfessionalSelection({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Any Professional Option */}
         <div
-          onClick={() => setSelectedTeamMember(null)}
+          onClick={() => {
+            setSelectedTeamMember(null);
+            onSelect?.("");
+          }}
           className={cn(
             "group cursor-pointer rounded-2xl border-2 p-6 transition-all duration-300",
             selectedTeamMember === null
@@ -89,7 +94,10 @@ export default function BookingProfessionalSelection({
         {teamMembers?.map((member) => (
           <div
             key={member._id}
-            onClick={() => setSelectedTeamMember(member)}
+            onClick={() => {
+              setSelectedTeamMember(member);
+              onSelect?.(member._id);
+            }}
             className={cn(
               "group cursor-pointer rounded-2xl border-2 p-6 transition-all duration-300",
               selectedTeamMember?._id === member._id

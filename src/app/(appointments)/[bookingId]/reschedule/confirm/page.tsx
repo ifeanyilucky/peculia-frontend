@@ -33,17 +33,19 @@ export default function RescheduleConfirmPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  const { data: booking, isLoading: isBookingLoading } = useQuery({
+  const { data: booking, isLoading: isBookingLoading, error: bookingError } = useQuery({
     queryKey: ["booking", bookingId],
     queryFn: () => bookingService.getBookingById(bookingId),
     enabled: !!bookingId,
   });
 
-  const providerId = typeof booking?.providerProfileId === "object" 
-    ? booking.providerProfileId._id 
-    : booking?.providerProfileId;
+  const providerId = booking
+    ? (typeof booking.providerProfileId === "object"
+      ? (booking.providerProfileId as any)._id
+      : booking.providerProfileId)
+    : undefined;
 
-  const { data: provider } = useQuery({
+  const { data: provider, isLoading: isProviderLoading } = useQuery({
     queryKey: ["provider", providerId],
     queryFn: () => providerService.getProviderById(providerId!),
     enabled: !!providerId,
@@ -123,10 +125,18 @@ export default function RescheduleConfirmPage() {
     router.push("/bookings");
   };
 
-  if (isBookingLoading || !booking) {
+  if (isBookingLoading || isProviderLoading || !booking) {
     return (
       <div className="flex min-h-screen items-center justify-center p-8 bg-white">
         <Loader2 className="animate-spin text-rose-600" size={40} />
+      </div>
+    );
+  }
+
+  if (bookingError) {
+    return (
+      <div className="flex min-h-screen items-center justify-center p-8 bg-white">
+        <p className="text-slate-500">Unable to load booking. Please try again.</p>
       </div>
     );
   }
