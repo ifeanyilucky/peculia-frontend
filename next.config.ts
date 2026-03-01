@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
+});
 
-const nextConfig: NextConfig = {
+const nextConfig: NextConfig = withPWA({
   /* config options here */
+  turbopack: {},
   images: {
     remotePatterns: [
       {
@@ -30,6 +37,6 @@ const nextConfig: NextConfig = {
   experimental: {
     // any experimental features if needed
   },
-};
+});
 
 export default nextConfig;
