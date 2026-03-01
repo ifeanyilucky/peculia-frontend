@@ -6,6 +6,7 @@ import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useBookingStore } from "@/store/booking.store";
+import { formatCurrency } from "@/utils/formatters";
 
 interface ProviderServicesProps {
   services: Service[];
@@ -99,13 +100,8 @@ export default function ProviderServices({
                   </div>
                   <div className="flex items-center gap-2">
                     <p className="text-lg font-black text-slate-900">
-                      ₦{(service.price / 100).toLocaleString()}
+                      {formatCurrency(service.price / 100)}
                     </p>
-                    {service.depositAmount > 0 && (
-                      <span className="text-xs font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full border border-green-100">
-                        Save 10%
-                      </span>
-                    )}
                   </div>
                 </div>
 
