@@ -12,6 +12,7 @@ interface ProviderCarouselProps {
   description?: string;
   href?: string;
   hrefLabel?: string;
+  showServices?: boolean;
 }
 
 export default function ProviderCarousel({
@@ -20,6 +21,7 @@ export default function ProviderCarousel({
   description,
   href,
   hrefLabel,
+  showServices = true,
 }: ProviderCarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -134,7 +136,7 @@ export default function ProviderCarousel({
                 key={provider._id}
                 className="w-[320px] shrink-0 snap-start"
               >
-                <ProviderCard provider={provider} />
+                <ProviderCard provider={provider} showServices={showServices} />
               </div>
             ))}
           </div>

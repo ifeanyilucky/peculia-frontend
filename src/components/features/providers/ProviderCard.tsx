@@ -11,11 +11,13 @@ import { formatCurrency } from "@/utils/formatters";
 interface ProviderCardProps {
   provider: Provider;
   className?: string;
+  showServices?: boolean;
 }
 
 export default function ProviderCard({
   provider,
   className,
+  showServices = true,
 }: ProviderCardProps) {
   const specialty =
     provider.specialties[0]?.replace("_", " ") || "Health & Beauty";
@@ -61,10 +63,7 @@ export default function ProviderCard({
 
           <div className="mt-1 space-y-1">
             <p className="text-sm font-medium text-slate-400">
-              {provider.location?.address?.split(",")[0] ||
-                provider.location?.city ||
-                "Unknown Location"}
-              {provider.location?.city ? `, ${provider.location.city}` : ""}
+              {provider.location?.city ? `${provider.location.city}` : ""}
             </p>
             <p className="text-sm font-medium text-slate-400 capitalize">
               {specialty}
@@ -72,39 +71,41 @@ export default function ProviderCard({
           </div>
 
           {/* Services Section */}
-          <div className="mt-4 space-y-2">
-            {(provider.services?.slice(0, 3) || []).map((service: any) => (
-              <div
-                key={service.id || service._id}
-                className="flex items-center justify-between p-3 rounded-sm bg-slate-50 border border-slate-100 group-hover:border-slate-200 transition-colors"
-              >
-                <div>
-                  <p className="text-sm font-bold text-slate-900 leading-none">
-                    {service.name}
-                  </p>
-                  <p className="text-[10px] font-bold text-slate-400 mt-1">
-                    {service.duration} mins
+          {showServices && (
+            <div className="mt-4 space-y-2">
+              {(provider.services?.slice(0, 3) || []).map((service: any) => (
+                <div
+                  key={service.id || service._id}
+                  className="flex items-center justify-between p-3 rounded-sm bg-slate-50 border border-slate-100 group-hover:border-slate-200 transition-colors"
+                >
+                  <div>
+                    <p className="text-sm font-bold text-slate-900 leading-none">
+                      {service.name}
+                    </p>
+                    <p className="text-[10px] font-bold text-slate-400 mt-1">
+                      {service.duration} mins
+                    </p>
+                  </div>
+                  <p className="text-sm font-black text-slate-900">
+                    {formatCurrency(service.price)}
                   </p>
                 </div>
-                <p className="text-sm font-black text-slate-900">
-                  {formatCurrency(service.price)}
-                </p>
-              </div>
-            ))}
+              ))}
 
-            {provider.services && provider.services.length > 3 && (
-              <p className="text-xs font-black text-rose-600 mt-2 hover:underline cursor-pointer">
-                See all {provider.services.length} services
-              </p>
-            )}
-            {(!provider.services || provider.services.length === 0) && (
-              <div className="py-2">
-                <p className="text-xs font-bold text-slate-400 italic">
-                  Loading services...
+              {provider.services && provider.services.length > 3 && (
+                <p className="text-xs font-black text-rose-600 mt-2 hover:underline cursor-pointer">
+                  See all {provider.services.length} services
                 </p>
-              </div>
-            )}
-          </div>
+              )}
+              {(!provider.services || provider.services.length === 0) && (
+                <div className="py-2">
+                  <p className="text-xs font-bold text-slate-400 italic">
+                    Loading services...
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </Link>
     </motion.div>

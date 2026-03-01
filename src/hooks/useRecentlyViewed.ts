@@ -11,6 +11,12 @@ export interface RecentlyViewedProvider {
   image?: string;
   category?: string;
   rating?: number;
+  slug?: string;
+  location?: {
+    city?: string;
+    state?: string;
+    address?: string;
+  };
   viewedAt: number;
   [key: string]: unknown;
 }

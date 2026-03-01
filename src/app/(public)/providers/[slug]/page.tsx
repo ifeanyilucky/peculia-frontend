@@ -123,6 +123,8 @@ export default async function ProviderProfilePage({
       name: businessName || name,
       image: provider.portfolioImages?.[0]?.url || provider.userId.avatar,
       rating: provider.rating,
+      slug: provider.slug,
+      location: provider.location,
     };
 
     return (

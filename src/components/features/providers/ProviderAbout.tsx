@@ -18,7 +18,7 @@ export default function ProviderAbout({ provider }: ProviderAboutProps) {
         </p>
       </section>
 
-      <section className="grid gap-6 sm:grid-cols-2">
+      {/* <section className="grid gap-6 sm:grid-cols-2">
         <div className="flex items-start gap-4 rounded-2xl border border-slate-200 p-6 bg-slate-50/50">
           <div className="rounded-xl bg-white p-3 text-rose-500 border border-slate-200">
             <Briefcase size={24} />
@@ -46,7 +46,7 @@ export default function ProviderAbout({ provider }: ProviderAboutProps) {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section>
         <h4 className="font-peculiar text-lg font-bold text-slate-900 mb-4">
@@ -56,7 +56,7 @@ export default function ProviderAbout({ provider }: ProviderAboutProps) {
           {provider.specialties.map((spec) => (
             <div
               key={spec}
-              className="flex items-center gap-2 rounded-full bg-white border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700"
+              className="flex capitalize items-center gap-2 rounded-full bg-white border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700"
             >
               <GraduationCap size={16} className="text-rose-500" />
               {spec.replace("_", " ")}

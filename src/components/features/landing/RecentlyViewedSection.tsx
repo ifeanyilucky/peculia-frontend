@@ -28,7 +28,7 @@ export default function RecentlyViewedSection() {
     totalReviews: 0,
     totalBookings: 0,
     subscriptionTier: "free" as const,
-    location: undefined,
+    location: p.location,
     bio: undefined,
     yearsOfExperience: undefined,
     startingPrice: undefined,

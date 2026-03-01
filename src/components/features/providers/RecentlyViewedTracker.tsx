@@ -11,6 +11,12 @@ interface RecentlyViewedTrackerProps {
     image?: string;
     category?: string;
     rating?: number;
+    slug?: string;
+    location?: {
+      city?: string;
+      state?: string;
+      address?: string;
+    };
     [key: string]: unknown;
   };
 }
@@ -27,6 +33,8 @@ export default function RecentlyViewedTracker({
       name: provider.name,
       image: provider.image,
       rating: provider.rating,
+      slug: provider.slug,
+      location: provider.location,
       viewedAt: Date.now(),
     };
 
