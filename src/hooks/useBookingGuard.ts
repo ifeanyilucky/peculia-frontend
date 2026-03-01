@@ -1,21 +1,36 @@
 "use client";
 
 import { useBookingStore } from "@/store/booking.store";
-import { useRouter, useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter, useParams, useSearchParams } from "next/navigation";
+import { useEffect, useState, useCallback } from "react";
+import { useAuthStore } from "@/store/auth.store";
+import { ROUTES } from "@/constants/routes";
 
 export function useBookingGuard(requiredStep: number) {
   const router = useRouter();
   const params = useParams();
+  const searchParams = useSearchParams();
   const slug = params?.slug as string;
 
   const { selectedServices, selectedDate, selectedSlot, _hasHydrated } =
     useBookingStore();
+  
+  const { isAuthenticated, _hasHydrated: authHydrated } = useAuthStore();
 
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (!_hasHydrated) return;
+    if (!_hasHydrated || !authHydrated) return;
+
+    const checkAuth = () => {
+      if (!isAuthenticated) {
+        const currentPath = `/book/${slug}`;
+        const redirectUrl = `${currentPath}${window.location.search}`;
+        router.replace(`${ROUTES.auth.login}?redirect=${encodeURIComponent(redirectUrl)}`);
+        return false;
+      }
+      return true;
+    };
 
     const checkState = () => {
       // Step 2 (Professional) requires Step 1 (Services)
@@ -45,11 +60,14 @@ export function useBookingGuard(requiredStep: number) {
       return true;
     };
 
+    if (!checkAuth()) return;
     if (checkState()) {
       setIsReady(true);
     }
   }, [
     _hasHydrated,
+    authHydrated,
+    isAuthenticated,
     requiredStep,
     selectedServices,
     selectedDate,
@@ -58,5 +76,5 @@ export function useBookingGuard(requiredStep: number) {
     slug,
   ]);
 
-  return { isReady, hasHydrated: _hasHydrated };
+  return { isReady, hasHydrated: _hasHydrated && authHydrated };
 }

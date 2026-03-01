@@ -11,7 +11,6 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { bookingService } from "@/services/booking.service";
 import { format } from "date-fns";
 import { Loader2, User as UserIcon, RefreshCw } from "lucide-react";
-import BookingAuthModal from "@/components/features/booking/BookingAuthModal";
 import AddPhoneModal from "@/components/features/booking/AddPhoneModal";
 import { paymentService } from "@/services/payment.service";
 import CenterModal from "@/components/common/CenterModal";

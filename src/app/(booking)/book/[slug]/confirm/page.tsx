@@ -91,7 +91,9 @@ export default function BookingConfirmPage() {
 
   useEffect(() => {
     if (hasHydrated && !isAuthenticated) {
-      router.replace(`/book/${slug}/services`);
+      const currentPath = `/book/${slug}/confirm`;
+      const redirectUrl = `${currentPath}${window.location.search}`;
+      router.replace(`/login?redirect=${encodeURIComponent(redirectUrl)}`);
     }
   }, [hasHydrated, isAuthenticated, router, slug]);
 
