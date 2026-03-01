@@ -5,7 +5,6 @@ import { Booking } from "@/types/booking.types";
 import { format } from "date-fns";
 import {
   Clock,
-  MapPin,
   CheckCircle2,
   XCircle,
   MoreVertical,
@@ -32,6 +31,7 @@ export default function ProviderBookingCard({
     cancelled_by_client: "bg-rose-50 text-rose-600 border-rose-100",
     cancelled_by_provider: "bg-rose-50 text-rose-600 border-rose-100",
     no_show: "bg-slate-50 text-slate-400 border-slate-100",
+    expired: "bg-slate-50 text-slate-400 border-slate-100",
   };
 
   const statusLabels = {
@@ -42,6 +42,7 @@ export default function ProviderBookingCard({
     cancelled_by_client: "Cancelled by Client",
     cancelled_by_provider: "Cancelled by You",
     no_show: "No-Show",
+    expired: "Expired",
   };
 
   const client = typeof booking.clientId !== "string" ? booking.clientId : null;

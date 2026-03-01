@@ -66,8 +66,8 @@ export default function ClientDashboardPage() {
               <Sparkles size={14} />
               Welcome to the community
             </div>
-            <h1 className="font-peculiar text-4xl lg:text-5xl font-black">
-              Hello, {user?.firstName}! 👋
+            <h1 className="font-peculiar text-4xl lg:text-5xl font-black ">
+              Hello, <span className="capitalize">{user?.firstName}</span>! 👋
               <br />
               <span className="text-white/60">
                 Ready for your next session?

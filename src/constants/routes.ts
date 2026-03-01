@@ -15,7 +15,7 @@ export const ROUTES = {
   client: {
     dashboard: "/dashboard",
     bookings: "/bookings",
-    bookingDetail: (id: string) => `/bookings/${id}`,
+    bookingDetail: (id: string) => "/bookings",
     book: (providerId: string) => `/book/${providerId}`,
     payments: "/payments",
     saved: "/saved",

@@ -47,7 +47,6 @@ export function useRecentlyViewed() {
     RecentlyViewedProvider[]
   >([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  console.log("recentlyViewed", recentlyViewed);
 
   useEffect(() => {
     setRecentlyViewed(getStoredProviders());

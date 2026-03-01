@@ -18,7 +18,7 @@ export default function RecentlyViewedSection() {
       avatar: p.image,
     },
     businessName: p.name || "Unknown",
-    slug: p.slug,
+    slug: p.slug || "",
     specialties: p.category ? [p.category] : [],
     portfolioImages: p.image
       ? [{ url: p.image, publicId: "", caption: "" }]
@@ -28,14 +28,14 @@ export default function RecentlyViewedSection() {
     totalReviews: 0,
     totalBookings: 0,
     subscriptionTier: "free" as const,
-    location: p.location,
+    location: p.location as any, // Cast as any to avoid complex nested partial matches
     bio: undefined,
     yearsOfExperience: undefined,
     startingPrice: undefined,
     createdAt: new Date(p.viewedAt).toISOString(),
     updatedAt: new Date(p.viewedAt).toISOString(),
   }));
-  console.log("providers", providers);
+
   return (
     <ProviderCarousel
       providers={providers}
