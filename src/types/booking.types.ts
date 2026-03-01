@@ -24,12 +24,19 @@ export interface Booking {
   }[];
   totalDuration: number;
   servicePrice: number; // Total price
+  depositPercentage: number;
   depositAmount: number; // Total deposit
+  commissionPercentage: number;
+  commissionAmount?: number;
+  proPayoutAmount?: number;
+  remainingBalance: number;
   teamMemberId?: string;
   scheduledDate: string;
   startTime: string;
   endTime: string;
   status: BookingStatus;
+  paymentStatus: "pending" | "deposit_paid" | "completed" | "refunded";
+  payoutStatus: "pending" | "paid_out";
   depositPaid: boolean;
   depositPaidAt?: string;
   fullAmountPaid: boolean;

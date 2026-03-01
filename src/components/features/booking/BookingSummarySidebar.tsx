@@ -374,21 +374,27 @@ export default function BookingSummarySidebar({
             {currentStep === 4 && (
               <div className="space-y-4 pt-4 border-t border-slate-100">
                 <div className="flex justify-between items-center">
-                  <span className="font-bold text-slate-500">Subtotal</span>
+                  <span className="font-bold text-slate-500">
+                    Service Price
+                  </span>
                   <span className="font-bold text-slate-900">
                     {formatCurrency(totalPrice / 100)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="font-bold text-slate-500">Service Fee</span>
-                  <span className="font-bold text-slate-900">
-                    {formatCurrency(0)}
+                  <span className="font-bold text-emerald-600">
+                    Deposit Due Now (20%)
+                  </span>
+                  <span className="font-bold text-emerald-600">
+                    {formatCurrency((totalPrice * 0.2) / 100)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center pt-4 border-t border-slate-200">
-                  <span className="font-black text-slate-900">Total</span>
+                  <span className="font-black text-slate-900">
+                    Pay In Person
+                  </span>
                   <span className="font-black text-xl text-slate-900">
-                    {formatCurrency(totalPrice / 100)}
+                    {formatCurrency((totalPrice * 0.8) / 100)}
                   </span>
                 </div>
               </div>

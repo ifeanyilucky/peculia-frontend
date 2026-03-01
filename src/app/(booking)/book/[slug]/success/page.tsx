@@ -256,10 +256,18 @@ function SuccessContent() {
 
           <div className="px-8 py-6 bg-slate-50/50 flex items-center justify-between">
             <span className="text-sm font-black text-slate-900">
-              Total Paid
+              Deposit Paid
             </span>
-            <span className="text-xl font-black text-rose-600">
-              {formatCurrency((booking.servicePrice || 0) / 100)}
+            <span className="text-xl font-black text-emerald-600">
+              {formatCurrency((booking.depositAmount || 0) / 100)}
+            </span>
+          </div>
+          <div className="px-8 py-4 bg-slate-100/50 flex items-center justify-between border-t border-slate-200">
+            <span className="text-sm font-bold text-slate-600">
+              Due at Appointment
+            </span>
+            <span className="text-lg font-bold text-slate-900">
+              {formatCurrency((booking.remainingBalance || 0) / 100)}
             </span>
           </div>
         </motion.div>
