@@ -6,6 +6,8 @@ import { providerService } from "@/services/provider.service";
 import { useAuthStore } from "@/store/auth.store";
 import { sileo } from "sileo";
 import { useRouter } from "next/navigation";
+import { useWebHaptics } from "web-haptics/react";
+import * as HapticStatus from "@/constants/heptics-status";
 
 interface SaveButtonProps {
   providerId: string;
@@ -22,6 +24,7 @@ export default function SaveButton({
   const [isLoading, setIsLoading] = useState(false);
   const { isAuthenticated } = useAuthStore();
   const router = useRouter();
+  const { trigger } = useWebHaptics();
 
   const sizeClasses = {
     sm: "h-8 w-8",
@@ -38,7 +41,6 @@ export default function SaveButton({
   const handleSave = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-
     if (!isAuthenticated) {
       router.push("/login");
       return;
@@ -49,6 +51,7 @@ export default function SaveButton({
       if (isSaved) {
         await providerService.unsaveProvider(providerId);
         setIsSaved(false);
+        trigger(HapticStatus.success);
         sileo.show({
           title: "Removed from saved",
           description: "Provider removed from your saved list",
@@ -63,6 +66,7 @@ export default function SaveButton({
       } else {
         await providerService.saveProvider(providerId);
         setIsSaved(true);
+        trigger(HapticStatus.success);
         sileo.show({
           title: "Saved!",
           description: "Provider added to your saved list",

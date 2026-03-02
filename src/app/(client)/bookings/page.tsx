@@ -18,6 +18,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { isToday, isTomorrow, isThisWeek, isPast, format } from "date-fns";
+import { ROUTES } from "@/constants/routes";
 import { formatCurrency } from "@/utils/formatters";
 
 /**
@@ -136,7 +137,7 @@ export default function MyBookingsPage() {
 
           {/* Book Now CTA */}
           <Link
-            href="/"
+            href={ROUTES.public.explore}
             className="inline-flex items-center gap-2 h-11 px-5 rounded-2xl bg-slate-900 text-white text-xs font-black uppercase tracking-widest hover:bg-rose-600 transition-all active:scale-95 shrink-0"
           >
             <Plus size={14} strokeWidth={3} />
