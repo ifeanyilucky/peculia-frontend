@@ -1,11 +1,12 @@
 "use client";
 
-import { Booking } from "@/types/booking.types";
-import { Provider } from "@/types/provider.types";
+import { useState } from "react";
+import { Booking, getProviderName, getProviderLogo } from "@/types/booking.types";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/utils/formatters";
 import Image from "next/image";
+import { DEFAULT_BUSINESS_IMAGE } from "@/constants/images";
 
 interface SmallBookingCardProps {
   booking: Booking;
@@ -18,12 +19,11 @@ export default function SmallBookingCard({
   isSelected,
   onClick,
 }: SmallBookingCardProps) {
-  const provider = booking.providerProfileId as unknown as Provider;
-  const businessName = provider?.businessName || "Professional";
-  const businessLogo =
-    provider?.portfolioImages?.[0]?.url ||
-    provider?.userId?.avatar ||
-    "/placeholder-business.png";
+  const [imgError, setImgError] = useState(false);
+  
+  const businessName = getProviderName(booking);
+  const logoUrl = getProviderLogo(booking);
+  const imageSrc = imgError || !logoUrl ? DEFAULT_BUSINESS_IMAGE : logoUrl;
 
   return (
     <button
@@ -37,10 +37,11 @@ export default function SmallBookingCard({
     >
       <div className="relative h-14 w-14 shrink-0 rounded-xl overflow-hidden border border-slate-100">
         <Image
-          src={businessLogo}
+          src={imageSrc}
           alt={businessName}
           fill
           className="object-cover group-hover:scale-110 transition-transform duration-500"
+          onError={() => setImgError(true)}
         />
       </div>
 

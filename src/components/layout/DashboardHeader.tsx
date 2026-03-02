@@ -26,8 +26,16 @@ import { cn } from "@/lib/utils";
 export default function DashboardHeader() {
   const { user, clearAuth } = useAuthStore();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && searchQuery.trim()) {
+      router.push(`/explore?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+    }
+  };
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -62,6 +70,9 @@ export default function DashboardHeader() {
         <input
           type="text"
           placeholder="Search for services or professionals..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={handleSearch}
           className="w-full h-11 bg-slate-50 rounded-2xl pl-11 pr-4 text-sm font-medium border-transparent focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-50 transition-all outline-none"
         />
       </div>

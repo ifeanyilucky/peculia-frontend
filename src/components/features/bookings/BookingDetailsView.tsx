@@ -1,7 +1,7 @@
 "use client";
 
-import { Booking } from "@/types/booking.types";
-import { Provider } from "@/types/provider.types";
+import { useState } from "react";
+import { Booking, getProviderFromBooking, getProviderName, getProviderLogo } from "@/types/booking.types";
 import { format } from "date-fns";
 import {
   Calendar,
@@ -19,6 +19,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/utils/formatters";
 import { useRouter } from "next/navigation";
+import { DEFAULT_BUSINESS_IMAGE } from "@/constants/images";
 
 interface BookingDetailsViewProps {
   booking: Booking;
@@ -81,13 +82,13 @@ export default function BookingDetailsView({
   onManageClick,
 }: BookingDetailsViewProps) {
   const router = useRouter();
+  const [imgError, setImgError] = useState(false);
 
-  const provider = booking.providerProfileId as unknown as Provider;
-  const businessName = provider?.businessName || "Professional";
-  const businessLogo =
-    provider?.portfolioImages?.[0]?.url ||
-    provider?.userId?.avatar ||
-    "/placeholder-business.png";
+  const provider = getProviderFromBooking(booking);
+  const businessName = getProviderName(booking);
+  const logoUrl = getProviderLogo(booking);
+  const imageSrc = imgError || !logoUrl ? DEFAULT_BUSINESS_IMAGE : logoUrl;
+  
   const address = provider?.location?.address;
   const importantInfo = provider?.bio;
   const locationInstructions = provider?.location?.directions;
@@ -144,10 +145,11 @@ export default function BookingDetailsView({
       {/* ── Hero Image ── */}
       <div className="relative h-48 w-full shrink-0">
         <Image
-          src={businessLogo}
+          src={imageSrc}
           alt={businessName}
           fill
           className="object-cover"
+          onError={() => setImgError(true)}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-5">
           <div>

@@ -50,6 +50,23 @@ export interface Booking {
   updatedAt: string;
 }
 
+export function getProviderFromBooking(booking: Booking): Provider | null {
+  if (typeof booking.providerProfileId === "object" && booking.providerProfileId !== null) {
+    return booking.providerProfileId as Provider;
+  }
+  return null;
+}
+
+export function getProviderName(booking: Booking): string {
+  const provider = getProviderFromBooking(booking);
+  return provider?.businessName || "Professional";
+}
+
+export function getProviderLogo(booking: Booking): string | null {
+  const provider = getProviderFromBooking(booking);
+  return provider?.portfolioImages?.[0]?.url || provider?.userId?.avatar || null;
+}
+
 export interface TimeSlot {
   startTime: string;
   endTime: string;

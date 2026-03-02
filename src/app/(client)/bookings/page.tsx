@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { debounce } from "lodash";
 import { bookingService } from "@/services/booking.service";
-import { Booking } from "@/types/booking.types";
+import { Booking, getProviderName, getProviderLogo } from "@/types/booking.types";
 import BookingFilters, {
   BookingStatusFilter,
 } from "@/components/features/bookings/BookingFilters";
@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { isToday, isTomorrow, isThisWeek, isPast, format } from "date-fns";
 import { ROUTES } from "@/constants/routes";
 import { formatCurrency } from "@/utils/formatters";
+import { DEFAULT_BUSINESS_IMAGE } from "@/constants/images";
 
 /**
  * Groups an array of bookings into labelled date sections.
@@ -390,24 +391,22 @@ function ManageAppointmentModalContent({
   onCancelClick: () => void;
 }) {
   const router = useRouter();
-  const provider = booking.providerProfileId as unknown as {
-    businessName?: string;
-    portfolioImages?: { url: string }[];
-  };
-  const businessName = provider?.businessName || "Professional";
-  const businessLogo =
-    provider?.portfolioImages?.[0]?.url || "/placeholder-business.png";
+  const businessName = getProviderName(booking);
+  const logoUrl = getProviderLogo(booking);
   const serviceTotal = (booking.servicePrice || 0) / 100;
+  const [imgError, setImgError] = useState(false);
+  const imageSrc = imgError || !logoUrl ? DEFAULT_BUSINESS_IMAGE : logoUrl;
 
   return (
     <div className="text-left mt-2">
       <div className="flex items-center gap-4 mb-8">
         <div className="relative h-14 w-14 rounded-2xl overflow-hidden shrink-0 border border-slate-100">
           <Image
-            src={businessLogo}
+            src={imageSrc}
             alt={businessName}
             fill
             className="object-cover"
+            onError={() => setImgError(true)}
           />
         </div>
         <div>

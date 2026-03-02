@@ -54,6 +54,30 @@ export default function PaymentsPage() {
     setPage(1);
   };
 
+  const handleExportCSV = () => {
+    if (!payments?.results?.length) return;
+
+    const headers = ["Date", "Description", "Amount", "Status", "Type"];
+    const rows = payments.results.map((payment: any) => [
+      new Date(payment.createdAt).toLocaleDateString(),
+      payment.description || "Payment",
+      `$${(payment.amount / 100).toFixed(2)}`,
+      payment.status,
+      payment.type,
+    ]);
+
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((row: string[]) => row.map(cell => `"${cell}"`).join(","))
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `peculia-payments-${new Date().toISOString().split("T")[0]}.csv`;
+    link.click();
+  };
+
   return (
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
@@ -67,7 +91,11 @@ export default function PaymentsPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-slate-100 text-xs font-black uppercase tracking-widest text-slate-500 hover:border-slate-900 transition-all">
+          <button 
+            onClick={handleExportCSV}
+            disabled={!payments?.results?.length}
+            className="flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-slate-100 text-xs font-black uppercase tracking-widest text-slate-500 hover:border-slate-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
             <Download size={16} />
             Export CSV
           </button>

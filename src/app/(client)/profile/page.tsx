@@ -28,7 +28,13 @@ import { DangerZoneTab } from "@/components/features/profile/DangerZoneTab";
 const profileSchema = z.object({
   firstName: z.string().min(2, "First name is too short"),
   lastName: z.string().min(2, "Last name is too short"),
-  phone: z.string().optional(),
+  phone: z
+    .string()
+    .optional()
+    .refine(
+      (val) => !val || /^\+?[1-9]\d{1,14}$/.test(val.replace(/[\s-]/g, "")),
+      "Invalid phone number format"
+    ),
 });
 
 type ProfileFormValues = z.infer<typeof profileSchema>;
