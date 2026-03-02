@@ -9,32 +9,35 @@ export default function RecentlyViewedSection() {
 
   if (!isLoaded || recentlyViewed.length === 0) return null;
 
-  const providers: Provider[] = recentlyViewed.map((p) => ({
-    _id: p._id,
-    userId: {
-      id: p._id,
-      firstName: p.name?.split(" ")[0] || "",
-      lastName: p.name?.split(" ").slice(1).join(" ") || "",
-      avatar: p.image,
-    },
-    businessName: p.name || "Unknown",
-    slug: p.slug || "",
-    specialties: p.category ? [p.category] : [],
-    portfolioImages: p.image
-      ? [{ url: p.image, publicId: "", caption: "" }]
-      : [],
-    isVerified: false,
-    rating: p.rating || 0,
-    totalReviews: 0,
-    totalBookings: 0,
-    subscriptionTier: "free" as const,
-    location: p.location as any, // Cast as any to avoid complex nested partial matches
-    bio: undefined,
-    yearsOfExperience: undefined,
-    startingPrice: undefined,
-    createdAt: new Date(p.viewedAt).toISOString(),
-    updatedAt: new Date(p.viewedAt).toISOString(),
-  }));
+  const providers: Provider[] = recentlyViewed
+    .filter((p) => p.isDiscoverable !== false)
+    .map((p) => ({
+      _id: p._id,
+      userId: {
+        id: p._id,
+        firstName: p.name?.split(" ")[0] || "",
+        lastName: p.name?.split(" ").slice(1).join(" ") || "",
+        avatar: p.image,
+      },
+      businessName: p.name || "Unknown",
+      slug: p.slug || "",
+      specialties: p.category ? [p.category] : [],
+      portfolioImages: p.image
+        ? [{ url: p.image, publicId: "", caption: "" }]
+        : [],
+      isVerified: false,
+      isDiscoverable: p.isDiscoverable !== false,
+      rating: p.rating || 0,
+      totalReviews: 0,
+      totalBookings: 0,
+      subscriptionTier: "free" as const,
+      location: p.location as any, // Cast as any to avoid complex nested partial matches
+      bio: undefined,
+      yearsOfExperience: undefined,
+      startingPrice: undefined,
+      createdAt: new Date(p.viewedAt).toISOString(),
+      updatedAt: new Date(p.viewedAt).toISOString(),
+    }));
 
   return (
     <ProviderCarousel

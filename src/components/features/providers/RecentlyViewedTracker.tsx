@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
-import { useRecentlyViewed, RecentlyViewedProvider } from "@/hooks/useRecentlyViewed";
+import {
+  useRecentlyViewed,
+  RecentlyViewedProvider,
+} from "@/hooks/useRecentlyViewed";
 
 interface RecentlyViewedTrackerProps {
   children: ReactNode;
@@ -12,6 +15,7 @@ interface RecentlyViewedTrackerProps {
     category?: string;
     rating?: number;
     slug?: string;
+    isDiscoverable?: boolean;
     location?: {
       city?: string;
       state?: string;
@@ -28,18 +32,21 @@ export default function RecentlyViewedTracker({
   const { addRecentlyViewed } = useRecentlyViewed();
 
   useEffect(() => {
+    if (provider.isDiscoverable === false) return;
+
     const providerData: RecentlyViewedProvider = {
       _id: provider._id,
       name: provider.name,
       image: provider.image,
       rating: provider.rating,
       slug: provider.slug,
+      isDiscoverable: provider.isDiscoverable,
       location: provider.location,
       viewedAt: Date.now(),
     };
 
     addRecentlyViewed(providerData);
-  }, [provider._id, addRecentlyViewed, provider]);
+  }, [provider._id, addRecentlyViewed, provider, provider.isDiscoverable]);
 
   return <>{children}</>;
 }

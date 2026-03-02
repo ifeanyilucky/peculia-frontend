@@ -12,6 +12,7 @@ export interface RecentlyViewedProvider {
   category?: string;
   rating?: number;
   slug?: string;
+  isDiscoverable?: boolean;
   location?: {
     city?: string;
     state?: string;

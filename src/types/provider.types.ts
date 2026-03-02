@@ -40,6 +40,7 @@ export interface Provider {
   portfolioImages: PortfolioImage[];
   yearsOfExperience?: string | number;
   isVerified: boolean;
+  isDiscoverable: boolean;
   rating: number;
   totalReviews: number;
   totalBookings: number;
