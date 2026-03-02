@@ -29,6 +29,7 @@ const UpcomingAppointments = dynamic(
 
 export default function ClientDashboardPage() {
   const { user } = useAuthStore();
+  const [mounted, setMounted] = useState(false);
   const [showWelcome, setShowWelcome] = useState(() => {
     if (typeof window !== "undefined") {
       return !localStorage.getItem("peculia_welcome_hidden");
@@ -36,12 +37,16 @@ export default function ClientDashboardPage() {
     return false;
   });
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const hideWelcome = () => {
     localStorage.setItem("peculia_welcome_hidden", "true");
     setShowWelcome(false);
   };
 
-  const { data: recentActivity, isLoading: isLoadingActivity } = useQuery({
+  const { data: recentActivity, isLoading: isLoadingActivity, isError: hasActivityError } = useQuery({
     queryKey: ["bookings", "recent", "client"],
     queryFn: () => bookingService.getMyBookings({ limit: 3 }),
   });
@@ -49,7 +54,7 @@ export default function ClientDashboardPage() {
   return (
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Welcome Banner */}
-      {showWelcome && (
+      {mounted && showWelcome && (
         <div className="relative overflow-hidden rounded-2xl bg-slate-900 p-8 lg:p-12 text-white border border-slate-200">
           <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-rose-600/20 blur-[100px]" />
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-64 w-64 rounded-full bg-blue-600/20 blur-[100px]" />
@@ -67,7 +72,7 @@ export default function ClientDashboardPage() {
               Welcome to the community
             </div>
             <h1 className="font-peculiar text-4xl lg:text-5xl font-black ">
-              Hello, <span className="capitalize">{user?.firstName}</span>! 👋
+              Hello, <span className="capitalize">{user?.firstName || 'there'}</span>!
               <br />
               <span className="text-white/60">
                 Ready for your next session?
@@ -116,7 +121,7 @@ export default function ClientDashboardPage() {
                 {
                   label: "Saved",
                   icon: Bookmark,
-                  href: "/saved",
+                  href: ROUTES.client.saved,
                   color: "bg-amber-50 text-amber-600",
                 },
               ].map((action) => (
@@ -155,6 +160,12 @@ export default function ClientDashboardPage() {
             {isLoadingActivity ? (
               <div className="flex justify-center py-10">
                 <Loader2 className="animate-spin text-rose-600" size={24} />
+              </div>
+            ) : hasActivityError ? (
+              <div className="text-center py-6">
+                <p className="text-sm font-medium text-rose-500">
+                  Failed to load activity.
+                </p>
               </div>
             ) : recentActivity?.results?.length === 0 ? (
               <div className="text-center py-6">

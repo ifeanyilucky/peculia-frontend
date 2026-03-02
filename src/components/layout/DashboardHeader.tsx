@@ -13,6 +13,7 @@ import {
   Package,
   Globe,
   ArrowRight,
+  LogOut,
 } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
 import Image from "next/image";
@@ -161,7 +162,8 @@ export default function DashboardHeader() {
                   onClick={handleLogout}
                   className="flex items-center w-full p-2 rounded-2xl text-slate-900 hover:bg-slate-50 transition-all text-[15px] font-medium"
                 >
-                  <span className="ml-[32px]">Log out</span>
+                  <LogOut size={20} className="text-slate-900" />
+                  <span className="ml-3">Log out</span>
                 </button>
               </div>
 

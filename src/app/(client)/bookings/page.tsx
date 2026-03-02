@@ -71,6 +71,7 @@ export default function MyBookingsPage() {
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isManageModalOpen, setIsManageModalOpen] = useState(false);
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
   const LIMIT = 20;
 
   const debouncedSetSearch = useMemo(
@@ -292,6 +293,24 @@ export default function MyBookingsPage() {
           <ManageAppointmentModalContent
             booking={selectedBooking}
             onClose={() => setIsManageModalOpen(false)}
+            onCancelClick={() => {
+              setIsManageModalOpen(false);
+              setIsCancelModalOpen(true);
+            }}
+          />
+        )}
+      </CenterModal>
+
+      {/* Cancel Confirmation Modal */}
+      <CenterModal
+        isOpen={isCancelModalOpen}
+        onClose={() => setIsCancelModalOpen(false)}
+        title="Cancel appointment"
+      >
+        {selectedBooking && (
+          <CancelAppointmentModalContent
+            booking={selectedBooking}
+            onClose={() => setIsCancelModalOpen(false)}
           />
         )}
       </CenterModal>
@@ -299,15 +318,76 @@ export default function MyBookingsPage() {
   );
 }
 
-// Needed to silence unused import warning — format is used indirectly by date-fns helpers
-void format;
-
-function ManageAppointmentModalContent({
+// Cancel Appointment Modal Content
+function CancelAppointmentModalContent({
   booking,
   onClose,
 }: {
   booking: Booking;
   onClose: () => void;
+}) {
+  const router = useRouter();
+  const provider = booking.providerProfileId as unknown as {
+    businessName?: string;
+  };
+  const businessName = provider?.businessName || "Professional";
+
+  const handleCancel = () => {
+    // TODO: Call API to cancel booking
+    // bookingService.cancelBooking(booking.id);
+    onClose();
+    router.refresh();
+  };
+
+  return (
+    <div className="text-left mt-2">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="h-12 w-12 rounded-full bg-rose-100 flex items-center justify-center shrink-0">
+          <CalendarX size={24} className="text-rose-600" />
+        </div>
+        <div>
+          <p className="font-bold text-slate-900">
+            Cancel your appointment?
+          </p>
+          <p className="text-sm text-slate-500 font-medium">
+            {format(new Date(booking.scheduledDate), "eee, d MMM yyyy")} at {booking.startTime}
+          </p>
+          <p className="text-sm text-slate-400">
+            with {businessName}
+          </p>
+        </div>
+      </div>
+
+      <p className="text-sm text-slate-500 mb-6">
+        Are you sure you want to cancel this appointment? This action cannot be undone.
+      </p>
+
+      <div className="flex flex-col gap-3">
+        <button
+          onClick={handleCancel}
+          className="w-full h-12 rounded-full bg-rose-600 text-sm font-black text-white hover:bg-rose-700 transition-all"
+        >
+          Yes, cancel appointment
+        </button>
+        <button
+          onClick={onClose}
+          className="w-full h-12 rounded-full border border-slate-200 bg-white text-sm font-black text-slate-900 hover:bg-slate-50 transition-all"
+        >
+          Keep appointment
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function ManageAppointmentModalContent({
+  booking,
+  onClose,
+  onCancelClick,
+}: {
+  booking: Booking;
+  onClose: () => void;
+  onCancelClick: () => void;
 }) {
   const router = useRouter();
   const provider = booking.providerProfileId as unknown as {
@@ -359,7 +439,10 @@ function ManageAppointmentModalContent({
             Reschedule appointment
           </span>
         </button>
-        <button className="w-full flex items-center gap-3 py-4 px-2 hover:bg-rose-50 rounded-xl transition-all group">
+        <button 
+          onClick={onCancelClick}
+          className="w-full flex items-center gap-3 py-4 px-2 hover:bg-rose-50 rounded-xl transition-all group"
+        >
           <CalendarX
             size={20}
             className="text-slate-400 group-hover:text-rose-500"
