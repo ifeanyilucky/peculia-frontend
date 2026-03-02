@@ -8,6 +8,8 @@ const withPWA = require("next-pwa")({
 
 const nextConfig: NextConfig = withPWA({
   /* config options here */
+  output: "standalone",
+  cleanDistDir: true,
   turbopack: {},
   images: {
     remotePatterns: [
