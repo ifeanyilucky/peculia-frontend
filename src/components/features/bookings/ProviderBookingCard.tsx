@@ -26,23 +26,27 @@ export default function ProviderBookingCard({
   const statusStyles = {
     pending_payment: "bg-amber-50 text-amber-600 border-amber-100",
     confirmed: "bg-blue-50 text-blue-600 border-blue-100",
+    rescheduled: "bg-purple-50 text-purple-600 border-purple-100",
     in_progress: "bg-slate-900 text-white border-slate-900",
     completed: "bg-green-50 text-green-600 border-green-100",
     cancelled_by_client: "bg-rose-50 text-rose-600 border-rose-100",
     cancelled_by_provider: "bg-rose-50 text-rose-600 border-rose-100",
     no_show: "bg-slate-50 text-slate-400 border-slate-100",
     expired: "bg-slate-50 text-slate-400 border-slate-100",
+    refunded: "bg-slate-50 text-slate-400 border-slate-100",
   };
 
   const statusLabels = {
     pending_payment: "Pending Payment",
     confirmed: "Confirmed",
+    rescheduled: "Rescheduled",
     in_progress: "In Progress",
     completed: "Completed",
     cancelled_by_client: "Cancelled by Client",
     cancelled_by_provider: "Cancelled by You",
     no_show: "No-Show",
     expired: "Expired",
+    refunded: "Refunded",
   };
 
   const client = typeof booking.clientId !== "string" ? booking.clientId : null;
