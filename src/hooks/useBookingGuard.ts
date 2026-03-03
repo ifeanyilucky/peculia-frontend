@@ -24,7 +24,8 @@ export function useBookingGuard(requiredStep: number) {
 
     const checkAuth = () => {
       if (!isAuthenticated) {
-        const currentPath = `/book/${slug}`;
+        // Use the full pathname including the current step (e.g., /professional, /time)
+        const currentPath = window.location.pathname;
         const redirectUrl = `${currentPath}${window.location.search}`;
         router.replace(`${ROUTES.auth.login}?redirect=${encodeURIComponent(redirectUrl)}`);
         return false;
