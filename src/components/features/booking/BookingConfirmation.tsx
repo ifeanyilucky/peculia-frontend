@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useBookingStore } from "@/store/booking.store";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
@@ -12,13 +13,17 @@ import {
   AlertCircle,
   MapPin,
   BadgeCheck,
+  Check,
 } from "lucide-react";
 import { formatCurrency } from "@/utils/formatters";
+
+const POLICY_VERSION = "1.0";
 
 export default function BookingConfirmation() {
   const router = useRouter();
   const params = useParams();
   const slug = params?.slug as string;
+  const [showPolicyDetails, setShowPolicyDetails] = useState(false);
   const {
     selectedProvider,
     selectedServices,
@@ -26,6 +31,8 @@ export default function BookingConfirmation() {
     selectedDate,
     selectedSlot,
     totalPrice,
+    policyAccepted,
+    setPolicyAccepted,
   } = useBookingStore();
 
   // Use slug from params or fallback to selectedProvider.slug
@@ -55,6 +62,8 @@ export default function BookingConfirmation() {
       </div>
     );
   }
+
+  const depositAmount = Math.round(totalPrice * 0.2); // 20% deposit
 
   return (
     <div className="w-full flex-1 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -108,6 +117,12 @@ export default function BookingConfirmation() {
               <span className="font-black text-slate-900">Total</span>
               <span className="font-black text-xl text-slate-900">
                 {formatCurrency(totalPrice / 100)}
+              </span>
+            </div>
+            <div className="pt-2 border-t border-slate-100 flex justify-between items-center">
+              <span className="text-sm font-bold text-slate-500">Deposit Required (20%)</span>
+              <span className="font-black text-lg text-emerald-600">
+                {formatCurrency(depositAmount / 100)}
               </span>
             </div>
           </div>
@@ -175,22 +190,82 @@ export default function BookingConfirmation() {
           </div>
         )}
 
-        {/* Cancellation Policy */}
+        {/* NEW Deposit Protection Policy */}
         <div className="bg-slate-900 rounded-2xl p-6 text-white">
           <div className="flex items-start gap-4">
             <div className="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
               <ShieldCheck size={20} className="text-rose-400" />
             </div>
-            <div>
+            <div className="flex-1">
               <h4 className="font-black text-sm uppercase tracking-wider">
-                Booking Policy
+                Deposit Protection Policy
               </h4>
               <p className="text-slate-400 text-sm mt-1 leading-relaxed">
-                Cancel for free up to{" "}
-                <span className="text-white font-bold">24 hours</span> before
-                your appointment. Late cancellations may incur a fee.
+                Your deposit is <span className="text-white font-bold">non-refundable</span>. 
+                You may reschedule once at least 24 hours before your appointment. 
+                Cancelling will forfeit your deposit.
               </p>
+              <button
+                type="button"
+                onClick={() => setShowPolicyDetails(!showPolicyDetails)}
+                className="text-rose-400 text-xs font-bold mt-2 hover:underline"
+              >
+                {showPolicyDetails ? "Hide details" : "View full policy"}
+              </button>
+              
+              {showPolicyDetails && (
+                <div className="mt-4 p-4 bg-white/5 rounded-xl space-y-3 text-sm">
+                  <div className="flex items-start gap-2">
+                    <Check size={16} className="text-emerald-400 mt-0.5 shrink-0" />
+                    <p className="text-slate-300">20% deposit is required to confirm booking</p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check size={16} className="text-emerald-400 mt-0.5 shrink-0" />
+                    <p className="text-slate-300">One free reschedule allowed (24h notice)</p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check size={16} className="text-emerald-400 mt-0.5 shrink-0" />
+                    <p className="text-slate-300">Rescheduling does not reset refund eligibility</p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check size={16} className="text-rose-400 mt-0.5 shrink-0" />
+                    <p className="text-slate-300">Client cancellation = deposit forfeited</p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check size={16} className="text-emerald-400 mt-0.5 shrink-0" />
+                    <p className="text-slate-300">Provider cancellation = full refund</p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check size={16} className="text-rose-400 mt-0.5 shrink-0" />
+                    <p className="text-slate-300">No-show = deposit transferred to provider</p>
+                  </div>
+                </div>
+              )}
             </div>
+          </div>
+          
+          {/* Policy Acceptance Checkbox */}
+          <div className="mt-6 pt-6 border-t border-white/10">
+            <label className="flex items-start gap-3 cursor-pointer">
+              <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all shrink-0 mt-0.5 ${
+                policyAccepted 
+                  ? "bg-rose-500 border-rose-500" 
+                  : "border-slate-500 hover:border-slate-400"
+              }`}>
+                {policyAccepted && <Check size={12} className="text-white" />}
+              </div>
+              <input
+                type="checkbox"
+                className="sr-only"
+                checked={policyAccepted}
+                onChange={(e) => setPolicyAccepted(e.target.checked)}
+              />
+              <p className="text-sm text-slate-300">
+                I accept the{" "}
+                <span className="text-white font-bold">deposit protection policy</span>{" "}
+                and understand that my deposit is non-refundable.
+              </p>
+            </label>
           </div>
         </div>
       </div>

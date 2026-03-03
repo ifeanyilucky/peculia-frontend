@@ -12,6 +12,7 @@ export interface BookingFlowState {
   selectedSlot: { startTime: string; endTime: string } | null;
   bookingNotes: string;
   lastCreatedBooking: Booking | null;
+  policyAccepted: boolean;
 
   // Derived State
   totalPrice: number;
@@ -35,11 +36,12 @@ export interface BookingFlowState {
   ) => void;
   setBookingNotes: (notes: string) => void;
   setLastCreatedBooking: (booking: Booking | null) => void;
+  setPolicyAccepted: (accepted: boolean) => void;
   resetBookingFlow: () => void;
 }
 
 export const useBookingStore = create<BookingFlowState>()(
-  persist(
+    persist(
     (set) => ({
       currentStep: 1,
       selectedProvider: null,
@@ -49,6 +51,7 @@ export const useBookingStore = create<BookingFlowState>()(
       selectedSlot: null,
       bookingNotes: "",
       lastCreatedBooking: null,
+      policyAccepted: false,
       totalPrice: 0,
       totalDuration: 0,
       _hasHydrated: false,
@@ -92,6 +95,7 @@ export const useBookingStore = create<BookingFlowState>()(
       setSelectedSlot: (slot) => set({ selectedSlot: slot }),
       setBookingNotes: (notes) => set({ bookingNotes: notes }),
       setLastCreatedBooking: (booking) => set({ lastCreatedBooking: booking }),
+      setPolicyAccepted: (accepted) => set({ policyAccepted: accepted }),
 
       resetBookingFlow: () =>
         set({
@@ -103,6 +107,7 @@ export const useBookingStore = create<BookingFlowState>()(
           selectedSlot: null,
           bookingNotes: "",
           lastCreatedBooking: null,
+          policyAccepted: false,
           totalPrice: 0,
           totalDuration: 0,
         }),

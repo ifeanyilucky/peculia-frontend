@@ -37,6 +37,7 @@ export default function BookingSummarySidebar({
     selectedDate,
     resetBookingFlow,
     setSelectedProvider,
+    policyAccepted,
   } = useBookingStore();
   const { user } = useAuthStore();
 
@@ -143,7 +144,8 @@ export default function BookingSummarySidebar({
         selectedServices.length > 0 &&
         dateIsValid &&
         !!selectedSlot &&
-        selectedProvider?._id === provider._id
+        selectedProvider?._id === provider._id &&
+        policyAccepted // Must accept policy to proceed
       );
     }
     return false;
@@ -176,6 +178,8 @@ export default function BookingSummarySidebar({
         scheduledDate: format(safeDate, "yyyy-MM-dd"),
         startTime: selectedSlot.startTime,
         endTime: selectedSlot.endTime,
+        policyAccepted: policyAccepted,
+        policyVersion: "1.0",
       });
 
       if (booking.status === "pending_payment") {
@@ -439,20 +443,27 @@ export default function BookingSummarySidebar({
             )}
 
             {currentStep === 4 ? (
-              <button
-                onClick={handleContinue}
-                disabled={isBooking || !isStepComplete() || paymentPaused}
-                className="w-full py-4 px-6 rounded-full bg-rose-600 text-white font-bold hover:bg-rose-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {isBooking ? (
-                  <>
-                    <Loader2 className="animate-spin" size={20} />
-                    Processing...
-                  </>
-                ) : (
-                  "Confirm & Pay"
+              <>
+                <button
+                  onClick={handleContinue}
+                  disabled={isBooking || !isStepComplete() || paymentPaused}
+                  className="w-full py-4 px-6 rounded-full bg-rose-600 text-white font-bold hover:bg-rose-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {isBooking ? (
+                    <>
+                      <Loader2 className="animate-spin" size={20} />
+                      Processing...
+                    </>
+                  ) : (
+                    "Confirm & Pay"
+                  )}
+                </button>
+                {!policyAccepted && selectedSlot && (
+                  <p className="text-xs text-rose-500 text-center mt-2 font-medium">
+                    Please accept the deposit protection policy to continue
+                  </p>
                 )}
-              </button>
+              </>
             ) : (
               <button
                 onClick={handleContinue}

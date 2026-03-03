@@ -11,6 +11,8 @@ export const bookingService = {
     startTime: string;
     endTime: string;
     notes?: string;
+    policyAccepted?: boolean;
+    policyVersion?: string;
   }) => {
     const response = await api.post<ApiSuccess<Booking>>("/bookings", data);
     return response.data.data;

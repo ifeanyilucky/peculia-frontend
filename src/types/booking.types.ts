@@ -3,12 +3,20 @@ import { ProviderUser, Provider } from "./provider.types";
 export type BookingStatus =
   | "pending_payment"
   | "confirmed"
+  | "rescheduled"
   | "in_progress"
   | "completed"
   | "cancelled_by_client"
   | "cancelled_by_provider"
   | "expired"
-  | "no_show";
+  | "no_show"
+  | "refunded";
+
+export type DepositStatus = 
+  | "held_in_escrow"
+  | "transferred_to_provider"
+  | "refunded_to_client"
+  | "forfeited";
 
 export interface Booking {
   id: string;
@@ -24,9 +32,9 @@ export interface Booking {
     depositAmount: number;
   }[];
   totalDuration: number;
-  servicePrice: number; // Total price
+  servicePrice: number;
   depositPercentage: number;
-  depositAmount: number; // Total deposit
+  depositAmount: number;
   commissionPercentage: number;
   commissionAmount?: number;
   proPayoutAmount?: number;
@@ -36,6 +44,11 @@ export interface Booking {
   startTime: string;
   endTime: string;
   status: BookingStatus;
+  depositStatus?: DepositStatus;
+  originalAppointmentDateTime?: string;
+  hasRescheduled?: boolean;
+  rescheduleCount?: number;
+  lastRescheduledAt?: string;
   paymentStatus: "pending" | "deposit_paid" | "completed" | "refunded";
   payoutStatus: "pending" | "paid_out";
   depositPaid: boolean;
@@ -48,6 +61,8 @@ export interface Booking {
   completedAt?: string;
   createdAt: string;
   updatedAt: string;
+  policyAcceptedAt?: string;
+  policyVersion?: string;
 }
 
 export function getProviderFromBooking(booking: Booking): Provider | null {
