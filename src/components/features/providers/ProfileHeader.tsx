@@ -124,7 +124,7 @@ export default function ProfileHeader({
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <h1 className="font-peculiar text-4xl font-black text-slate-900 md:text-5xl">
+              <h1 className="font-peculiar text-4xl font-black text-glam-plum md:text-5xl">
                 {provider.businessName}
               </h1>
               {provider.isVerified && (
@@ -134,7 +134,7 @@ export default function ProfileHeader({
 
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-bold">
               <div className="flex items-center gap-1">
-                <span className="text-slate-900">
+                <span className="text-glam-plum">
                   {provider.rating.toFixed(1)}
                 </span>
                 <div className="flex items-center text-yellow-500">
@@ -148,7 +148,7 @@ export default function ProfileHeader({
                           : "none"
                       }
                       className={
-                        i < Math.floor(provider.rating) ? "" : "text-slate-200"
+                        i < Math.floor(provider.rating) ? "" : "text-glam-blush"
                       }
                     />
                   ))}
@@ -159,22 +159,22 @@ export default function ProfileHeader({
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="h-1 w-1 rounded-full bg-slate-300" />
+                <span className="h-1 w-1 rounded-full bg-glam-blush" />
                 <span
                   className={
-                    openingStatus.isOpen ? "text-green-600" : "text-rose-600"
+                    openingStatus.isOpen ? "text-green-600" : "text-glam-plum"
                   }
                 >
                   {openingStatus.isOpen ? "Open" : "Closed"}
                 </span>
-                <span className="text-slate-500 font-medium">
+                <span className="text-muted-foreground font-medium">
                   {openingStatus.message.replace(/^(Open|Closed) - /, "— ")}
                 </span>
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="h-1 w-1 rounded-full bg-slate-300" />
-                <span className="text-slate-500 font-medium truncate max-w-[200px] sm:max-w-none">
+                <span className="h-1 w-1 rounded-full bg-glam-blush" />
+                <span className="text-muted-foreground font-medium truncate max-w-[200px] sm:max-w-none">
                   {address}
                 </span>
                 <a
@@ -193,9 +193,9 @@ export default function ProfileHeader({
           <div className="flex items-center gap-3">
             <button
               onClick={handleShare}
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 transition-all hover:bg-slate-50 active:scale-90"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-glam-blush transition-all hover:bg-slate-50 active:scale-90"
             >
-              <Share2 size={20} className="text-slate-600" />
+              <Share2 size={20} className="text-glam-charcoal" />
             </button>
             <SaveButton providerId={provider._id} size="lg" />
           </div>
@@ -252,7 +252,7 @@ export default function ProfileHeader({
                 className="object-cover transition-transform duration-700 hover:scale-105"
               />
               <button
-                className="absolute bottom-6 right-6 rounded-lg bg-white/90 px-4 py-2 text-xs font-black text-slate-900 backdrop-blur-sm transition-all hover:bg-white hover:scale-105 active:scale-95 border border-slate-200"
+                className="absolute bottom-6 right-6 rounded-lg bg-white/90 px-4 py-2 text-xs font-black text-glam-plum backdrop-blur-sm transition-all hover:bg-white hover:scale-105 active:scale-95 border border-glam-blush"
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelectedIndex(2);

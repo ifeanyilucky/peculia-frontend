@@ -75,7 +75,7 @@ export default function LoginForm() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="font-peculiar text-3xl font-bold text-slate-900">
+        <h2 className="font-peculiar text-3xl font-bold text-glam-plum">
           Login
         </h2>
         <p className="text-sm text-slate-500">
@@ -96,7 +96,7 @@ export default function LoginForm() {
             id="email"
             type="email"
             placeholder="e.g. name@example.com"
-            className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-12 w-full rounded-xl border border-glam-blush bg-white px-4 py-2 text-sm transition-all focus:border-glam-plum focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
           />
           {errors.email && (
             <p className="text-xs font-medium text-rose-500">
@@ -115,7 +115,7 @@ export default function LoginForm() {
             </label>
             <Link
               href={ROUTES.auth.forgotPassword}
-              className="text-xs font-bold text-rose-600 hover:text-rose-700 transition-colors"
+              className="text-xs font-bold text-glam-plum hover:text-rose-700 transition-colors"
             >
               Forgot password?
             </Link>
@@ -125,12 +125,12 @@ export default function LoginForm() {
               {...register("password")}
               id="password"
               type={showPassword ? "text" : "password"}
-              className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50 pr-12"
+              className="flex h-12 w-full rounded-xl border border-glam-blush bg-white px-4 py-2 text-sm transition-all focus:border-glam-plum focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50 pr-12"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-slate-600 transition-colors"
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
@@ -145,7 +145,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-bold text-white transition-all hover:bg-slate-800 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
+          className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-glam-plum px-4 py-2 text-sm font-bold text-white transition-all hover:bg-slate-800 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
         >
           {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
           {isLoading ? "Logging in..." : "Login"}
@@ -159,7 +159,7 @@ export default function LoginForm() {
           </span>
           <Link
             href={ROUTES.auth.registerClient}
-            className="text-rose-600 font-medium hover:underline"
+            className="text-glam-plum font-medium hover:underline"
           >
             Please sign up
           </Link>

@@ -96,7 +96,7 @@ export default function RegisterClientForm() {
         </p>
         <button
           onClick={() => router.push(ROUTES.auth.login)}
-          className="text-sm font-medium text-rose-600 hover:underline"
+          className="text-sm font-medium text-glam-plum hover:underline"
         >
           Go to Login now
         </button>
@@ -107,10 +107,10 @@ export default function RegisterClientForm() {
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
-        <h2 className="font-peculiar text-3xl font-bold text-slate-900">
+        <h2 className="font-peculiar text-3xl font-bold text-glam-plum">
           Create an Account
         </h2>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-muted-foreground">
           Sign up as a client to start booking beauty professionals
         </p>
       </div>
@@ -119,7 +119,7 @@ export default function RegisterClientForm() {
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <label
-              className="text-sm font-semibold text-slate-700 leading-none"
+              className="text-sm font-semibold text-glam-charcoal leading-none"
               htmlFor="firstName"
             >
               First Name
@@ -128,17 +128,17 @@ export default function RegisterClientForm() {
               {...register("firstName")}
               id="firstName"
               placeholder="e.g. John"
-              className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-12 w-full rounded-xl border border-glam-blush bg-white px-4 py-2 text-sm transition-all focus:border-glam-plum focus:outline-none focus:ring-4 focus:ring-glam-blush/50/50 disabled:cursor-not-allowed disabled:opacity-50"
             />
             {errors.firstName && (
-              <p className="text-xs font-medium text-rose-500">
+              <p className="text-xs font-medium text-glam-plum">
                 {errors.firstName.message}
               </p>
             )}
           </div>
           <div className="space-y-2">
             <label
-              className="text-sm font-semibold text-slate-700 leading-none"
+              className="text-sm font-semibold text-glam-charcoal leading-none"
               htmlFor="lastName"
             >
               Last Name
@@ -147,10 +147,10 @@ export default function RegisterClientForm() {
               {...register("lastName")}
               id="lastName"
               placeholder="e.g. Doe"
-              className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-12 w-full rounded-xl border border-glam-blush bg-white px-4 py-2 text-sm transition-all focus:border-glam-plum focus:outline-none focus:ring-4 focus:ring-glam-blush/50/50 disabled:cursor-not-allowed disabled:opacity-50"
             />
             {errors.lastName && (
-              <p className="text-xs font-medium text-rose-500">
+              <p className="text-xs font-medium text-glam-plum">
                 {errors.lastName.message}
               </p>
             )}
@@ -159,7 +159,7 @@ export default function RegisterClientForm() {
 
         <div className="space-y-2">
           <label
-            className="text-sm font-semibold text-slate-700 leading-none"
+            className="text-sm font-semibold text-glam-charcoal leading-none"
             htmlFor="email"
           >
             Email Address
@@ -169,10 +169,10 @@ export default function RegisterClientForm() {
             id="email"
             type="email"
             placeholder="e.g. john@example.com"
-            className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-12 w-full rounded-xl border border-glam-blush bg-white px-4 py-2 text-sm transition-all focus:border-glam-plum focus:outline-none focus:ring-4 focus:ring-glam-blush/50/50 disabled:cursor-not-allowed disabled:opacity-50"
           />
           {errors.email && (
-            <p className="text-xs font-medium text-rose-500">
+            <p className="text-xs font-medium text-glam-plum">
               {errors.email.message}
             </p>
           )}
@@ -180,7 +180,7 @@ export default function RegisterClientForm() {
 
         <div className="space-y-2">
           <label
-            className="text-sm font-semibold text-slate-700 leading-none"
+            className="text-sm font-semibold text-glam-charcoal leading-none"
             htmlFor="password"
           >
             Password
@@ -189,11 +189,11 @@ export default function RegisterClientForm() {
             {...register("password")}
             id="password"
             type="password"
-            className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-12 w-full rounded-xl border border-glam-blush bg-white px-4 py-2 text-sm transition-all focus:border-glam-plum focus:outline-none focus:ring-4 focus:ring-glam-blush/50/50 disabled:cursor-not-allowed disabled:opacity-50"
           />
           <PasswordStrengthMeter password={password} />
           {errors.password && (
-            <p className="text-xs font-medium text-rose-500">
+            <p className="text-xs font-medium text-glam-plum">
               {errors.password.message}
             </p>
           )}
@@ -201,7 +201,7 @@ export default function RegisterClientForm() {
 
         <div className="space-y-2">
           <label
-            className="text-sm font-semibold text-slate-700 leading-none"
+            className="text-sm font-semibold text-glam-charcoal leading-none"
             htmlFor="confirmPassword"
           >
             Confirm Password
@@ -210,10 +210,10 @@ export default function RegisterClientForm() {
             {...register("confirmPassword")}
             id="confirmPassword"
             type="password"
-            className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm transition-all focus:border-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-12 w-full rounded-xl border border-glam-blush bg-white px-4 py-2 text-sm transition-all focus:border-glam-plum focus:outline-none focus:ring-4 focus:ring-glam-blush/50/50 disabled:cursor-not-allowed disabled:opacity-50"
           />
           {errors.confirmPassword && (
-            <p className="text-xs font-medium text-rose-500">
+            <p className="text-xs font-medium text-glam-plum">
               {errors.confirmPassword.message}
             </p>
           )}
@@ -224,21 +224,21 @@ export default function RegisterClientForm() {
             type="checkbox"
             id="terms"
             {...register("terms")}
-            className="h-4 w-4 rounded border-gray-300 text-rose-600 focus:ring-rose-600"
+            className="h-4 w-4 rounded border-gray-300 text-glam-plum focus:ring-glam-plum"
           />
           <label htmlFor="terms" className="text-xs text-muted-foreground">
             I agree to the{" "}
-            <Link href="/terms" className="text-rose-600 hover:underline">
+            <Link href="/terms" className="text-glam-plum hover:underline">
               Terms of Service
             </Link>{" "}
             and{" "}
-            <Link href="/privacy" className="text-rose-600 hover:underline">
+            <Link href="/privacy" className="text-glam-plum hover:underline">
               Privacy Policy
             </Link>
           </label>
         </div>
         {errors.terms && (
-          <p className="text-xs font-medium text-rose-500">
+          <p className="text-xs font-medium text-glam-plum">
             {errors.terms.message}
           </p>
         )}
@@ -246,7 +246,7 @@ export default function RegisterClientForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-bold text-white transition-all hover:bg-slate-800 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
+          className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-glam-plum px-4 py-2 text-sm font-bold text-white transition-all hover:bg-slate-800 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
         >
           {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
           {isLoading ? "Creating account..." : "Sign Up"}
@@ -257,7 +257,7 @@ export default function RegisterClientForm() {
         Already have an account?{" "}
         <Link
           href={ROUTES.auth.login}
-          className="font-medium text-rose-600 hover:underline"
+          className="font-medium text-glam-plum hover:underline"
         >
           Login
         </Link>
