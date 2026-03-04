@@ -133,13 +133,13 @@ export default function ServiceFormModal({
             <h3 className="font-peculiar text-2xl font-black text-glam-plum">
               {isEditing ? "Edit Service" : "Add New Service"}
             </h3>
-            <p className="text-xs font-medium text-slate-400 mt-1 uppercase tracking-widest">
+            <p className="text-xs font-medium text-muted-foreground mt-1 uppercase tracking-widest">
               Service Details & Pricing
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-white transition-all text-slate-400 hover:text-glam-plum"
+            className="p-2 rounded-full hover:bg-white transition-all text-muted-foreground hover:text-glam-plum"
           >
             <X size={20} />
           </button>
@@ -158,7 +158,7 @@ export default function ServiceFormModal({
             </div>
             <div className="grid gap-4">
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground pl-1">
                   Service Name
                 </label>
                 <input
@@ -167,14 +167,14 @@ export default function ServiceFormModal({
                   className="w-full h-12 bg-glam-blush/50 border border-glam-blush rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-glam-plum transition-all outline-none"
                 />
                 {errors.name && (
-                  <p className="text-[10px] font-bold text-rose-500 pl-1">
+                  <p className="text-[10px] font-bold text-glam-plum pl-1">
                     {errors.name.message}
                   </p>
                 )}
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground pl-1">
                   Category
                 </label>
                 <select
@@ -189,7 +189,7 @@ export default function ServiceFormModal({
                   ))}
                 </select>
                 {errors.category && (
-                  <p className="text-[10px] font-bold text-rose-500 pl-1">
+                  <p className="text-[10px] font-bold text-glam-plum pl-1">
                     {errors.category.message}
                   </p>
                 )}
@@ -205,7 +205,7 @@ export default function ServiceFormModal({
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground pl-1">
                   Price (₦)
                 </label>
                 <input
@@ -215,13 +215,13 @@ export default function ServiceFormModal({
                   className="w-full h-12 bg-glam-blush/50 border border-glam-blush rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-glam-plum transition-all outline-none"
                 />
                 {errors.price && (
-                  <p className="text-[10px] font-bold text-rose-500 pl-1">
+                  <p className="text-[10px] font-bold text-glam-plum pl-1">
                     {errors.price.message}
                   </p>
                 )}
               </div>
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">
+                <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground pl-1">
                   Duration (Mins)
                 </label>
                 <input
@@ -231,7 +231,7 @@ export default function ServiceFormModal({
                   className="w-full h-12 bg-glam-blush/50 border border-glam-blush rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-glam-plum transition-all outline-none"
                 />
                 {errors.duration && (
-                  <p className="text-[10px] font-bold text-rose-500 pl-1">
+                  <p className="text-[10px] font-bold text-glam-plum pl-1">
                     {errors.duration.message}
                   </p>
                 )}
@@ -239,7 +239,7 @@ export default function ServiceFormModal({
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 pl-1">
+              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground pl-1">
                 Deposit Required (₦)
               </label>
               <input
@@ -248,11 +248,11 @@ export default function ServiceFormModal({
                 placeholder="0.00"
                 className="w-full h-12 bg-glam-blush/50 border border-glam-blush rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-glam-plum transition-all outline-none"
               />
-              <p className="text-[10px] font-medium text-slate-400 pl-1">
+              <p className="text-[10px] font-medium text-muted-foreground pl-1">
                 Clients must pay this amount to secure booking.
               </p>
               {errors.depositAmount && (
-                <p className="text-[10px] font-bold text-rose-500 pl-1">
+                <p className="text-[10px] font-bold text-glam-plum pl-1">
                   {errors.depositAmount.message}
                 </p>
               )}
@@ -281,7 +281,7 @@ export default function ServiceFormModal({
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 h-14 rounded-2xl border border-glam-blush bg-white text-sm font-black uppercase tracking-widest text-slate-400 hover:text-glam-plum transition-all hover:border-slate-300"
+            className="flex-1 h-14 rounded-2xl border border-glam-blush bg-white text-sm font-black uppercase tracking-widest text-muted-foreground hover:text-glam-plum transition-all hover:border-slate-300"
           >
             Cancel
           </button>

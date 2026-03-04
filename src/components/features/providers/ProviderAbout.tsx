@@ -19,12 +19,12 @@ export default function ProviderAbout({ provider }: ProviderAboutProps) {
       </section>
 
       {/* <section className="grid gap-6 sm:grid-cols-2">
-        <div className="flex items-start gap-4 rounded-2xl border border-glam-blush p-6 bg-slate-50/50">
+        <div className="flex items-start gap-4 rounded-2xl border border-glam-blush p-6 bg-glam-blush/50/50">
           <div className="rounded-xl bg-white p-3 text-glam-plum border border-glam-blush">
             <Briefcase size={24} />
           </div>
           <div>
-            <p className="text-sm font-medium text-slate-500 uppercase tracking-wider">
+            <p className="text-sm font-medium text-glam-blush/500 uppercase tracking-wider">
               Experience
             </p>
             <p className="text-lg font-bold text-glam-plum">
@@ -33,12 +33,12 @@ export default function ProviderAbout({ provider }: ProviderAboutProps) {
           </div>
         </div>
 
-        <div className="flex items-start gap-4 rounded-2xl border border-glam-blush p-6 bg-slate-50/50">
+        <div className="flex items-start gap-4 rounded-2xl border border-glam-blush p-6 bg-glam-blush/50/50">
           <div className="rounded-xl bg-white p-3 text-glam-plum border border-glam-blush">
             <Award size={24} />
           </div>
           <div>
-            <p className="text-sm font-medium text-slate-500 uppercase tracking-wider">
+            <p className="text-sm font-medium text-glam-blush/500 uppercase tracking-wider">
               Satisfaction
             </p>
             <p className="text-lg font-bold text-glam-plum">

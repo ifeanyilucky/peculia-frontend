@@ -78,7 +78,7 @@ export default function DiscoveryMap({ providers }: DiscoveryMapProps) {
           </div>
           <h3 className="text-lg font-bold text-glam-plum mb-2">Google Maps API Key Missing</h3>
           <p className="text-sm text-glam-blush/500 font-medium">
-            Please add <code className="bg-slate-100 px-1 rounded">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> to your <code className="bg-slate-100 px-1 rounded">.env.local</code> file to enable the real map.
+            Please add <code className="bg-glam-blush/50 px-1 rounded">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> to your <code className="bg-glam-blush/50 px-1 rounded">.env.local</code> file to enable the real map.
           </p>
         </div>
       </div>

@@ -67,7 +67,7 @@ export default function ProviderServices({
               className={`whitespace-nowrap rounded-full px-6 py-2 text-sm font-bold transition-all ${
                 activeCategory === category
                   ? "bg-glam-plum text-white"
-                  : "bg-transparent text-glam-charcoal hover:bg-slate-100 border border-glam-blush"
+                  : "bg-transparent text-glam-charcoal hover:bg-glam-blush/50 border border-glam-blush"
               }`}
             >
               {category}
@@ -89,13 +89,13 @@ export default function ProviderServices({
             {filteredServices.map((service) => (
               <div
                 key={service.id}
-                className="flex items-center justify-between rounded-2xl border border-glam-blush bg-white p-6 transition-all hover:border-slate-300"
+                className="flex items-center justify-between rounded-2xl border border-glam-blush bg-white p-6 transition-all hover:border-glam-blush"
               >
                 <div className="space-y-2">
                   <h4 className="font-peculiar text-xl font-bold text-glam-plum">
                     {service.name}
                   </h4>
-                  <div className="flex items-center gap-3 text-sm font-medium text-slate-400">
+                  <div className="flex items-center gap-3 text-sm font-medium text-muted-foreground">
                     <span>{service.duration} mins</span>
                   </div>
                   <div className="flex items-center gap-2">

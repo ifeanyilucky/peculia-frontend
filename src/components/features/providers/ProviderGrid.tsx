@@ -80,7 +80,7 @@ export default function ProviderGrid({
         {[...Array(6)].map((_, i) => (
           <div
             key={i}
-            className="h-[400px] animate-pulse rounded-2xl bg-slate-100"
+            className="h-[400px] animate-pulse rounded-2xl bg-glam-blush/50"
           />
         ))}
       </div>

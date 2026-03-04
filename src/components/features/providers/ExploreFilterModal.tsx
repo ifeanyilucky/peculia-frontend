@@ -81,13 +81,13 @@ export default function ExploreFilterModal({
         <div className="pt-6 flex items-center gap-4 border-t border-glam-blush mt-8">
           <button
             onClick={handleClearAll}
-            className="flex-1 py-4 text-sm font-black text-glam-plum hover:bg-slate-50 rounded-2xl transition-all border border-glam-blush"
+            className="flex-1 py-4 text-sm font-black text-glam-plum hover:bg-glam-blush/50 rounded-2xl transition-all border border-glam-blush"
           >
             Clear all
           </button>
           <button
             onClick={() => onApply({ sortBy, price })}
-            className="flex-[2] py-4 bg-glam-plum text-white text-sm font-black rounded-2xl hover:bg-slate-800 transition-all shadow-lg active:scale-95"
+            className="flex-[2] py-4 bg-glam-plum text-white text-sm font-black rounded-2xl hover:bg-glam-plum/90 transition-all shadow-lg active:scale-95"
           >
             Apply
           </button>

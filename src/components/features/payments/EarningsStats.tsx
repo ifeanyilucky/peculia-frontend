@@ -58,7 +58,7 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
       </div>
 
       {/* Pending Earnings */}
-      <div className="p-8 rounded-2xl bg-white border border-slate-100 flex flex-col justify-between">
+      <div className="p-8 rounded-2xl bg-white border border-glam-blush flex flex-col justify-between">
         <div className="flex items-center justify-between">
           <div className="h-12 w-12 rounded-2xl bg-amber-50 flex items-center justify-center">
             <Clock className="text-amber-600" size={24} />
@@ -69,22 +69,22 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
         </div>
 
         <div className="mt-8 space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+          <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             Escrow Balance
           </p>
           <p className="font-peculiar text-4xl font-black text-glam-plum">
             ₦{(data.pendingBalance / 100).toLocaleString()}
           </p>
-          <p className="text-xs font-medium text-slate-400 mt-2">
+          <p className="text-xs font-medium text-muted-foreground mt-2">
             Cleared within 48h of completion.
           </p>
         </div>
       </div>
 
       {/* Month Summary */}
-      <div className="p-8 rounded-2xl bg-white border border-slate-100 flex flex-col justify-between">
+      <div className="p-8 rounded-2xl bg-white border border-glam-blush flex flex-col justify-between">
         <div className="flex items-center justify-between">
-          <div className="h-12 w-12 rounded-2xl bg-rose-50 flex items-center justify-center">
+          <div className="h-12 w-12 rounded-2xl bg-glam-blush flex items-center justify-center">
             <TrendingUp className="text-glam-plum" size={24} />
           </div>
           <div
@@ -92,7 +92,7 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
               "flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
               data.growth >= 0
                 ? "bg-green-50 text-green-600"
-                : "bg-rose-50 text-glam-plum",
+                : "bg-glam-blush text-glam-plum",
             )}
           >
             {data.growth >= 0 ? (
@@ -105,7 +105,7 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
         </div>
 
         <div className="mt-8 space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+          <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             Total This Month
           </p>
           <p className="font-peculiar text-4xl font-black text-glam-plum">
