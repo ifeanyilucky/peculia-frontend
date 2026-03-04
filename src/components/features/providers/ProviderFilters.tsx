@@ -42,17 +42,17 @@ export default function ProviderFilters({
     <aside
       className={cn(
         "space-y-8 sticky top-24",
-        !plain && "bg-white p-6 rounded-2xl border border-slate-100",
+        !plain && "bg-white p-6 rounded-2xl border border-glam-blush",
       )}
     >
       {showTitle && (
         <div className="flex items-center justify-between">
-          <h3 className="font-peculiar text-xl font-bold text-slate-900">
+          <h3 className="font-peculiar text-xl font-bold text-glam-plum">
             Filters
           </h3>
           <button
             onClick={clearAll}
-            className="text-xs font-medium text-rose-600 hover:underline"
+            className="text-xs font-medium text-glam-plum hover:underline"
           >
             Clear All
           </button>
@@ -61,10 +61,10 @@ export default function ProviderFilters({
 
       {/* Specialty */}
       <div className="space-y-4">
-        <p className="text-sm font-bold text-slate-900">Specialty</p>
+        <p className="text-sm font-bold text-glam-plum">Specialty</p>
         <div className="flex flex-col gap-2">
           {isLoading ? (
-            <p className="text-sm text-slate-500">Loading specialties...</p>
+            <p className="text-sm text-muted-foreground">Loading specialties...</p>
           ) : (
             specialties.map((spec) => (
               <label
@@ -76,9 +76,9 @@ export default function ProviderFilters({
                   name="specialty"
                   checked={currentSpecialty === spec.id}
                   onChange={() => updateFilter("specialty", spec.id)}
-                  className="h-4 w-4 rounded-full border-slate-300 text-rose-600 focus:ring-rose-600"
+                  className="h-4 w-4 rounded-full border-glam-blush text-glam-plum focus:ring-glam-plum"
                 />
-                <span className="text-sm text-slate-600 group-hover:text-slate-900">
+                <span className="text-sm text-slate-600 group-hover:text-glam-plum">
                   {spec.label}
                 </span>
               </label>
@@ -89,7 +89,7 @@ export default function ProviderFilters({
 
       {/* City */}
       <div className="space-y-4">
-        <p className="text-sm font-bold text-slate-900">City</p>
+        <p className="text-sm font-bold text-glam-plum">City</p>
         <input
           type="text"
           placeholder="e.g. Lagos"
@@ -101,7 +101,7 @@ export default function ProviderFilters({
 
       {/* Minimum Rating */}
       <div className="space-y-4">
-        <p className="text-sm font-bold text-slate-900">Minimum Rating</p>
+        <p className="text-sm font-bold text-glam-plum">Minimum Rating</p>
         <div className="flex gap-2">
           {[4, 3, 2, 1].map((rating) => (
             <button
@@ -115,8 +115,8 @@ export default function ProviderFilters({
               className={cn(
                 "flex flex-1 items-center justify-center gap-1 rounded-lg border py-2 text-xs font-bold transition-all",
                 currentMinRating === String(rating)
-                  ? "border-rose-600 bg-rose-600 text-white"
-                  : "border-slate-100 text-slate-600 hover:border-rose-200",
+                  ? "border-glam-plum bg-glam-plum text-white"
+                  : "border-glam-blush text-slate-600 hover:border-rose-200",
               )}
             >
               {rating}+{" "}
@@ -133,12 +133,12 @@ export default function ProviderFilters({
 
       {/* Verified Only */}
       <div className="flex items-center justify-between">
-        <p className="text-sm font-bold text-slate-900">Verified Only</p>
+        <p className="text-sm font-bold text-glam-plum">Verified Only</p>
         <button
           onClick={() => updateFilter("isVerified", !currentVerified)}
           className={cn(
             "relative h-6 w-11 rounded-full transition-colors",
-            currentVerified ? "bg-rose-600" : "bg-slate-200",
+            currentVerified ? "bg-glam-plum" : "bg-slate-200",
           )}
         >
           <div
@@ -152,7 +152,7 @@ export default function ProviderFilters({
 
       {/* Sort By */}
       <div className="space-y-4">
-        <p className="text-sm font-bold text-slate-900">Sort By</p>
+        <p className="text-sm font-bold text-glam-plum">Sort By</p>
         <select
           value={currentSort}
           onChange={(e) => updateFilter("sort", e.target.value)}

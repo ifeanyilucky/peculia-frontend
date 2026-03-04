@@ -19,12 +19,12 @@ interface BreadcrumbsProps {
 export default function Breadcrumbs({
   items,
   className,
-  separator = <span className="text-slate-300">/</span>,
+  separator = <span className="text-glam-blush">/</span>,
   mobileTruncateLength = 18,
 }: BreadcrumbsProps) {
   return (
     <nav className={cn("overflow-x-auto no-scrollbar", className)}>
-      <ol className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-medium text-slate-500 whitespace-nowrap min-w-max py-1">
+      <ol className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-medium text-muted-foreground whitespace-nowrap min-w-max py-1">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           const displayLabelMobile = truncate(item.label, {
@@ -37,7 +37,7 @@ export default function Breadcrumbs({
               <li
                 className={cn(
                   "transition-colors",
-                  isLast ? "text-slate-900 font-bold" : "hover:text-rose-600",
+                  isLast ? "text-glam-plum font-bold" : "hover:text-glam-plum",
                   !isHome && "capitalize",
                 )}
                 title={item.label}
@@ -45,7 +45,7 @@ export default function Breadcrumbs({
                 {item.href && !isLast ? (
                   <Link
                     href={item.href}
-                    className="outline-none focus-visible:ring-2 focus-visible:ring-rose-500 rounded-sm"
+                    className="outline-none focus-visible:ring-2 focus-visible:ring-glam-plum rounded-sm"
                   >
                     <span className="sm:hidden">{displayLabelMobile}</span>
                     <span className="hidden sm:inline">{item.label}</span>

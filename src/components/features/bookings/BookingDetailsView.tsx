@@ -53,22 +53,22 @@ const STATUS_CONFIG: Record<
   },
   cancelled_by_client: {
     label: "Cancelled",
-    color: "bg-rose-500 text-white",
+    color: "bg-glam-plum text-white",
     icon: XCircle,
   },
   cancelled_by_provider: {
     label: "Cancelled by Provider",
-    color: "bg-rose-500 text-white",
+    color: "bg-glam-plum text-white",
     icon: Ban,
   },
   no_show: {
     label: "No Show",
-    color: "bg-slate-400 text-white",
+    color: "bg-muted-foreground text-white",
     icon: AlertCircle,
   },
   expired: {
     label: "Expired",
-    color: "bg-slate-400 text-white",
+    color: "bg-muted-foreground text-white",
     icon: Clock,
   },
 };
@@ -95,7 +95,7 @@ export default function BookingDetailsView({
 
   const statusCfg = STATUS_CONFIG[booking.status] ?? {
     label: booking.status.replace(/_/g, " "),
-    color: "bg-slate-500 text-white",
+    color: "bg-glam-blush/500 text-white",
     icon: CheckCircle2,
   };
 
@@ -168,11 +168,11 @@ export default function BookingDetailsView({
         {/* Status + Date */}
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1.5">
-            <h2 className="text-lg font-peculiar font-bold text-slate-900 leading-tight">
+            <h2 className="text-lg font-peculiar font-bold text-glam-plum leading-tight">
               {format(new Date(booking.scheduledDate), "eee, d MMM yyyy")} at{" "}
               {booking.startTime}
             </h2>
-            <p className="text-slate-400 font-medium text-sm">
+            <p className="text-muted-foreground font-medium text-sm">
               {booking.totalDuration} min · {booking.services.length}{" "}
               {booking.services.length === 1 ? "service" : "services"}
             </p>
@@ -190,7 +190,7 @@ export default function BookingDetailsView({
 
         {/* Pay deposit CTA — only for pending_payment */}
         {booking.status === "pending_payment" && depositAmount > 0 && (
-          <button className="w-full py-3.5 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-rose-600 transition-all active:scale-[0.98] shadow-md">
+          <button className="w-full py-3.5 bg-glam-plum text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-glam-plum transition-all active:scale-[0.98] shadow-md">
             Pay Deposit · {formatCurrency(depositAmount)}
           </button>
         )}
@@ -231,25 +231,25 @@ export default function BookingDetailsView({
         </div>
 
         {/* ── Services ── */}
-        <section className="space-y-3 pt-4 border-t border-slate-100">
-          <h3 className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+        <section className="space-y-3 pt-4 border-t border-glam-blush">
+          <h3 className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
             Services
           </h3>
           <div className="space-y-2.5">
             {booking.services.map((service, idx) => (
               <div
                 key={idx}
-                className="flex justify-between items-center gap-3 p-3 bg-slate-50 rounded-xl"
+                className="flex justify-between items-center gap-3 p-3 bg-glam-blush/50 rounded-xl"
               >
                 <div>
-                  <p className="text-sm font-bold text-slate-900">
+                  <p className="text-sm font-bold text-glam-plum">
                     {service.name}
                   </p>
-                  <p className="text-[11px] text-slate-400 font-medium mt-0.5">
+                  <p className="text-[11px] text-muted-foreground font-medium mt-0.5">
                     {service.duration} min
                   </p>
                 </div>
-                <p className="text-sm font-black text-slate-900 shrink-0">
+                <p className="text-sm font-black text-glam-plum shrink-0">
                   {formatCurrency(service.price / 100)}
                 </p>
               </div>
@@ -258,14 +258,14 @@ export default function BookingDetailsView({
         </section>
 
         {/* ── Pricing Summary ── */}
-        <section className="space-y-3 pt-4 border-t border-slate-100">
-          <h3 className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+        <section className="space-y-3 pt-4 border-t border-glam-blush">
+          <h3 className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
             Payment
           </h3>
           <div className="space-y-2.5">
-            <div className="flex justify-between text-sm text-slate-500 font-medium">
+            <div className="flex justify-between text-sm text-glam-blush/500 font-medium">
               <span>Total</span>
-              <span className="text-slate-900 font-bold">
+              <span className="text-glam-plum font-bold">
                 {formatCurrency(serviceTotal)}
               </span>
             </div>
@@ -277,15 +277,15 @@ export default function BookingDetailsView({
                     − {formatCurrency(depositAmount)}
                   </span>
                 </div>
-                <div className="flex justify-between items-center pt-2 border-t border-slate-100">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                <div className="flex justify-between items-center pt-2 border-t border-glam-blush">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                     Due at appointment
                   </span>
-                  <span className="text-xl font-peculiar font-black text-slate-900">
+                  <span className="text-xl font-peculiar font-black text-glam-plum">
                     {formatCurrency(remainingBalance)}
                   </span>
                 </div>
-                <p className="text-[10px] text-slate-400 font-medium italic">
+                <p className="text-[10px] text-muted-foreground font-medium italic">
                   Payable directly to the professional on the day.
                 </p>
               </>
@@ -294,11 +294,11 @@ export default function BookingDetailsView({
         </section>
 
         {/* ── Map / Getting There ── */}
-        <section className="space-y-3 pt-4 border-t border-slate-100">
-          <h3 className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+        <section className="space-y-3 pt-4 border-t border-glam-blush">
+          <h3 className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
             Getting there
           </h3>
-          <div className="relative h-44 w-full rounded-2xl overflow-hidden border border-slate-100 group">
+          <div className="relative h-44 w-full rounded-2xl overflow-hidden border border-glam-blush group">
             {address ? (
               <iframe
                 width="100%"
@@ -312,25 +312,25 @@ export default function BookingDetailsView({
                 title="Venue Location Map"
               />
             ) : (
-              <div className="h-full w-full bg-slate-50 flex flex-col items-center justify-center gap-2">
+              <div className="h-full w-full bg-glam-blush/50 flex flex-col items-center justify-center gap-2">
                 <MapPin size={20} className="text-slate-300" />
-                <p className="text-xs text-slate-400 font-medium">
+                <p className="text-xs text-muted-foreground font-medium">
                   Address not available
                 </p>
               </div>
             )}
             <button
               onClick={handleGetDirections}
-              className="absolute bottom-3 right-3 bg-white px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 hover:scale-105 transition-transform border border-slate-100"
+              className="absolute bottom-3 right-3 bg-white px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 hover:scale-105 transition-transform border border-glam-blush"
             >
-              <MapPin size={12} className="text-rose-500" />
-              <span className="text-xs font-bold text-slate-900">
+              <MapPin size={12} className="text-glam-plum" />
+              <span className="text-xs font-bold text-glam-plum">
                 Open in Maps
               </span>
             </button>
           </div>
           {locationInstructions && (
-            <p className="text-xs text-slate-500 leading-relaxed font-medium bg-slate-50 p-3 rounded-xl">
+            <p className="text-xs text-glam-blush/500 leading-relaxed font-medium bg-glam-blush/50 p-3 rounded-xl">
               <span className="font-bold text-slate-800 block mb-1">
                 Directions
               </span>
@@ -341,11 +341,11 @@ export default function BookingDetailsView({
 
         {/* ── Important Info ── */}
         {importantInfo && (
-          <section className="space-y-2 pt-4 border-t border-slate-100">
-            <h3 className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+          <section className="space-y-2 pt-4 border-t border-glam-blush">
+            <h3 className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
               Important info
             </h3>
-            <p className="text-xs text-slate-500 leading-relaxed font-medium bg-slate-50 p-3 rounded-xl whitespace-pre-line border border-slate-100">
+            <p className="text-xs text-glam-blush/500 leading-relaxed font-medium bg-glam-blush/50 p-3 rounded-xl whitespace-pre-line border border-glam-blush">
               {importantInfo}
             </p>
           </section>
@@ -374,16 +374,16 @@ function ActionItem({
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center justify-between p-3.5 bg-white hover:bg-slate-50 rounded-xl transition-all group"
+      className="w-full flex items-center justify-between p-3.5 bg-white hover:bg-glam-blush/50 rounded-xl transition-all group"
     >
       <div className="flex items-center gap-3.5">
-        <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-slate-100 text-slate-600 group-hover:bg-rose-600 group-hover:text-white transition-all">
+        <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-glam-blush text-slate-600 group-hover:bg-glam-plum group-hover:text-white transition-all">
           <Icon size={16} />
         </div>
         <div className="text-left">
-          <p className="text-sm font-bold text-slate-900">{label}</p>
+          <p className="text-sm font-bold text-glam-plum">{label}</p>
           {description && (
-            <p className="text-[11px] text-slate-400 font-medium truncate max-w-[190px]">
+            <p className="text-[11px] text-muted-foreground font-medium truncate max-w-[190px]">
               {description}
             </p>
           )}

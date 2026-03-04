@@ -43,8 +43,8 @@ export default function ProviderServices({
 
   if (services.length === 0) {
     return (
-      <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200">
-        <p className="text-slate-500">No services listed yet.</p>
+      <div className="p-8 text-center bg-glam-blush/50 rounded-2xl border border-glam-blush">
+        <p className="text-glam-blush/500">No services listed yet.</p>
       </div>
     );
   }
@@ -52,7 +52,7 @@ export default function ProviderServices({
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
-        <h3 className="font-peculiar text-3xl font-black text-slate-900">
+        <h3 className="font-peculiar text-3xl font-black text-glam-plum">
           Services
         </h3>
       </div>
@@ -66,8 +66,8 @@ export default function ProviderServices({
               onClick={() => setActiveCategory(category)}
               className={`whitespace-nowrap rounded-full px-6 py-2 text-sm font-bold transition-all ${
                 activeCategory === category
-                  ? "bg-slate-900 text-white"
-                  : "bg-transparent text-slate-600 hover:bg-slate-100 border border-slate-200"
+                  ? "bg-glam-plum text-white"
+                  : "bg-transparent text-glam-charcoal hover:bg-slate-100 border border-glam-blush"
               }`}
             >
               {category}
@@ -89,17 +89,17 @@ export default function ProviderServices({
             {filteredServices.map((service) => (
               <div
                 key={service.id}
-                className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:border-slate-300"
+                className="flex items-center justify-between rounded-2xl border border-glam-blush bg-white p-6 transition-all hover:border-slate-300"
               >
                 <div className="space-y-2">
-                  <h4 className="font-peculiar text-xl font-bold text-slate-900">
+                  <h4 className="font-peculiar text-xl font-bold text-glam-plum">
                     {service.name}
                   </h4>
                   <div className="flex items-center gap-3 text-sm font-medium text-slate-400">
                     <span>{service.duration} mins</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <p className="text-lg font-black text-slate-900">
+                    <p className="text-lg font-black text-glam-plum">
                       {formatCurrency(service.price / 100)}
                     </p>
                   </div>
@@ -110,7 +110,7 @@ export default function ProviderServices({
                     addService(service);
                     router.push(`/book/${providerId}/services`);
                   }}
-                  className="rounded-full border border-slate-200 bg-white px-8 py-2 text-sm font-black text-slate-900 transition-all hover:bg-slate-900 hover:text-white hover:border-slate-900 active:scale-95"
+                  className="rounded-full border border-glam-blush bg-white px-8 py-2 text-sm font-black text-glam-plum transition-all hover:bg-glam-plum hover:text-white hover:border-glam-plum active:scale-95"
                 >
                   Book
                 </button>
@@ -120,7 +120,7 @@ export default function ProviderServices({
         </AnimatePresence>
       </div>
 
-      <button className="rounded-full border border-slate-200 px-6 py-2.5 text-sm font-black text-slate-900 transition-all hover:bg-slate-50">
+      <button className="rounded-full border border-glam-blush px-6 py-2.5 text-sm font-black text-glam-plum transition-all hover:bg-glam-blush/50">
         See all
       </button>
     </div>

@@ -70,15 +70,15 @@ export default function ProviderCarousel({
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <h2 className="font-peculiar text-4xl font-bold text-slate-900">
+            <h2 className="font-peculiar text-4xl font-bold text-glam-plum">
               {title}
             </h2>
             {description && (
-              <p className="mt-4 text-lg text-slate-600">{description}</p>
+              <p className="mt-4 text-lg text-glam-charcoal">{description}</p>
             )}
           </div>
           {href && hrefLabel && (
-            <a href={href} className="font-bold text-rose-600 hover:underline">
+            <a href={href} className="font-bold text-glam-plum hover:underline">
               {hrefLabel} →
             </a>
           )}
@@ -93,10 +93,10 @@ export default function ProviderCarousel({
                 exit={{ opacity: 0, x: 10 }}
                 transition={{ duration: 0.2 }}
                 onClick={() => scroll("left")}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 bg-white border border-slate-200 rounded-full p-3 hover:bg-slate-50 hover:scale-110 active:scale-95 transition-all duration-200 hidden md:flex items-center justify-center"
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 bg-white border border-glam-blush rounded-full p-3 hover:bg-glam-blush/50 hover:scale-110 active:scale-95 transition-all duration-200 hidden md:flex items-center justify-center"
                 aria-label="Scroll left"
               >
-                <ChevronLeft className="w-5 h-5 text-slate-700" />
+                <ChevronLeft className="w-5 h-5 text-glam-charcoal" />
               </motion.button>
             )}
           </AnimatePresence>
@@ -109,10 +109,10 @@ export default function ProviderCarousel({
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.2 }}
                 onClick={() => scroll("right")}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 bg-white border border-slate-200 rounded-full p-3 hover:bg-slate-50 hover:scale-110 active:scale-95 transition-all duration-200 hidden md:flex items-center justify-center"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 bg-white border border-glam-blush rounded-full p-3 hover:bg-glam-blush/50 hover:scale-110 active:scale-95 transition-all duration-200 hidden md:flex items-center justify-center"
                 aria-label="Scroll right"
               >
-                <ChevronRight className="w-5 h-5 text-slate-700" />
+                <ChevronRight className="w-5 h-5 text-glam-charcoal" />
               </motion.button>
             )}
           </AnimatePresence>

@@ -32,10 +32,10 @@ export default function SmallBookingCard({
         "w-full flex items-center gap-3 p-3 rounded-2xl border transition-all duration-300 text-left group",
         isSelected
           ? "border-violet-500 bg-violet-50/30 ring-1 ring-violet-500"
-          : "border-slate-100 bg-white hover:border-slate-200 hover:shadow-sm",
+          : "border-glam-blush bg-white hover:border-glam-blush hover:shadow-sm",
       )}
     >
-      <div className="relative h-14 w-14 shrink-0 rounded-xl overflow-hidden border border-slate-100">
+      <div className="relative h-14 w-14 shrink-0 rounded-xl overflow-hidden border border-glam-blush">
         <Image
           src={imageSrc}
           alt={businessName}
@@ -46,19 +46,19 @@ export default function SmallBookingCard({
       </div>
 
       <div className="flex-1 min-w-0 pr-2">
-        <h4 className="font-peculiar font-black text-slate-900 truncate text-[14px]">
+        <h4 className="font-peculiar font-black text-glam-plum truncate text-[14px]">
           {businessName}
         </h4>
-        <p className="text-slate-500 text-[12px] font-medium mt-0.5">
+        <p className="text-muted-foreground text-[12px] font-medium mt-0.5">
           {format(new Date(booking.scheduledDate), "eee, d MMM yyyy")} at{" "}
           {booking.startTime}
         </p>
         <div className="flex items-center gap-1.5 mt-1">
-          <span className="text-slate-400 text-[11px] font-bold">
+          <span className="text-muted-foreground text-[11px] font-bold">
             {formatCurrency((booking.servicePrice || 0) / 100)}
           </span>
-          <span className="h-0.5 w-0.5 rounded-full bg-slate-300" />
-          <span className="text-slate-400 text-[11px] font-medium">
+          <span className="h-0.5 w-0.5 rounded-full bg-glam-blush" />
+          <span className="text-muted-foreground text-[11px] font-medium">
             {booking.services.length}{" "}
             {booking.services.length === 1 ? "item" : "items"}
           </span>
