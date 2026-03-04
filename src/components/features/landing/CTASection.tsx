@@ -14,7 +14,7 @@ export default function CTASection() {
                 For Clients
               </span>
               <h2 className="mt-4 font-peculiar text-4xl font-bold text-white">
-                Find your next favorite stylist today.
+                Find your perfect look today.
               </h2>
               <ul className="mt-8 space-y-4">
                 {[
@@ -49,7 +49,7 @@ export default function CTASection() {
                 For Professionals
               </span>
               <h2 className="mt-4 font-peculiar text-4xl font-bold text-white">
-                Grow your beauty business with ease.
+                Take your beauty business to the next level.
               </h2>
               <ul className="mt-8 space-y-4">
                 {[

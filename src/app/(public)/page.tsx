@@ -9,9 +9,9 @@ import CTASection from "@/components/features/landing/CTASection";
 import { providerService } from "@/services/provider.service";
 
 export const metadata: Metadata = {
-  title: "Glamyad | Book Top Beauty & Wellness Professionals",
+  title: "Glamyad | Book Top Beauty & Wellness Professionals Near You",
   description:
-    "Find and book trusted local beauty and wellness professionals. From barbers to stylists, Glamyad makes booking easy and secure.",
+    "The easiest way to find and book trusted stylists, barbers, and wellness experts near you. Secure your next appointment in seconds with Glamyad.",
 };
 
 async function getFeaturedProviders() {
