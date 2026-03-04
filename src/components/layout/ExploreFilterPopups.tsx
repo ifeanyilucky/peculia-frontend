@@ -42,31 +42,31 @@ export function TreatmentDropdown({
   );
 
   return (
-    <div className="w-80 bg-white rounded-3xl p-4 shadow-xl border border-slate-100">
-      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 px-2">
+    <div className="w-80 bg-white rounded-3xl p-4 shadow-xl border border-glam-blush">
+      <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4 px-2">
         {searchQuery ? "Search Results" : "Popular Treatments"}
       </p>
       <div className="grid gap-1">
         {isLoading ? (
-          <p className="p-4 text-sm text-slate-500">Loading treatments...</p>
+          <p className="p-4 text-sm text-glam-blush/500">Loading treatments...</p>
         ) : filteredSpecialties.length > 0 ? (
           filteredSpecialties.map((spec) => (
             <button
               key={spec.id}
               onClick={() => onSelect(spec.id)}
-              className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-slate-50 transition-colors text-left group"
+              className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-glam-blush/50 transition-colors text-left group"
             >
-              <div className="h-10 w-10 rounded-xl bg-slate-100 flex items-center justify-center group-hover:bg-white transition-colors">
-                <Search size={18} className="text-slate-400" />
+              <div className="h-10 w-10 rounded-xl bg-glam-blush flex items-center justify-center group-hover:bg-white transition-colors">
+                <Search size={18} className="text-muted-foreground" />
               </div>
               <div>
-                <p className="text-sm font-bold text-slate-900">{spec.label}</p>
-                <p className="text-xs text-slate-500">Professional services</p>
+                <p className="text-sm font-bold text-glam-plum">{spec.label}</p>
+                <p className="text-xs text-glam-blush/500">Professional services</p>
               </div>
             </button>
           ))
         ) : (
-          <p className="p-4 text-sm text-slate-500 italic">
+          <p className="p-4 text-sm text-glam-blush/500 italic">
             No treatments found
           </p>
         )}
@@ -98,8 +98,8 @@ export function LocationDropdown({
   );
 
   return (
-    <div className="w-80 bg-white rounded-3xl p-4 shadow-xl border border-slate-100">
-      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 px-2">
+    <div className="w-80 bg-white rounded-3xl p-4 shadow-xl border border-glam-blush">
+      <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-4 px-2">
         {searchQuery ? "Search Results" : "Popular Cities"}
       </p>
       <div className="grid gap-1">
@@ -108,16 +108,16 @@ export function LocationDropdown({
             <button
               key={city}
               onClick={() => onSelect(city)}
-              className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-slate-50 transition-colors text-left group"
+              className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-glam-blush/50 transition-colors text-left group"
             >
-              <div className="h-10 w-10 rounded-xl bg-slate-100 flex items-center justify-center group-hover:bg-white transition-colors">
-                <MapPin size={18} className="text-slate-400" />
+              <div className="h-10 w-10 rounded-xl bg-glam-blush flex items-center justify-center group-hover:bg-white transition-colors">
+                <MapPin size={18} className="text-muted-foreground" />
               </div>
-              <p className="text-sm font-bold text-slate-900">{city}</p>
+              <p className="text-sm font-bold text-glam-plum">{city}</p>
             </button>
           ))
         ) : (
-          <p className="p-4 text-sm text-slate-500 italic">
+          <p className="p-4 text-sm text-glam-blush/500 italic">
             No locations found
           </p>
         )}
@@ -159,7 +159,7 @@ export function DateTimeDropdown({
   });
 
   return (
-    <div className="w-[700px] bg-white rounded-3xl p-8 shadow-2xl border border-slate-100">
+    <div className="w-[700px] bg-white rounded-3xl p-8 shadow-2xl border border-glam-blush">
       <div className="flex gap-12">
         {/* Left: Quick Select */}
         <div className="w-48 space-y-4">
@@ -171,12 +171,12 @@ export function DateTimeDropdown({
             className={cn(
               "w-full p-6 rounded-lg border text-left transition-all",
               isSameDay(selectedDate, today)
-                ? "border-slate-900 bg-slate-50"
-                : "border-slate-100 hover:border-slate-200",
+                ? "border-glam-plum bg-glam-blush/50"
+                : "border-glam-blush hover:border-slate-200",
             )}
           >
-            <p className="text-lg font-black text-slate-900">Today</p>
-            <p className="text-sm text-slate-500">
+            <p className="text-lg font-black text-glam-plum">Today</p>
+            <p className="text-sm text-glam-blush/500">
               {format(today, "EEE, d MMM")}
             </p>
           </button>
@@ -189,12 +189,12 @@ export function DateTimeDropdown({
             className={cn(
               "w-full p-6 rounded-lg border text-left transition-all",
               isSameDay(selectedDate, addDays(today, 1))
-                ? "border-slate-900 bg-slate-50"
-                : "border-slate-100 hover:border-slate-200",
+                ? "border-glam-plum bg-glam-blush/50"
+                : "border-glam-blush hover:border-slate-200",
             )}
           >
-            <p className="text-lg font-black text-slate-900">Tomorrow</p>
-            <p className="text-sm text-slate-500">
+            <p className="text-lg font-black text-glam-plum">Tomorrow</p>
+            <p className="text-sm text-glam-blush/500">
               {format(addDays(today, 1), "EEE, d MMM")}
             </p>
           </button>
@@ -205,23 +205,23 @@ export function DateTimeDropdown({
           <div className="flex items-center justify-between mb-8">
             <button
               onClick={handlePrevMonth}
-              className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+              className="p-2 hover:bg-glam-blush rounded-full transition-colors"
             >
               <ChevronLeft size={20} />
             </button>
-            <p className="text-lg font-black text-slate-900">
+            <p className="text-lg font-black text-glam-plum">
               {format(viewDate, "MMMM yyyy")}
             </p>
             <button
               onClick={handleNextMonth}
-              className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+              className="p-2 hover:bg-glam-blush rounded-full transition-colors"
             >
               <ChevronRight size={20} />
             </button>
           </div>
           <div className="grid grid-cols-7 gap-1 text-center mb-4">
             {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => (
-              <span key={d} className="text-xs font-bold text-slate-400">
+              <span key={d} className="text-xs font-bold text-muted-foreground">
                 {d}
               </span>
             ))}
@@ -242,11 +242,11 @@ export function DateTimeDropdown({
                   className={cn(
                     "h-10 w-10 flex items-center justify-center rounded-full text-sm font-bold transition-all",
                     isSelected
-                      ? "bg-slate-900 text-white"
+                      ? "bg-glam-plum text-white"
                       : isToday
-                        ? "text-slate-900 border border-slate-200"
+                        ? "text-glam-plum border border-slate-200"
                         : isCurrentMonth
-                          ? "text-slate-600 hover:bg-slate-50"
+                          ? "text-slate-600 hover:bg-glam-blush/50"
                           : "text-slate-300 pointer-events-none", // Hide or dim dates from other months
                   )}
                 >
@@ -258,10 +258,10 @@ export function DateTimeDropdown({
         </div>
       </div>
 
-      <div className="h-px bg-slate-100 my-8" />
+      <div className="h-px bg-glam-blush my-8" />
 
       <div className="flex items-center justify-between gap-8">
-        <span className="text-sm font-black text-slate-900 shrink-0">
+        <span className="text-sm font-black text-glam-plum shrink-0">
           Select time
         </span>
         <div className="flex-1 flex gap-2">
@@ -276,7 +276,7 @@ export function DateTimeDropdown({
                 "flex-1 py-2 px-3 rounded border text-center transition-all",
                 selectedTimeSlot === slot.id
                   ? "border-rose-600 bg-rose-50 text-rose-600 ring-1 ring-rose-600"
-                  : "border-slate-200 text-slate-900 hover:border-slate-800",
+                  : "border-slate-200 text-glam-plum hover:border-slate-800",
               )}
             >
               <p className="text-sm font-black">{slot.label}</p>

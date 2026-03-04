@@ -90,7 +90,7 @@ export default function ProviderGrid({
   if (isError) {
     return (
       <div className="flex h-[400px] flex-col items-center justify-center text-center">
-        <p className="text-rose-600">
+        <p className="text-glam-plum">
           Failed to load professionals. Please try again.
         </p>
       </div>
@@ -99,12 +99,12 @@ export default function ProviderGrid({
 
   if (allProviders.length === 0) {
     return (
-      <div className="flex h-[400px] flex-col items-center justify-center text-center p-12 bg-slate-50 rounded-3xl border border-dashed border-slate-200">
-        <SearchX size={48} className="text-slate-300" />
-        <h3 className="mt-4 font-peculiar text-xl font-bold text-slate-900">
+      <div className="flex h-[400px] flex-col items-center justify-center text-center p-12 bg-glam-blush/50 rounded-3xl border border-dashed border-glam-blush">
+        <SearchX size={48} className="text-glam-blush" />
+        <h3 className="mt-4 font-peculiar text-xl font-bold text-glam-plum">
           No professionals found
         </h3>
-        <p className="mt-2 text-slate-500 max-w-xs">
+        <p className="mt-2 text-glam-blush/500 max-w-xs">
           Try adjusting your filters or search terms to find what you&apos;re
           looking for.
         </p>
@@ -123,10 +123,10 @@ export default function ProviderGrid({
       {/* Infinite Scroll Trigger */}
       <div ref={elementRef} className="flex justify-center py-8">
         {isFetchingNextPage && (
-          <Loader2 className="animate-spin text-rose-600" size={32} />
+          <Loader2 className="animate-spin text-glam-plum" size={32} />
         )}
         {!hasNextPage && allProviders.length > 0 && (
-          <p className="text-sm font-medium text-slate-400">
+          <p className="text-sm font-medium text-muted-foreground">
             You&apos;ve reached the end of the list
           </p>
         )}

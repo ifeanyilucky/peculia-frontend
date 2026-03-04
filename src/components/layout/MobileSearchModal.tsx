@@ -39,11 +39,11 @@ export default function MobileSearchModal({
   return (
     <div className="fixed inset-0 z-[100] bg-white flex flex-col">
       {/* Header */}
-      <div className="flex items-center gap-4 px-6 py-4 border-b border-slate-100">
-        <button onClick={onClose} className="p-2 -ml-2 hover:bg-slate-50 rounded-full transition-colors">
-          <ArrowLeft size={24} className="text-slate-900" />
+      <div className="flex items-center gap-4 px-6 py-4 border-b border-glam-blush">
+        <button onClick={onClose} className="p-2 -ml-2 hover:bg-glam-blush/50 rounded-full transition-colors">
+          <ArrowLeft size={24} className="text-glam-plum" />
         </button>
-        <h2 className="text-lg font-black text-slate-900">Search</h2>
+        <h2 className="text-lg font-black text-glam-plum">Search</h2>
       </div>
 
       {/* Steps Progress */}
@@ -57,7 +57,7 @@ export default function MobileSearchModal({
                onClick={() => setActiveStep(step)}
                className={cn(
                  "flex-1 py-1 rounded-full transition-all",
-                 isActive ? "bg-slate-900 h-1.5" : isDone ? "bg-slate-300 h-1.5" : "bg-slate-100 h-1"
+                 isActive ? "bg-glam-plum h-1.5" : isDone ? "bg-glam-blush h-1.5" : "bg-glam-blush h-1"
                )}
              />
            );
@@ -69,17 +69,17 @@ export default function MobileSearchModal({
         {activeStep === "treatment" && (
           <div className="py-4 space-y-6">
             <div className="space-y-2">
-              <h3 className="text-2xl font-black text-slate-900">What are you looking for?</h3>
-              <p className="text-sm text-slate-500 font-medium">Search for treatments, services or professionals</p>
+              <h3 className="text-2xl font-black text-glam-plum">What are you looking for?</h3>
+              <p className="text-sm text-glam-blush/500 font-medium">Search for treatments, services or professionals</p>
             </div>
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
               <input
                 type="text"
                 placeholder="Search treatments..."
                 value={treatment}
                 onChange={(e) => setTreatment(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 bg-slate-50 rounded-2xl border-none font-bold text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-slate-900 transition-all"
+                className="w-full pl-12 pr-4 py-4 bg-glam-blush/50 rounded-2xl border-none font-bold text-glam-plum placeholder:text-muted-foreground focus:ring-2 focus:ring-glam-plum transition-all"
                 autoFocus
               />
             </div>
@@ -96,17 +96,17 @@ export default function MobileSearchModal({
         {activeStep === "location" && (
           <div className="py-4 space-y-6">
             <div className="space-y-2">
-              <h3 className="text-2xl font-black text-slate-900">Where?</h3>
-              <p className="text-sm text-slate-500 font-medium">Find services near you</p>
+              <h3 className="text-2xl font-black text-glam-plum">Where?</h3>
+              <p className="text-sm text-glam-blush/500 font-medium">Find services near you</p>
             </div>
             <div className="relative">
-              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+              <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
               <input
                 type="text"
                 placeholder="Search location..."
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 bg-slate-50 rounded-2xl border-none font-bold text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-slate-900 transition-all"
+                className="w-full pl-12 pr-4 py-4 bg-glam-blush/50 rounded-2xl border-none font-bold text-glam-plum placeholder:text-muted-foreground focus:ring-2 focus:ring-glam-plum transition-all"
                 autoFocus
               />
             </div>
@@ -123,8 +123,8 @@ export default function MobileSearchModal({
         {activeStep === "time" && (
           <div className="py-4 space-y-6">
             <div className="space-y-2">
-              <h3 className="text-2xl font-black text-slate-900">When?</h3>
-              <p className="text-sm text-slate-500 font-medium">Select your preferred date and time</p>
+              <h3 className="text-2xl font-black text-glam-plum">When?</h3>
+              <p className="text-sm text-glam-blush/500 font-medium">Select your preferred date and time</p>
             </div>
             <DateTimeDropdown
               onSelect={(date, t) => {
@@ -136,16 +136,16 @@ export default function MobileSearchModal({
       </div>
 
       {/* Footer Actions */}
-      <div className="absolute bottom-0 left-0 right-0 p-6 bg-white border-t border-slate-100 flex items-center justify-between">
+      <div className="absolute bottom-0 left-0 right-0 p-6 bg-white border-t border-glam-blush flex items-center justify-between">
         <button 
           onClick={onClose}
-          className="text-sm font-black text-slate-900 underline"
+          className="text-sm font-black text-glam-plum underline"
         >
           Skip
         </button>
         <button
           onClick={handleApply}
-          className="px-10 py-4 bg-slate-900 text-white rounded-full font-black text-sm active:scale-95 transition-all shadow-lg shadow-slate-900/10"
+          className="px-10 py-4 bg-glam-plum text-white rounded-full font-black text-sm active:scale-95 transition-all shadow-lg shadow-glam-plum/10"
         >
           Show results
         </button>
