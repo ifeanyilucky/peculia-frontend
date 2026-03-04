@@ -72,8 +72,8 @@ export default function HeroSection() {
   return (
     <section className="relative w-full overflow-hidden bg-white px-6 pt-16 lg:px-8 xl:pt-24 pb-20 mx-auto max-w-7xl">
       {/* Background abstract elements */}
-      <div className="absolute top-0 -left-20 h-[500px] w-[500px] rounded-full bg-rose-50 blur-3xl opacity-60" />
-      <div className="absolute top-20 -right-20 h-[500px] w-[500px] rounded-full bg-slate-50/80 blur-3xl opacity-60" />
+      <div className="absolute top-0 -left-20 h-[500px] w-[500px] rounded-full bg-glam-blush/50 blur-3xl opacity-60" />
+      <div className="absolute top-20 -right-20 h-[500px] w-[500px] rounded-full bg-glam-blush/50 blur-3xl opacity-60" />
 
       <div className="relative z-10 flex flex-col items-center">
         {/* Top Centered Text Content */}
@@ -83,17 +83,17 @@ export default function HeroSection() {
           transition={{ duration: 0.6 }}
           className="flex flex-col items-center text-center max-w-4xl"
         >
-          {/* <span className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-sm font-bold text-slate-700 transition-colors hover:bg-slate-50 mb-8 cursor-pointer">
-            <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs text-rose-600 uppercase tracking-wider">
+          {/* <span className="inline-flex items-center gap-2 rounded-full border border-glam-blush bg-white px-4 py-1.5 text-sm font-bold text-slate-700 transition-colors hover:bg-glam-blush/50 mb-8 cursor-pointer">
+            <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs text-glam-plum uppercase tracking-wider">
               New
             </span>
             Introducing the Glamyad Mobile App
-            <span className="text-slate-400">→</span>
+            <span className="text-muted-foreground">→</span>
           </span> */}
-          <h1 className="font-peculiar text-4xl sm:text-6xl font-black text-slate-900 ">
-            Book local <span className="text-rose-600">selfcare</span> services
+          <h1 className="font-peculiar text-4xl sm:text-6xl font-black text-glam-plum ">
+            Book local <span className="text-glam-plum">selfcare</span> services
           </h1>
-          <p className="mt-6 max-w-2xl text-lg font-medium text-slate-600 sm:text-xl">
+          <p className="mt-6 max-w-2xl text-lg font-medium text-glam-charcoal sm:text-xl">
             Discover top-rated salons, barbers, medspas, wellness studios and
             beauty experts trusted by millions worldwide.
           </p>
@@ -107,14 +107,14 @@ export default function HeroSection() {
           >
             <form
               onSubmit={handleSearch}
-              className="flex flex-col gap-3 rounded-[32px] border border-slate-100 bg-white p-3 lg:flex-row lg:items-center lg:gap-0 lg:rounded-full"
+              className="flex flex-col gap-3 rounded-[32px] border border-glam-blush bg-white p-3 lg:flex-row lg:items-center lg:gap-0 lg:rounded-full"
             >
-              <div className="flex flex-1 items-center px-4 py-2 lg:border-r lg:border-slate-100 lg:py-0">
-                <Search className="mr-3 text-slate-400 shrink-0" size={20} />
+              <div className="flex flex-1 items-center px-4 py-2 lg:border-r lg:border-glam-blush lg:py-0">
+                <Search className="mr-3 text-muted-foreground shrink-0" size={20} />
                 <select
                   value={specialty}
                   onChange={(e) => setSpecialty(e.target.value)}
-                  className="w-full bg-transparent text-sm font-bold text-slate-900 focus:outline-none appearance-none truncate"
+                  className="w-full bg-transparent text-sm font-bold text-glam-plum focus:outline-none appearance-none truncate"
                   disabled={isLoading}
                 >
                   <option value="">
@@ -128,20 +128,20 @@ export default function HeroSection() {
                 </select>
               </div>
 
-              <div className="flex flex-1 items-center px-4 py-2 lg:border-r lg:border-slate-100 lg:py-0">
-                <MapPin className="mr-3 text-slate-400 shrink-0" size={20} />
+              <div className="flex flex-1 items-center px-4 py-2 lg:border-r lg:border-glam-blush lg:py-0">
+                <MapPin className="mr-3 text-muted-foreground shrink-0" size={20} />
                 <input
                   type="text"
                   placeholder="Current location"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full bg-transparent text-sm font-bold text-slate-900 focus:outline-none truncate"
+                  className="w-full bg-transparent text-sm font-bold text-glam-plum focus:outline-none truncate"
                 />
               </div>
 
               <button
                 type="submit"
-                className="flex h-12 lg:h-14 items-center justify-center gap-2 rounded-full bg-slate-900 px-8 text-sm font-bold text-white transition-all hover:bg-rose-600 shrink-0"
+                className="flex h-12 lg:h-14 items-center justify-center gap-2 rounded-full bg-glam-plum px-8 text-sm font-bold text-white transition-all hover:bg-glam-plum/90 shrink-0"
               >
                 Search
               </button>
@@ -153,7 +153,7 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="mt-8 flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-100 text-sm font-bold text-slate-600"
+            className="mt-8 flex items-center gap-2 px-4 py-2 rounded-full bg-glam-blush/50 border border-glam-blush text-sm font-bold text-glam-charcoal"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -162,7 +162,7 @@ export default function HeroSection() {
             <span className="tabular-nums">
               <AppointmentCounter />
             </span>
-            <span className="text-slate-500 font-medium">
+            <span className="text-muted-foreground font-medium">
               appointments booked today
             </span>
           </motion.div>
@@ -173,9 +173,9 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="mt-16 w-full lg:max-w-[1000px] h-[400px] lg:h-[500px] rounded-2xl overflow-hidden relative border border-slate-200"
+          className="mt-16 w-full lg:max-w-[1000px] h-[400px] lg:h-[500px] rounded-2xl overflow-hidden relative border border-glam-blush"
         >
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-glam-plum/20 to-transparent z-10" />
           <Image
             src="/images/makeup-artist2.jpg"
             alt="Woman receiving premium salon service"

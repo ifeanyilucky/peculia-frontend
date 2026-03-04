@@ -23,13 +23,13 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="bg-slate-50 py-24 px-6 lg:px-24">
+    <section className="bg-glam-blush py-24 px-6 lg:px-24">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 text-center">
-          <h2 className="font-peculiar text-4xl font-bold text-slate-900">
+          <h2 className="font-peculiar text-4xl font-bold text-glam-plum">
             What Our Clients Say
           </h2>
-          <p className="mt-4 text-lg text-slate-600">
+          <p className="mt-4 text-lg text-glam-charcoal">
             Trusted by thousands of beauty and wellness enthusiasts.
           </p>
         </div>
@@ -38,9 +38,9 @@ export default function Testimonials() {
           {testimonials.map((t, idx) => (
             <div
               key={idx}
-              className="relative rounded-3xl bg-white p-8 border border-slate-200 transition-all hover:border-slate-300"
+              className="relative rounded-3xl bg-white p-8 border border-glam-blush transition-all hover:border-slate-300"
             >
-              <Quote className="absolute top-6 right-8 h-12 w-12 text-rose-400/10" />
+              <Quote className="absolute top-6 right-8 h-12 w-12 text-glam-gold/20" />
               <div className="flex gap-1">
                 {[...Array(t.rating)].map((_, i) => (
                   <Star
@@ -50,14 +50,14 @@ export default function Testimonials() {
                   />
                 ))}
               </div>
-              <p className="mt-6 text-lg italic leading-relaxed text-slate-700">
+              <p className="mt-6 text-lg italic leading-relaxed text-glam-charcoal">
                 &ldquo;{t.text}&rdquo;
               </p>
-              <div className="mt-8 pt-8 border-t border-slate-50">
-                <p className="font-peculiar font-bold text-slate-900">
+              <div className="mt-8 pt-8 border-t border-glam-blush">
+                <p className="font-peculiar font-bold text-glam-plum">
                   {t.name}
                 </p>
-                <p className="text-sm text-slate-500">{t.role}</p>
+                <p className="text-sm text-muted-foreground">{t.role}</p>
               </div>
             </div>
           ))}

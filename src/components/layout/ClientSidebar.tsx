@@ -31,12 +31,12 @@ export default function ClientSidebar() {
   const clearAuth = useAuthStore((state) => state.clearAuth);
 
   return (
-    <aside className="hidden lg:flex h-screen w-72 flex-col border-r border-slate-100 bg-white sticky top-0">
+    <aside className="hidden lg:flex h-screen w-72 flex-col border-r border-glam-blush bg-white sticky top-0">
       <div className="flex items-center gap-2 px-8 py-8">
-        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-900 text-white border border-slate-200">
+        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-glam-plum text-white border border-glam-blush">
           <Sparkles size={24} />
         </div>
-        <span className="font-peculiar text-2xl font-black text-slate-900">
+        <span className="font-peculiar text-2xl font-black text-glam-plum">
           Glamyad.
         </span>
       </div>
@@ -51,8 +51,8 @@ export default function ClientSidebar() {
               className={cn(
                 "group flex items-center gap-3 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all duration-300",
                 isActive
-                  ? "bg-slate-900 text-white border border-slate-200"
-                  : "text-slate-500 hover:bg-slate-50 hover:text-slate-900",
+                  ? "bg-glam-plum text-white border border-glam-plum"
+                  : "text-muted-foreground hover:bg-glam-blush/50 hover:text-glam-plum",
               )}
             >
               <item.icon size={20} strokeWidth={isActive ? 2.5 : 2} />
@@ -65,7 +65,7 @@ export default function ClientSidebar() {
       <div className="p-4 mt-auto">
         <button
           onClick={() => clearAuth()}
-          className="flex w-full items-center gap-3 rounded-2xl px-4 py-4 text-sm font-bold text-rose-500 transition-all hover:bg-rose-50 hover:text-rose-600"
+          className="flex w-full items-center gap-3 rounded-2xl px-4 py-4 text-sm font-bold text-glam-plum transition-all hover:bg-glam-blush/50 hover:text-glam-gold"
         >
           <LogOut size={20} />
           Sign Out

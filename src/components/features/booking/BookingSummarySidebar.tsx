@@ -269,13 +269,13 @@ export default function BookingSummarySidebar({
   return (
     <>
       <aside className="w-full lg:w-[400px] lg:shrink-0 h-fit lg:sticky lg:top-28">
-        <div className="rounded-2xl border border-slate-200 bg-white flex flex-col min-h-[500px]">
-          <div className="p-6 flex items-start gap-4 border-b border-slate-200">
+        <div className="rounded-2xl border border-glam-blush bg-white flex flex-col min-h-[500px]">
+          <div className="p-6 flex items-start gap-4 border-b border-glam-blush">
             <div>
-              <h3 className="font-bold text-slate-900 leading-tight">
+              <h3 className="font-bold text-glam-plum leading-tight">
                 {provider.businessName}
               </h3>
-              <p className="text-sm font-medium text-slate-500">
+              <p className="text-sm font-medium text-muted-foreground">
                 {provider.location?.city || "Nigeria"}
               </p>
               <div className="flex items-center gap-1 mt-1">
@@ -286,7 +286,7 @@ export default function BookingSummarySidebar({
                       className={`h-3.5 w-3.5 ${
                         i < Math.floor(provider.rating)
                           ? "text-yellow-400"
-                          : "text-slate-200"
+                          : "text-glam-blush"
                       }`}
                       fill="currentColor"
                       viewBox="0 0 20 20"
@@ -295,7 +295,7 @@ export default function BookingSummarySidebar({
                     </svg>
                   ))}
                 </div>
-                <span className="text-xs font-bold text-slate-500">
+                <span className="text-xs font-bold text-muted-foreground">
                   ({formatNumber(provider.totalReviews)})
                 </span>
               </div>
@@ -305,7 +305,7 @@ export default function BookingSummarySidebar({
           <div className="flex-1 p-6 space-y-6">
             {currentStep >= 1 && selectedServices.length > 0 && (
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
                   Services
                 </h4>
                 <div className="space-y-3">
@@ -315,14 +315,14 @@ export default function BookingSummarySidebar({
                       className="flex justify-between items-start"
                     >
                       <div>
-                        <p className="font-bold text-slate-900">
+                        <p className="font-bold text-glam-plum">
                           {service.name}
                         </p>
-                        <p className="text-xs text-slate-500 font-medium">
+                        <p className="text-xs text-muted-foreground font-medium">
                           {service.duration} mins
                         </p>
                       </div>
-                      <p className="font-bold text-slate-900">
+                      <p className="font-bold text-glam-plum">
                         {formatCurrency(service.price / 100)}
                       </p>
                     </div>
@@ -333,17 +333,17 @@ export default function BookingSummarySidebar({
 
             {currentStep >= 2 && selectedSlot && (
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
                   Date & Time
                 </h4>
                 <div className="bg-slate-50 rounded-xl p-4">
-                  <p className="font-bold text-slate-900">
+                  <p className="font-bold text-glam-plum">
                     {format(
                       useBookingStore.getState().selectedDate!,
                       "EEEE, MMM d, yyyy",
                     )}
                   </p>
-                  <p className="text-sm text-slate-500 font-medium mt-1">
+                  <p className="text-sm text-muted-foreground font-medium mt-1">
                     {selectedSlot.startTime} - {selectedSlot.endTime}
                   </p>
                 </div>
@@ -352,11 +352,11 @@ export default function BookingSummarySidebar({
 
             {currentStep >= 3 && (
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
                   Professional
                 </h4>
                 <div className="flex items-center gap-3">
-                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-slate-100">
+                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-glam-blush/50">
                     {selectedTeamMember?.avatar || provider.userId.avatar ? (
                       <Image
                         src={
@@ -368,12 +368,12 @@ export default function BookingSummarySidebar({
                       />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center">
-                        <UserIcon size={20} className="text-slate-400" />
+                        <UserIcon size={20} className="text-muted-foreground" />
                       </div>
                     )}
                   </div>
                   <div>
-                    <p className="font-bold text-slate-900 text-sm">
+                    <p className="font-bold text-glam-plum text-sm">
                       {selectedTeamMember
                         ? `${selectedTeamMember.firstName} ${selectedTeamMember.lastName}`
                         : "Any professional"}
@@ -384,12 +384,12 @@ export default function BookingSummarySidebar({
             )}
 
             {currentStep === 4 && (
-              <div className="space-y-4 pt-4 border-t border-slate-100">
+              <div className="space-y-4 pt-4 border-t border-glam-blush/50">
                 <div className="flex justify-between items-center">
-                  <span className="font-bold text-slate-500">
+                  <span className="font-bold text-muted-foreground">
                     Service Price
                   </span>
-                  <span className="font-bold text-slate-900">
+                  <span className="font-bold text-glam-plum">
                     {formatCurrency(totalPrice / 100)}
                   </span>
                 </div>
@@ -401,11 +401,11 @@ export default function BookingSummarySidebar({
                     {formatCurrency((totalPrice * 0.2) / 100)}
                   </span>
                 </div>
-                <div className="flex justify-between items-center pt-4 border-t border-slate-200">
-                  <span className="font-black text-slate-900">
+                <div className="flex justify-between items-center pt-4 border-t border-glam-blush">
+                  <span className="font-black text-glam-plum">
                     Pay In Person
                   </span>
-                  <span className="font-black text-xl text-slate-900">
+                  <span className="font-black text-xl text-glam-plum">
                     {formatCurrency((totalPrice * 0.8) / 100)}
                   </span>
                 </div>
@@ -413,11 +413,11 @@ export default function BookingSummarySidebar({
             )}
           </div>
 
-          <div className="p-6 border-t border-slate-200">
+          <div className="p-6 border-t border-glam-blush">
             {/* Booking error banner */}
             {bookingError && (
-              <div className="mb-3 rounded-2xl bg-rose-50 border border-rose-200 p-4">
-                <p className="text-sm font-bold text-rose-700">
+              <div className="mb-3 rounded-2xl bg-glam-blush border border-glam-blush p-4">
+                <p className="text-sm font-bold text-glam-plum">
                   {bookingError}
                 </p>
               </div>
@@ -447,7 +447,7 @@ export default function BookingSummarySidebar({
                 <button
                   onClick={handleContinue}
                   disabled={isBooking || !isStepComplete() || paymentPaused}
-                  className="w-full py-4 px-6 rounded-full bg-rose-600 text-white font-bold hover:bg-rose-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full py-4 px-6 rounded-full bg-glam-plum text-white font-bold hover:bg-glam-plum transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isBooking ? (
                     <>
@@ -459,7 +459,7 @@ export default function BookingSummarySidebar({
                   )}
                 </button>
                 {!policyAccepted && selectedSlot && (
-                  <p className="text-xs text-rose-500 text-center mt-2 font-medium">
+                  <p className="text-xs text-glam-blush0 text-center mt-2 font-medium">
                     Please accept the deposit protection policy to continue
                   </p>
                 )}
@@ -468,14 +468,14 @@ export default function BookingSummarySidebar({
               <button
                 onClick={handleContinue}
                 disabled={!isStepComplete()}
-                className="w-full py-4 px-6 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-4 px-6 rounded-full bg-glam-plum text-white font-bold hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Continue
               </button>
             )}
 
             {currentStep < 4 && (
-              <p className="text-center text-xs font-medium text-slate-400 mt-3">
+              <p className="text-center text-xs font-medium text-muted-foreground mt-3">
                 Step {currentStep} of 4
               </p>
             )}
@@ -495,7 +495,7 @@ export default function BookingSummarySidebar({
           </p>
           <button
             onClick={() => setShowCancellationModal(false)}
-            className="px-8 py-3 rounded-full bg-slate-900 text-white font-bold"
+            className="px-8 py-3 rounded-full bg-glam-plum text-white font-bold"
           >
             Got it
           </button>

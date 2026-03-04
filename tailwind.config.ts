@@ -50,6 +50,13 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        glam: {
+          plum: "#4B164C",
+          blush: "#F4D6E1",
+          gold: "#C9A227",
+          charcoal: "#1E1E1E",
+          ivory: "#FAF7F5",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
