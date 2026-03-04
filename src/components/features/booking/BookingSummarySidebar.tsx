@@ -336,7 +336,7 @@ export default function BookingSummarySidebar({
                 <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
                   Date & Time
                 </h4>
-                <div className="bg-slate-50 rounded-xl p-4">
+                <div className="bg-glam-blush/50 rounded-xl p-4">
                   <p className="font-bold text-glam-plum">
                     {format(
                       useBookingStore.getState().selectedDate!,
@@ -468,7 +468,7 @@ export default function BookingSummarySidebar({
               <button
                 onClick={handleContinue}
                 disabled={!isStepComplete()}
-                className="w-full py-4 px-6 rounded-full bg-glam-plum text-white font-bold hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-4 px-6 rounded-full bg-glam-plum text-white font-bold hover:bg-glam-plum/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Continue
               </button>
@@ -489,7 +489,7 @@ export default function BookingSummarySidebar({
         title="Cancellation Policy"
       >
         <div className="text-center">
-          <p className="text-slate-600 mb-6">
+          <p className="text-glam-charcoal mb-6">
             You can cancel for free up to 24 hours before your appointment. Late
             cancellations may incur a fee.
           </p>

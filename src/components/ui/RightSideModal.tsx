@@ -68,7 +68,7 @@ export default function RightSideModal({
             </h2>
             <button
               onClick={onClose}
-              className="p-2 rounded-full hover:bg-slate-50 transition-colors text-muted-foreground hover:text-glam-plum"
+              className="p-2 rounded-full hover:bg-glam-blush/50 transition-colors text-muted-foreground hover:text-glam-plum"
               aria-label="Close panel"
             >
               <X size={20} />

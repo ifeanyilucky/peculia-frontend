@@ -145,7 +145,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-glam-plum px-4 py-2 text-sm font-bold text-white transition-all hover:bg-slate-800 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
+          className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-glam-plum px-4 py-2 text-sm font-bold text-white transition-all hover:bg-glam-plum/90 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
         >
           {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
           {isLoading ? "Logging in..." : "Login"}
