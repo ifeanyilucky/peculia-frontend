@@ -79,7 +79,7 @@ export const metadata: Metadata = {
     siteName: "Glamyad",
     images: [
       {
-        url: "/og-image.png",
+        url: "/images/makeup-artist2.jpg",
         width: 1200,
         height: 630,
         alt: "Glamyad - Beauty & Wellness Booking",
@@ -91,7 +91,7 @@ export const metadata: Metadata = {
     title: "Glamyad | Book Top Beauty & Wellness Professionals",
     description:
       "Discover and book the best beauty and wellness experts near you.",
-    images: ["/og-image.png"],
+    images: ["/images/makeup-artist2.jpg"],
     creator: "@glamyad",
   },
   robots: {
