@@ -15,6 +15,8 @@ import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/store/auth.store";
 import { ROUTES } from "@/constants/routes";
 
+import Image from "next/image";
+
 const NAV_ITEMS = [
   { label: "Dashboard", href: ROUTES.client.dashboard, icon: LayoutDashboard },
   {
@@ -33,12 +35,15 @@ export default function ClientSidebar() {
   return (
     <aside className="hidden lg:flex h-screen w-72 flex-col border-r border-glam-blush bg-white sticky top-0">
       <div className="flex items-center gap-2 px-8 py-8">
-        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-glam-plum text-white border border-glam-blush">
-          <Sparkles size={24} />
-        </div>
-        <span className="font-peculiar text-2xl font-black text-glam-plum">
-          Glamyad.
-        </span>
+        <Link href="/" className="relative h-10 w-40">
+          <Image
+            src="/logo/logo.png"
+            alt="Glamyad"
+            fill
+            className="object-contain"
+            priority
+          />
+        </Link>
       </div>
 
       <nav className="flex-1 space-y-1.5 px-4 mt-4">

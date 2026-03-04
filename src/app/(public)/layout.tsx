@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ROUTES } from "@/constants/routes";
 import PublicHeader from "@/components/layout/PublicHeader";
@@ -18,11 +19,13 @@ export default function PublicLayout({
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col justify-between gap-8 md:flex-row">
             <div>
-              <Link
-                href="/"
-                className="font-peculiar text-2xl font-bold text-rose-600"
-              >
-                GLAMYAD
+              <Link href="/" className="relative h-8 w-32 block mb-4">
+                <Image
+                  src="/logo/logo.png"
+                  alt="Glamyad"
+                  fill
+                  className="object-contain"
+                />
               </Link>
               <p className="mt-4 max-w-xs text-sm text-slate-500">
                 The premium platform for booking trusted beauty and wellness

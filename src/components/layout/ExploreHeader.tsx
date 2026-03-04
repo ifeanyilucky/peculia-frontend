@@ -23,6 +23,8 @@ import MobileSearchModal from "./MobileSearchModal";
 import { ROUTES } from "@/constants/routes";
 import { format } from "date-fns";
 
+import Image from "next/image";
+
 export default function ExploreHeader() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -123,11 +125,17 @@ export default function ExploreHeader() {
           <Link
             href="/"
             className={cn(
-              "font-peculiar text-2xl font-black text-glam-plum tracking-tight shrink-0 transition-all",
+              "relative h-8 w-28 shrink-0 transition-all",
               activeSegment ? "hidden sm:block" : "block",
             )}
           >
-            glamyad
+            <Image
+              src="/logo/logo.png"
+              alt="Glamyad"
+              fill
+              className="object-contain"
+              priority
+            />
           </Link>
 
           {/* Center: Search Bar (Responsive) */}
@@ -350,7 +358,9 @@ export default function ExploreHeader() {
                         <p className="text-sm font-bold text-glam-plum">
                           {user?.firstName} {user?.lastName}
                         </p>
-                        <p className="text-xs text-muted-foreground">{user?.email}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {user?.email}
+                        </p>
                       </div>
                       <div className="py-2">
                         <Link

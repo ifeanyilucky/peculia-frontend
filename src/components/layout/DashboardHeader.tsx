@@ -7,11 +7,7 @@ import {
   Settings,
   ChevronDown,
   Calendar,
-  Wallet,
   Heart,
-  Clipboard,
-  Package,
-  Globe,
   ArrowRight,
   LogOut,
 } from "lucide-react";
@@ -63,6 +59,15 @@ export default function DashboardHeader() {
 
   return (
     <header className="h-20 bg-white/80 backdrop-blur-md border-b border-glam-blush px-6 lg:px-10 flex items-center justify-between sticky top-0 z-30">
+      <Link href="/" className="relative h-8 w-28 shrink-0 mr-4 md:hidden">
+        <Image
+          src="/logo/logo.png"
+          alt="Glamyad"
+          fill
+          className="object-contain"
+          priority
+        />
+      </Link>
       <div className="relative hidden md:block w-96">
         <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">
           <Search size={18} />

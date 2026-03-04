@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
 
+import Image from "next/image";
+
 export default function PublicHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -53,11 +55,14 @@ export default function PublicHeader() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b border-glam-blush">
       <div className="mx-auto  max-w-7xl flex h-[72px] items-center justify-between px-6 lg:px-8">
-        <Link
-          href="/"
-          className="font-peculiar text-2xl font-black text-glam-plum"
-        >
-          Glamyad.
+        <Link href="/" className="relative h-8 w-32">
+          <Image
+            src="/logo/logo.png"
+            alt="Glamyad"
+            fill
+            className="object-contain"
+            priority
+          />
         </Link>
 
         <div className="flex items-center gap-4">
@@ -80,7 +85,9 @@ export default function PublicHeader() {
                       <p className="text-sm font-bold text-glam-plum">
                         {user?.firstName} {user?.lastName}
                       </p>
-                      <p className="text-xs text-muted-foreground">{user?.email}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {user?.email}
+                      </p>
                     </div>
 
                     <div className="py-2">
