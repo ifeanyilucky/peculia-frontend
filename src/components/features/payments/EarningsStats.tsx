@@ -25,7 +25,7 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {/* Main Balance Card */}
-      <div className="lg:col-span-1 p-8 rounded-2xl bg-slate-900 text-white border border-slate-200">
+      <div className="lg:col-span-1 p-8 rounded-2xl bg-glam-plum text-white border border-glam-blush">
         <div className="flex items-center justify-between mb-8">
           <div className="h-12 w-12 rounded-2xl bg-white/10 flex items-center justify-center backdrop-blur-md">
             <Wallet className="text-white" size={24} />
@@ -51,7 +51,7 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
             </p>
             <p className="text-xs font-bold">Every Monday</p>
           </div>
-          <button className="px-4 py-2 rounded-xl bg-white text-slate-900 text-[10px] font-black uppercase tracking-widest hover:bg-rose-600 hover:text-white transition-all">
+          <button className="px-4 py-2 rounded-xl bg-white text-glam-plum text-[10px] font-black uppercase tracking-widest hover:bg-glam-plum hover:text-white transition-all">
             Withdraw
           </button>
         </div>
@@ -72,7 +72,7 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
             Escrow Balance
           </p>
-          <p className="font-peculiar text-4xl font-black text-slate-900">
+          <p className="font-peculiar text-4xl font-black text-glam-plum">
             ₦{(data.pendingBalance / 100).toLocaleString()}
           </p>
           <p className="text-xs font-medium text-slate-400 mt-2">
@@ -85,14 +85,14 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
       <div className="p-8 rounded-2xl bg-white border border-slate-100 flex flex-col justify-between">
         <div className="flex items-center justify-between">
           <div className="h-12 w-12 rounded-2xl bg-rose-50 flex items-center justify-center">
-            <TrendingUp className="text-rose-600" size={24} />
+            <TrendingUp className="text-glam-plum" size={24} />
           </div>
           <div
             className={cn(
               "flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
               data.growth >= 0
                 ? "bg-green-50 text-green-600"
-                : "bg-rose-50 text-rose-600",
+                : "bg-rose-50 text-glam-plum",
             )}
           >
             {data.growth >= 0 ? (
@@ -108,10 +108,10 @@ export default function EarningsStats({ data }: EarningsStatsProps) {
           <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
             Total This Month
           </p>
-          <p className="font-peculiar text-4xl font-black text-slate-900">
+          <p className="font-peculiar text-4xl font-black text-glam-plum">
             ₦{(data.thisMonth / 100).toLocaleString()}
           </p>
-          <div className="mt-4 flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-slate-900">
+          <div className="mt-4 flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-glam-plum">
             <CheckCircle2 size={12} className="text-green-500" />
             <span>Target: ₦500k</span>
           </div>

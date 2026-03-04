@@ -125,12 +125,12 @@ export default function ServiceFormModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="bg-white w-full max-w-xl rounded-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-300 border border-slate-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-glam-plum/40 backdrop-blur-sm animate-in fade-in duration-300">
+      <div className="bg-white w-full max-w-xl rounded-2xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-300 border border-glam-blush">
         {/* Header */}
-        <div className="px-8 py-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+        <div className="px-8 py-6 border-b border-glam-blush flex items-center justify-between bg-glam-blush/50/50">
           <div>
-            <h3 className="font-peculiar text-2xl font-black text-slate-900">
+            <h3 className="font-peculiar text-2xl font-black text-glam-plum">
               {isEditing ? "Edit Service" : "Add New Service"}
             </h3>
             <p className="text-xs font-medium text-slate-400 mt-1 uppercase tracking-widest">
@@ -139,7 +139,7 @@ export default function ServiceFormModal({
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-white transition-all text-slate-400 hover:text-slate-900"
+            className="p-2 rounded-full hover:bg-white transition-all text-slate-400 hover:text-glam-plum"
           >
             <X size={20} />
           </button>
@@ -152,8 +152,8 @@ export default function ServiceFormModal({
         >
           {/* Service Name */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
-              <Scissors size={16} className="text-rose-600" />
+            <div className="flex items-center gap-2 text-glam-plum font-bold text-sm">
+              <Scissors size={16} className="text-glam-plum" />
               <span>Basic Information</span>
             </div>
             <div className="grid gap-4">
@@ -164,7 +164,7 @@ export default function ServiceFormModal({
                 <input
                   {...register("name")}
                   placeholder="e.g. Premium Haircut & Wash"
-                  className="w-full h-12 bg-slate-50 border border-slate-100 rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-slate-900 transition-all outline-none"
+                  className="w-full h-12 bg-glam-blush/50 border border-glam-blush rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-glam-plum transition-all outline-none"
                 />
                 {errors.name && (
                   <p className="text-[10px] font-bold text-rose-500 pl-1">
@@ -179,7 +179,7 @@ export default function ServiceFormModal({
                 </label>
                 <select
                   {...register("category")}
-                  className="w-full h-12 bg-slate-50 border border-slate-100 rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-slate-900 transition-all outline-none appearance-none"
+                  className="w-full h-12 bg-glam-blush/50 border border-glam-blush rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-glam-plum transition-all outline-none appearance-none"
                 >
                   <option value="">Select a category</option>
                   {CATEGORIES.map((cat) => (
@@ -199,8 +199,8 @@ export default function ServiceFormModal({
 
           {/* Pricing & Duration */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
-              <Clock size={16} className="text-rose-600" />
+            <div className="flex items-center gap-2 text-glam-plum font-bold text-sm">
+              <Clock size={16} className="text-glam-plum" />
               <span>Pricing & Time</span>
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -212,7 +212,7 @@ export default function ServiceFormModal({
                   {...register("price", { valueAsNumber: true })}
                   type="number"
                   placeholder="0.00"
-                  className="w-full h-12 bg-slate-50 border border-slate-100 rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-slate-900 transition-all outline-none"
+                  className="w-full h-12 bg-glam-blush/50 border border-glam-blush rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-glam-plum transition-all outline-none"
                 />
                 {errors.price && (
                   <p className="text-[10px] font-bold text-rose-500 pl-1">
@@ -228,7 +228,7 @@ export default function ServiceFormModal({
                   {...register("duration", { valueAsNumber: true })}
                   type="number"
                   placeholder="30"
-                  className="w-full h-12 bg-slate-50 border border-slate-100 rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-slate-900 transition-all outline-none"
+                  className="w-full h-12 bg-glam-blush/50 border border-glam-blush rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-glam-plum transition-all outline-none"
                 />
                 {errors.duration && (
                   <p className="text-[10px] font-bold text-rose-500 pl-1">
@@ -246,7 +246,7 @@ export default function ServiceFormModal({
                 {...register("depositAmount", { valueAsNumber: true })}
                 type="number"
                 placeholder="0.00"
-                className="w-full h-12 bg-slate-50 border border-slate-100 rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-slate-900 transition-all outline-none"
+                className="w-full h-12 bg-glam-blush/50 border border-glam-blush rounded-2xl px-4 text-sm font-bold focus:bg-white focus:border-glam-plum transition-all outline-none"
               />
               <p className="text-[10px] font-medium text-slate-400 pl-1">
                 Clients must pay this amount to secure booking.
@@ -261,8 +261,8 @@ export default function ServiceFormModal({
 
           {/* Description */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
-              <FileText size={16} className="text-rose-600" />
+            <div className="flex items-center gap-2 text-glam-plum font-bold text-sm">
+              <FileText size={16} className="text-glam-plum" />
               <span>Description</span>
             </div>
             <div className="space-y-1.5">
@@ -270,25 +270,25 @@ export default function ServiceFormModal({
                 {...register("description")}
                 rows={3}
                 placeholder="Describe what's included in this service..."
-                className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-4 text-sm font-bold focus:bg-white focus:border-slate-900 transition-all outline-none resize-none"
+                className="w-full bg-glam-blush/50 border border-glam-blush rounded-2xl p-4 text-sm font-bold focus:bg-white focus:border-glam-plum transition-all outline-none resize-none"
               />
             </div>
           </div>
         </form>
 
         {/* Footer */}
-        <div className="p-8 border-t border-slate-100 bg-slate-50/50 flex gap-4">
+        <div className="p-8 border-t border-glam-blush bg-glam-blush/50/50 flex gap-4">
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 h-14 rounded-2xl border border-slate-100 bg-white text-sm font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-all hover:border-slate-300"
+            className="flex-1 h-14 rounded-2xl border border-glam-blush bg-white text-sm font-black uppercase tracking-widest text-slate-400 hover:text-glam-plum transition-all hover:border-slate-300"
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit(onSubmit)}
             disabled={isSubmitting}
-            className="flex-1 h-14 rounded-2xl bg-slate-900 text-sm font-black uppercase tracking-widest text-white hover:bg-rose-600 transition-all border border-slate-200 flex items-center justify-center gap-3 disabled:opacity-70"
+            className="flex-1 h-14 rounded-2xl bg-glam-plum text-sm font-black uppercase tracking-widest text-white hover:bg-glam-plum transition-all border border-glam-blush flex items-center justify-center gap-3 disabled:opacity-70"
           >
             {isSubmitting ? (
               <Loader2 className="animate-spin" size={20} />
