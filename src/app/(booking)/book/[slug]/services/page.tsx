@@ -16,10 +16,10 @@ export async function generateMetadata({
   try {
     const provider = await providerService.getProviderById(slug);
     return {
-      title: `Book ${provider?.businessName || "Services"} | Peculia`,
+      title: `Book ${provider?.businessName || "Services"} | Glamyad`,
     };
   } catch {
-    return { title: "Book Services | Peculia" };
+    return { title: "Book Services | Glamyad" };
   }
 }
 
@@ -43,7 +43,11 @@ export default async function BookingServicesPage({
         <div className="mx-auto w-full max-w-7xl flex-1 px-6 py-12 lg:px-8">
           <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
             <BookingServiceSelection services={services} />
-            <BookingSummarySidebar provider={provider} currentStep={1} slug={slug} />
+            <BookingSummarySidebar
+              provider={provider}
+              currentStep={1}
+              slug={slug}
+            />
           </div>
         </div>
       </div>

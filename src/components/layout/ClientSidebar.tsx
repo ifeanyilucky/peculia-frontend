@@ -37,7 +37,7 @@ export default function ClientSidebar() {
           <Sparkles size={24} />
         </div>
         <span className="font-peculiar text-2xl font-black text-slate-900">
-          Peculia.
+          Glamyad.
         </span>
       </div>
 

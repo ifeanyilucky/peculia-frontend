@@ -22,7 +22,7 @@ export default function PublicLayout({
                 href="/"
                 className="font-peculiar text-2xl font-bold text-rose-600"
               >
-                PECULIA
+                GLAMYAD
               </Link>
               <p className="mt-4 max-w-xs text-sm text-slate-500">
                 The premium platform for booking trusted beauty and wellness
@@ -52,7 +52,7 @@ export default function PublicLayout({
                   href={ROUTES.partnersPortal}
                   className="text-sm text-slate-500 hover:text-rose-600"
                 >
-                  Join Peculia
+                  Join Glamyad
                 </Link>
                 <Link
                   href={ROUTES.partnersPortal}
@@ -85,7 +85,7 @@ export default function PublicLayout({
             </div>
           </div>
           <div className="mt-12 border-t border-slate-50 pt-8 text-center text-xs text-slate-400">
-            © {new Date().getFullYear()} Peculia Inc. All rights reserved.
+            © {new Date().getFullYear()} Glamyad Inc. All rights reserved.
           </div>
         </div>
       </footer>

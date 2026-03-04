@@ -23,7 +23,7 @@ export default function CookiePolicyPage() {
               Cookie <span className="text-rose-600">Policy</span>
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-              Last updated: February 23, 2026. This policy explains how Peculia
+              Last updated: February 23, 2026. This policy explains how Glamyad
               uses cookies and similar technologies to recognize you when you
               visit our website.
             </p>
@@ -105,13 +105,13 @@ export default function CookiePolicyPage() {
 
             <footer className="pt-12 border-t border-slate-200 dark:border-slate-800">
               <p className="text-sm text-slate-500 text-center">
-                © 2026 Peculia. All rights reserved. For more information,
+                © 2026 Glamyad. All rights reserved. For more information,
                 please contact us at{" "}
                 <a
-                  href="mailto:privacy@peculia.com"
+                  href="mailto:privacy@glamyad.com"
                   className="text-rose-600 hover:underline"
                 >
-                  privacy@peculia.com
+                  privacy@glamyad.com
                 </a>
                 .
               </p>

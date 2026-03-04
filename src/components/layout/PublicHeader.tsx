@@ -59,7 +59,7 @@ export default function PublicHeader() {
           href="/"
           className="font-peculiar text-2xl font-black text-slate-900"
         >
-          Peculia.
+          Glamyad.
         </Link>
 
         {/* Right: Actions */}

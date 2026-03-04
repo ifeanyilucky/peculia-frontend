@@ -41,7 +41,7 @@ export default function NotFound() {
 
       <div className="mt-20 pt-8 border-t border-slate-200/60 w-full max-w-xs">
         <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-          Peculia Professional Booking
+          Glamyad Professional Booking
         </p>
       </div>
     </div>

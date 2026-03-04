@@ -9,9 +9,9 @@ import CTASection from "@/components/features/landing/CTASection";
 import { providerService } from "@/services/provider.service";
 
 export const metadata: Metadata = {
-  title: "Peculia | Book Top Beauty & Wellness Professionals",
+  title: "Glamyad | Book Top Beauty & Wellness Professionals",
   description:
-    "Find and book trusted local beauty and wellness professionals. From barbers to stylists, Peculia makes booking easy and secure.",
+    "Find and book trusted local beauty and wellness professionals. From barbers to stylists, Glamyad makes booking easy and secure.",
 };
 
 async function getFeaturedProviders() {

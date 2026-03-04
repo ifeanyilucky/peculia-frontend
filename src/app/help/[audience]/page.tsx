@@ -27,7 +27,7 @@ export default async function AudienceDashboardPage({
   const subtitle =
     audience === "customers"
       ? "Find answers about booking, payments, and managing your client account."
-      : "Everything you need to grow and manage your business on Peculia.";
+      : "Everything you need to grow and manage your business on Glamyad.";
 
   return (
     <div className="min-h-screen bg-background">
@@ -61,7 +61,7 @@ export default async function AudienceDashboardPage({
           <section className="mt-24 rounded-3xl bg-primary/5 p-12 lg:p-16">
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
               <div>
-                <h2 className="mb-6 text-3xl font-bold">New to Peculia?</h2>
+                <h2 className="mb-6 text-3xl font-bold">New to Glamyad?</h2>
                 <p className="mb-8 text-lg text-muted-foreground">
                   Our getting started guide covers everything from setting up
                   your profile to taking your first booking.

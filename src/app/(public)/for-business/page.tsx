@@ -50,7 +50,7 @@ export default function ForBusinessPage() {
               </span>
               <h1 className="font-peculiar text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8">
                 Grow your <span className="text-rose-600">business</span> with
-                Peculia
+                Glamyad
               </h1>
               <p className="text-xl text-slate-600 font-medium max-w-2xl mb-10 leading-relaxed">
                 The all-in-one platform to manage your bookings, clients, and
@@ -155,7 +155,7 @@ export default function ForBusinessPage() {
               <span className="text-rose-600">thrive</span>
             </h2>
             <p className="text-lg text-slate-600 font-medium">
-              We built Peculia with one goal: to empower professionals like you.
+              We built Glamyad with one goal: to empower professionals like you.
               Our toolbox is designed to eliminate the noise and boost your
               productivity.
             </p>
@@ -238,7 +238,7 @@ export default function ForBusinessPage() {
               </h2>
               <p className="text-lg text-slate-400 font-medium">
                 Whether you're a barber, nail tech, or medspa professional,
-                Peculia echoes your attention to detail and premium service.
+                Glamyad echoes your attention to detail and premium service.
               </p>
             </div>
             <Link

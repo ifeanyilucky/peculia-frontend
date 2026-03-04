@@ -41,7 +41,7 @@ export interface BookingFlowState {
 }
 
 export const useBookingStore = create<BookingFlowState>()(
-    persist(
+  persist(
     (set) => ({
       currentStep: 1,
       selectedProvider: null,
@@ -113,7 +113,7 @@ export const useBookingStore = create<BookingFlowState>()(
         }),
     }),
     {
-      name: "peculia-booking-storage",
+      name: "glamyad-booking-storage",
       storage: createJSONStorage(() => localStorage),
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true);

@@ -84,10 +84,10 @@ export default function ProfileHeader({
 
   const handleShare = async () => {
     const shareData = {
-      title: `${provider.businessName} on Peculia`,
+      title: `${provider.businessName} on Glamyad`,
       text:
         provider.bio?.substring(0, 100) ||
-        `Book ${provider.businessName} on Peculia!`,
+        `Book ${provider.businessName} on Glamyad!`,
       url: window.location.href,
     };
 
@@ -211,7 +211,7 @@ export default function ProfileHeader({
             <Image
               src={
                 images[0]?.url ||
-                "https://placehold.co/1200x800?text=Peculia+Provider"
+                "https://placehold.co/1200x800?text=Glamyad+Provider"
               }
               alt={provider.businessName}
               fill
@@ -230,7 +230,7 @@ export default function ProfileHeader({
                 src={
                   images[1]?.url ||
                   images[0]?.url ||
-                  "https://placehold.co/1200x800?text=Peculia+Provider"
+                  "https://placehold.co/1200x800?text=Glamyad+Provider"
                 }
                 alt={provider.businessName}
                 fill
@@ -245,7 +245,7 @@ export default function ProfileHeader({
                 src={
                   images[2]?.url ||
                   images[0]?.url ||
-                  "https://placehold.co/1200x800?text=Peculia+Provider"
+                  "https://placehold.co/1200x800?text=Glamyad+Provider"
                 }
                 alt={provider.businessName}
                 fill

@@ -134,7 +134,7 @@ export const ArticleLayout = ({
                 <h4 className="mb-2 font-bold text-xl">Still need help?</h4>
                 <p className="mb-6 opacity-90 text-sm">
                   Our team is here to help you get the best experience on
-                  Peculia.
+                  Glamyad.
                 </p>
                 <Link
                   href="/contact"

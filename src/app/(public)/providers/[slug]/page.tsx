@@ -37,11 +37,11 @@ export async function generateMetadata(
       title: `${businessName || name} | Beauty Professional`,
       description:
         provider.bio?.substring(0, 160) ||
-        `Book ${name} for beauty and wellness services on Peculia.`,
+        `Book ${name} for beauty and wellness services on Glamyad.`,
       openGraph: {
-        title: `${businessName || name} on Peculia`,
+        title: `${businessName || name} on Glamyad`,
         description: provider.bio?.substring(0, 160),
-        url: `https://peculia.com/providers/${slug}`,
+        url: `https://glamyad.com/providers/${slug}`,
         images: provider.portfolioImages?.[0]?.url
           ? [provider.portfolioImages[0].url, ...previousImages]
           : provider.userId.avatar
@@ -50,7 +50,7 @@ export async function generateMetadata(
       },
     };
   } catch {
-    return { title: "Peculia Provider" };
+    return { title: "Glamyad Provider" };
   }
 }
 

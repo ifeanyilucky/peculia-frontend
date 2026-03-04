@@ -87,7 +87,7 @@ export default function HeroSection() {
             <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs text-rose-600 uppercase tracking-wider">
               New
             </span>
-            Introducing the Peculia Mobile App
+            Introducing the Glamyad Mobile App
             <span className="text-slate-400">→</span>
           </span> */}
           <h1 className="font-peculiar text-4xl sm:text-6xl font-black text-slate-900 ">

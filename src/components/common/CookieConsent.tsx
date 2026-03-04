@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Cookie, Settings } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const COOKIE_CONSENT_KEY = "peculia-cookie-consent";
+const COOKIE_CONSENT_KEY = "glamyad-cookie-consent";
 
 export const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);

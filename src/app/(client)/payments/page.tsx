@@ -68,13 +68,13 @@ export default function PaymentsPage() {
 
     const csvContent = [
       headers.join(","),
-      ...rows.map((row: string[]) => row.map(cell => `"${cell}"`).join(","))
+      ...rows.map((row: string[]) => row.map((cell) => `"${cell}"`).join(",")),
     ].join("\n");
 
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `peculia-payments-${new Date().toISOString().split("T")[0]}.csv`;
+    link.download = `glamyad-payments-${new Date().toISOString().split("T")[0]}.csv`;
     link.click();
   };
 
@@ -91,7 +91,7 @@ export default function PaymentsPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          <button 
+          <button
             onClick={handleExportCSV}
             disabled={!payments?.results?.length}
             className="flex items-center gap-2 h-12 px-6 rounded-2xl bg-white border border-slate-100 text-xs font-black uppercase tracking-widest text-slate-500 hover:border-slate-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed"

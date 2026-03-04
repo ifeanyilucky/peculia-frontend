@@ -124,10 +124,10 @@ export default function ExploreHeader() {
             href="/"
             className={cn(
               "font-peculiar text-2xl font-black text-slate-900 tracking-tight shrink-0 transition-all",
-              activeSegment ? "hidden sm:block" : "block"
+              activeSegment ? "hidden sm:block" : "block",
             )}
           >
-            peculia
+            glamyad
           </Link>
 
           {/* Center: Search Bar (Responsive) */}
@@ -207,7 +207,12 @@ export default function ExploreHeader() {
                 </AnimatePresence>
               </div>
 
-              <div className={cn("h-8 w-px bg-slate-200", activeSegment ? "hidden sm:block" : "block")} />
+              <div
+                className={cn(
+                  "h-8 w-px bg-slate-200",
+                  activeSegment ? "hidden sm:block" : "block",
+                )}
+              />
 
               {/* Location Segment */}
               <div
@@ -252,7 +257,12 @@ export default function ExploreHeader() {
                 </AnimatePresence>
               </div>
 
-              <div className={cn("h-8 w-px bg-slate-200", activeSegment ? "hidden sm:block" : "block")} />
+              <div
+                className={cn(
+                  "h-8 w-px bg-slate-200",
+                  activeSegment ? "hidden sm:block" : "block",
+                )}
+              />
 
               {/* Time Segment */}
               <div
@@ -312,7 +322,7 @@ export default function ExploreHeader() {
           <div
             className={cn(
               "relative shrink-0 transition-all",
-              activeSegment ? "hidden sm:block" : "block"
+              activeSegment ? "hidden sm:block" : "block",
             )}
             ref={profileRef}
           >

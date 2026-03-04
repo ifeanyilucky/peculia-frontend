@@ -5,7 +5,7 @@ export default function Testimonials() {
     {
       name: "Tinuade S.",
       role: "Regular Client",
-      text: "Peculia made finding a reliable hairstylist so easy. I love the verified reviews; I knew exactly what to expect before I even stepped into the salon!",
+      text: "Glamyad made finding a reliable hairstylist so easy. I love the verified reviews; I knew exactly what to expect before I even stepped into the salon!",
       rating: 5,
     },
     {

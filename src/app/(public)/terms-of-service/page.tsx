@@ -30,7 +30,7 @@ export default function TermsOfServicePage() {
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
               Last updated: February 25, 2026. Please read these terms carefully
-              before using the Peculia platform.
+              before using the Glamyad platform.
             </p>
           </header>
 
@@ -46,7 +46,7 @@ export default function TermsOfServicePage() {
               </div>
               <div className="prose prose-slate dark:prose-invert max-w-none">
                 <p>
-                  By accessing or using Peculia, you agree to be bound by these
+                  By accessing or using Glamyad, you agree to be bound by these
                   Terms of Service and all applicable laws and regulations. If
                   you do not agree with any of these terms, you are prohibited
                   from using or accessing this site.
@@ -65,9 +65,9 @@ export default function TermsOfServicePage() {
               </div>
               <div className="prose prose-slate dark:prose-invert max-w-none">
                 <p>
-                  Peculia provides a platform connecting beauty and wellness
+                  Glamyad provides a platform connecting beauty and wellness
                   professionals (&quot;Providers&quot;) with clients seeking
-                  their services. Peculia acts as an intermediary and is not
+                  their services. Glamyad acts as an intermediary and is not
                   responsible for the actual performance of services by
                   Providers.
                 </p>
@@ -115,7 +115,7 @@ export default function TermsOfServicePage() {
               <div className="prose prose-slate dark:prose-invert max-w-none">
                 <p>
                   Users agree to provide accurate information, respect Provider
-                  schedules, and maintain professional conduct. Peculia reserves
+                  schedules, and maintain professional conduct. Glamyad reserves
                   the right to suspend accounts that violate these guidelines or
                   engage in fraudulent activity.
                 </p>
@@ -124,13 +124,13 @@ export default function TermsOfServicePage() {
 
             <footer className="pt-12 border-t border-slate-200 dark:border-slate-800">
               <p className="text-sm text-slate-500 text-center">
-                © 2026 Peculia. All rights reserved. For legal inquiries, please
+                © 2026 Glamyad. All rights reserved. For legal inquiries, please
                 contact{" "}
                 <a
-                  href="mailto:legal@peculia.com"
+                  href="mailto:legal@glamyad.com"
                   className="text-rose-600 hover:underline"
                 >
-                  legal@peculia.com
+                  legal@glamyad.com
                 </a>
                 .
               </p>

@@ -23,7 +23,7 @@ export default function AuthLayout({
           <div className="relative z-10 flex h-full flex-col justify-between">
             <div>
               <h1 className="font-peculiar text-4xl font-black text-white">
-                Peculia.
+                Glamyad.
               </h1>
             </div>
 
@@ -39,7 +39,7 @@ export default function AuthLayout({
             </div>
 
             <div className="text-sm font-semibold text-slate-300">
-              © {new Date().getFullYear()} Peculia. All rights reserved.
+              © {new Date().getFullYear()} Glamyad. All rights reserved.
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@ export default function AuthLayout({
         <div className="flex w-full flex-col items-center justify-center bg-background px-6 py-12 lg:w-1/2 lg:px-24">
           <div className="mb-8 w-full max-w-[400px] lg:hidden">
             <h1 className="font-peculiar text-2xl font-bold text-rose-600 text-center">
-              PECULIA
+              GLAMYAD
             </h1>
           </div>
           <div className="w-full max-w-[400px]">{children}</div>

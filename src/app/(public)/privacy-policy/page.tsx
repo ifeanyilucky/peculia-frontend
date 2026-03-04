@@ -118,13 +118,13 @@ export default function PrivacyPolicyPage() {
 
             <footer className="pt-12 border-t border-slate-200 dark:border-slate-800">
               <p className="text-sm text-slate-500 text-center">
-                © 2026 Peculia. All rights reserved. For privacy concerns,
+                © 2026 Glamyad. All rights reserved. For privacy concerns,
                 please contact{" "}
                 <a
-                  href="mailto:privacy@peculia.com"
+                  href="mailto:privacy@glamyad.com"
                   className="text-rose-600 hover:underline"
                 >
-                  privacy@peculia.com
+                  privacy@glamyad.com
                 </a>
                 .
               </p>

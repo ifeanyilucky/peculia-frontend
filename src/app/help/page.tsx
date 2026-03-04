@@ -11,7 +11,7 @@ export default function HelpCenterPage() {
             Get Support
           </h1>
           <p className="mx-auto mb-12 max-w-2xl text-xl text-muted-foreground">
-            Everything you need to know about Peculia. Find answers,
+            Everything you need to know about Glamyad. Find answers,
             troubleshoot issues, and grow your business.
           </p>
           <HelpSearch />
