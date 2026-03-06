@@ -1,5 +1,7 @@
 import React from "react";
 import GuestGuard from "@/components/features/auth/GuestGuard";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function AuthLayout({
   children,
@@ -21,11 +23,15 @@ export default function AuthLayout({
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
 
           <div className="relative z-10 flex h-full flex-col justify-between">
-            <div>
-              <h1 className="font-peculiar text-4xl font-black text-white">
-                Glamyad.
-              </h1>
-            </div>
+            <Link href="/" className="relative h-8 w-32">
+              <Image
+                src="/logo/logo.png"
+                alt="Glamyad"
+                fill
+                className="object-contain"
+                priority
+              />
+            </Link>
 
             <div className="max-w-md">
               <h2 className="font-peculiar text-5xl font-blacker text-white">
