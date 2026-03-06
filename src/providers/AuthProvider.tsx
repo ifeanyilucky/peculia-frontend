@@ -4,6 +4,7 @@ import { useEffect, useState, ReactNode } from "react";
 import { useAuthStore } from "@/store/auth.store";
 import api from "@/lib/axios";
 import FullPageLoader from "@/components/common/FullPageLoader";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,5 +43,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     return <FullPageLoader />;
   }
 
-  return <>{children}</>;
+  return (
+    <GoogleOAuthProvider
+      clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}
+    >
+      {children}
+    </GoogleOAuthProvider>
+  );
 }

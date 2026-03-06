@@ -11,6 +11,7 @@ import { useAuthStore } from "@/store/auth.store";
 import { authService } from "@/services/auth.service";
 import { ROUTES } from "@/constants/routes";
 import { sileo } from "sileo";
+import { GoogleLogin } from "@react-oauth/google";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -35,38 +36,63 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
+  const handleAuthSuccess = (
+    user: any,
+    accessToken: string,
+    refreshToken: string,
+  ) => {
+    setAuth(user, accessToken, refreshToken);
+
+    sileo.success({
+      title: "Welcome back!",
+      description: `Logged in as ${user.firstName}`,
+    });
+
+    if (redirect) {
+      window.location.href = decodeURIComponent(redirect);
+      return;
+    }
+
+    if (user.role === "provider") {
+      window.location.href = ROUTES.partnersPortal;
+      return;
+    }
+
+    const redirectMap = {
+      client: ROUTES.client.dashboard,
+      admin: ROUTES.admin.dashboard,
+    };
+
+    router.push(redirectMap[user.role as keyof typeof redirectMap]);
+  };
+
   const onSubmit = async (data: LoginFormValues) => {
     setIsLoading(true);
     try {
       const { user, accessToken, refreshToken } = await authService.login(data);
-      setAuth(user, accessToken, refreshToken);
-
-      sileo.success({
-        title: "Welcome back!",
-        description: `Logged in as ${user.firstName}`,
-      });
-
-      // Redirect priority: redirect param > provider portal > role-based dashboard
-      if (redirect) {
-        window.location.href = decodeURIComponent(redirect);
-        return;
-      }
-
-      if (user.role === "provider") {
-        window.location.href = ROUTES.partnersPortal;
-        return;
-      }
-
-      const redirectMap = {
-        client: ROUTES.client.dashboard,
-        admin: ROUTES.admin.dashboard,
-      };
-
-      router.push(redirectMap[user.role as keyof typeof redirectMap]);
+      handleAuthSuccess(user, accessToken, refreshToken);
     } catch (error: unknown) {
-      // Error is handled by axios global interceptor usually,
-      // but we can add specific handling here if needed
       console.error(error as Error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onGoogleSuccess = async (response: any) => {
+    setIsLoading(true);
+    try {
+      const { user, accessToken, refreshToken } = await authService.googleLogin(
+        {
+          idToken: response.credential,
+        },
+      );
+      handleAuthSuccess(user, accessToken, refreshToken);
+    } catch (error: unknown) {
+      console.error(error as Error);
+      sileo.error({
+        title: "Login Failed",
+        description: "An error occurred during Google login. Please try again.",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -81,6 +107,33 @@ export default function LoginForm() {
         <p className="text-sm text-slate-500">
           Enter your credentials to access your account
         </p>
+      </div>
+
+      <div className="flex flex-col items-center justify-center space-y-4">
+        <GoogleLogin
+          onSuccess={onGoogleSuccess}
+          onError={() => {
+            sileo.error({
+              title: "Login Failed",
+              description: "Google login was unsuccessful.",
+            });
+          }}
+          useOneTap
+          theme="outline"
+          shape="circle"
+          size="large"
+          text="continue_with"
+        />
+        <div className="relative w-full py-4">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t border-slate-200"></span>
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-white px-2 text-slate-500">
+              Or continue with email
+            </span>
+          </div>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
