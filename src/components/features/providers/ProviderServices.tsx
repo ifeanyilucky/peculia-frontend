@@ -1,7 +1,6 @@
 "use client";
 
 import { Service } from "@/types/provider.types";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -27,19 +26,38 @@ export default function ProviderServices({
   };
 
   const categories = useMemo(() => {
-    const cats = Array.from(new Set(services.map(getCategoryName))).filter(
-      Boolean,
-    );
-    return cats;
+    const catsAndOrders = services.map((s) => ({
+      name: getCategoryName(s),
+      order:
+        s.categoryId && typeof s.categoryId === "object"
+          ? s.categoryId.order || 0
+          : s.order || 0,
+    }));
+
+    // Unique names while preserving order (taking the first order found for a name)
+    const uniqueCats: { name: string; order: number }[] = [];
+    const seen = new Set();
+
+    catsAndOrders.forEach((item) => {
+      if (!seen.has(item.name)) {
+        seen.add(item.name);
+        uniqueCats.push(item);
+      }
+    });
+
+    return uniqueCats.sort((a, b) => a.order - b.order).map((c) => c.name);
   }, [services]);
 
-  const [activeCategory, setActiveCategory] = useState(
-    categories[0] || "General",
-  );
+  const [activeCategory, setActiveCategory] = useState("");
+
+  // Determine which category should be active
+  const currentCategory = activeCategory || categories[0] || "";
 
   const filteredServices = useMemo(() => {
-    return services.filter((s) => getCategoryName(s) === activeCategory);
-  }, [services, activeCategory]);
+    return services
+      .filter((s) => getCategoryName(s) === currentCategory)
+      .sort((a, b) => (a.order || 0) - (b.order || 0));
+  }, [services, currentCategory]);
 
   if (services.length === 0) {
     return (
@@ -65,7 +83,7 @@ export default function ProviderServices({
               key={category}
               onClick={() => setActiveCategory(category)}
               className={`whitespace-nowrap rounded-full px-6 py-2 text-sm font-bold transition-all ${
-                activeCategory === category
+                currentCategory === category
                   ? "bg-primary text-white"
                   : "bg-transparent text-foreground hover:bg-secondary/50 border border-secondary"
               }`}
@@ -80,7 +98,7 @@ export default function ProviderServices({
       <div className="grid gap-4">
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeCategory}
+            key={currentCategory}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}

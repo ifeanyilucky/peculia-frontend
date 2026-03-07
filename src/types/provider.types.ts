@@ -60,11 +60,13 @@ export interface Service {
   duration: number; // in minutes
   depositAmount: number;
   isActive: boolean;
+  order?: number;
   category?: string; // Legacy
   categoryId?:
     | {
         _id: string;
         name: string;
+        order?: number;
       }
     | string;
   createdAt: string;

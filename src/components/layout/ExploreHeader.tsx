@@ -210,9 +210,6 @@ export default function ExploreHeader() {
                   priority
                 />
               </div>
-              <span className="hidden sm:block text-base font-black tracking-tight text-primary">
-                glamyad
-              </span>
             </Link>
 
             {/* Desktop nav links (md+) */}
