@@ -2,13 +2,34 @@
 
 import { useState, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { SlidersHorizontal, Map as MapIcon, ChevronDown } from "lucide-react";
+import {
+  SlidersHorizontal,
+  Map as MapIcon,
+  ChevronDown,
+  Star,
+  DollarSign,
+  Tag,
+  ArrowUpDown,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import ExploreFilterModal from "@/components/features/providers/ExploreFilterModal";
 import ProviderGrid from "@/components/features/providers/ProviderGrid";
 import DiscoveryMap from "@/components/features/providers/DiscoveryMap";
 import { DiscoveryFilters, Provider } from "@/types/provider.types";
+
+/**
+ * The header is two rows: ~56px (row 1) + ~52px (row 2 search bar) = ~108px total.
+ * The filter bar below sticks at top-[108px] so it lines up cleanly.
+ */
+const HEADER_HEIGHT = "top-[108px]";
+
+const QUICK_FILTERS = [
+  { label: "Sort", icon: ArrowUpDown },
+  { label: "Price", icon: DollarSign },
+  { label: "Rating", icon: Star },
+  { label: "Type", icon: Tag },
+];
 
 export default function ExploreClient() {
   const searchParams = useSearchParams();
@@ -43,70 +64,62 @@ export default function ExploreClient() {
   };
 
   return (
-    <div className="w-full px-6 py-12 mx-auto  min-h-screen">
-      {/* Filters Bar */}
-      <div className="sticky top-[80px] z-30 w-full  py-3">
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between gap-2">
-            <p className="text-sm font-medium text-muted-foreground">
-              <span className="text-slate-900 font-black">
-                {resultsCount} professionals
-              </span>{" "}
-              found
+    <div className="w-full min-h-screen">
+      {/* ── Sticky Filter Bar ─────────────────────────────────────────────── */}
+      <div
+        className={cn(
+          "sticky z-30 w-full bg-white/90 backdrop-blur-sm border-b border-secondary/60",
+          HEADER_HEIGHT,
+        )}
+      >
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-between h-12 gap-3">
+          {/* Left: results count + quick filter chips */}
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+            {/* Filters icon button */}
+            <button
+              onClick={() => setIsFilterModalOpen(true)}
+              className="flex items-center justify-center h-8 w-8 rounded-full border border-slate-200 bg-white hover:border-primary hover:bg-secondary/30 transition-all shrink-0"
+              aria-label="Open filters"
+            >
+              <SlidersHorizontal size={14} className="text-slate-700" />
+            </button>
+
+            <div className="h-5 w-px bg-slate-200 shrink-0" />
+
+            {/* Results count */}
+            <p className="text-xs font-medium text-muted-foreground shrink-0 whitespace-nowrap">
+              <span className="font-black text-slate-900">{resultsCount}</span>{" "}
+              professionals
             </p>
 
-            <div className="flex items-center gap-3">
+            <div className="h-5 w-px bg-slate-200 shrink-0" />
+
+            {/* Quick filter chips */}
+            {QUICK_FILTERS.map(({ label, icon: Icon }) => (
               <button
-                onClick={() => setShowMap(!showMap)}
-                className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 hover:border-slate-900 transition-all text-sm font-bold text-slate-900"
+                key={label}
+                onClick={() => setIsFilterModalOpen(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 bg-white whitespace-nowrap text-xs font-bold text-slate-800 hover:border-slate-700 hover:bg-slate-50 transition-all shrink-0"
               >
-                <MapIcon size={16} />
-                {showMap ? "Hide map" : "Show map"}
+                <Icon size={12} className="text-slate-500" />
+                {label}
+                <ChevronDown size={11} className="text-slate-400" />
               </button>
-            </div>
+            ))}
           </div>
 
-          {/* Quick Filter Chips (Mobile/Tablet) */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-            <button
-              onClick={() => setIsFilterModalOpen(true)}
-              className="flex items-center justify-center p-2.5 rounded-full border border-slate-200 bg-white hover:border-slate-900 shrink-0"
-            >
-              <SlidersHorizontal size={18} className="text-slate-900" />
-            </button>
-            <div className="h-6 w-px bg-slate-200 mx-1 shrink-0" />
-            <button
-              onClick={() => setIsFilterModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white whitespace-nowrap text-sm font-bold text-slate-900 hover:border-slate-900"
-            >
-              Sort
-              <ChevronDown size={14} className="text-slate-500" />
-            </button>
-            <button
-              onClick={() => setIsFilterModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white whitespace-nowrap text-sm font-bold text-slate-900 hover:border-slate-900"
-            >
-              Price
-              <ChevronDown size={14} className="text-slate-500" />
-            </button>
-            <button
-              onClick={() => setIsFilterModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white whitespace-nowrap text-sm font-bold text-slate-900 hover:border-slate-900"
-            >
-              Type
-              <ChevronDown size={14} className="text-slate-500" />
-            </button>
-            <button
-              onClick={() => setIsFilterModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white whitespace-nowrap text-sm font-bold text-slate-900 hover:border-slate-900"
-            >
-              Options
-              <ChevronDown size={14} className="text-slate-500" />
-            </button>
-          </div>
+          {/* Right: Map toggle (desktop only) */}
+          <button
+            onClick={() => setShowMap(!showMap)}
+            className="hidden lg:flex items-center gap-2 px-4 py-1.5 rounded-full border border-slate-200 hover:border-slate-700 transition-all text-xs font-bold text-slate-800 shrink-0"
+          >
+            <MapIcon size={13} />
+            {showMap ? "Hide map" : "Show map"}
+          </button>
         </div>
       </div>
 
+      {/* ── Filter modal ─────────────────────────────────────────────────── */}
       <ExploreFilterModal
         isOpen={isFilterModalOpen}
         onClose={() => setIsFilterModalOpen(false)}
@@ -119,25 +132,24 @@ export default function ExploreClient() {
           } else {
             params.set("sort", "relevance");
           }
-
           if (f.price > 0) {
             params.set("maxPrice", f.price.toString());
           } else {
             params.delete("maxPrice");
           }
-
           router.push(`?${params.toString()}`);
           setIsFilterModalOpen(false);
         }}
       />
 
+      {/* ── Main content: grid + map ─────────────────────────────────────── */}
       <div className="flex w-full min-h-[calc(100vh-160px)]">
-        {/* Left Column: Grid */}
+        {/* Provider grid */}
         <div
           className={cn(
-            "transition-all duration-500 ease-in-out lg:px-12 py-8",
+            "transition-all duration-500 ease-in-out px-4 sm:px-6 lg:px-10 py-6",
             showMap
-              ? "w-full lg:w-[60%] xl:w-[65%]"
+              ? "w-full lg:w-[58%] xl:w-[62%]"
               : "w-full max-w-7xl mx-auto",
           )}
         >
@@ -148,15 +160,15 @@ export default function ExploreClient() {
           />
         </div>
 
-        {/* Right Column: Map */}
+        {/* Map panel (desktop only) */}
         <AnimatePresence>
           {showMap && (
             <motion.div
-              initial={{ opacity: 0, x: 100 }}
+              initial={{ opacity: 0, x: 60 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 100 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="hidden lg:block lg:flex-1 sticky top-[152px] h-[calc(100vh-152px)] bg-slate-50 border-l border-slate-100 overflow-hidden"
+              exit={{ opacity: 0, x: 60 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="hidden lg:block lg:flex-1 sticky top-[160px] h-[calc(100vh-160px)] bg-slate-50 border-l border-slate-100 overflow-hidden"
             >
               <DiscoveryMap providers={providers} />
             </motion.div>

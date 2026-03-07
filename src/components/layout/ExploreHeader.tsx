@@ -2,14 +2,19 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Search,
   ChevronDown,
   Calendar,
-  Search as SearchIcon,
-  Map as MapIcon,
-  ArrowLeft,
+  MapPin,
+  Sparkles,
+  User,
+  LogOut,
+  BookOpen,
+  Menu,
+  X,
 } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
 import { motion, AnimatePresence } from "framer-motion";
@@ -23,41 +28,50 @@ import MobileSearchModal from "./MobileSearchModal";
 import { ROUTES } from "@/constants/routes";
 import { format } from "date-fns";
 
-import Image from "next/image";
+type Segment = "treatment" | "location" | "time" | null;
 
+/**
+ * ExploreHeader — two-row sticky navigation for the Explore page.
+ *
+ * Row 1: Logo + nav links + profile menu
+ * Row 2: Expanding smart search bar (Treatment | Location | When)
+ *
+ * Mobile (<md): Row 2 collapses to a compact pill that opens a full-screen
+ * step-by-step modal.
+ */
 export default function ExploreHeader() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isAuthenticated, user, clearAuth } = useAuthStore();
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
-  const profileRef = useRef<HTMLDivElement>(null);
 
-  // Filter States
-  const [activeSegment, setActiveSegment] = useState<
-    "treatment" | "location" | "time" | null
-  >(null);
+  // ── Search state ──────────────────────────────────────────────────────────
+  const [activeSegment, setActiveSegment] = useState<Segment>(null);
   const [treatment, setTreatment] = useState(
     searchParams.get("specialty") || "",
   );
   const [location, setLocation] = useState(searchParams.get("city") || "");
   const [time, setTime] = useState("Any time");
 
+  // ── UI state ──────────────────────────────────────────────────────────────
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+
+  // ── Refs ──────────────────────────────────────────────────────────────────
   const headerRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
   const treatmentInputRef = useRef<HTMLInputElement>(null);
   const locationInputRef = useRef<HTMLInputElement>(null);
 
+  // ── Click-outside handler ─────────────────────────────────────────────────
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        headerRef.current &&
-        !headerRef.current.contains(event.target as Node)
-      ) {
+    function handleClickOutside(e: MouseEvent) {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
         setActiveSegment(null);
       }
       if (
         profileRef.current &&
-        !profileRef.current.contains(event.target as Node)
+        !profileRef.current.contains(e.target as Node)
       ) {
         setIsProfileOpen(false);
       }
@@ -66,29 +80,21 @@ export default function ExploreHeader() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Auto-focus logic
+  // ── Auto-focus inputs when segment becomes active ─────────────────────────
   useEffect(() => {
-    if (activeSegment === "treatment") {
-      treatmentInputRef.current?.focus();
-    } else if (activeSegment === "location") {
-      locationInputRef.current?.focus();
-    }
+    if (activeSegment === "treatment") treatmentInputRef.current?.focus();
+    else if (activeSegment === "location") locationInputRef.current?.focus();
   }, [activeSegment]);
 
+  // ── Search handler ────────────────────────────────────────────────────────
   const handleSearch = () => {
     const params = new URLSearchParams(searchParams.toString());
     if (treatment) params.set("specialty", treatment);
     else params.delete("specialty");
-
     if (location) params.set("city", location);
     else params.delete("city");
-
-    if (time !== "Any time") {
-      params.set("time", time);
-    } else {
-      params.delete("time");
-    }
-
+    if (time !== "Any time") params.set("time", time);
+    else params.delete("time");
     setActiveSegment(null);
     router.push(`/explore?${params.toString()}`);
   };
@@ -99,306 +105,44 @@ export default function ExploreHeader() {
     router.push("/");
   };
 
+  // ── Derived display values ────────────────────────────────────────────────
+  const pillLabel = [
+    treatment || "All treatments",
+    location || "Anywhere",
+    time,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+
+  const userInitials = user
+    ? `${user.firstName?.[0] ?? ""}${user.lastName?.[0] ?? ""}`.toUpperCase() ||
+      "U"
+    : null;
+
+  // ── Nav links ─────────────────────────────────────────────────────────────
+  const navLinks = [
+    { href: ROUTES.public.explore, label: "Explore" },
+    { href: ROUTES.public.forBusiness, label: "For Business" },
+  ];
+
   return (
     <>
+      {/* ── Backdrop overlay when a segment is active ── */}
       <AnimatePresence>
         {activeSegment && (
           <motion.div
+            key="backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             onClick={() => setActiveSegment(null)}
-            className="fixed inset-0 z-40 bg-primary/40 backdrop-blur-[2px]"
+            className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px]"
           />
         )}
       </AnimatePresence>
 
-      <header
-        className={cn(
-          "sticky top-0 z-50 w-full bg-white border-b border-secondary py-3 px-6 lg:px-12 transition-all duration-500",
-          activeSegment ? "py-6" : "py-3",
-        )}
-        ref={headerRef}
-      >
-        <div className="mx-auto max-w-[1440px] flex items-center justify-between gap-8">
-          {/* Left: Logo */}
-          <Link
-            href="/"
-            className={cn(
-              "relative h-8 w-8 shrink-0 transition-all",
-              activeSegment ? "hidden sm:block" : "block",
-            )}
-          >
-            <Image
-              src="/logo/logo-icon-transparent.png"
-              alt="Glamyad"
-              fill
-              className="object-contain"
-              priority
-            />
-          </Link>
-
-          {/* Center: Search Bar (Responsive) */}
-          <div className="flex-1 flex justify-center max-w-4xl transition-all duration-500">
-            {/* Mobile Search Bar (Compact) */}
-            <div
-              onClick={() => setIsMobileSearchOpen(true)}
-              className="flex sm:hidden items-center justify-between w-full bg-white border border-secondary rounded-full px-4 py-2 hover:shadow-md transition-all cursor-pointer"
-            >
-              <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center">
-                  <ArrowLeft size={16} className="text-primary" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-xs font-black text-primary line-clamp-1">
-                    {treatment || "All treatments and venues"}
-                  </span>
-                  <span className="text-[10px] font-medium text-muted-foreground">
-                    {time} • {location || "Current location"}
-                  </span>
-                </div>
-              </div>
-              <div className="h-8 w-8 rounded-full border border-secondary flex items-center justify-center">
-                <MapIcon size={14} className="text-primary" />
-              </div>
-            </div>
-
-            {/* Desktop Search Bar (Expanding) — visible from sm upwards */}
-            <div
-              className={cn(
-                "hidden sm:flex items-center bg-white border border-secondary rounded-full transition-all duration-500 shadow-sm hover:shadow-md w-full",
-                activeSegment
-                  ? "p-1.5 bg-slate-50 border-slate-300 ring-4 ring-secondary/30"
-                  : "p-1.5",
-              )}
-            >
-              {/* Treatment Segment — always visible when search bar is shown */}
-              <div
-                onClick={() => setActiveSegment("treatment")}
-                className={cn(
-                  "group relative flex flex-col justify-center px-3 sm:px-5 md:px-6 py-2 rounded-full cursor-pointer transition-all duration-300 flex-1",
-                  activeSegment === "treatment"
-                    ? "bg-white shadow-lg"
-                    : "hover:bg-secondary",
-                )}
-              >
-                <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
-                  Treatments
-                </span>
-                <input
-                  ref={treatmentInputRef}
-                  type="text"
-                  placeholder="All Treatments"
-                  value={treatment}
-                  onChange={(e) => setTreatment(e.target.value)}
-                  className="w-full border-none bg-transparent p-0 text-sm font-bold text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-0"
-                />
-                <AnimatePresence>
-                  {activeSegment === "treatment" && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 mt-6 z-[110]"
-                    >
-                      <TreatmentDropdown
-                        searchQuery={treatment}
-                        onSelect={(id) => {
-                          setTreatment(id);
-                          setActiveSegment("location");
-                        }}
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              <div
-                className={cn(
-                  "h-8 w-px bg-secondary",
-                  activeSegment ? "hidden sm:block" : "block",
-                )}
-              />
-
-              {/* Location Segment — always visible */}
-              <div
-                onClick={() => setActiveSegment("location")}
-                className={cn(
-                  "group relative flex flex-col justify-center px-3 sm:px-5 md:px-6 py-2 rounded-full cursor-pointer transition-all duration-300 flex-1",
-                  activeSegment === "location"
-                    ? "bg-white shadow-lg"
-                    : "hover:bg-secondary",
-                )}
-              >
-                <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
-                  Where
-                </span>
-                <input
-                  ref={locationInputRef}
-                  type="text"
-                  placeholder="Map area"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  className="w-full border-none bg-transparent p-0 text-sm font-bold text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-0"
-                />
-                <AnimatePresence>
-                  {activeSegment === "location" && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 mt-6 z-[110]"
-                    >
-                      <LocationDropdown
-                        searchQuery={location}
-                        onSelect={(city) => {
-                          setLocation(city);
-                          setActiveSegment("time");
-                        }}
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              <div
-                className={cn(
-                  "h-8 w-px bg-secondary",
-                  activeSegment ? "hidden sm:block" : "block",
-                )}
-              />
-
-              {/* Time Segment — always visible, hidden on narrowest needed */}
-              <div
-                onClick={() => setActiveSegment("time")}
-                className={cn(
-                  "group relative hidden sm:flex flex-col justify-center px-3 sm:px-5 md:px-6 py-2 rounded-full cursor-pointer transition-all duration-300 flex-1 shrink-0",
-                  activeSegment === "time"
-                    ? "bg-white shadow-lg"
-                    : "hover:bg-secondary",
-                )}
-              >
-                <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
-                  When
-                </span>
-                <div className="flex items-center gap-2">
-                  <Calendar
-                    size={13}
-                    className="text-muted-foreground shrink-0"
-                  />
-                  <span className="text-sm font-bold text-primary truncate max-w-[60px] sm:max-w-[100px] md:max-w-[140px]">
-                    {time}
-                  </span>
-                </div>
-                <AnimatePresence>
-                  {activeSegment === "time" && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full right-0 mt-6 z-[110]"
-                    >
-                      <DateTimeDropdown
-                        onSelect={(date, t) => {
-                          setTime(`${format(date, "MMM d")}, ${t}`);
-                        }}
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Search Button */}
-              <button
-                onClick={handleSearch}
-                className={cn(
-                  "flex items-center justify-center gap-2 rounded-full bg-primary text-white font-bold transition-all duration-500 active:scale-95",
-                  activeSegment ? "px-8 py-3.5 ml-2" : "h-11 w-11 lg:ml-4",
-                )}
-              >
-                <SearchIcon size={activeSegment ? 20 : 18} />
-                {activeSegment && (
-                  <span className="text-sm font-black">Search</span>
-                )}
-              </button>
-            </div>
-          </div>
-
-          <div
-            className={cn(
-              "relative shrink-0 transition-all",
-              activeSegment ? "hidden sm:block" : "block",
-            )}
-            ref={profileRef}
-          >
-            <button
-              onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="flex items-center gap-2 rounded-full border border-secondary bg-white p-1.5 transition-shadow hover:shadow-sm"
-            >
-              <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm uppercase">
-                {user?.firstName?.[0] || "I"}
-              </div>
-              <ChevronDown size={18} className="text-muted-foreground mr-1" />
-            </button>
-
-            <AnimatePresence>
-              {isProfileOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                  className="absolute right-0 top-full mt-4 w-56 origin-top-right rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-secondary/50 border border-secondary z-50"
-                >
-                  {isAuthenticated ? (
-                    <>
-                      <div className="p-3 border-b border-secondary">
-                        <p className="text-sm font-bold text-primary">
-                          {user?.firstName} {user?.lastName}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {user?.email}
-                        </p>
-                      </div>
-                      <div className="py-2">
-                        <Link
-                          href="/client/bookings"
-                          onClick={() => setIsProfileOpen(false)}
-                          className="flex items-center gap-3 px-3 py-2 text-sm font-bold text-foreground hover:bg-slate-50 rounded-xl"
-                        >
-                          My Bookings
-                        </Link>
-                        <button
-                          onClick={handleSignOut}
-                          className="flex w-full items-center gap-3 px-3 py-2 text-sm font-bold text-primary hover:bg-secondary/50 rounded-xl"
-                        >
-                          Sign out
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="py-2">
-                      <Link
-                        href={ROUTES.auth.login}
-                        onClick={() => setIsProfileOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2 text-sm font-bold text-foreground hover:bg-slate-50 rounded-xl"
-                      >
-                        Log in
-                      </Link>
-                      <Link
-                        href={ROUTES.auth.registerClient}
-                        onClick={() => setIsProfileOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2 text-sm text-primary font-black hover:bg-secondary/50 rounded-xl"
-                      >
-                        Sign up
-                      </Link>
-                    </div>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-      </header>
+      {/* ── Mobile search modal ── */}
       <MobileSearchModal
         isOpen={isMobileSearchOpen}
         onClose={() => setIsMobileSearchOpen(false)}
@@ -409,7 +153,6 @@ export default function ExploreHeader() {
           setTreatment(data.treatment);
           setLocation(data.location);
           setTime(data.time);
-          // Trigger search after modal apply
           const params = new URLSearchParams(searchParams.toString());
           if (data.treatment) params.set("specialty", data.treatment);
           else params.delete("specialty");
@@ -420,6 +163,406 @@ export default function ExploreHeader() {
           router.push(`/explore?${params.toString()}`);
         }}
       />
+
+      {/* ════════════════════════════════════════════════════════════════════════
+          HEADER
+      ═══════════════════════════════════════════════════════════════════════ */}
+      <header
+        ref={headerRef}
+        className="sticky top-0 z-50 w-full bg-white border-b border-secondary"
+      >
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
+          {/* ── ROW 1: Logo + Nav + Profile ─────────────────────────────── */}
+          <div className="flex h-14 items-center justify-between gap-4">
+            {/* Logo */}
+            <Link
+              href="/"
+              className="relative flex items-center gap-2.5 shrink-0"
+            >
+              <div className="relative h-8 w-8">
+                <Image
+                  src="/logo/logo-icon-transparent.png"
+                  alt="Glamyad"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <span className="hidden sm:block text-base font-black tracking-tight text-primary">
+                glamyad
+              </span>
+            </Link>
+
+            {/* Desktop nav links (md+) */}
+            <nav className="hidden md:flex items-center gap-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="px-3 py-1.5 rounded-full text-sm font-bold text-muted-foreground hover:text-primary hover:bg-secondary/60 transition-all"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Right side: profile + mobile hamburger */}
+            <div className="flex items-center gap-2 shrink-0">
+              {/* Profile button */}
+              <div ref={profileRef} className="relative">
+                <button
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  aria-label="Profile menu"
+                  className="flex items-center gap-2 rounded-full border border-secondary bg-white px-2 py-1.5 hover:shadow-md transition-all duration-200"
+                >
+                  <Menu size={16} className="text-muted-foreground" />
+                  <div className="h-7 w-7 rounded-full bg-primary flex items-center justify-center text-white text-xs font-black">
+                    {userInitials ?? <User size={14} />}
+                  </div>
+                </button>
+
+                {/* Profile dropdown */}
+                <AnimatePresence>
+                  {isProfileOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 top-full mt-3 w-60 origin-top-right rounded-2xl bg-white shadow-2xl ring-1 ring-secondary border border-secondary/60 p-1.5 z-50"
+                    >
+                      {isAuthenticated ? (
+                        <>
+                          {/* User info */}
+                          <div className="px-3 py-3 mb-1 border-b border-secondary">
+                            <div className="flex items-center gap-3">
+                              <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-white text-sm font-black shrink-0">
+                                {userInitials}
+                              </div>
+                              <div className="min-w-0">
+                                <p className="text-sm font-black text-primary truncate">
+                                  {user?.firstName} {user?.lastName}
+                                </p>
+                                <p className="text-xs text-muted-foreground truncate">
+                                  {user?.email}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          {/* Menu items */}
+                          <div className="py-1">
+                            <Link
+                              href="/client/bookings"
+                              onClick={() => setIsProfileOpen(false)}
+                              className="flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-foreground hover:bg-secondary/50 rounded-xl transition-colors"
+                            >
+                              <BookOpen
+                                size={16}
+                                className="text-muted-foreground"
+                              />
+                              My Bookings
+                            </Link>
+                            <button
+                              onClick={handleSignOut}
+                              className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-primary hover:bg-secondary/50 rounded-xl transition-colors"
+                            >
+                              <LogOut size={16} className="text-primary/70" />
+                              Sign out
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <div className="py-1">
+                          <Link
+                            href={ROUTES.auth.login}
+                            onClick={() => setIsProfileOpen(false)}
+                            className="flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-foreground hover:bg-secondary/50 rounded-xl transition-colors"
+                          >
+                            Log in
+                          </Link>
+                          <Link
+                            href={ROUTES.auth.registerClient}
+                            onClick={() => setIsProfileOpen(false)}
+                            className="flex items-center gap-3 px-3 py-2.5 text-sm font-black text-primary hover:bg-secondary/50 rounded-xl transition-colors"
+                          >
+                            <Sparkles size={14} className="text-accent" />
+                            Sign up free
+                          </Link>
+                          <div className="mt-1 pt-1 border-t border-secondary">
+                            <Link
+                              href={ROUTES.partnersPortal}
+                              onClick={() => setIsProfileOpen(false)}
+                              className="flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-muted-foreground hover:bg-secondary/50 rounded-xl transition-colors"
+                            >
+                              Partner portal ↗
+                            </Link>
+                          </div>
+                        </div>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
+          </div>
+
+          {/* ── ROW 2: Smart Search Bar ──────────────────────────────────── */}
+          <div className="pb-3">
+            {/* ─── Mobile pill (< md) ──────────────────────────────────── */}
+            <button
+              onClick={() => setIsMobileSearchOpen(true)}
+              className="md:hidden w-full flex items-center gap-3 bg-white border border-secondary rounded-full px-4 py-2.5 shadow-sm hover:shadow-md transition-all active:scale-[0.99]"
+            >
+              <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                <Search size={15} className="text-primary" />
+              </div>
+              <div className="flex-1 text-left min-w-0">
+                <p className="text-xs font-black text-primary truncate">
+                  {treatment || "All treatments & venues"}
+                </p>
+                <p className="text-[10px] font-medium text-muted-foreground truncate">
+                  {location || "Anywhere"} · {time}
+                </p>
+              </div>
+              <div className="h-7 w-7 rounded-full border border-secondary flex items-center justify-center shrink-0">
+                <MapPin size={12} className="text-primary" />
+              </div>
+            </button>
+
+            {/* ─── Desktop expanding search bar (md+) ─────────────────── */}
+            <div
+              className={cn(
+                "hidden md:flex items-center bg-white border rounded-full transition-all duration-300 w-full",
+                activeSegment
+                  ? "border-slate-300 shadow-xl ring-4 ring-secondary/30 bg-slate-50/80"
+                  : "border-secondary shadow-sm hover:shadow-md",
+              )}
+            >
+              {/* ─ Treatment segment ─ */}
+              <SearchSegment
+                label="Treatment"
+                icon={<Sparkles size={13} className="text-muted-foreground" />}
+                isActive={activeSegment === "treatment"}
+                onClick={() =>
+                  setActiveSegment(
+                    activeSegment === "treatment" ? null : "treatment",
+                  )
+                }
+                className="flex-[1.4]"
+                dropdown={
+                  activeSegment === "treatment" && (
+                    <TreatmentDropdown
+                      searchQuery={treatment}
+                      onSelect={(id) => {
+                        setTreatment(id);
+                        setActiveSegment("location");
+                      }}
+                    />
+                  )
+                }
+              >
+                <input
+                  ref={treatmentInputRef}
+                  type="text"
+                  placeholder="All treatments"
+                  value={treatment}
+                  onChange={(e) => setTreatment(e.target.value)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveSegment("treatment");
+                  }}
+                  className="w-full border-none bg-transparent p-0 text-sm font-bold text-primary placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
+                />
+              </SearchSegment>
+
+              <Divider visible={true} />
+
+              {/* ─ Location segment ─ */}
+              <SearchSegment
+                label="Location"
+                icon={<MapPin size={13} className="text-muted-foreground" />}
+                isActive={activeSegment === "location"}
+                onClick={() =>
+                  setActiveSegment(
+                    activeSegment === "location" ? null : "location",
+                  )
+                }
+                className="flex-[1.2]"
+                dropdown={
+                  activeSegment === "location" && (
+                    <LocationDropdown
+                      searchQuery={location}
+                      onSelect={(city) => {
+                        setLocation(city);
+                        setActiveSegment("time");
+                      }}
+                    />
+                  )
+                }
+              >
+                <input
+                  ref={locationInputRef}
+                  type="text"
+                  placeholder="Anywhere"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveSegment("location");
+                  }}
+                  className="w-full border-none bg-transparent p-0 text-sm font-bold text-primary placeholder:text-muted-foreground/70 focus:outline-none focus:ring-0"
+                />
+              </SearchSegment>
+
+              <Divider visible={true} />
+
+              {/* ─ Time segment ─ */}
+              <SearchSegment
+                label="When"
+                icon={<Calendar size={13} className="text-muted-foreground" />}
+                isActive={activeSegment === "time"}
+                onClick={() =>
+                  setActiveSegment(activeSegment === "time" ? null : "time")
+                }
+                className="flex-1"
+                dropdownAlign="right"
+                dropdown={
+                  activeSegment === "time" && (
+                    <DateTimeDropdown
+                      onSelect={(date, t) => {
+                        setTime(`${format(date, "MMM d")}, ${t}`);
+                      }}
+                    />
+                  )
+                }
+              >
+                <span
+                  className={cn(
+                    "text-sm font-bold truncate",
+                    time === "Any time"
+                      ? "text-muted-foreground/70"
+                      : "text-primary",
+                  )}
+                >
+                  {time}
+                </span>
+              </SearchSegment>
+
+              {/* ─ Search button ─ */}
+              <div className="p-1.5 pl-0 shrink-0">
+                <button
+                  onClick={handleSearch}
+                  aria-label="Search"
+                  className={cn(
+                    "flex items-center justify-center gap-2 rounded-full bg-primary text-white font-black transition-all duration-300 active:scale-95",
+                    activeSegment
+                      ? "px-6 py-3 shadow-lg shadow-primary/20"
+                      : "h-10 w-10",
+                  )}
+                >
+                  <Search size={activeSegment ? 18 : 16} />
+                  <AnimatePresence>
+                    {activeSegment && (
+                      <motion.span
+                        key="search-label"
+                        initial={{ opacity: 0, width: 0 }}
+                        animate={{ opacity: 1, width: "auto" }}
+                        exit={{ opacity: 0, width: 0 }}
+                        className="text-sm overflow-hidden whitespace-nowrap"
+                      >
+                        Search
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
     </>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Sub-components
+// ─────────────────────────────────────────────────────────────────────────────
+
+interface SearchSegmentProps {
+  label: string;
+  icon: React.ReactNode;
+  isActive: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+  dropdown?: React.ReactNode;
+  dropdownAlign?: "left" | "right";
+  className?: string;
+}
+
+/**
+ * A single pill segment of the search bar (Treatment / Location / When).
+ * Renders a label + input area, and positions the dropdown panel.
+ */
+function SearchSegment({
+  label,
+  icon,
+  isActive,
+  onClick,
+  children,
+  dropdown,
+  dropdownAlign = "left",
+  className,
+}: SearchSegmentProps) {
+  return (
+    <div
+      onClick={onClick}
+      className={cn(
+        "relative group flex flex-col justify-center px-5 py-2.5 rounded-full cursor-pointer transition-all duration-200 min-w-0",
+        isActive ? "bg-white shadow-md" : "hover:bg-secondary/40",
+        className,
+      )}
+    >
+      {/* Label row */}
+      <div className="flex items-center gap-1.5 mb-0.5">
+        {icon}
+        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary/70 transition-colors">
+          {label}
+        </span>
+      </div>
+
+      {/* Input / value */}
+      {children}
+
+      {/* Dropdown panel */}
+      <AnimatePresence>
+        {dropdown && (
+          <motion.div
+            initial={{ opacity: 0, y: 12, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.98 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className={cn(
+              "absolute top-full z-[110] mt-4",
+              dropdownAlign === "right" ? "right-0" : "left-0",
+            )}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {dropdown}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/** Thin vertical divider between search segments */
+function Divider({ visible }: { visible: boolean }) {
+  return (
+    <div
+      className={cn(
+        "h-7 w-px bg-secondary shrink-0 transition-opacity duration-200",
+        visible ? "opacity-100" : "opacity-0",
+      )}
+    />
   );
 }
