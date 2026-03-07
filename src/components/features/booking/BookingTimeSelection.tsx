@@ -233,7 +233,7 @@ export default function BookingTimeSelection({
                   }
                 }}
                 className={cn(
-                  "flex flex-col items-center gap-1 py-3 rounded-2xl transition-all relative",
+                  "flex flex-col items-center gap-1 py-3 rounded transition-all relative",
                   isDisabled
                     ? "opacity-30 cursor-not-allowed"
                     : isSelected
