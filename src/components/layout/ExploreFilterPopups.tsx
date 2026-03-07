@@ -209,12 +209,17 @@ export function LocationDropdown({
 // DateTime Dropdown
 // ─────────────────────────────────────────────────────────────────────────────
 
+/**
+ * Preset time slot definitions.
+ * id = value sent to the backend:
+ *   "Any time" | "Morning" | "Afternoon" | "Evening" | "HH:mm-HH:mm" (custom)
+ */
 const TIME_SLOTS = [
   { id: "Any time", label: "Any time", range: "" },
   { id: "Morning", label: "Morning", range: "09–12" },
   { id: "Afternoon", label: "Afternoon", range: "12–17" },
   { id: "Evening", label: "Evening", range: "17–00" },
-  { id: "Custom", label: "Custom time", range: "" },
+  { id: "Custom", label: "Custom", range: "" },
 ];
 
 const WEEK_DAYS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
@@ -222,6 +227,10 @@ const WEEK_DAYS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 /**
  * Date + time selection dropdown panel.
  * Full inline calendar with quick-select buttons and time slots.
+ *
+ * onSelect is called with:
+ *  - date: the selected Date object
+ *  - time: backend-ready token — "Any time" | "Morning" | "Afternoon" | "Evening" | "HH:mm-HH:mm"
  */
 export function DateTimeDropdown({
   onSelect,
@@ -232,6 +241,9 @@ export function DateTimeDropdown({
   const [selectedDate, setSelectedDate] = useState<Date>(today);
   const [viewDate, setViewDate] = useState<Date>(today);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("Any time");
+  // Custom time range
+  const [customStart, setCustomStart] = useState("09:00");
+  const [customEnd, setCustomEnd] = useState("17:00");
 
   const handlePrevMonth = () => setViewDate(subMonths(viewDate, 1));
   const handleNextMonth = () => setViewDate(addMonths(viewDate, 1));
@@ -362,7 +374,10 @@ export function DateTimeDropdown({
                 key={slot.id}
                 onClick={() => {
                   setSelectedTimeSlot(slot.id);
-                  onSelect(selectedDate, slot.id);
+                  // For non-custom slots, emit immediately
+                  if (slot.id !== "Custom") {
+                    onSelect(selectedDate, slot.id);
+                  }
                 }}
                 className={cn(
                   "flex-1 min-w-[70px] py-2 px-3 rounded-xl border text-center transition-all",
@@ -381,6 +396,68 @@ export function DateTimeDropdown({
             );
           })}
         </div>
+
+        {/* Custom time range picker — shown only when "Custom" is selected */}
+        {selectedTimeSlot === "Custom" && (
+          <div className="mt-3 p-3 bg-secondary/30 rounded-2xl space-y-2">
+            <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+              Select your time range
+            </p>
+            <div className="flex items-center gap-2">
+              <div className="flex-1">
+                <label className="text-[10px] font-bold text-muted-foreground block mb-1">
+                  From
+                </label>
+                <input
+                  type="time"
+                  value={customStart}
+                  onChange={(e) => {
+                    setCustomStart(e.target.value);
+                    if (
+                      e.target.value &&
+                      customEnd &&
+                      e.target.value < customEnd
+                    ) {
+                      onSelect(selectedDate, `${e.target.value}-${customEnd}`);
+                    }
+                  }}
+                  className="w-full px-3 py-2 border border-secondary rounded-xl text-sm font-bold text-primary bg-white focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                />
+              </div>
+              <span className="text-muted-foreground text-sm font-black mt-4">
+                →
+              </span>
+              <div className="flex-1">
+                <label className="text-[10px] font-bold text-muted-foreground block mb-1">
+                  To
+                </label>
+                <input
+                  type="time"
+                  value={customEnd}
+                  onChange={(e) => {
+                    setCustomEnd(e.target.value);
+                    if (
+                      customStart &&
+                      e.target.value &&
+                      customStart < e.target.value
+                    ) {
+                      onSelect(
+                        selectedDate,
+                        `${customStart}-${e.target.value}`,
+                      );
+                    }
+                  }}
+                  className="w-full px-3 py-2 border border-secondary rounded-xl text-sm font-bold text-primary bg-white focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                />
+              </div>
+            </div>
+            {customStart >= customEnd && (
+              <p className="text-[10px] text-destructive font-bold">
+                End time must be after start time
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

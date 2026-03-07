@@ -26,7 +26,6 @@ import {
 } from "./ExploreFilterPopups";
 import MobileSearchModal from "./MobileSearchModal";
 import { ROUTES } from "@/constants/routes";
-import { format } from "date-fns";
 
 type Segment = "treatment" | "location" | "time" | null;
 
@@ -50,11 +49,26 @@ export default function ExploreHeader() {
     searchParams.get("specialty") || "",
   );
   const [location, setLocation] = useState(searchParams.get("city") || "");
-  const [time, setTime] = useState("Any time");
+  /**
+   * selectedTime: backend-ready token — "Any time" | "Morning" | "Afternoon" | "Evening" | "HH:mm-HH:mm"
+   * selectedDate: ISO date string (e.g. "2025-03-07") — separate from time
+   */
+  const [selectedTime, setSelectedTime] = useState(
+    searchParams.get("time") || "Any time",
+  );
+  const [selectedDate, setSelectedDate] = useState(
+    searchParams.get("date") || "",
+  );
+
+  /** Human-readable label shown in the When segment chip */
+  const timeDisplayLabel = selectedDate
+    ? `${selectedDate}${selectedTime !== "Any time" ? `, ${selectedTime}` : ""}`
+    : selectedTime === "Any time"
+      ? "Any time"
+      : selectedTime;
 
   // ── UI state ──────────────────────────────────────────────────────────────
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
 
   // ── Refs ──────────────────────────────────────────────────────────────────
@@ -93,7 +107,10 @@ export default function ExploreHeader() {
     else params.delete("specialty");
     if (location) params.set("city", location);
     else params.delete("city");
-    if (time !== "Any time") params.set("time", time);
+    // Send date and time as separate, backend-ready params
+    if (selectedDate) params.set("date", selectedDate);
+    else params.delete("date");
+    if (selectedTime !== "Any time") params.set("time", selectedTime);
     else params.delete("time");
     setActiveSegment(null);
     router.push(`/explore?${params.toString()}`);
@@ -109,7 +126,7 @@ export default function ExploreHeader() {
   const pillLabel = [
     treatment || "All treatments",
     location || "Anywhere",
-    time,
+    selectedTime,
   ]
     .filter(Boolean)
     .join(" · ");
@@ -148,16 +165,21 @@ export default function ExploreHeader() {
         onClose={() => setIsMobileSearchOpen(false)}
         initialTreatment={treatment}
         initialLocation={location}
-        initialTime={time}
+        initialTime={selectedTime}
         onApply={(data) => {
           setTreatment(data.treatment);
           setLocation(data.location);
-          setTime(data.time);
+          // data.time is either "Any time" | "Morning" | "Afternoon" | "Evening" | "HH:mm-HH:mm"
+          // data.date is an ISO string OR empty
+          setSelectedTime(data.time);
+          if (data.date) setSelectedDate(data.date);
           const params = new URLSearchParams(searchParams.toString());
           if (data.treatment) params.set("specialty", data.treatment);
           else params.delete("specialty");
           if (data.location) params.set("city", data.location);
           else params.delete("city");
+          if (data.date) params.set("date", data.date);
+          else params.delete("date");
           if (data.time !== "Any time") params.set("time", data.time);
           else params.delete("time");
           router.push(`/explore?${params.toString()}`);
@@ -321,7 +343,7 @@ export default function ExploreHeader() {
                   {treatment || "All treatments & venues"}
                 </p>
                 <p className="text-[10px] font-medium text-muted-foreground truncate">
-                  {location || "Anywhere"} · {time}
+                  {location || "Anywhere"} · {selectedTime}
                 </p>
               </div>
               <div className="h-7 w-7 rounded-full border border-secondary flex items-center justify-center shrink-0">
@@ -430,7 +452,9 @@ export default function ExploreHeader() {
                   activeSegment === "time" && (
                     <DateTimeDropdown
                       onSelect={(date, t) => {
-                        setTime(`${format(date, "MMM d")}, ${t}`);
+                        // Store ISO date and backend-ready time token separately
+                        setSelectedDate(date.toISOString().split("T")[0]);
+                        setSelectedTime(t);
                       }}
                     />
                   )
@@ -439,12 +463,12 @@ export default function ExploreHeader() {
                 <span
                   className={cn(
                     "text-sm font-bold truncate",
-                    time === "Any time"
+                    selectedTime === "Any time"
                       ? "text-muted-foreground/70"
                       : "text-primary",
                   )}
                 >
-                  {time}
+                  {timeDisplayLabel}
                 </span>
               </SearchSegment>
 
@@ -542,7 +566,7 @@ function SearchSegment({
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
             className={cn(
-              "absolute top-full z-[110] mt-4",
+              "absolute top-full z-110 mt-4",
               dropdownAlign === "right" ? "right-0" : "left-0",
             )}
             onClick={(e) => e.stopPropagation()}

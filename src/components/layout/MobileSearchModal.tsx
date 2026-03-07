@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   X,
   Search,
@@ -16,7 +16,6 @@ import {
   LocationDropdown,
   DateTimeDropdown,
 } from "./ExploreFilterPopups";
-import { format } from "date-fns";
 
 type Step = "treatment" | "location" | "time";
 
@@ -30,6 +29,7 @@ interface MobileSearchModalProps {
     treatment: string;
     location: string;
     time: string;
+    date?: string; // ISO date string, e.g. "2025-03-07"
   }) => void;
 }
 
@@ -72,23 +72,12 @@ export default function MobileSearchModal({
   const [treatment, setTreatment] = useState(initialTreatment);
   const [location, setLocation] = useState(initialLocation);
   const [time, setTime] = useState(initialTime);
-
-  // Reset step when modal opens
-  useEffect(() => {
-    if (isOpen) {
-      setActiveStep("treatment");
-      setTreatment(initialTreatment);
-      setLocation(initialLocation);
-      setTime(initialTime);
-    }
-  }, [isOpen, initialTreatment, initialLocation, initialTime]);
+  const [selectedDate, setSelectedDate] = useState<string>(""); // ISO string
 
   const handleApply = () => {
-    onApply({ treatment, location, time });
+    onApply({ treatment, location, time, date: selectedDate || undefined });
     onClose();
   };
-
-  const stepIndex = STEPS.indexOf(activeStep);
 
   const isDone = (step: Step) => {
     if (step === "treatment") return Boolean(treatment);
@@ -126,7 +115,7 @@ export default function MobileSearchModal({
 
           {/* ── Step tabs ──────────────────────────────────────────────────── */}
           <div className="flex gap-1.5 px-5 pt-4 pb-2">
-            {STEPS.map((step, i) => {
+            {STEPS.map((step) => {
               const isActive = activeStep === step;
               const done = isDone(step);
               const Meta = STEP_META[step];
@@ -287,7 +276,8 @@ export default function MobileSearchModal({
                   </div>
                   <DateTimeDropdown
                     onSelect={(date, t) => {
-                      setTime(`${format(date, "MMM d")}, ${t}`);
+                      setSelectedDate(date.toISOString().split("T")[0]);
+                      setTime(t);
                     }}
                   />
                 </motion.div>
