@@ -84,9 +84,9 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
                     href={item.href}
                     onClick={onClose}
                     className={cn(
-                      "group flex items-center gap-3 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all duration-300",
+                      "group flex items-center gap-3 rounded-full px-4 py-3.5 text-sm font-bold transition-all duration-300",
                       isActive
-                        ? "bg-primary text-white border border-primary"
+                        ? "bg-primary text-white"
                         : "text-muted-foreground hover:bg-secondary/50 hover:text-primary",
                     )}
                   >

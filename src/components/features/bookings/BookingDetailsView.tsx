@@ -169,7 +169,7 @@ export default function BookingDetailsView({
       </div>
 
       {/* ── Scrollable Body ── */}
-      <div className="flex-1 overflow-y-auto p-5 space-y-6 pb-8">
+      <div className="flex-1 p-5 space-y-6 pb-8">
         {/* Status + Date */}
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1.5">

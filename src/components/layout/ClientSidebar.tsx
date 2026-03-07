@@ -54,7 +54,7 @@ export default function ClientSidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                "group flex items-center gap-3 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all duration-300",
+                "group flex items-center gap-3 rounded-full px-4 py-3.5 text-sm font-bold transition-all duration-300",
                 isActive
                   ? "bg-primary text-white border border-primary"
                   : "text-muted-foreground hover:bg-secondary/50 hover:text-primary",
