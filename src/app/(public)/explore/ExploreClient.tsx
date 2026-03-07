@@ -35,7 +35,7 @@ const QUICK_FILTERS = [
   { label: "Sort", icon: ArrowUpDown },
   { label: "Price", icon: DollarSign },
   { label: "Rating", icon: Star },
-  { label: "Type", icon: Tag },
+  // { label: "Type", icon: Tag },
 ];
 
 export default function ExploreClient() {
@@ -200,16 +200,6 @@ export default function ExploreClient() {
                             <RatingPopover
                               value={Number(searchParams.get("minRating")) || 0}
                               onSelect={(val) => updateFilter("minRating", val)}
-                            />
-                          )}
-                          {label === "Type" && (
-                            <TypePopover
-                              isVerified={
-                                searchParams.get("isVerified") === "true"
-                              }
-                              onToggleVerified={(val) =>
-                                updateFilter("isVerified", val ? "true" : null)
-                              }
                             />
                           )}
                         </motion.div>
