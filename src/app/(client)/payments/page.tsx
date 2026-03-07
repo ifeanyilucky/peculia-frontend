@@ -7,7 +7,7 @@ import PaymentHistoryTable from "@/components/features/payments/PaymentHistoryTa
 import Pagination from "@/components/ui/Pagination";
 import { Loader2, Receipt, Download, Filter } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { PaymentStatus, PaymentType } from "@/types/payment.types";
+import { PaymentStatus, PaymentType, Payment } from "@/types/payment.types";
 import PaymentFilters from "@/components/features/payments/PaymentFilters";
 
 export default function PaymentsPage() {
@@ -58,9 +58,9 @@ export default function PaymentsPage() {
     if (!payments?.results?.length) return;
 
     const headers = ["Date", "Description", "Amount", "Status", "Type"];
-    const rows = payments.results.map((payment: any) => [
+    const rows = payments.results.map((payment: Payment) => [
       new Date(payment.createdAt).toLocaleDateString(),
-      payment.description || "Payment",
+      payment.type.replace("_", " "),
       `$${(payment.amount / 100).toFixed(2)}`,
       payment.status,
       payment.type,
@@ -82,10 +82,10 @@ export default function PaymentsPage() {
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
         <div className="space-y-2">
-          <h1 className="font-peculiar text-4xl font-black text-slate-900">
+          <h1 className="font-peculiar text-2xl font-black text-slate-900 tracking-tight">
             Payments
           </h1>
-          <p className="text-lg text-slate-500 font-medium">
+          <p className="text-sm text-slate-500 font-medium">
             Track your deposits, session payments, and refunds.
           </p>
         </div>

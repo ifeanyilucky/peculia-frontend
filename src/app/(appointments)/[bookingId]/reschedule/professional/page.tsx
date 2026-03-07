@@ -12,16 +12,20 @@ export default function RescheduleProfessionalPage() {
   const router = useRouter();
   const bookingId = params?.bookingId as string;
 
-  const { data: booking, isLoading: isBookingLoading, error: bookingError } = useQuery({
+  const {
+    data: booking,
+    isLoading: isBookingLoading,
+    error: bookingError,
+  } = useQuery({
     queryKey: ["booking", bookingId],
     queryFn: () => bookingService.getBookingById(bookingId),
     enabled: !!bookingId,
   });
 
   const providerId = booking
-    ? (typeof booking.providerProfileId === "object"
-      ? (booking.providerProfileId as any)._id
-      : booking.providerProfileId)
+    ? typeof booking.providerProfileId === "object"
+      ? (booking.providerProfileId as { _id: string })._id
+      : (booking.providerProfileId as string)
     : undefined;
 
   const { data: provider, isLoading: isProviderLoading } = useQuery({
@@ -30,7 +34,7 @@ export default function RescheduleProfessionalPage() {
     enabled: !!providerId,
   });
 
-  const handleProfessionalSelect = (professionalId: string) => {
+  const handleProfessionalSelect = () => {
     router.push(`/appointments/${bookingId}/reschedule/time`);
   };
 
@@ -45,7 +49,9 @@ export default function RescheduleProfessionalPage() {
   if (bookingError || !booking) {
     return (
       <div className="flex min-h-screen items-center justify-center p-8 bg-white">
-        <p className="text-slate-500">Unable to load booking. Please try again.</p>
+        <p className="text-slate-500">
+          Unable to load booking. Please try again.
+        </p>
       </div>
     );
   }
@@ -64,15 +70,15 @@ export default function RescheduleProfessionalPage() {
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
           <div className="flex-1">
             <div className="mb-8">
-              <h1 className="font-peculiar text-3xl font-black text-slate-900 mb-2">
+              <h1 className="font-peculiar text-2xl font-black text-slate-900 mb-2 tracking-tight">
                 Select Professional
               </h1>
               <p className="text-slate-500 font-medium">
                 Choose a different professional for your appointment
               </p>
             </div>
-            <BookingProfessionalSelection 
-              providerId={providerId} 
+            <BookingProfessionalSelection
+              providerId={providerId}
               onSelect={handleProfessionalSelect}
             />
           </div>

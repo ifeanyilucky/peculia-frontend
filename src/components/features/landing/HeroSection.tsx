@@ -182,7 +182,7 @@ export default function HeroSection() {
           transition={{ delay: 0.3, duration: 0.8 }}
           className="mt-16 w-full lg:max-w-[1000px] h-[400px] lg:h-[500px] rounded-2xl overflow-hidden relative border border-secondary"
         >
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent z-10" />
+          <div className="absolute inset-0 bg-linear-to-t from-primary/20 to-transparent z-10" />
           <Image
             src="/images/makeup-artist2.jpg"
             alt="Woman receiving premium salon service"

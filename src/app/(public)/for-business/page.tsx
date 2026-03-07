@@ -90,7 +90,7 @@ export default function ForBusinessPage() {
                 className="object-cover"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-foreground/40 to-transparent" />
 
               {/* Floating badges */}
               <div className="absolute bottom-6 left-6 right-6 flex flex-col gap-3">

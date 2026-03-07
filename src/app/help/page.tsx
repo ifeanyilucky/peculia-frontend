@@ -7,10 +7,10 @@ export default function HelpCenterPage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-card py-20 lg:py-32">
         <div className="container relative z-10 text-center">
-          <h1 className="mb-6 text-5xl font-extrabold tracking-tight lg:text-7xl">
+          <h1 className="mb-6 font-peculiar text-2xl font-black tracking-tight">
             Get Support
           </h1>
-          <p className="mx-auto mb-12 max-w-2xl text-xl text-muted-foreground">
+          <p className="mx-auto mb-12 max-w-2xl text-sm font-medium text-muted-foreground">
             Everything you need to know about Glamyad. Find answers,
             troubleshoot issues, and grow your business.
           </p>
@@ -18,7 +18,7 @@ export default function HelpCenterPage() {
         </div>
 
         {/* Decorative background elements */}
-        <div className="absolute left-1/2 top-1/2 -z-0 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 opacity-10 bg-[radial-gradient(circle,var(--primary)_0%,transparent_70%)]" />
+        <div className="absolute left-1/2 top-1/2 z-0 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 opacity-10 bg-[radial-gradient(circle,var(--primary)_0%,transparent_70%)]" />
       </section>
 
       {/* Audience Selection */}
@@ -63,7 +63,7 @@ export default function HelpCenterPage() {
               </h3>
               <p className="text-muted-foreground leading-relaxed">
                 Yes, you can cancel appointments through your dashboard, subject
-                to the professional's cancellation policy.
+                to the professional&apos;s cancellation policy.
               </p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-8 shadow-sm transition-all hover:shadow-md">
