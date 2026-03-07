@@ -47,6 +47,16 @@ export async function generateMetadata(
             ? [provider.userId.avatar, ...previousImages]
             : previousImages,
       },
+      twitter: {
+        card: "summary_large_image",
+        title: `${businessName || name} | Glamyad`,
+        description: provider.bio?.substring(0, 160),
+        images: provider.portfolioImages?.[0]?.url
+          ? [provider.portfolioImages[0].url]
+          : provider.userId.avatar
+            ? [provider.userId.avatar]
+            : [],
+      },
     };
   } catch {
     return { title: "Glamyad Provider" };

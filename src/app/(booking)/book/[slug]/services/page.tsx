@@ -3,20 +3,38 @@ import { providerService } from "@/services/provider.service";
 import BookingHeader from "@/components/features/booking/BookingHeader";
 import BookingServiceSelection from "@/components/features/booking/BookingServiceSelection";
 import BookingSummarySidebar from "@/components/features/booking/BookingSummarySidebar";
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 
 interface BookingServicesPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({
-  params,
-}: BookingServicesPageProps): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: BookingServicesPageProps,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { slug } = await params;
   try {
     const provider = await providerService.getProviderById(slug);
+    if (!provider) return { title: "Book Services | Glamyad" };
+
+    const name = `${provider.userId.firstName} ${provider.userId.lastName}`;
+    const businessName = provider.businessName;
+    const previousImages = (await parent).openGraph?.images || [];
+
     return {
-      title: `Book ${provider?.businessName || "Services"} | Glamyad`,
+      title: `Select Service - ${businessName || name} | Glamyad`,
+      description: `Choose from a variety of services offered by ${businessName || name} and book your slot.`,
+      openGraph: {
+        title: `Book ${businessName || name} on Glamyad`,
+        description: `Select a service and book your appointment with ${businessName || name}.`,
+        url: `https://glamyad.com/book/${slug}/services`,
+        images: provider.portfolioImages?.[0]?.url
+          ? [provider.portfolioImages[0].url, ...previousImages]
+          : provider.userId.avatar
+            ? [provider.userId.avatar, ...previousImages]
+            : previousImages,
+      },
     };
   } catch {
     return { title: "Book Services | Glamyad" };
