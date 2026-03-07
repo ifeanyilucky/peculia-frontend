@@ -27,6 +27,7 @@ export default function RecentlyViewedSection() {
         : [],
       isVerified: false,
       isDiscoverable: p.isDiscoverable !== false,
+      canBookOnline: true,
       rating: p.rating || 0,
       totalReviews: 0,
       totalBookings: 0,
