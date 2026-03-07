@@ -31,5 +31,5 @@ export const ROUTES = {
     reviews: "/reviews",
     providers: "/providers",
   },
-  partnersPortal: "/partner/dashboard",
+  partnersPortal: "https://partners.glamyad.com",
 } as const;

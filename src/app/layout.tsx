@@ -49,12 +49,14 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: [
-      { url: "/logo/logo-icon.jpg", sizes: "192x192", type: "image/png" },
-      { url: "/logo/logo-icon.jpg", sizes: "512x512", type: "image/png" },
+      { url: "/logo/logo-icon.jpg" },
+      { url: "/logo/logo-icon.jpg", sizes: "192x192", type: "image/jpeg" },
+      { url: "/logo/logo-icon.jpg", sizes: "512x512", type: "image/jpeg" },
     ],
     apple: [
-      { url: "/logo/logo-icon.jpg", sizes: "152x152", type: "image/png" },
-      { url: "/logo/logo-icon.jpg", sizes: "180x180", type: "image/png" },
+      { url: "/logo/logo-icon.jpg" },
+      { url: "/logo/logo-icon.jpg", sizes: "152x152", type: "image/jpeg" },
+      { url: "/logo/logo-icon.jpg", sizes: "180x180", type: "image/jpeg" },
     ],
   },
   appleWebApp: {
