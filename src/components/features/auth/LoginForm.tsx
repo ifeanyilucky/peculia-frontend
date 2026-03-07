@@ -101,9 +101,7 @@ export default function LoginForm() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="font-peculiar text-3xl font-bold text-primary">
-          Login
-        </h2>
+        <h2 className="font-peculiar text-3xl font-bold text-primary">Login</h2>
         <p className="text-sm text-slate-500">
           Enter your credentials to access your account
         </p>
@@ -129,7 +127,7 @@ export default function LoginForm() {
             <span className="w-full border-t border-slate-200"></span>
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-2 text-slate-500">
+            <span className="bg-background px-2 text-slate-500">
               Or continue with email
             </span>
           </div>

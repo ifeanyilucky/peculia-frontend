@@ -23,7 +23,7 @@ export default function AuthLayout({
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
 
           <div className="relative z-10 flex h-full flex-col justify-between">
-            <Link href="/" className="relative h-8 w-32">
+            <Link href="/" className="relative block h-8 w-32">
               <Image
                 src="/logo/logo.png"
                 alt="Glamyad"
@@ -52,10 +52,16 @@ export default function AuthLayout({
 
         {/* Form Section */}
         <div className="flex w-full flex-col items-center justify-center bg-background px-6 py-12 lg:w-1/2 lg:px-24">
-          <div className="mb-8 w-full max-w-[400px] lg:hidden">
-            <h1 className="font-peculiar text-2xl font-bold text-rose-600 text-center">
-              GLAMYAD
-            </h1>
+          <div className="mb-8 flex w-full max-w-[400px] justify-center lg:hidden">
+            <Link href="/" className="relative block h-8 w-32">
+              <Image
+                src="/logo/logo.png"
+                alt="Glamyad"
+                fill
+                className="object-contain"
+                priority
+              />
+            </Link>
           </div>
           <div className="w-full max-w-[400px]">{children}</div>
         </div>
