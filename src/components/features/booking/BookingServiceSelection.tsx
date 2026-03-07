@@ -57,7 +57,7 @@ export default function BookingServiceSelection({
 
   return (
     <div className="w-full flex-1">
-      <h1 className="font-peculiar text-4xl font-black text-slate-900 mb-8 tracking-tight">
+      <h1 className="font-peculiar text-2xl font-black text-slate-900 mb-8 tracking-tight">
         Services
       </h1>
 
@@ -81,7 +81,7 @@ export default function BookingServiceSelection({
         </div>
       </div>
 
-      <h2 className="font-peculiar text-2xl font-bold text-slate-900 mb-6">
+      <h2 className="font-peculiar text-xl font-bold text-slate-900 mb-6">
         {activeCategory}
       </h2>
 

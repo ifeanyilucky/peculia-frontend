@@ -46,7 +46,11 @@ export default function ClientDashboardPage() {
     setShowWelcome(false);
   };
 
-  const { data: recentActivity, isLoading: isLoadingActivity, isError: hasActivityError } = useQuery({
+  const {
+    data: recentActivity,
+    isLoading: isLoadingActivity,
+    isError: hasActivityError,
+  } = useQuery({
     queryKey: ["bookings", "recent", "client"],
     queryFn: () => bookingService.getMyBookings({ limit: 3 }),
   });
@@ -71,14 +75,15 @@ export default function ClientDashboardPage() {
               <Sparkles size={14} />
               Welcome to the community
             </div>
-            <h1 className="font-peculiar text-4xl lg:text-5xl font-black ">
-              Hello, <span className="capitalize">{user?.firstName || 'there'}</span>!
+            <h1 className="font-peculiar text-3xl lg:text-4xl font-black ">
+              Hello,{" "}
+              <span className="capitalize">{user?.firstName || "there"}</span>!
               <br />
               <span className="text-white/60">
                 Ready for your next session?
               </span>
             </h1>
-            <p className="text-lg text-white/50 font-medium leading-relaxed">
+            <p className="text-base text-white/50 font-medium leading-relaxed">
               Explore thousands of verified professionals, book appointments in
               seconds, and manage your beauty routine all in one place.
             </p>
@@ -174,44 +179,46 @@ export default function ClientDashboardPage() {
                 </p>
               </div>
             ) : (
-              recentActivity?.results?.map((item: any, i: number) => (
-                <div key={item.id} className="relative flex gap-4">
-                  {/* Vertical Line */}
-                  {i !== recentActivity.results.length - 1 && (
-                    <div className="absolute left-4.5 top-10 bottom-0 w-0.5 bg-slate-50" />
-                  )}
-
-                  <div
-                    className={cn(
-                      "h-9 w-9 shrink-0 rounded-full flex items-center justify-center border-4 border-white z-10",
-                      item.status === "completed"
-                        ? "bg-green-100 text-green-600"
-                        : item.status === "cancelled_by_client" ||
-                            item.status === "cancelled_by_provider"
-                          ? "bg-red-100 text-red-600"
-                          : "bg-blue-100 text-blue-600",
+              recentActivity?.results?.map(
+                (item: import("@/types/booking.types").Booking, i: number) => (
+                  <div key={item.id} className="relative flex gap-4">
+                    {/* Vertical Line */}
+                    {i !== recentActivity.results.length - 1 && (
+                      <div className="absolute left-4.5 top-10 bottom-0 w-0.5 bg-slate-50" />
                     )}
-                  >
-                    <Clock size={14} />
-                  </div>
 
-                  <div className="space-y-1">
-                    <p className="text-sm font-bold text-slate-900 leading-none">
-                      {item.status === "completed"
-                        ? "Appointment Completed"
-                        : item.status === "cancelled_by_client"
-                          ? "Booking Cancelled"
-                          : "Booking Created"}
-                    </p>
-                    <p className="text-[11px] font-medium text-slate-400">
-                      {item.services[0]?.name}
-                      {item.services.length > 1 &&
-                        ` + ${item.services.length - 1} more`}{" "}
-                      • {format(new Date(item.updatedAt), "MMM d, h:mm a")}
-                    </p>
+                    <div
+                      className={cn(
+                        "h-9 w-9 shrink-0 rounded-full flex items-center justify-center border-4 border-white z-10",
+                        item.status === "completed"
+                          ? "bg-green-100 text-green-600"
+                          : item.status === "cancelled_by_client" ||
+                              item.status === "cancelled_by_provider"
+                            ? "bg-red-100 text-red-600"
+                            : "bg-blue-100 text-blue-600",
+                      )}
+                    >
+                      <Clock size={14} />
+                    </div>
+
+                    <div className="space-y-1">
+                      <p className="text-sm font-bold text-slate-900 leading-none">
+                        {item.status === "completed"
+                          ? "Appointment Completed"
+                          : item.status === "cancelled_by_client"
+                            ? "Booking Cancelled"
+                            : "Booking Created"}
+                      </p>
+                      <p className="text-[11px] font-medium text-slate-400">
+                        {item.services[0]?.name}
+                        {item.services.length > 1 &&
+                          ` + ${item.services.length - 1} more`}{" "}
+                        • {format(new Date(item.updatedAt), "MMM d, h:mm a")}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))
+                ),
+              )
             )}
 
             <Link

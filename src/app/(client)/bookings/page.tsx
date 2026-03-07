@@ -4,7 +4,11 @@ import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { debounce } from "lodash";
 import { bookingService } from "@/services/booking.service";
-import { Booking, getProviderName, getProviderLogo } from "@/types/booking.types";
+import {
+  Booking,
+  getProviderName,
+  getProviderLogo,
+} from "@/types/booking.types";
 import BookingFilters, {
   BookingStatusFilter,
 } from "@/components/features/bookings/BookingFilters";
@@ -111,7 +115,7 @@ export default function MyBookingsPage() {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="font-peculiar text-3xl font-black text-slate-900 tracking-tight">
+          <h1 className="font-peculiar text-2xl font-black text-slate-900 tracking-tight">
             Appointments
           </h1>
           <p className="text-sm text-slate-500 font-medium">
@@ -347,20 +351,18 @@ function CancelAppointmentModalContent({
           <CalendarX size={24} className="text-rose-600" />
         </div>
         <div>
-          <p className="font-bold text-slate-900">
-            Cancel your appointment?
-          </p>
+          <p className="font-bold text-slate-900">Cancel your appointment?</p>
           <p className="text-sm text-slate-500 font-medium">
-            {format(new Date(booking.scheduledDate), "eee, d MMM yyyy")} at {booking.startTime}
+            {format(new Date(booking.scheduledDate), "eee, d MMM yyyy")} at{" "}
+            {booking.startTime}
           </p>
-          <p className="text-sm text-slate-400">
-            with {businessName}
-          </p>
+          <p className="text-sm text-slate-400">with {businessName}</p>
         </div>
       </div>
 
       <p className="text-sm text-slate-500 mb-6">
-        Are you sure you want to cancel this appointment? This action cannot be undone.
+        Are you sure you want to cancel this appointment? This action cannot be
+        undone.
       </p>
 
       <div className="flex flex-col gap-3">
@@ -423,7 +425,7 @@ function ManageAppointmentModalContent({
       </div>
 
       <div className="space-y-1 border-t border-slate-100 pt-5">
-        <button 
+        <button
           onClick={() => {
             onClose();
             router.push(`/appointments/${booking.id}/reschedule/professional`);
@@ -438,7 +440,7 @@ function ManageAppointmentModalContent({
             Reschedule appointment
           </span>
         </button>
-        <button 
+        <button
           onClick={onCancelClick}
           className="w-full flex items-center gap-3 py-4 px-2 hover:bg-rose-50 rounded-xl transition-all group"
         >

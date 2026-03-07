@@ -47,9 +47,7 @@ export default function BookingConfirmation() {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
         <AlertCircle size={48} className="text-secondary mb-4" />
-        <h2 className="text-xl font-black text-primary">
-          Missing information
-        </h2>
+        <h2 className="text-xl font-black text-primary">Missing information</h2>
         <p className="text-muted-foreground mt-2">
           Please complete the previous steps first.
         </p>
@@ -67,7 +65,7 @@ export default function BookingConfirmation() {
 
   return (
     <div className="w-full flex-1 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <h1 className="font-peculiar text-4xl font-black text-primary mb-8 tracking-tight">
+      <h1 className="font-peculiar text-2xl font-black text-primary mb-8 tracking-tight">
         Confirm booking
       </h1>
 
@@ -120,7 +118,9 @@ export default function BookingConfirmation() {
               </span>
             </div>
             <div className="pt-2 border-t border-secondary flex justify-between items-center">
-              <span className="text-sm font-bold text-muted-foreground">Deposit Required (20%)</span>
+              <span className="text-sm font-bold text-muted-foreground">
+                Deposit Required (20%)
+              </span>
               <span className="font-black text-lg text-emerald-600">
                 {formatCurrency(depositAmount / 100)}
               </span>
@@ -201,9 +201,10 @@ export default function BookingConfirmation() {
                 Deposit Protection Policy
               </h4>
               <p className="text-muted-foreground text-sm mt-1 leading-relaxed">
-                Your deposit is <span className="text-white font-bold">non-refundable</span>. 
-                You may reschedule once at least 24 hours before your appointment. 
-                Cancelling will forfeit your deposit.
+                Your deposit is{" "}
+                <span className="text-white font-bold">non-refundable</span>.
+                You may reschedule once at least 24 hours before your
+                appointment. Cancelling will forfeit your deposit.
               </p>
               <button
                 type="button"
@@ -212,46 +213,72 @@ export default function BookingConfirmation() {
               >
                 {showPolicyDetails ? "Hide details" : "View full policy"}
               </button>
-              
+
               {showPolicyDetails && (
                 <div className="mt-4 p-4 bg-white/5 rounded-xl space-y-3 text-sm">
                   <div className="flex items-start gap-2">
-                    <Check size={16} className="text-emerald-400 mt-0.5 shrink-0" />
-                    <p className="text-secondary">20% deposit is required to confirm booking</p>
+                    <Check
+                      size={16}
+                      className="text-emerald-400 mt-0.5 shrink-0"
+                    />
+                    <p className="text-secondary">
+                      20% deposit is required to confirm booking
+                    </p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <Check size={16} className="text-emerald-400 mt-0.5 shrink-0" />
-                    <p className="text-secondary">One free reschedule allowed (24h notice)</p>
+                    <Check
+                      size={16}
+                      className="text-emerald-400 mt-0.5 shrink-0"
+                    />
+                    <p className="text-secondary">
+                      One free reschedule allowed (24h notice)
+                    </p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <Check size={16} className="text-emerald-400 mt-0.5 shrink-0" />
-                    <p className="text-secondary">Rescheduling does not reset refund eligibility</p>
+                    <Check
+                      size={16}
+                      className="text-emerald-400 mt-0.5 shrink-0"
+                    />
+                    <p className="text-secondary">
+                      Rescheduling does not reset refund eligibility
+                    </p>
                   </div>
                   <div className="flex items-start gap-2">
                     <Check size={16} className="text-accent mt-0.5 shrink-0" />
-                    <p className="text-secondary">Client cancellation = deposit forfeited</p>
+                    <p className="text-secondary">
+                      Client cancellation = deposit forfeited
+                    </p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <Check size={16} className="text-emerald-400 mt-0.5 shrink-0" />
-                    <p className="text-secondary">Provider cancellation = full refund</p>
+                    <Check
+                      size={16}
+                      className="text-emerald-400 mt-0.5 shrink-0"
+                    />
+                    <p className="text-secondary">
+                      Provider cancellation = full refund
+                    </p>
                   </div>
                   <div className="flex items-start gap-2">
                     <Check size={16} className="text-accent mt-0.5 shrink-0" />
-                    <p className="text-secondary">No-show = deposit transferred to provider</p>
+                    <p className="text-secondary">
+                      No-show = deposit transferred to provider
+                    </p>
                   </div>
                 </div>
               )}
             </div>
           </div>
-          
+
           {/* Policy Acceptance Checkbox */}
           <div className="mt-6 pt-6 border-t border-white/10">
             <label className="flex items-start gap-3 cursor-pointer">
-              <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all shrink-0 mt-0.5 ${
-                policyAccepted 
-                  ? "bg-secondary0 border-secondary0" 
-                  : "border-muted-foreground hover:border-muted-foreground"
-              }`}>
+              <div
+                className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all shrink-0 mt-0.5 ${
+                  policyAccepted
+                    ? "bg-secondary0 border-secondary0"
+                    : "border-muted-foreground hover:border-muted-foreground"
+                }`}
+              >
                 {policyAccepted && <Check size={12} className="text-white" />}
               </div>
               <input
@@ -262,7 +289,9 @@ export default function BookingConfirmation() {
               />
               <p className="text-sm text-secondary">
                 I accept the{" "}
-                <span className="text-white font-bold">deposit protection policy</span>{" "}
+                <span className="text-white font-bold">
+                  deposit protection policy
+                </span>{" "}
                 and understand that my deposit is non-refundable.
               </p>
             </label>

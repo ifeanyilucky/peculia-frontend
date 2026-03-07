@@ -2,7 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { providerService } from "@/services/provider.service";
-import { TeamMember } from "@/types/provider.types";
 import { useBookingStore } from "@/store/booking.store";
 import { Check, User, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -35,18 +34,14 @@ export default function BookingProfessionalSelection({
     );
   }
 
-  // If no team members, we might want to skip this step or show only the provider
-  // For now, if no team, we show "Any Professional" (which effectively means the provider)
-  const hasTeam = teamMembers && teamMembers.length > 0;
-
   return (
     <div className="w-full flex-1 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <h1 className="font-peculiar text-4xl font-black text-primary mb-2 tracking-tight">
+      <h1 className="font-peculiar text-2xl font-black text-primary mb-2 tracking-tight">
         Select Professional
       </h1>
-      <p className="text-secondary-foreground/70 font-medium mb-10">
-        Choose a specific professional or select "Any professional" for the best
-        availability.
+      <p className="text-sm text-secondary-foreground/70 font-medium mb-10">
+        Choose a specific professional or select &quot;Any professional&quot;
+        for the best availability.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

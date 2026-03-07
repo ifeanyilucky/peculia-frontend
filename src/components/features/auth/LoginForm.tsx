@@ -101,7 +101,7 @@ export default function LoginForm() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="font-peculiar text-3xl font-bold text-primary">Login</h2>
+        <h2 className="font-peculiar text-2xl font-bold text-primary">Login</h2>
         <p className="text-sm text-slate-500">
           Enter your credentials to access your account
         </p>

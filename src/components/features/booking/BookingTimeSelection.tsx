@@ -21,9 +21,8 @@ import {
 } from "lucide-react";
 import { availabilityService } from "@/services/availability.service";
 import { useBookingStore } from "@/store/booking.store";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { formatCurrency } from "@/utils/formatters";
 import {
   Popover,
   PopoverContent,
@@ -36,13 +35,11 @@ interface BookingTimeSelectionProps {
   onTimeSelect?: () => void;
 }
 
-const DAYS_MAP = [0, 1, 2, 3, 4, 5, 6];
-
 export default function BookingTimeSelection({
   providerId,
   onTimeSelect,
 }: BookingTimeSelectionProps) {
-  const router = useRouter();
+  const params = useParams();
   const today = startOfToday();
 
   const {
@@ -63,7 +60,15 @@ export default function BookingTimeSelection({
   const isDayOpen = (date: Date): boolean => {
     if (!schedule?.schedule) return true;
     const dayIndex = getDay(date);
-    const dayName = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][dayIndex];
+    const dayName = [
+      "sunday",
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday",
+    ][dayIndex];
     const daySchedule = schedule.schedule[dayName];
     return daySchedule?.isOpen && daySchedule?.slots?.length > 0;
   };
@@ -132,7 +137,7 @@ export default function BookingTimeSelection({
 
   return (
     <div className="w-full flex-1 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <h1 className="font-peculiar text-4xl font-black text-primary mb-8 tracking-tight">
+      <h1 className="font-peculiar text-2xl font-black text-primary mb-8 tracking-tight">
         Select time
       </h1>
 
@@ -143,7 +148,10 @@ export default function BookingTimeSelection({
           {selectedTeamMember ? (
             <User size={16} className="text-secondary-foreground/70 shrink-0" />
           ) : (
-            <Users size={16} className="text-secondary-foreground/70 shrink-0" />
+            <Users
+              size={16}
+              className="text-secondary-foreground/70 shrink-0"
+            />
           )}
           <span className="text-sm font-bold text-slate-800">
             {professionalLabel}
@@ -158,10 +166,7 @@ export default function BookingTimeSelection({
               <CalendarDays size={18} />
             </button>
           </PopoverTrigger>
-          <PopoverContent
-            className="w-auto p-0 border-none"
-            align="end"
-          >
+          <PopoverContent className="w-auto p-0 border-none" align="end">
             <Calendar
               mode="single"
               selected={selectedDate || undefined}
@@ -265,7 +270,7 @@ export default function BookingTimeSelection({
                 )}
               </button>
             );
-            })}
+          })}
         </div>
 
         {onTimeSelect && selectedSlot && (
