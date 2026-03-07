@@ -27,13 +27,13 @@ export default function ProviderBookingCard({
     pending_payment: "bg-amber-50 text-amber-600 border-amber-100",
     confirmed: "bg-blue-50 text-blue-600 border-blue-100",
     rescheduled: "bg-purple-50 text-purple-600 border-purple-100",
-    in_progress: "bg-glam-plum text-white border-glam-plum",
+    in_progress: "bg-primary text-white border-primary",
     completed: "bg-green-50 text-green-600 border-green-100",
-    cancelled_by_client: "bg-glam-blush text-glam-plum border-glam-blush",
-    cancelled_by_provider: "bg-glam-blush text-glam-plum border-glam-blush",
-    no_show: "bg-glam-blush/50 text-muted-foreground border-glam-blush",
-    expired: "bg-glam-blush/50 text-muted-foreground border-glam-blush",
-    refunded: "bg-glam-blush/50 text-muted-foreground border-glam-blush",
+    cancelled_by_client: "bg-secondary text-primary border-secondary",
+    cancelled_by_provider: "bg-secondary text-primary border-secondary",
+    no_show: "bg-secondary/50 text-muted-foreground border-secondary",
+    expired: "bg-secondary/50 text-muted-foreground border-secondary",
+    refunded: "bg-secondary/50 text-muted-foreground border-secondary",
   };
 
   const statusLabels = {
@@ -52,10 +52,10 @@ export default function ProviderBookingCard({
   const client = typeof booking.clientId !== "string" ? booking.clientId : null;
 
   return (
-    <div className="group bg-white rounded-4xl border border-glam-blush p-6 hover:border-glam-plum transition-all duration-300">
+    <div className="group bg-white rounded-4xl border border-secondary p-6 hover:border-primary transition-all duration-300">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="h-14 w-14 rounded-2xl bg-glam-blush flex items-center justify-center text-muted-foreground overflow-hidden shrink-0 border-2 border-white relative">
+          <div className="h-14 w-14 rounded-2xl bg-secondary flex items-center justify-center text-muted-foreground overflow-hidden shrink-0 border-2 border-white relative">
             {client?.avatar ? (
               <Image
                 src={client.avatar}
@@ -69,7 +69,7 @@ export default function ProviderBookingCard({
             )}
           </div>
           <div>
-            <h4 className="font-bold text-glam-plum">
+            <h4 className="font-bold text-primary">
               {client
                 ? `${client.firstName} ${client.lastName}`
                 : "Unknown Client"}
@@ -96,21 +96,21 @@ export default function ProviderBookingCard({
       </div>
 
       <div className="mt-8 grid grid-cols-2 gap-4">
-        <div className="p-4 rounded-2xl bg-glam-blush/50 space-y-1">
+        <div className="p-4 rounded-2xl bg-secondary/50 space-y-1">
           <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             Date & Time
           </p>
-          <div className="flex items-center gap-2 text-glam-plum font-bold text-sm">
+          <div className="flex items-center gap-2 text-primary font-bold text-sm">
             <Clock size={14} className="text-muted-foreground" />
             {format(new Date(booking.scheduledDate), "MMM d")} •{" "}
             {booking.startTime}
           </div>
         </div>
-        <div className="p-4 rounded-2xl bg-glam-blush/50 space-y-1">
+        <div className="p-4 rounded-2xl bg-secondary/50 space-y-1">
           <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             Deposit
           </p>
-          <div className="flex items-center gap-2 text-glam-plum font-bold text-sm">
+          <div className="flex items-center gap-2 text-primary font-bold text-sm">
             <div
               className={cn(
                 "h-2 w-2 rounded-full",
@@ -123,10 +123,10 @@ export default function ProviderBookingCard({
         </div>
       </div>
 
-      <div className="mt-6 pt-6 border-t border-glam-blush/50 flex items-center justify-between gap-4">
+      <div className="mt-6 pt-6 border-t border-secondary/50 flex items-center justify-between gap-4">
         <Link
           href={`/provider/bookings/${booking.id}`}
-          className="text-xs font-black uppercase tracking-widest text-muted-foreground hover:text-glam-plum transition-colors"
+          className="text-xs font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
         >
           View Details
         </Link>
@@ -136,21 +136,21 @@ export default function ProviderBookingCard({
             <>
               <button
                 onClick={() => onAction?.(booking.id, "complete")}
-                className="p-2 rounded-xl bg-green-50 text-green-600 hover:bg-green-600 hover:text-white transition-all border border-glam-blush"
+                className="p-2 rounded-xl bg-green-50 text-green-600 hover:bg-green-600 hover:text-white transition-all border border-secondary"
                 title="Mark Complete"
               >
                 <CheckCircle2 size={18} />
               </button>
               <button
                 onClick={() => onAction?.(booking.id, "no-show")}
-                className="p-2 rounded-xl bg-glam-blush/50 text-glam-charcoal hover:bg-glam-plum hover:text-white transition-all border border-glam-blush"
+                className="p-2 rounded-xl bg-secondary/50 text-foreground hover:bg-primary hover:text-white transition-all border border-secondary"
                 title="Mark No-Show"
               >
                 <XCircle size={18} />
               </button>
             </>
           )}
-          <button className="p-2 rounded-xl bg-glam-blush/50 text-muted-foreground hover:bg-glam-blush transition-all">
+          <button className="p-2 rounded-xl bg-secondary/50 text-muted-foreground hover:bg-secondary transition-all">
             <MoreVertical size={18} />
           </button>
         </div>

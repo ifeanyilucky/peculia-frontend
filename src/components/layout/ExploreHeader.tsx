@@ -108,14 +108,14 @@ export default function ExploreHeader() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setActiveSegment(null)}
-            className="fixed inset-0 z-40 bg-glam-plum/40 backdrop-blur-[2px]"
+            className="fixed inset-0 z-40 bg-primary/40 backdrop-blur-[2px]"
           />
         )}
       </AnimatePresence>
 
       <header
         className={cn(
-          "sticky top-0 z-50 w-full bg-white border-b border-glam-blush py-3 px-6 lg:px-12 transition-all duration-500",
+          "sticky top-0 z-50 w-full bg-white border-b border-secondary py-3 px-6 lg:px-12 transition-all duration-500",
           activeSegment ? "py-6" : "py-3",
         )}
         ref={headerRef}
@@ -143,14 +143,14 @@ export default function ExploreHeader() {
             {/* Mobile Search Bar (Compact) */}
             <div
               onClick={() => setIsMobileSearchOpen(true)}
-              className="flex sm:hidden items-center justify-between w-full bg-white border border-glam-blush rounded-full px-4 py-2 hover:shadow-md transition-all cursor-pointer"
+              className="flex sm:hidden items-center justify-between w-full bg-white border border-secondary rounded-full px-4 py-2 hover:shadow-md transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3">
                 <div className="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center">
-                  <ArrowLeft size={16} className="text-glam-plum" />
+                  <ArrowLeft size={16} className="text-primary" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-xs font-black text-glam-plum line-clamp-1">
+                  <span className="text-xs font-black text-primary line-clamp-1">
                     {treatment || "All treatments and venues"}
                   </span>
                   <span className="text-[10px] font-medium text-muted-foreground">
@@ -158,17 +158,17 @@ export default function ExploreHeader() {
                   </span>
                 </div>
               </div>
-              <div className="h-8 w-8 rounded-full border border-glam-blush flex items-center justify-center">
-                <MapIcon size={14} className="text-glam-plum" />
+              <div className="h-8 w-8 rounded-full border border-secondary flex items-center justify-center">
+                <MapIcon size={14} className="text-primary" />
               </div>
             </div>
 
             {/* Desktop Search Bar (Expanding) */}
             <div
               className={cn(
-                "hidden sm:flex items-center bg-white border border-glam-blush rounded-full transition-all duration-500 shadow-sm hover:shadow-md w-full",
+                "hidden sm:flex items-center bg-white border border-secondary rounded-full transition-all duration-500 shadow-sm hover:shadow-md w-full",
                 activeSegment
-                  ? "p-1.5 bg-slate-50 border-slate-300 ring-4 ring-glam-blush/30 scale-100 lg:scale-105"
+                  ? "p-1.5 bg-slate-50 border-slate-300 ring-4 ring-secondary/30 scale-100 lg:scale-105"
                   : "p-1.5",
               )}
             >
@@ -181,10 +181,10 @@ export default function ExploreHeader() {
                     ? "bg-white shadow-lg min-w-[140px] sm:min-w-[240px] flex-1"
                     : activeSegment
                       ? "hidden lg:flex lg:flex-1"
-                      : "hover:bg-glam-blush flex-1",
+                      : "hover:bg-secondary flex-1",
                 )}
               >
-                <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-glam-plum transition-colors">
+                <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
                   Treatments
                 </span>
                 <input
@@ -193,7 +193,7 @@ export default function ExploreHeader() {
                   placeholder="All Treatments"
                   value={treatment}
                   onChange={(e) => setTreatment(e.target.value)}
-                  className="w-full border-none bg-transparent p-0 text-sm font-bold text-glam-plum placeholder:text-muted-foreground focus:outline-none focus:ring-0"
+                  className="w-full border-none bg-transparent p-0 text-sm font-bold text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-0"
                 />
                 <AnimatePresence>
                   {activeSegment === "treatment" && (
@@ -217,7 +217,7 @@ export default function ExploreHeader() {
 
               <div
                 className={cn(
-                  "h-8 w-px bg-glam-blush",
+                  "h-8 w-px bg-secondary",
                   activeSegment ? "hidden sm:block" : "block",
                 )}
               />
@@ -231,10 +231,10 @@ export default function ExploreHeader() {
                     ? "bg-white shadow-lg min-w-[200px] lg:min-w-[240px] flex-1"
                     : activeSegment
                       ? "hidden lg:flex lg:flex-1"
-                      : "hover:bg-glam-blush flex-1",
+                      : "hover:bg-secondary flex-1",
                 )}
               >
-                <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-glam-plum transition-colors">
+                <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
                   Where
                 </span>
                 <input
@@ -243,7 +243,7 @@ export default function ExploreHeader() {
                   placeholder="Map area"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="w-full border-none bg-transparent p-0 text-sm font-bold text-glam-plum placeholder:text-muted-foreground focus:outline-none focus:ring-0"
+                  className="w-full border-none bg-transparent p-0 text-sm font-bold text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-0"
                 />
                 <AnimatePresence>
                   {activeSegment === "location" && (
@@ -267,7 +267,7 @@ export default function ExploreHeader() {
 
               <div
                 className={cn(
-                  "h-8 w-px bg-glam-blush",
+                  "h-8 w-px bg-secondary",
                   activeSegment ? "hidden sm:block" : "block",
                 )}
               />
@@ -281,15 +281,15 @@ export default function ExploreHeader() {
                     ? "bg-white shadow-lg min-w-[140px] lg:min-w-[200px] flex-1"
                     : activeSegment
                       ? "hidden lg:flex lg:flex-1"
-                      : "hover:bg-glam-blush flex-1",
+                      : "hover:bg-secondary flex-1",
                 )}
               >
-                <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-glam-plum transition-colors">
+                <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
                   When
                 </span>
                 <div className="flex items-center gap-2">
                   <Calendar size={14} className="text-muted-foreground" />
-                  <span className="text-sm font-bold text-glam-plum truncate max-w-[80px] sm:max-w-[120px]">
+                  <span className="text-sm font-bold text-primary truncate max-w-[80px] sm:max-w-[120px]">
                     {time}
                   </span>
                 </div>
@@ -315,7 +315,7 @@ export default function ExploreHeader() {
               <button
                 onClick={handleSearch}
                 className={cn(
-                  "flex items-center justify-center gap-2 rounded-full bg-glam-plum text-white font-bold transition-all duration-500 active:scale-95",
+                  "flex items-center justify-center gap-2 rounded-full bg-primary text-white font-bold transition-all duration-500 active:scale-95",
                   activeSegment ? "px-8 py-3.5 ml-2" : "h-11 w-11 lg:ml-4",
                 )}
               >
@@ -336,9 +336,9 @@ export default function ExploreHeader() {
           >
             <button
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="flex items-center gap-2 rounded-full border border-glam-blush bg-white p-1.5 transition-shadow hover:shadow-sm"
+              className="flex items-center gap-2 rounded-full border border-secondary bg-white p-1.5 transition-shadow hover:shadow-sm"
             >
-              <div className="h-8 w-8 rounded-full bg-glam-plum flex items-center justify-center text-white font-bold text-sm uppercase">
+              <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm uppercase">
                 {user?.firstName?.[0] || "I"}
               </div>
               <ChevronDown size={18} className="text-muted-foreground mr-1" />
@@ -350,12 +350,12 @@ export default function ExploreHeader() {
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                  className="absolute right-0 top-full mt-4 w-56 origin-top-right rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-glam-blush/50 border border-glam-blush z-50"
+                  className="absolute right-0 top-full mt-4 w-56 origin-top-right rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-secondary/50 border border-secondary z-50"
                 >
                   {isAuthenticated ? (
                     <>
-                      <div className="p-3 border-b border-glam-blush">
-                        <p className="text-sm font-bold text-glam-plum">
+                      <div className="p-3 border-b border-secondary">
+                        <p className="text-sm font-bold text-primary">
                           {user?.firstName} {user?.lastName}
                         </p>
                         <p className="text-xs text-muted-foreground">
@@ -366,13 +366,13 @@ export default function ExploreHeader() {
                         <Link
                           href="/client/bookings"
                           onClick={() => setIsProfileOpen(false)}
-                          className="flex items-center gap-3 px-3 py-2 text-sm font-bold text-glam-charcoal hover:bg-slate-50 rounded-xl"
+                          className="flex items-center gap-3 px-3 py-2 text-sm font-bold text-foreground hover:bg-slate-50 rounded-xl"
                         >
                           My Bookings
                         </Link>
                         <button
                           onClick={handleSignOut}
-                          className="flex w-full items-center gap-3 px-3 py-2 text-sm font-bold text-glam-plum hover:bg-glam-blush/50 rounded-xl"
+                          className="flex w-full items-center gap-3 px-3 py-2 text-sm font-bold text-primary hover:bg-secondary/50 rounded-xl"
                         >
                           Sign out
                         </button>
@@ -383,14 +383,14 @@ export default function ExploreHeader() {
                       <Link
                         href={ROUTES.auth.login}
                         onClick={() => setIsProfileOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2 text-sm font-bold text-glam-charcoal hover:bg-slate-50 rounded-xl"
+                        className="flex items-center gap-3 px-3 py-2 text-sm font-bold text-foreground hover:bg-slate-50 rounded-xl"
                       >
                         Log in
                       </Link>
                       <Link
                         href={ROUTES.auth.registerClient}
                         onClick={() => setIsProfileOpen(false)}
-                        className="flex items-center gap-3 px-3 py-2 text-sm text-glam-plum font-black hover:bg-glam-blush/50 rounded-xl"
+                        className="flex items-center gap-3 px-3 py-2 text-sm text-primary font-black hover:bg-secondary/50 rounded-xl"
                       >
                         Sign up
                       </Link>

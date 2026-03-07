@@ -23,8 +23,8 @@ export default function UpcomingAppointments() {
 
   if (isLoading) {
     return (
-      <div className="h-48 rounded-3xl bg-white border border-glam-blush flex items-center justify-center">
-        <Loader2 className="animate-spin text-glam-plum" size={24} />
+      <div className="h-48 rounded-3xl bg-white border border-secondary flex items-center justify-center">
+        <Loader2 className="animate-spin text-primary" size={24} />
       </div>
     );
   }
@@ -35,12 +35,12 @@ export default function UpcomingAppointments() {
     <>
       <div className="space-y-4">
         <div className="flex items-center justify-between px-2">
-          <h3 className="font-peculiar text-xl font-bold text-glam-plum">
+          <h3 className="font-peculiar text-xl font-bold text-primary">
             Upcoming Appointments
           </h3>
           <Link
             href="/bookings"
-            className="text-xs font-black uppercase tracking-widest text-muted-foreground hover:text-glam-plum transition-colors flex items-center gap-1"
+            className="text-xs font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
           >
             View All
             <ChevronRight size={14} />
@@ -49,14 +49,14 @@ export default function UpcomingAppointments() {
 
         <div className="grid gap-4">
           {upcomingBookings.length === 0 ? (
-            <div className="rounded-3xl border-2 border-dashed border-glam-blush p-8 text-center text-muted-foreground">
+            <div className="rounded-3xl border-2 border-dashed border-secondary p-8 text-center text-muted-foreground">
               <CalendarDays size={32} className="mx-auto mb-3 opacity-20" />
               <p className="text-sm font-medium">
                 No upcoming appointments found.
               </p>
               <Link
                 href="/explore"
-                className="mt-4 inline-block text-xs font-black uppercase tracking-widest text-glam-plum hover:text-glam-plum"
+                className="mt-4 inline-block text-xs font-black uppercase tracking-widest text-primary hover:text-primary"
               >
                 Book a session
               </Link>
@@ -79,10 +79,10 @@ export default function UpcomingAppointments() {
                 <button
                   key={booking.id}
                   onClick={() => setSelectedBooking(booking)}
-                  className="group flex items-center gap-4 bg-white p-4 rounded-3xl border border-glam-blush hover:border-rose-200 transition-all duration-300 w-full text-left"
+                  className="group flex items-center gap-4 bg-white p-4 rounded-3xl border border-secondary hover:border-rose-200 transition-all duration-300 w-full text-left"
                 >
                   {/* Provider logo / fallback */}
-                  <div className="h-16 w-16 rounded-2xl bg-rose-50 overflow-hidden relative border border-glam-blush shrink-0">
+                  <div className="h-16 w-16 rounded-2xl bg-rose-50 overflow-hidden relative border border-secondary shrink-0">
                     {logo ? (
                       <Image
                         src={logo}
@@ -91,14 +91,14 @@ export default function UpcomingAppointments() {
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
-                      <div className="flex h-full w-full items-center justify-center text-glam-plum font-black text-xl">
+                      <div className="flex h-full w-full items-center justify-center text-primary font-black text-xl">
                         {serviceInitial}
                       </div>
                     )}
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-bold text-glam-plum truncate group-hover:text-glam-plum transition-colors">
+                    <h4 className="font-bold text-primary truncate group-hover:text-primary transition-colors">
                       {booking.services[0]?.name}
                       {booking.services.length > 1 && (
                         <span className="ml-2 text-muted-foreground font-bold">
@@ -124,7 +124,7 @@ export default function UpcomingAppointments() {
                     </div>
                   </div>
 
-                  <div className="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-glam-plum group-hover:text-white transition-all shrink-0">
+                  <div className="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-primary group-hover:text-white transition-all shrink-0">
                     <ChevronRight size={18} />
                   </div>
                 </button>

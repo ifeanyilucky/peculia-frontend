@@ -132,18 +132,18 @@ export default function BookingTimeSelection({
 
   return (
     <div className="w-full flex-1 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <h1 className="font-peculiar text-4xl font-black text-glam-plum mb-8 tracking-tight">
+      <h1 className="font-peculiar text-4xl font-black text-primary mb-8 tracking-tight">
         Select time
       </h1>
 
       {/* Controls row */}
       <div className="flex items-center justify-between mb-6">
         {/* Professional pill */}
-        <div className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-glam-blush bg-white cursor-default select-none">
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-secondary bg-white cursor-default select-none">
           {selectedTeamMember ? (
-            <User size={16} className="text-glam-blush/500 shrink-0" />
+            <User size={16} className="text-secondary-foreground/70 shrink-0" />
           ) : (
-            <Users size={16} className="text-glam-blush/500 shrink-0" />
+            <Users size={16} className="text-secondary-foreground/70 shrink-0" />
           )}
           <span className="text-sm font-bold text-slate-800">
             {professionalLabel}
@@ -154,7 +154,7 @@ export default function BookingTimeSelection({
         {/* Calendar icon dropdown */}
         <Popover>
           <PopoverTrigger asChild>
-            <button className="h-10 w-10 rounded-full border border-glam-blush bg-white flex items-center justify-center text-glam-blush/500 hover:text-glam-plum hover:border-slate-300 transition-all">
+            <button className="h-10 w-10 rounded-full border border-secondary bg-white flex items-center justify-center text-secondary-foreground/70 hover:text-primary hover:border-slate-300 transition-all">
               <CalendarDays size={18} />
             </button>
           </PopoverTrigger>
@@ -177,7 +177,7 @@ export default function BookingTimeSelection({
                 open: getOpenDaysInMonth(new Date()),
               }}
               modifiersClassNames={{
-                open: "bg-glam-blush text-glam-plum font-bold",
+                open: "bg-secondary text-primary font-bold",
               }}
               initialFocus
             />
@@ -188,20 +188,20 @@ export default function BookingTimeSelection({
       {/* Week strip */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-base font-black text-glam-plum">
+          <h2 className="text-base font-black text-primary">
             {format(weekStart, "MMMM yyyy")}
           </h2>
           <div className="flex items-center gap-1">
             <button
               onClick={() => setWeekStart((w) => subDays(w, 7))}
               disabled={!isBefore(today, weekStart)}
-              className="h-8 w-8 rounded-full flex items-center justify-center text-glam-blush/500 hover:bg-glam-blush disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              className="h-8 w-8 rounded-full flex items-center justify-center text-secondary-foreground/70 hover:bg-secondary disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronLeft size={20} />
             </button>
             <button
               onClick={() => setWeekStart((w) => addDays(w, 7))}
-              className="h-8 w-8 rounded-full flex items-center justify-center text-glam-blush/500 hover:bg-glam-blush transition-colors"
+              className="h-8 w-8 rounded-full flex items-center justify-center text-secondary-foreground/70 hover:bg-secondary transition-colors"
             >
               <ChevronRight size={20} />
             </button>
@@ -232,8 +232,8 @@ export default function BookingTimeSelection({
                   isDisabled
                     ? "opacity-30 cursor-not-allowed"
                     : isSelected
-                      ? "bg-glam-plum text-white border border-glam-blush"
-                      : "hover:bg-glam-blush/50 text-slate-600",
+                      ? "bg-primary text-white border border-secondary"
+                      : "hover:bg-secondary/50 text-slate-600",
                 )}
               >
                 <span
@@ -257,7 +257,7 @@ export default function BookingTimeSelection({
                   <span
                     className={cn(
                       "text-lg font-black",
-                      isSelected ? "text-white" : "text-glam-plum",
+                      isSelected ? "text-white" : "text-primary",
                     )}
                   >
                     {format(day, "d")}
@@ -271,7 +271,7 @@ export default function BookingTimeSelection({
         {onTimeSelect && selectedSlot && (
           <button
             onClick={onTimeSelect}
-            className="w-full mt-6 py-4 bg-glam-plum text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-glam-plum transition-all active:scale-[0.98]"
+            className="w-full mt-6 py-4 bg-primary text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-primary transition-all active:scale-[0.98]"
           >
             Continue
           </button>
@@ -280,7 +280,7 @@ export default function BookingTimeSelection({
 
       {/* Time slots */}
       {!selectedDate ? (
-        <div className="py-16 flex flex-col items-center justify-center text-center text-muted-foreground bg-glam-blush/50 rounded-3xl border border-dashed border-glam-blush">
+        <div className="py-16 flex flex-col items-center justify-center text-center text-muted-foreground bg-secondary/50 rounded-3xl border border-dashed border-secondary">
           <CalendarDays size={40} className="mb-4 text-slate-300" />
           <p className="text-sm font-bold">
             Select a date to see available times
@@ -291,12 +291,12 @@ export default function BookingTimeSelection({
           {[...Array(8)].map((_, i) => (
             <div
               key={i}
-              className="h-14 rounded-xl bg-glam-blush animate-pulse"
+              className="h-14 rounded-xl bg-secondary animate-pulse"
             />
           ))}
         </div>
       ) : !slots || slots.length === 0 ? (
-        <div className="py-16 flex flex-col items-center justify-center text-center text-muted-foreground bg-rose-50 rounded-3xl border border-glam-blush">
+        <div className="py-16 flex flex-col items-center justify-center text-center text-muted-foreground bg-rose-50 rounded-3xl border border-secondary">
           <p className="text-sm font-bold text-rose-500">
             No available slots for this date.
           </p>
@@ -317,8 +317,8 @@ export default function BookingTimeSelection({
                   className={cn(
                     "w-full text-left px-6 py-4 rounded-xl border transition-all font-bold text-sm",
                     isSelected
-                      ? "bg-glam-plum border-glam-plum text-white"
-                      : "bg-white border-glam-blush text-slate-700 hover:border-glam-blush hover:bg-glam-blush/50",
+                      ? "bg-primary border-primary text-white"
+                      : "bg-white border-secondary text-slate-700 hover:border-secondary hover:bg-secondary/50",
                   )}
                 >
                   {slot.startTime}

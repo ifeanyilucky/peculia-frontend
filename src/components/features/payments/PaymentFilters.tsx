@@ -47,22 +47,22 @@ export default function PaymentFilters({
   return (
     <div
       className={cn(
-        "bg-white p-6 rounded-3xl border border-glam-blush space-y-6 shadow-sm",
+        "bg-white p-6 rounded-3xl border border-secondary space-y-6 shadow-sm",
       )}
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-xl bg-glam-plum flex items-center justify-center text-white">
+          <div className="h-8 w-8 rounded-xl bg-primary flex items-center justify-center text-white">
             <Filter size={16} />
           </div>
-          <h3 className="text-sm font-black uppercase tracking-widest text-glam-plum">
+          <h3 className="text-sm font-black uppercase tracking-widest text-primary">
             Filter Payments
           </h3>
         </div>
         {hasActiveFilters && (
           <button
             onClick={onClear}
-            className="flex items-center gap-1 text-xs font-black uppercase tracking-widest text-glam-plum hover:text-rose-700 transition-colors"
+            className="flex items-center gap-1 text-xs font-black uppercase tracking-widest text-primary hover:text-rose-700 transition-colors"
           >
             <X size={14} />
             Clear
@@ -84,7 +84,7 @@ export default function PaymentFilters({
                 status: e.target.value as PaymentStatus | "",
               })
             }
-            className="w-full h-12 px-4 rounded-2xl bg-glam-blush/50 border border-transparent text-sm font-bold text-glam-plum focus:bg-white focus:border-glam-plum transition-all outline-none appearance-none cursor-pointer"
+            className="w-full h-12 px-4 rounded-2xl bg-secondary/50 border border-transparent text-sm font-bold text-primary focus:bg-white focus:border-primary transition-all outline-none appearance-none cursor-pointer"
           >
             {STATUS_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -107,7 +107,7 @@ export default function PaymentFilters({
                 type: e.target.value as PaymentType | "",
               })
             }
-            className="w-full h-12 px-4 rounded-2xl bg-glam-blush/50 border border-transparent text-sm font-bold text-glam-plum focus:bg-white focus:border-glam-plum transition-all outline-none appearance-none cursor-pointer"
+            className="w-full h-12 px-4 rounded-2xl bg-secondary/50 border border-transparent text-sm font-bold text-primary focus:bg-white focus:border-primary transition-all outline-none appearance-none cursor-pointer"
           >
             {TYPE_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -129,7 +129,7 @@ export default function PaymentFilters({
               onChange={(e) =>
                 onFilterChange({ ...filters, startDate: e.target.value })
               }
-              className="w-full h-12 pl-4 pr-10 rounded-2xl bg-glam-blush/50 border border-transparent text-sm font-bold text-glam-plum focus:bg-white focus:border-glam-plum transition-all outline-none cursor-pointer"
+              className="w-full h-12 pl-4 pr-10 rounded-2xl bg-secondary/50 border border-transparent text-sm font-bold text-primary focus:bg-white focus:border-primary transition-all outline-none cursor-pointer"
             />
             <CalendarIcon
               size={16}
@@ -150,7 +150,7 @@ export default function PaymentFilters({
               onChange={(e) =>
                 onFilterChange({ ...filters, endDate: e.target.value })
               }
-              className="w-full h-12 pl-4 pr-10 rounded-2xl bg-glam-blush/50 border border-transparent text-sm font-bold text-glam-plum focus:bg-white focus:border-glam-plum transition-all outline-none cursor-pointer"
+              className="w-full h-12 pl-4 pr-10 rounded-2xl bg-secondary/50 border border-transparent text-sm font-bold text-primary focus:bg-white focus:border-primary transition-all outline-none cursor-pointer"
             />
             <CalendarIcon
               size={16}

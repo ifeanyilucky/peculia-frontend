@@ -90,15 +90,15 @@ export default function SaveButton({
     <button
       onClick={handleSave}
       disabled={isLoading}
-      className={`${sizeClasses[size]} flex items-center justify-center rounded-full border border-glam-blush bg-white transition-all hover:border-glam-blush hover:bg-glam-blush/50 disabled:opacity-50 disabled:cursor-not-allowed`}
+      className={`${sizeClasses[size]} flex items-center justify-center rounded-full border border-secondary bg-white transition-all hover:border-secondary hover:bg-secondary/50 disabled:opacity-50 disabled:cursor-not-allowed`}
       aria-label={isSaved ? "Remove from saved" : "Save provider"}
     >
       <Heart
         size={iconSizes[size]}
         className={`transition-colors ${
           isSaved
-            ? "fill-glam-blush/500 text-glam-blush/500"
-            : "text-muted-foreground hover:text-glam-blush/500"
+            ? "fill-secondary-foreground/70 text-secondary-foreground/70"
+            : "text-muted-foreground hover:text-secondary-foreground/70"
         }`}
       />
     </button>

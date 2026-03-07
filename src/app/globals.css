@@ -27,6 +27,13 @@
     --radius-md: 0.75rem;
     --radius-lg: 1rem;
     --radius-xl: 1.5rem;
+
+    /* Base Glam Colors */
+    --glam-plum: 313 53% 19%;
+    --glam-blush: 337 58% 90%;
+    --glam-gold: 46 68% 47%;
+    --glam-charcoal: 0 0% 12%;
+    --glam-ivory: 20 33% 97%;
   }
 
   .dark {

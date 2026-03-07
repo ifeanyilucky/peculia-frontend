@@ -36,10 +36,10 @@ export default function CenterModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-glam-plum/40 backdrop-blur-sm animate-in fade-in duration-300 p-6">
+    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-primary/40 backdrop-blur-sm animate-in fade-in duration-300 p-6">
       <div
         className={cn(
-          "bg-white w-full rounded-[32px] animate-in zoom-in-95 duration-300 overflow-hidden relative focus:outline-none border border-glam-blush",
+          "bg-white w-full rounded-[32px] animate-in zoom-in-95 duration-300 overflow-hidden relative focus:outline-none border border-secondary",
           maxWidth,
         )}
       >
@@ -47,7 +47,7 @@ export default function CenterModal({
         <div className="flex justify-end pt-6 pr-6">
           <button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-slate-100 transition-all text-muted-foreground hover:text-glam-plum active:scale-95"
+            className="p-2 rounded-full hover:bg-slate-100 transition-all text-muted-foreground hover:text-primary active:scale-95"
             aria-label="Close modal"
           >
             <X size={20} />
@@ -56,7 +56,7 @@ export default function CenterModal({
 
         <div className="px-10 pb-10 pt-2 text-center">
           {title && (
-            <h3 className="font-peculiar text-2xl font-black text-glam-plum leading-tight mb-4">
+            <h3 className="font-peculiar text-2xl font-black text-primary leading-tight mb-4">
               {title}
             </h3>
           )}

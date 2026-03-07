@@ -124,7 +124,7 @@ export default function ProfileHeader({
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <h1 className="font-peculiar text-4xl font-black text-glam-plum md:text-5xl">
+              <h1 className="font-peculiar text-4xl font-black text-primary md:text-5xl">
                 {provider.businessName}
               </h1>
               {provider.isVerified && (
@@ -134,7 +134,7 @@ export default function ProfileHeader({
 
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-bold">
               <div className="flex items-center gap-1">
-                <span className="text-glam-plum">
+                <span className="text-primary">
                   {provider.rating.toFixed(1)}
                 </span>
                 <div className="flex items-center text-yellow-500">
@@ -148,7 +148,7 @@ export default function ProfileHeader({
                           : "none"
                       }
                       className={
-                        i < Math.floor(provider.rating) ? "" : "text-glam-blush"
+                        i < Math.floor(provider.rating) ? "" : "text-secondary"
                       }
                     />
                   ))}
@@ -159,10 +159,10 @@ export default function ProfileHeader({
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="h-1 w-1 rounded-full bg-glam-blush" />
+                <span className="h-1 w-1 rounded-full bg-secondary" />
                 <span
                   className={
-                    openingStatus.isOpen ? "text-green-600" : "text-glam-plum"
+                    openingStatus.isOpen ? "text-green-600" : "text-primary"
                   }
                 >
                   {openingStatus.isOpen ? "Open" : "Closed"}
@@ -173,7 +173,7 @@ export default function ProfileHeader({
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="h-1 w-1 rounded-full bg-glam-blush" />
+                <span className="h-1 w-1 rounded-full bg-secondary" />
                 <span className="text-muted-foreground font-medium truncate max-w-[200px] sm:max-w-none">
                   {address}
                 </span>
@@ -193,9 +193,9 @@ export default function ProfileHeader({
           <div className="flex items-center gap-3">
             <button
               onClick={handleShare}
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-glam-blush transition-all hover:bg-slate-50 active:scale-90"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-secondary transition-all hover:bg-slate-50 active:scale-90"
             >
-              <Share2 size={20} className="text-glam-charcoal" />
+              <Share2 size={20} className="text-foreground" />
             </button>
             <SaveButton providerId={provider._id} size="lg" />
           </div>
@@ -252,7 +252,7 @@ export default function ProfileHeader({
                 className="object-cover transition-transform duration-700 hover:scale-105"
               />
               <button
-                className="absolute bottom-6 right-6 rounded-lg bg-white/90 px-4 py-2 text-xs font-black text-glam-plum backdrop-blur-sm transition-all hover:bg-white hover:scale-105 active:scale-95 border border-glam-blush"
+                className="absolute bottom-6 right-6 rounded-lg bg-white/90 px-4 py-2 text-xs font-black text-primary backdrop-blur-sm transition-all hover:bg-white hover:scale-105 active:scale-95 border border-secondary"
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelectedIndex(2);

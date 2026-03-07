@@ -55,24 +55,24 @@ export const CookieConsent = () => {
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
         className="fixed bottom-6 left-6 right-6 md:left-auto md:right-8 md:max-w-md z-9999"
       >
-        <div className="bg-white/80 backdrop-blur-xl border border-glam-blush/50 rounded-3xl p-5 overflow-hidden relative">
-          <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-glam-blush/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="bg-white/80 backdrop-blur-xl border border-secondary/50 rounded-3xl p-5 overflow-hidden relative">
+          <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-secondary/30 rounded-full blur-3xl pointer-events-none" />
 
           <div className="flex items-start gap-4 mb-4">
-            <div className="shrink-0 w-12 h-12 bg-glam-blush/50 rounded-2xl flex items-center justify-center text-glam-plum">
+            <div className="shrink-0 w-12 h-12 bg-secondary/50 rounded-2xl flex items-center justify-center text-primary">
               <Cookie size={24} />
             </div>
             <div className="flex-1 min-w-0 pt-1">
-              <h3 className="text-lg font-bold text-glam-plum mb-1">
+              <h3 className="text-lg font-bold text-primary mb-1">
                 Your privacy
               </h3>
-              <p className="text-sm text-glam-charcoal leading-relaxed">
+              <p className="text-sm text-foreground leading-relaxed">
                 Cookies enable us to enhance your experience by personalizing
                 content and analyzing traffic. You can accept all cookies, allow
                 only essentials ones, or manage your preferences. See our{" "}
                 <Link
                   href="/cookie-policy"
-                  className="text-glam-plum hover:text-glam-gold font-medium underline underline-offset-4"
+                  className="text-primary hover:text-accent font-medium underline underline-offset-4"
                 >
                   cookie policy
                 </Link>
@@ -84,11 +84,11 @@ export const CookieConsent = () => {
           <div className="flex flex-col sm:flex-row gap-2 mt-6">
             <button
               onClick={handleNecessaryOnly}
-              className="px-4 py-2.5 text-sm font-bold text-glam-plum bg-glam-blush/50 border border-glam-blush rounded-full hover:bg-glam-blush transition-colors flex-1"
+              className="px-4 py-2.5 text-sm font-bold text-primary bg-secondary/50 border border-secondary rounded-full hover:bg-secondary transition-colors flex-1"
             >
               Only necessary
             </button>
-            <button className="px-4 py-2.5 text-sm font-bold text-glam-plum bg-white border border-glam-blush rounded-full hover:border-glam-gold hover:text-glam-gold transition-all flex items-center justify-center gap-2 group">
+            <button className="px-4 py-2.5 text-sm font-bold text-primary bg-white border border-secondary rounded-full hover:border-accent hover:text-accent transition-all flex items-center justify-center gap-2 group">
               <Settings
                 size={16}
                 className="group-hover:rotate-45 transition-transform"
@@ -97,7 +97,7 @@ export const CookieConsent = () => {
             </button>
             <button
               onClick={handleAcceptAll}
-              className="px-4 py-2.5 text-sm font-black uppercase tracking-widest text-white bg-glam-plum rounded-full hover:bg-glam-plum/90 transition-all flex-1 whitespace-nowrap border border-glam-plum"
+              className="px-4 py-2.5 text-sm font-black uppercase tracking-widest text-white bg-primary rounded-full hover:bg-primary/90 transition-all flex-1 whitespace-nowrap border border-primary"
             >
               Accept all
             </button>

@@ -62,11 +62,11 @@ export default function DashboardHeader({
   };
 
   return (
-    <header className="h-20 bg-white/80 backdrop-blur-md border-b border-glam-blush px-6 lg:px-10 flex items-center justify-between sticky top-0 z-30">
+    <header className="h-20 bg-white/80 backdrop-blur-md border-b border-secondary px-6 lg:px-10 flex items-center justify-between sticky top-0 z-30">
       <div className="flex items-center gap-4">
         <button
           onClick={onMenuClick}
-          className="lg:hidden p-2.5 rounded-2xl bg-glam-blush/50 text-glam-charcoal hover:bg-glam-blush hover:text-glam-plum transition-all"
+          className="lg:hidden p-2.5 rounded-2xl bg-secondary/50 text-foreground hover:bg-secondary hover:text-primary transition-all"
         >
           <Menu size={20} />
         </button>
@@ -91,25 +91,25 @@ export default function DashboardHeader({
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={handleSearch}
-          className="w-full h-11 bg-glam-blush/30 rounded-2xl pl-11 pr-4 text-sm font-medium border border-glam-blush focus:border-glam-plum focus:bg-white focus:ring-4 focus:ring-glam-blush/50 transition-all outline-none"
+          className="w-full h-11 bg-secondary/30 rounded-2xl pl-11 pr-4 text-sm font-medium border border-secondary focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/20 transition-all outline-none"
         />
       </div>
 
       <div className="flex items-center gap-4 ml-auto">
-        <button className="relative p-2.5 rounded-2xl bg-glam-blush/50 text-glam-charcoal hover:bg-glam-blush hover:text-glam-plum transition-all">
+        <button className="relative p-2.5 rounded-2xl bg-secondary/50 text-foreground hover:bg-secondary hover:text-primary transition-all">
           <Bell size={20} />
-          <span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-glam-plum border-2 border-glam-blush" />
+          <span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-primary border-2 border-secondary" />
         </button>
 
-        <div className="h-10 w-px bg-glam-blush mx-2" />
+        <div className="h-10 w-px bg-secondary mx-2" />
 
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center gap-3 pl-2 py-1.5 rounded-2xl hover:bg-glam-blush/50 transition-all group"
+            className="flex items-center gap-3 pl-2 py-1.5 rounded-2xl hover:bg-secondary/50 transition-all group"
           >
             <div className="text-right hidden sm:block">
-              <p className="text-sm font-black text-glam-plum leading-none">
+              <p className="text-sm font-black text-primary leading-none">
                 {user?.firstName} {user?.lastName}
               </p>
               <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-1">
@@ -118,7 +118,7 @@ export default function DashboardHeader({
                   : "Client Account"}
               </p>
             </div>
-            <div className="h-10 w-10 rounded-2xl bg-glam-plum overflow-hidden relative border-2 border-white shadow-sm transition-transform group-active:scale-95">
+            <div className="h-10 w-10 rounded-2xl bg-primary overflow-hidden relative border-2 border-white shadow-sm transition-transform group-active:scale-95">
               {user?.avatar ? (
                 <Image
                   src={user.avatar}
@@ -142,9 +142,9 @@ export default function DashboardHeader({
           </button>
 
           {isDropdownOpen && (
-            <div className="absolute right-0 mt-3 w-64 bg-white rounded-3xl border border-glam-blush shadow-xl shadow-glam-plum/10 p-4 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="absolute right-0 mt-3 w-64 bg-white rounded-3xl border border-secondary shadow-xl shadow-primary/10 p-4 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
               <div className="mb-4 px-2">
-                <p className="text-lg font-bold text-glam-plum truncate">
+                <p className="text-lg font-bold text-primary truncate">
                   {user?.firstName} {user?.lastName}
                 </p>
               </div>
@@ -153,55 +153,55 @@ export default function DashboardHeader({
                 <Link
                   href="/profile"
                   onClick={() => setIsDropdownOpen(false)}
-                  className="flex items-center gap-3 w-full p-2 rounded-full text-glam-charcoal hover:bg-glam-blush/50 transition-all text-[15px] font-medium"
+                  className="flex items-center gap-3 w-full p-2 rounded-full text-foreground hover:bg-secondary/50 transition-all text-[15px] font-medium"
                 >
-                  <User size={20} className="text-glam-plum" />
+                  <User size={20} className="text-primary" />
                   <span>Profile</span>
                 </Link>
 
                 <Link
                   href="/bookings"
                   onClick={() => setIsDropdownOpen(false)}
-                  className="flex items-center gap-3 w-full p-2 rounded-full text-glam-charcoal hover:bg-glam-blush/50 transition-all text-[15px] font-medium"
+                  className="flex items-center gap-3 w-full p-2 rounded-full text-foreground hover:bg-secondary/50 transition-all text-[15px] font-medium"
                 >
-                  <Calendar size={20} className="text-glam-plum" />
+                  <Calendar size={20} className="text-primary" />
                   <span>Appointments</span>
                 </Link>
 
                 <Link
                   href="/saved"
                   onClick={() => setIsDropdownOpen(false)}
-                  className="flex items-center gap-3 w-full p-2 rounded-2xl text-glam-charcoal hover:bg-glam-blush/50 transition-all text-[15px] font-medium"
+                  className="flex items-center gap-3 w-full p-2 rounded-2xl text-foreground hover:bg-secondary/50 transition-all text-[15px] font-medium"
                 >
-                  <Heart size={20} className="text-glam-plum" />
+                  <Heart size={20} className="text-primary" />
                   <span>Saved professionals</span>
                 </Link>
 
                 <Link
                   href="/settings"
                   onClick={() => setIsDropdownOpen(false)}
-                  className="flex items-center gap-3 w-full p-2 rounded-2xl text-glam-charcoal hover:bg-glam-blush/50 transition-all text-[15px] font-medium"
+                  className="flex items-center gap-3 w-full p-2 rounded-2xl text-foreground hover:bg-secondary/50 transition-all text-[15px] font-medium"
                 >
-                  <Settings size={20} className="text-glam-plum" />
+                  <Settings size={20} className="text-primary" />
                   <span>Settings</span>
                 </Link>
 
                 <button
                   onClick={handleLogout}
-                  className="flex items-center w-full p-2 rounded-2xl text-glam-charcoal hover:bg-glam-blush/50 transition-all text-[15px] font-medium"
+                  className="flex items-center w-full p-2 rounded-2xl text-foreground hover:bg-secondary/50 transition-all text-[15px] font-medium"
                 >
-                  <LogOut size={20} className="text-glam-plum" />
+                  <LogOut size={20} className="text-primary" />
                   <span className="ml-3">Log out</span>
                 </button>
               </div>
 
-              <div className="h-px bg-glam-blush my-4" />
+              <div className="h-px bg-secondary my-4" />
 
               <div className="space-y-1">
                 <Link
                   href="/support"
                   onClick={() => setIsDropdownOpen(false)}
-                  className="flex items-center w-full p-2 rounded-2xl text-glam-charcoal hover:bg-glam-blush/50 transition-all text-[15px] font-medium"
+                  className="flex items-center w-full p-2 rounded-2xl text-foreground hover:bg-secondary/50 transition-all text-[15px] font-medium"
                 >
                   <span className="ml-[32px]">Help and support</span>
                 </Link>

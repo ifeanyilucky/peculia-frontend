@@ -33,7 +33,7 @@ export default function ClientSidebar() {
   const clearAuth = useAuthStore((state) => state.clearAuth);
 
   return (
-    <aside className="hidden lg:flex h-screen w-72 flex-col border-r border-glam-blush bg-white sticky top-0">
+    <aside className="hidden lg:flex h-screen w-72 flex-col border-r border-secondary bg-white sticky top-0">
       <div className="flex items-center gap-2 px-8 py-8">
         <Link href="/" className="relative h-10 w-40">
           <Image
@@ -56,8 +56,8 @@ export default function ClientSidebar() {
               className={cn(
                 "group flex items-center gap-3 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all duration-300",
                 isActive
-                  ? "bg-glam-plum text-white border border-glam-plum"
-                  : "text-muted-foreground hover:bg-glam-blush/50 hover:text-glam-plum",
+                  ? "bg-primary text-white border border-primary"
+                  : "text-muted-foreground hover:bg-secondary/50 hover:text-primary",
               )}
             >
               <item.icon size={20} strokeWidth={isActive ? 2.5 : 2} />
@@ -70,7 +70,7 @@ export default function ClientSidebar() {
       <div className="p-4 mt-auto">
         <button
           onClick={() => clearAuth()}
-          className="flex w-full items-center gap-3 rounded-2xl px-4 py-4 text-sm font-bold text-glam-plum transition-all hover:bg-glam-blush/50 hover:text-glam-gold"
+          className="flex w-full items-center gap-3 rounded-2xl px-4 py-4 text-sm font-bold text-primary transition-all hover:bg-secondary/50 hover:text-accent"
         >
           <LogOut size={20} />
           Sign Out

@@ -71,14 +71,14 @@ export default function DiscoveryMap({ providers }: DiscoveryMapProps) {
 
   if (!apiKey) {
     return (
-      <div className="absolute inset-0 bg-glam-blush/50 flex items-center justify-center p-8 text-center">
+      <div className="absolute inset-0 bg-secondary/50 flex items-center justify-center p-8 text-center">
         <div className="max-w-xs">
           <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm mx-auto mb-4 text-muted-foreground">
             <MapIcon size={32} />
           </div>
-          <h3 className="text-lg font-bold text-glam-plum mb-2">Google Maps API Key Missing</h3>
-          <p className="text-sm text-glam-blush/500 font-medium">
-            Please add <code className="bg-glam-blush/50 px-1 rounded">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> to your <code className="bg-glam-blush/50 px-1 rounded">.env.local</code> file to enable the real map.
+          <h3 className="text-lg font-bold text-primary mb-2">Google Maps API Key Missing</h3>
+          <p className="text-sm text-secondary-foreground/70 font-medium">
+            Please add <code className="bg-secondary/50 px-1 rounded">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> to your <code className="bg-secondary/50 px-1 rounded">.env.local</code> file to enable the real map.
           </p>
         </div>
       </div>
@@ -87,15 +87,15 @@ export default function DiscoveryMap({ providers }: DiscoveryMapProps) {
 
   if (loadError) {
     return (
-      <div className="absolute inset-0 bg-glam-blush/50 flex items-center justify-center">
-        <p className="text-glam-blush/500 font-medium font-peculiar text-black uppercase tracking-widest text-[10px]">Error loading maps</p>
+      <div className="absolute inset-0 bg-secondary/50 flex items-center justify-center">
+        <p className="text-secondary-foreground/70 font-medium font-peculiar text-black uppercase tracking-widest text-[10px]">Error loading maps</p>
       </div>
     );
   }
 
   if (!isLoaded) {
     return (
-      <div className="absolute inset-0 bg-glam-blush/50 flex items-center justify-center">
+      <div className="absolute inset-0 bg-secondary/50 flex items-center justify-center">
         <Loader2 className="animate-spin text-muted-foreground" size={32} />
       </div>
     );
@@ -147,13 +147,13 @@ export default function DiscoveryMap({ providers }: DiscoveryMapProps) {
           onCloseClick={() => setSelectedProvider(null)}
         >
           <div className="p-2 min-w-[200px]">
-            <h4 className="font-bold text-glam-plum">{selectedProvider.businessName}</h4>
+            <h4 className="font-bold text-primary">{selectedProvider.businessName}</h4>
             <div className="flex items-center gap-1 mt-1">
               <Star size={12} className="text-amber-400 fill-amber-400" />
               <span className="text-xs font-bold">{selectedProvider.rating}</span>
               <span className="text-[10px] text-muted-foreground">({selectedProvider.totalReviews})</span>
             </div>
-            <div className="flex items-center gap-1 mt-2 text-glam-blush/500">
+            <div className="flex items-center gap-1 mt-2 text-secondary-foreground/70">
               <MapPin size={12} />
               <span className="text-[10px] truncate">{selectedProvider.location.address}</span>
             </div>

@@ -27,7 +27,7 @@ export default function BookingProfessionalSelection({
   if (isLoading) {
     return (
       <div className="w-full flex-1 flex flex-col items-center justify-center py-20 gap-4">
-        <div className="h-12 w-12 border-4 border-glam-plum border-t-transparent rounded-full animate-spin" />
+        <div className="h-12 w-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
         <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest">
           Loading professionals...
         </p>
@@ -41,10 +41,10 @@ export default function BookingProfessionalSelection({
 
   return (
     <div className="w-full flex-1 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <h1 className="font-peculiar text-4xl font-black text-glam-plum mb-2 tracking-tight">
+      <h1 className="font-peculiar text-4xl font-black text-primary mb-2 tracking-tight">
         Select Professional
       </h1>
-      <p className="text-glam-blush/500 font-medium mb-10">
+      <p className="text-secondary-foreground/70 font-medium mb-10">
         Choose a specific professional or select "Any professional" for the best
         availability.
       </p>
@@ -59,31 +59,31 @@ export default function BookingProfessionalSelection({
           className={cn(
             "group cursor-pointer rounded-2xl border-2 p-6 transition-all duration-300",
             selectedTeamMember === null
-              ? "border-glam-plum bg-rose-50/10"
-              : "border-glam-blush bg-white hover:border-glam-blush",
+              ? "border-primary bg-rose-50/10"
+              : "border-secondary bg-white hover:border-secondary",
           )}
         >
           <div className="flex items-center gap-4">
             <div
               className={cn(
-                "h-16 w-16 rounded-full flex items-center justify-center transition-colors border border-glam-blush",
+                "h-16 w-16 rounded-full flex items-center justify-center transition-colors border border-secondary",
                 selectedTeamMember === null
-                  ? "bg-glam-plum text-glam-plum"
-                  : "bg-glam-blush/50 text-muted-foreground group-hover:bg-glam-blush",
+                  ? "bg-primary text-primary"
+                  : "bg-secondary/50 text-muted-foreground group-hover:bg-secondary",
               )}
             >
               <Users size={32} />
             </div>
             <div className="flex-1">
-              <h3 className="font-bold text-glam-plum text-lg">
+              <h3 className="font-bold text-primary text-lg">
                 Any professional
               </h3>
-              <p className="text-xs text-glam-blush/500 font-medium mt-1">
+              <p className="text-xs text-secondary-foreground/70 font-medium mt-1">
                 Best availability for your selection
               </p>
             </div>
             {selectedTeamMember === null && (
-              <div className="h-8 w-8 rounded-full bg-glam-plum text-white flex items-center justify-center animate-in zoom-in duration-300 border border-glam-blush">
+              <div className="h-8 w-8 rounded-full bg-primary text-white flex items-center justify-center animate-in zoom-in duration-300 border border-secondary">
                 <Check size={18} strokeWidth={3} />
               </div>
             )}
@@ -101,8 +101,8 @@ export default function BookingProfessionalSelection({
             className={cn(
               "group cursor-pointer rounded-2xl border-2 p-6 transition-all duration-300",
               selectedTeamMember?._id === member._id
-                ? "border-glam-plum bg-rose-50/10"
-                : "border-glam-blush bg-white hover:border-glam-blush",
+                ? "border-primary bg-rose-50/10"
+                : "border-secondary bg-white hover:border-secondary",
             )}
           >
             <div className="flex items-center gap-4">
@@ -115,16 +115,16 @@ export default function BookingProfessionalSelection({
                     className="object-cover"
                   />
                 ) : (
-                  <div className="h-full w-full bg-glam-blush flex items-center justify-center text-muted-foreground">
+                  <div className="h-full w-full bg-secondary flex items-center justify-center text-muted-foreground">
                     <User size={32} />
                   </div>
                 )}
               </div>
               <div className="flex-1">
-                <h3 className="font-bold text-glam-plum text-lg">
+                <h3 className="font-bold text-primary text-lg">
                   {member.firstName} {member.lastName}
                 </h3>
-                <p className="text-xs text-glam-blush/500 font-medium mt-1">
+                <p className="text-xs text-secondary-foreground/70 font-medium mt-1">
                   {member.position || "Staff"}
                 </p>
                 {member.rating > 0 && (
@@ -139,7 +139,7 @@ export default function BookingProfessionalSelection({
                 )}
               </div>
               {selectedTeamMember?._id === member._id && (
-                <div className="h-8 w-8 rounded-full bg-glam-plum text-white flex items-center justify-center animate-in zoom-in duration-300 border border-glam-blush">
+                <div className="h-8 w-8 rounded-full bg-primary text-white flex items-center justify-center animate-in zoom-in duration-300 border border-secondary">
                   <Check size={18} strokeWidth={3} />
                 </div>
               )}

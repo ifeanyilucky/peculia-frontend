@@ -46,7 +46,7 @@ export default function RightSideModal({
       {/* Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-9998 bg-glam-plum/40 backdrop-blur-sm transition-opacity duration-300 m-0"
+          className="fixed inset-0 z-9998 bg-primary/40 backdrop-blur-sm transition-opacity duration-300 m-0"
           onClick={onClose}
           aria-hidden="true"
         />
@@ -55,20 +55,20 @@ export default function RightSideModal({
       {/* Sliding Panel */}
       <div
         className={cn(
-          "fixed inset-y-0 right-0 z-9999 w-full md:w-[480px] bg-white transition-transform duration-500 ease-in-out flex flex-col border border-glam-blush",
+          "fixed inset-y-0 right-0 z-9999 w-full md:w-[480px] bg-white transition-transform duration-500 ease-in-out flex flex-col border border-secondary",
           isOpen ? "translate-x-0" : "translate-x-full",
           className,
         )}
       >
         {/* Header */}
         {(title || !!onClose) && (
-          <div className="flex items-center justify-between p-6 border-b border-glam-blush bg-white">
-            <h2 className="text-xl font-bold font-peculiar text-glam-plum">
+          <div className="flex items-center justify-between p-6 border-b border-secondary bg-white">
+            <h2 className="text-xl font-bold font-peculiar text-primary">
               {title}
             </h2>
             <button
               onClick={onClose}
-              className="p-2 rounded-full hover:bg-glam-blush/50 transition-colors text-muted-foreground hover:text-glam-plum"
+              className="p-2 rounded-full hover:bg-secondary/50 transition-colors text-muted-foreground hover:text-primary"
               aria-label="Close panel"
             >
               <X size={20} />

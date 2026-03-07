@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Booking, getProviderFromBooking, getProviderName, getProviderLogo } from "@/types/booking.types";
+import {
+  Booking,
+  getProviderFromBooking,
+  getProviderName,
+  getProviderLogo,
+} from "@/types/booking.types";
 import { format } from "date-fns";
 import {
   Calendar,
@@ -53,12 +58,12 @@ const STATUS_CONFIG: Record<
   },
   cancelled_by_client: {
     label: "Cancelled",
-    color: "bg-glam-plum text-white",
+    color: "bg-primary text-white",
     icon: XCircle,
   },
   cancelled_by_provider: {
     label: "Cancelled by Provider",
-    color: "bg-glam-plum text-white",
+    color: "bg-primary text-white",
     icon: Ban,
   },
   no_show: {
@@ -88,14 +93,14 @@ export default function BookingDetailsView({
   const businessName = getProviderName(booking);
   const logoUrl = getProviderLogo(booking);
   const imageSrc = imgError || !logoUrl ? DEFAULT_BUSINESS_IMAGE : logoUrl;
-  
+
   const address = provider?.location?.address;
   const importantInfo = provider?.bio;
   const locationInstructions = provider?.location?.directions;
 
   const statusCfg = STATUS_CONFIG[booking.status] ?? {
     label: booking.status.replace(/_/g, " "),
-    color: "bg-glam-blush/500 text-white",
+    color: "bg-secondary text-secondary-foreground",
     icon: CheckCircle2,
   };
 
@@ -168,7 +173,7 @@ export default function BookingDetailsView({
         {/* Status + Date */}
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1.5">
-            <h2 className="text-lg font-peculiar font-bold text-glam-plum leading-tight">
+            <h2 className="text-lg font-peculiar font-bold text-primary leading-tight">
               {format(new Date(booking.scheduledDate), "eee, d MMM yyyy")} at{" "}
               {booking.startTime}
             </h2>
@@ -190,7 +195,7 @@ export default function BookingDetailsView({
 
         {/* Pay deposit CTA — only for pending_payment */}
         {booking.status === "pending_payment" && depositAmount > 0 && (
-          <button className="w-full py-3.5 bg-glam-plum text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-glam-plum transition-all active:scale-[0.98] shadow-md">
+          <button className="w-full py-3.5 bg-primary text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-primary transition-all active:scale-[0.98] shadow-md">
             Pay Deposit · {formatCurrency(depositAmount)}
           </button>
         )}
@@ -231,7 +236,7 @@ export default function BookingDetailsView({
         </div>
 
         {/* ── Services ── */}
-        <section className="space-y-3 pt-4 border-t border-glam-blush">
+        <section className="space-y-3 pt-4 border-t border-secondary">
           <h3 className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
             Services
           </h3>
@@ -239,17 +244,17 @@ export default function BookingDetailsView({
             {booking.services.map((service, idx) => (
               <div
                 key={idx}
-                className="flex justify-between items-center gap-3 p-3 bg-glam-blush/50 rounded-xl"
+                className="flex justify-between items-center gap-3 p-3 bg-secondary/50 rounded-xl"
               >
                 <div>
-                  <p className="text-sm font-bold text-glam-plum">
+                  <p className="text-sm font-bold text-primary">
                     {service.name}
                   </p>
                   <p className="text-[11px] text-muted-foreground font-medium mt-0.5">
                     {service.duration} min
                   </p>
                 </div>
-                <p className="text-sm font-black text-glam-plum shrink-0">
+                <p className="text-sm font-black text-primary shrink-0">
                   {formatCurrency(service.price / 100)}
                 </p>
               </div>
@@ -258,14 +263,14 @@ export default function BookingDetailsView({
         </section>
 
         {/* ── Pricing Summary ── */}
-        <section className="space-y-3 pt-4 border-t border-glam-blush">
+        <section className="space-y-3 pt-4 border-t border-secondary">
           <h3 className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
             Payment
           </h3>
           <div className="space-y-2.5">
-            <div className="flex justify-between text-sm text-glam-blush/500 font-medium">
+            <div className="flex justify-between text-sm text-secondary-foreground/70 font-medium">
               <span>Total</span>
-              <span className="text-glam-plum font-bold">
+              <span className="text-primary font-bold">
                 {formatCurrency(serviceTotal)}
               </span>
             </div>
@@ -277,11 +282,11 @@ export default function BookingDetailsView({
                     − {formatCurrency(depositAmount)}
                   </span>
                 </div>
-                <div className="flex justify-between items-center pt-2 border-t border-glam-blush">
+                <div className="flex justify-between items-center pt-2 border-t border-secondary">
                   <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                     Due at appointment
                   </span>
-                  <span className="text-xl font-peculiar font-black text-glam-plum">
+                  <span className="text-xl font-peculiar font-black text-primary">
                     {formatCurrency(remainingBalance)}
                   </span>
                 </div>
@@ -294,11 +299,11 @@ export default function BookingDetailsView({
         </section>
 
         {/* ── Map / Getting There ── */}
-        <section className="space-y-3 pt-4 border-t border-glam-blush">
+        <section className="space-y-3 pt-4 border-t border-secondary">
           <h3 className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
             Getting there
           </h3>
-          <div className="relative h-44 w-full rounded-2xl overflow-hidden border border-glam-blush group">
+          <div className="relative h-44 w-full rounded-2xl overflow-hidden border border-secondary group">
             {address ? (
               <iframe
                 width="100%"
@@ -312,7 +317,7 @@ export default function BookingDetailsView({
                 title="Venue Location Map"
               />
             ) : (
-              <div className="h-full w-full bg-glam-blush/50 flex flex-col items-center justify-center gap-2">
+              <div className="h-full w-full bg-secondary/50 flex flex-col items-center justify-center gap-2">
                 <MapPin size={20} className="text-slate-300" />
                 <p className="text-xs text-muted-foreground font-medium">
                   Address not available
@@ -321,16 +326,16 @@ export default function BookingDetailsView({
             )}
             <button
               onClick={handleGetDirections}
-              className="absolute bottom-3 right-3 bg-white px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 hover:scale-105 transition-transform border border-glam-blush"
+              className="absolute bottom-3 right-3 bg-white px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 hover:scale-105 transition-transform border border-secondary"
             >
-              <MapPin size={12} className="text-glam-plum" />
-              <span className="text-xs font-bold text-glam-plum">
+              <MapPin size={12} className="text-primary" />
+              <span className="text-xs font-bold text-primary">
                 Open in Maps
               </span>
             </button>
           </div>
           {locationInstructions && (
-            <p className="text-xs text-glam-blush/500 leading-relaxed font-medium bg-glam-blush/50 p-3 rounded-xl">
+            <p className="text-xs text-secondary-foreground/80 leading-relaxed font-medium bg-secondary/30 p-3 rounded-xl">
               <span className="font-bold text-slate-800 block mb-1">
                 Directions
               </span>
@@ -341,11 +346,11 @@ export default function BookingDetailsView({
 
         {/* ── Important Info ── */}
         {importantInfo && (
-          <section className="space-y-2 pt-4 border-t border-glam-blush">
+          <section className="space-y-2 pt-4 border-t border-secondary">
             <h3 className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
               Important info
             </h3>
-            <p className="text-xs text-glam-blush/500 leading-relaxed font-medium bg-glam-blush/50 p-3 rounded-xl whitespace-pre-line border border-glam-blush">
+            <p className="text-xs text-secondary-foreground/80 leading-relaxed font-medium bg-secondary/30 p-3 rounded-xl whitespace-pre-line border border-secondary/20">
               {importantInfo}
             </p>
           </section>
@@ -374,14 +379,14 @@ function ActionItem({
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center justify-between p-3.5 bg-white hover:bg-glam-blush/50 rounded-xl transition-all group"
+      className="w-full flex items-center justify-between p-3.5 bg-white hover:bg-secondary/50 rounded-xl transition-all group"
     >
       <div className="flex items-center gap-3.5">
-        <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-glam-blush text-slate-600 group-hover:bg-glam-plum group-hover:text-white transition-all">
+        <div className="h-9 w-9 flex items-center justify-center rounded-xl bg-secondary text-slate-600 group-hover:bg-primary group-hover:text-white transition-all">
           <Icon size={16} />
         </div>
         <div className="text-left">
-          <p className="text-sm font-bold text-glam-plum">{label}</p>
+          <p className="text-sm font-bold text-primary">{label}</p>
           {description && (
             <p className="text-[11px] text-muted-foreground font-medium truncate max-w-[190px]">
               {description}

@@ -269,10 +269,10 @@ export default function BookingSummarySidebar({
   return (
     <>
       <aside className="w-full lg:w-[400px] lg:shrink-0 h-fit lg:sticky lg:top-28">
-        <div className="rounded-2xl border border-glam-blush bg-white flex flex-col min-h-[500px]">
-          <div className="p-6 flex items-start gap-4 border-b border-glam-blush">
+        <div className="rounded-2xl border border-secondary bg-white flex flex-col min-h-[500px]">
+          <div className="p-6 flex items-start gap-4 border-b border-secondary">
             <div>
-              <h3 className="font-bold text-glam-plum leading-tight">
+              <h3 className="font-bold text-primary leading-tight">
                 {provider.businessName}
               </h3>
               <p className="text-sm font-medium text-muted-foreground">
@@ -286,7 +286,7 @@ export default function BookingSummarySidebar({
                       className={`h-3.5 w-3.5 ${
                         i < Math.floor(provider.rating)
                           ? "text-yellow-400"
-                          : "text-glam-blush"
+                          : "text-secondary"
                       }`}
                       fill="currentColor"
                       viewBox="0 0 20 20"
@@ -315,14 +315,14 @@ export default function BookingSummarySidebar({
                       className="flex justify-between items-start"
                     >
                       <div>
-                        <p className="font-bold text-glam-plum">
+                        <p className="font-bold text-primary">
                           {service.name}
                         </p>
                         <p className="text-xs text-muted-foreground font-medium">
                           {service.duration} mins
                         </p>
                       </div>
-                      <p className="font-bold text-glam-plum">
+                      <p className="font-bold text-primary">
                         {formatCurrency(service.price / 100)}
                       </p>
                     </div>
@@ -336,8 +336,8 @@ export default function BookingSummarySidebar({
                 <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
                   Date & Time
                 </h4>
-                <div className="bg-glam-blush/50 rounded-xl p-4">
-                  <p className="font-bold text-glam-plum">
+                <div className="bg-secondary/50 rounded-xl p-4">
+                  <p className="font-bold text-primary">
                     {format(
                       useBookingStore.getState().selectedDate!,
                       "EEEE, MMM d, yyyy",
@@ -356,7 +356,7 @@ export default function BookingSummarySidebar({
                   Professional
                 </h4>
                 <div className="flex items-center gap-3">
-                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-glam-blush/50">
+                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-secondary/50">
                     {selectedTeamMember?.avatar || provider.userId.avatar ? (
                       <Image
                         src={
@@ -373,7 +373,7 @@ export default function BookingSummarySidebar({
                     )}
                   </div>
                   <div>
-                    <p className="font-bold text-glam-plum text-sm">
+                    <p className="font-bold text-primary text-sm">
                       {selectedTeamMember
                         ? `${selectedTeamMember.firstName} ${selectedTeamMember.lastName}`
                         : "Any professional"}
@@ -384,12 +384,12 @@ export default function BookingSummarySidebar({
             )}
 
             {currentStep === 4 && (
-              <div className="space-y-4 pt-4 border-t border-glam-blush/50">
+              <div className="space-y-4 pt-4 border-t border-secondary/50">
                 <div className="flex justify-between items-center">
                   <span className="font-bold text-muted-foreground">
                     Service Price
                   </span>
-                  <span className="font-bold text-glam-plum">
+                  <span className="font-bold text-primary">
                     {formatCurrency(totalPrice / 100)}
                   </span>
                 </div>
@@ -401,11 +401,11 @@ export default function BookingSummarySidebar({
                     {formatCurrency((totalPrice * 0.2) / 100)}
                   </span>
                 </div>
-                <div className="flex justify-between items-center pt-4 border-t border-glam-blush">
-                  <span className="font-black text-glam-plum">
+                <div className="flex justify-between items-center pt-4 border-t border-secondary">
+                  <span className="font-black text-primary">
                     Pay In Person
                   </span>
-                  <span className="font-black text-xl text-glam-plum">
+                  <span className="font-black text-xl text-primary">
                     {formatCurrency((totalPrice * 0.8) / 100)}
                   </span>
                 </div>
@@ -413,11 +413,11 @@ export default function BookingSummarySidebar({
             )}
           </div>
 
-          <div className="p-6 border-t border-glam-blush">
+          <div className="p-6 border-t border-secondary">
             {/* Booking error banner */}
             {bookingError && (
-              <div className="mb-3 rounded-2xl bg-glam-blush border border-glam-blush p-4">
-                <p className="text-sm font-bold text-glam-plum">
+              <div className="mb-3 rounded-2xl bg-secondary border border-secondary p-4">
+                <p className="text-sm font-bold text-primary">
                   {bookingError}
                 </p>
               </div>
@@ -447,7 +447,7 @@ export default function BookingSummarySidebar({
                 <button
                   onClick={handleContinue}
                   disabled={isBooking || !isStepComplete() || paymentPaused}
-                  className="w-full py-4 px-6 rounded-full bg-glam-plum text-white font-bold hover:bg-glam-plum transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full py-4 px-6 rounded-full bg-primary text-white font-bold hover:bg-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isBooking ? (
                     <>
@@ -459,7 +459,7 @@ export default function BookingSummarySidebar({
                   )}
                 </button>
                 {!policyAccepted && selectedSlot && (
-                  <p className="text-xs text-glam-blush0 text-center mt-2 font-medium">
+                  <p className="text-xs text-secondary0 text-center mt-2 font-medium">
                     Please accept the deposit protection policy to continue
                   </p>
                 )}
@@ -468,7 +468,7 @@ export default function BookingSummarySidebar({
               <button
                 onClick={handleContinue}
                 disabled={!isStepComplete()}
-                className="w-full py-4 px-6 rounded-full bg-glam-plum text-white font-bold hover:bg-glam-plum/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-4 px-6 rounded-full bg-primary text-white font-bold hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Continue
               </button>
@@ -489,13 +489,13 @@ export default function BookingSummarySidebar({
         title="Cancellation Policy"
       >
         <div className="text-center">
-          <p className="text-glam-charcoal mb-6">
+          <p className="text-foreground mb-6">
             You can cancel for free up to 24 hours before your appointment. Late
             cancellations may incur a fee.
           </p>
           <button
             onClick={() => setShowCancellationModal(false)}
-            className="px-8 py-3 rounded-full bg-glam-plum text-white font-bold"
+            className="px-8 py-3 rounded-full bg-primary text-white font-bold"
           >
             Got it
           </button>

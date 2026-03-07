@@ -46,7 +46,7 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-[100] bg-glam-plum/40 backdrop-blur-sm lg:hidden"
+            className="fixed inset-0 z-100 bg-primary/40 backdrop-blur-sm lg:hidden"
           />
 
           {/* Sidebar */}
@@ -55,7 +55,7 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-y-0 left-0 z-[110] w-72 bg-white flex flex-col border-r border-glam-blush lg:hidden shadow-2xl"
+            className="fixed inset-y-0 left-0 z-110 w-72 bg-white flex flex-col border-r border-secondary lg:hidden shadow-2xl"
           >
             <div className="flex items-center justify-between px-6 p-8">
               <Link href="/" className="relative h-10 w-32" onClick={onClose}>
@@ -69,7 +69,7 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
               </Link>
               <button
                 onClick={onClose}
-                className="p-2 rounded-2xl bg-glam-blush/50 text-glam-plum hover:bg-glam-blush transition-all"
+                className="p-2 rounded-2xl bg-secondary/50 text-primary hover:bg-secondary transition-all"
               >
                 <X size={20} />
               </button>
@@ -86,8 +86,8 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
                     className={cn(
                       "group flex items-center gap-3 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all duration-300",
                       isActive
-                        ? "bg-glam-plum text-white border border-glam-plum"
-                        : "text-muted-foreground hover:bg-glam-blush/50 hover:text-glam-plum",
+                        ? "bg-primary text-white border border-primary"
+                        : "text-muted-foreground hover:bg-secondary/50 hover:text-primary",
                     )}
                   >
                     <item.icon size={20} strokeWidth={isActive ? 2.5 : 2} />
@@ -103,7 +103,7 @@ export default function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
                   clearAuth();
                   onClose();
                 }}
-                className="flex w-full items-center gap-3 rounded-2xl px-4 py-4 text-sm font-bold text-glam-plum transition-all hover:bg-glam-blush/50 hover:text-glam-gold"
+                className="flex w-full items-center gap-3 rounded-2xl px-4 py-4 text-sm font-bold text-primary transition-all hover:bg-secondary/50 hover:text-accent"
               >
                 <LogOut size={20} />
                 Sign Out

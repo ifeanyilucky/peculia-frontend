@@ -32,7 +32,7 @@ export default function ProviderCard({
         className="block space-y-4"
       >
         {/* Cover Image */}
-        <div className="relative aspect-3/2 w-full overflow-hidden rounded-2xl bg-glam-blush">
+        <div className="relative aspect-3/2 w-full overflow-hidden rounded-2xl bg-secondary">
           <Image
             src={
               provider.portfolioImages?.[0]?.url ||
@@ -47,12 +47,12 @@ export default function ProviderCard({
         {/* Content */}
         <div className="px-1">
           <div className="flex items-center justify-between gap-2">
-            <h3 className="font-peculiar text-xl font-bold text-glam-plum truncate">
+            <h3 className="font-peculiar text-xl font-bold text-primary truncate">
               {provider.businessName}
             </h3>
             <div className="flex items-center gap-1.5 shrink-0">
               <Star className="fill-yellow-400 text-yellow-400" size={16} />
-              <span className="text-sm font-bold text-glam-plum">
+              <span className="text-sm font-bold text-primary">
                 {provider.rating.toFixed(1)}
               </span>
               <span className="text-sm font-medium text-muted-foreground">
@@ -76,24 +76,24 @@ export default function ProviderCard({
               {(provider.services?.slice(0, 3) || []).map((service: any) => (
                 <div
                   key={service.id || service._id}
-                  className="flex items-center justify-between p-3 rounded-sm bg-glam-blush/50 border border-glam-blush group-hover:border-glam-blush transition-colors"
+                  className="flex items-center justify-between p-3 rounded-sm bg-secondary/50 border border-secondary group-hover:border-secondary transition-colors"
                 >
                   <div>
-                    <p className="text-sm font-bold text-glam-plum leading-none">
+                    <p className="text-sm font-bold text-primary leading-none">
                       {service.name}
                     </p>
                     <p className="text-[10px] font-bold text-muted-foreground mt-1">
                       {service.duration} mins
                     </p>
                   </div>
-                  <p className="text-sm font-black text-glam-plum">
+                  <p className="text-sm font-black text-primary">
                     {formatCurrency(service.price)}
                   </p>
                 </div>
               ))}
 
               {provider.services && provider.services.length > 3 && (
-                <p className="text-xs font-black text-glam-plum mt-2 hover:underline cursor-pointer">
+                <p className="text-xs font-black text-primary mt-2 hover:underline cursor-pointer">
                   See all {provider.services.length} services
                 </p>
               )}

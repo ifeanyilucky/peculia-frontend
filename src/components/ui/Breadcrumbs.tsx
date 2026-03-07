@@ -19,7 +19,7 @@ interface BreadcrumbsProps {
 export default function Breadcrumbs({
   items,
   className,
-  separator = <span className="text-glam-blush">/</span>,
+  separator = <span className="text-secondary">/</span>,
   mobileTruncateLength = 18,
 }: BreadcrumbsProps) {
   return (
@@ -37,7 +37,7 @@ export default function Breadcrumbs({
               <li
                 className={cn(
                   "transition-colors",
-                  isLast ? "text-glam-plum font-bold" : "hover:text-glam-plum",
+                  isLast ? "text-primary font-bold" : "hover:text-primary",
                   !isHome && "capitalize",
                 )}
                 title={item.label}
@@ -45,7 +45,7 @@ export default function Breadcrumbs({
                 {item.href && !isLast ? (
                   <Link
                     href={item.href}
-                    className="outline-none focus-visible:ring-2 focus-visible:ring-glam-plum rounded-sm"
+                    className="outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
                   >
                     <span className="sm:hidden">{displayLabelMobile}</span>
                     <span className="hidden sm:inline">{item.label}</span>
