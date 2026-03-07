@@ -2,13 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import {
-  SlidersHorizontal,
-  Map as MapIcon,
-  X,
-  MapPin,
-  ChevronDown,
-} from "lucide-react";
+import { SlidersHorizontal, Map as MapIcon, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import ExploreFilterModal from "@/components/features/providers/ExploreFilterModal";
@@ -54,8 +48,8 @@ export default function ExploreClient() {
       <div className="sticky top-[80px] z-30 w-full bg-white border-b border-slate-100 py-4 lg:px-12">
         <div className=" flex flex-col gap-4">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-bold text-slate-500">
-              <span className="text-slate-900">
+            <p className="text-sm font-medium text-muted-foreground">
+              <span className="text-slate-900 font-black">
                 {resultsCount} professionals
               </span>{" "}
               found

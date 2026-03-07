@@ -94,7 +94,7 @@ export default function HeroSection() {
             Discover top-rated <span className="text-primary">selfcare</span>{" "}
             near you
           </h1>
-          <p className="mt-6 max-w-2xl text-lg font-medium text-foreground sm:text-xl">
+          <p className="mt-6 max-w-2xl text-base font-medium text-foreground sm:text-lg">
             The easiest way to find and book trusted stylists, barbers, and
             wellness experts. Secure your next appointment in seconds.
           </p>

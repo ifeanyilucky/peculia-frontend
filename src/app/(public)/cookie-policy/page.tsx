@@ -19,10 +19,10 @@ export default function CookiePolicyPage() {
           </Link>
 
           <header className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">
+            <h1 className="text-2xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">
               Cookie <span className="text-rose-600">Policy</span>
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
               Last updated: February 23, 2026. This policy explains how Glamyad
               uses cookies and similar technologies to recognize you when you
               visit our website.
@@ -33,9 +33,9 @@ export default function CookiePolicyPage() {
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
-                  <Info size={20} />
+                  <Info size={18} />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                   What are cookies?
                 </h2>
               </div>
@@ -53,9 +53,9 @@ export default function CookiePolicyPage() {
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
-                  <Shield size={20} />
+                  <Shield size={18} />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                   How we use them
                 </h2>
               </div>
@@ -87,9 +87,9 @@ export default function CookiePolicyPage() {
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
-                  <Lock size={20} />
+                  <Lock size={18} />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                   Managing your preferences
                 </h2>
               </div>

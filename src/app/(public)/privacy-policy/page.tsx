@@ -19,10 +19,10 @@ export default function PrivacyPolicyPage() {
           </Link>
 
           <header className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">
+            <h1 className="text-2xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">
               Privacy <span className="text-rose-600">Policy</span>
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
               Last updated: February 25, 2026. We value your privacy and are
               committed to protecting your personal data.
             </p>
@@ -32,9 +32,9 @@ export default function PrivacyPolicyPage() {
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
-                  <Database size={20} />
+                  <Database size={18} />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                   1. Information We Collect
                 </h2>
               </div>
@@ -58,9 +58,9 @@ export default function PrivacyPolicyPage() {
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
-                  <Eye size={20} />
+                  <Eye size={18} />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                   2. How We Use Your Data
                 </h2>
               </div>
@@ -81,9 +81,9 @@ export default function PrivacyPolicyPage() {
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
-                  <Share2 size={20} />
+                  <Share2 size={18} />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                   3. Sharing with Providers
                 </h2>
               </div>
@@ -100,9 +100,9 @@ export default function PrivacyPolicyPage() {
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
-                  <ShieldCheck size={20} />
+                  <ShieldCheck size={18} />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                   4. Data Security
                 </h2>
               </div>

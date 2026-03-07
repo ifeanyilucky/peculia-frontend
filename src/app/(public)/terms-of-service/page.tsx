@@ -25,10 +25,10 @@ export default function TermsOfServicePage() {
           </Link>
 
           <header className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">
+            <h1 className="text-2xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">
               Terms of <span className="text-rose-600">Service</span>
             </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
               Last updated: February 25, 2026. Please read these terms carefully
               before using the Glamyad platform.
             </p>
@@ -38,9 +38,9 @@ export default function TermsOfServicePage() {
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
-                  <AppWindow size={20} />
+                  <AppWindow size={18} />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                   1. Acceptance of Terms
                 </h2>
               </div>
@@ -57,9 +57,9 @@ export default function TermsOfServicePage() {
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
-                  <FileText size={20} />
+                  <FileText size={18} />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                   2. Service Description
                 </h2>
               </div>
@@ -77,9 +77,9 @@ export default function TermsOfServicePage() {
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
-                  <CreditCard size={20} />
+                  <CreditCard size={18} />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                   3. Booking & Payments
                 </h2>
               </div>
@@ -106,9 +106,9 @@ export default function TermsOfServicePage() {
             <section>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
-                  <ShieldAlert size={20} />
+                  <ShieldAlert size={18} />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                   4. User Conduct
                 </h2>
               </div>

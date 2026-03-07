@@ -33,7 +33,7 @@ const profileSchema = z.object({
     .optional()
     .refine(
       (val) => !val || /^\+?[1-9]\d{1,14}$/.test(val.replace(/[\s-]/g, "")),
-      "Invalid phone number format"
+      "Invalid phone number format",
     ),
 });
 
@@ -137,15 +137,14 @@ export default function ClientProfilePage() {
     }
   };
 
-
   return (
     <div className="max-w-5xl mx-auto space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Page Header */}
       <div className="space-y-3 px-2">
-        <h1 className="font-peculiar text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
+        <h1 className="font-peculiar text-2xl font-black text-slate-900 tracking-tight">
           Account Settings
         </h1>
-        <p className="text-slate-500 font-medium max-w-lg">
+        <p className="text-sm text-slate-500 font-medium max-w-lg">
           Manage your personal details, security preferences, and select how you
           want to be notified about updates.
         </p>

@@ -87,10 +87,10 @@ export default function SavedProvidersPage() {
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
         <div className="space-y-2">
-          <h1 className="font-peculiar text-4xl font-black text-slate-900">
+          <h1 className="font-peculiar text-2xl font-black text-slate-900 tracking-tight">
             Saved Professionals
           </h1>
-          <p className="text-lg text-slate-500 font-medium">
+          <p className="text-sm text-slate-500 font-medium">
             Your curated list of favorites for quick booking.
           </p>
         </div>

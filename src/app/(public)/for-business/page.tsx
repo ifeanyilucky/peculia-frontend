@@ -149,11 +149,11 @@ export default function ForBusinessPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-5xl font-black text-foreground mb-6 font-peculiar">
+            <h2 className="text-3xl md:text-4xl font-black text-foreground mb-6 font-peculiar">
               Everything you need to{" "}
               <span className="text-primary">thrive</span>
             </h2>
-            <p className="text-lg text-muted-foreground font-medium">
+            <p className="text-base text-muted-foreground font-medium">
               We built Glamyad with one goal: to empower professionals like you.
               Our toolbox is designed to eliminate the noise and boost your
               productivity.
@@ -231,11 +231,11 @@ export default function ForBusinessPage() {
         <div className="max-w-7xl mx-auto px-6 mb-16 relative z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="max-w-2xl">
-              <h2 className="text-4xl md:text-5xl font-black font-peculiar mb-6">
+              <h2 className="text-3xl md:text-4xl font-black font-peculiar mb-6">
                 Designed for the <span className="text-secondary">Artists</span>{" "}
                 of the industry
               </h2>
-              <p className="text-lg text-white/60 font-medium">
+              <p className="text-base text-white/60 font-medium">
                 Whether you&apos;re a barber, nail tech, or medspa professional,
                 Glamyad echoes your attention to detail and premium service.
               </p>
