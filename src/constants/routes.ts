@@ -3,6 +3,7 @@ export const ROUTES = {
     home: "/",
     explore: "/explore",
     providerDetail: (id: string) => `/providers/${id}`,
+    forBusiness: "/for-business",
   },
   auth: {
     login: "/login",
@@ -30,4 +31,5 @@ export const ROUTES = {
     reviews: "/reviews",
     providers: "/providers",
   },
+  partnersPortal: "/partner/dashboard",
 } as const;
