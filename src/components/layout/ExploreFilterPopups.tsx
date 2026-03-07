@@ -2,14 +2,7 @@
 
 import { useState } from "react";
 import { useSpecialties } from "@/hooks/useSpecialties";
-import {
-  Search,
-  MapPin,
-  Calendar,
-  Clock,
-  ChevronRight,
-  ChevronLeft,
-} from "lucide-react";
+import { Search, MapPin, ChevronRight, ChevronLeft } from "lucide-react";
 import {
   format,
   addDays,
@@ -25,7 +18,6 @@ import {
   isSameMonth,
 } from "date-fns";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
 
 // --- Treatment Dropdown ---
 export function TreatmentDropdown({
@@ -48,7 +40,9 @@ export function TreatmentDropdown({
       </p>
       <div className="grid gap-1">
         {isLoading ? (
-          <p className="p-4 text-sm text-secondary-foreground/70">Loading treatments...</p>
+          <p className="p-4 text-sm text-secondary-foreground/70">
+            Loading treatments...
+          </p>
         ) : filteredSpecialties.length > 0 ? (
           filteredSpecialties.map((spec) => (
             <button
@@ -61,7 +55,9 @@ export function TreatmentDropdown({
               </div>
               <div>
                 <p className="text-sm font-bold text-primary">{spec.label}</p>
-                <p className="text-xs text-secondary-foreground/70">Professional services</p>
+                <p className="text-xs text-secondary-foreground/70">
+                  Professional services
+                </p>
               </div>
             </button>
           ))
@@ -159,24 +155,26 @@ export function DateTimeDropdown({
   });
 
   return (
-    <div className="w-[700px] bg-white rounded-3xl p-8 shadow-2xl border border-secondary">
-      <div className="flex gap-12">
-        {/* Left: Quick Select */}
-        <div className="w-48 space-y-4">
+    <div className="w-[calc(100vw-2rem)] max-w-[700px] bg-white rounded-3xl p-4 sm:p-8 shadow-2xl border border-secondary">
+      <div className="flex flex-col sm:flex-row gap-6 sm:gap-12">
+        {/* Quick Select */}
+        <div className="flex sm:flex-col gap-3 sm:w-48">
           <button
             onClick={() => {
               setSelectedDate(today);
               setViewDate(today);
             }}
             className={cn(
-              "w-full p-6 rounded-lg border text-left transition-all",
+              "flex-1 sm:flex-initial p-4 sm:p-6 rounded-lg border text-left transition-all",
               isSameDay(selectedDate, today)
                 ? "border-primary bg-secondary/50"
                 : "border-secondary hover:border-slate-200",
             )}
           >
-            <p className="text-lg font-black text-primary">Today</p>
-            <p className="text-sm text-secondary-foreground/70">
+            <p className="text-base sm:text-lg font-black text-primary">
+              Today
+            </p>
+            <p className="text-xs sm:text-sm text-secondary-foreground/70">
               {format(today, "EEE, d MMM")}
             </p>
           </button>
@@ -187,46 +185,51 @@ export function DateTimeDropdown({
               setViewDate(tomorrow);
             }}
             className={cn(
-              "w-full p-6 rounded-lg border text-left transition-all",
+              "flex-1 sm:flex-initial p-4 sm:p-6 rounded-lg border text-left transition-all",
               isSameDay(selectedDate, addDays(today, 1))
                 ? "border-primary bg-secondary/50"
                 : "border-secondary hover:border-slate-200",
             )}
           >
-            <p className="text-lg font-black text-primary">Tomorrow</p>
-            <p className="text-sm text-secondary-foreground/70">
+            <p className="text-base sm:text-lg font-black text-primary">
+              Tomorrow
+            </p>
+            <p className="text-xs sm:text-sm text-secondary-foreground/70">
               {format(addDays(today, 1), "EEE, d MMM")}
             </p>
           </button>
         </div>
 
-        {/* Right: Calendar */}
-        <div className="flex-1">
-          <div className="flex items-center justify-between mb-8">
+        {/* Calendar */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between mb-4 sm:mb-8">
             <button
               onClick={handlePrevMonth}
               className="p-2 hover:bg-secondary rounded-full transition-colors"
             >
-              <ChevronLeft size={20} />
+              <ChevronLeft size={18} />
             </button>
-            <p className="text-lg font-black text-primary">
+            <p className="text-base font-black text-primary">
               {format(viewDate, "MMMM yyyy")}
             </p>
             <button
               onClick={handleNextMonth}
               className="p-2 hover:bg-secondary rounded-full transition-colors"
             >
-              <ChevronRight size={20} />
+              <ChevronRight size={18} />
             </button>
           </div>
-          <div className="grid grid-cols-7 gap-1 text-center mb-4">
+          <div className="grid grid-cols-7 gap-0.5 sm:gap-1 text-center mb-2 sm:mb-4">
             {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => (
-              <span key={d} className="text-xs font-bold text-muted-foreground">
+              <span
+                key={d}
+                className="text-[10px] sm:text-xs font-bold text-muted-foreground"
+              >
                 {d}
               </span>
             ))}
           </div>
-          <div className="grid grid-cols-7 gap-1">
+          <div className="grid grid-cols-7 gap-0.5 sm:gap-1">
             {calendarDays.map((date, i) => {
               const isSelected = isSameDay(selectedDate, date);
               const isToday = isSameDay(today, date);
@@ -240,14 +243,14 @@ export function DateTimeDropdown({
                     onSelect(date, selectedTimeSlot);
                   }}
                   className={cn(
-                    "h-10 w-10 flex items-center justify-center rounded-full text-sm font-bold transition-all",
+                    "h-8 w-8 sm:h-10 sm:w-10 mx-auto flex items-center justify-center rounded-full text-xs sm:text-sm font-bold transition-all",
                     isSelected
                       ? "bg-primary text-white"
                       : isToday
                         ? "text-primary border border-slate-200"
                         : isCurrentMonth
                           ? "text-slate-600 hover:bg-secondary/50"
-                          : "text-slate-300 pointer-events-none", // Hide or dim dates from other months
+                          : "text-slate-300 pointer-events-none",
                   )}
                 >
                   {format(date, "d")}
@@ -258,13 +261,13 @@ export function DateTimeDropdown({
         </div>
       </div>
 
-      <div className="h-px bg-secondary my-8" />
+      <div className="h-px bg-secondary my-4 sm:my-8" />
 
-      <div className="flex items-center justify-between gap-8">
-        <span className="text-sm font-black text-primary shrink-0">
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="text-xs sm:text-sm font-black text-primary shrink-0">
           Select time
         </span>
-        <div className="flex-1 flex gap-2">
+        <div className="flex flex-1 flex-wrap gap-2">
           {timeSlots.map((slot) => (
             <button
               key={slot.id}
@@ -273,15 +276,17 @@ export function DateTimeDropdown({
                 onSelect(selectedDate, slot.id);
               }}
               className={cn(
-                "flex-1 py-2 px-3 rounded border text-center transition-all",
+                "flex-1 min-w-[60px] py-2 px-2 sm:px-3 rounded border text-center transition-all",
                 selectedTimeSlot === slot.id
                   ? "border-rose-600 bg-rose-50 text-rose-600 ring-1 ring-rose-600"
                   : "border-slate-200 text-primary hover:border-slate-800",
               )}
             >
-              <p className="text-sm font-black">{slot.label}</p>
+              <p className="text-xs sm:text-sm font-black">{slot.label}</p>
               {slot.range && (
-                <p className="text-[10px] font-bold opacity-60">{slot.range}</p>
+                <p className="text-[9px] sm:text-[10px] font-bold opacity-60">
+                  {slot.range}
+                </p>
               )}
             </button>
           ))}

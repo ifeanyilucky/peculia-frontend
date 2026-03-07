@@ -125,12 +125,12 @@ export default function ExploreHeader() {
           <Link
             href="/"
             className={cn(
-              "relative h-8 w-28 shrink-0 transition-all",
+              "relative h-8 w-8 shrink-0 transition-all",
               activeSegment ? "hidden sm:block" : "block",
             )}
           >
             <Image
-              src="/logo/logo.png"
+              src="/logo/logo-icon-transparent.png"
               alt="Glamyad"
               fill
               className="object-contain"
@@ -163,25 +163,23 @@ export default function ExploreHeader() {
               </div>
             </div>
 
-            {/* Desktop Search Bar (Expanding) */}
+            {/* Desktop Search Bar (Expanding) — visible from sm upwards */}
             <div
               className={cn(
                 "hidden sm:flex items-center bg-white border border-secondary rounded-full transition-all duration-500 shadow-sm hover:shadow-md w-full",
                 activeSegment
-                  ? "p-1.5 bg-slate-50 border-slate-300 ring-4 ring-secondary/30 scale-100 lg:scale-105"
+                  ? "p-1.5 bg-slate-50 border-slate-300 ring-4 ring-secondary/30"
                   : "p-1.5",
               )}
             >
-              {/* Treatment Segment */}
+              {/* Treatment Segment — always visible when search bar is shown */}
               <div
                 onClick={() => setActiveSegment("treatment")}
                 className={cn(
-                  "group relative flex flex-col justify-center px-4 sm:px-6 py-2 rounded-full cursor-pointer transition-all duration-300",
+                  "group relative flex flex-col justify-center px-3 sm:px-5 md:px-6 py-2 rounded-full cursor-pointer transition-all duration-300 flex-1",
                   activeSegment === "treatment"
-                    ? "bg-white shadow-lg min-w-[140px] sm:min-w-[240px] flex-1"
-                    : activeSegment
-                      ? "hidden lg:flex lg:flex-1"
-                      : "hover:bg-secondary flex-1",
+                    ? "bg-white shadow-lg"
+                    : "hover:bg-secondary",
                 )}
               >
                 <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
@@ -222,16 +220,14 @@ export default function ExploreHeader() {
                 )}
               />
 
-              {/* Location Segment */}
+              {/* Location Segment — always visible */}
               <div
                 onClick={() => setActiveSegment("location")}
                 className={cn(
-                  "group relative flex flex-col justify-center px-4 lg:px-6 py-2 rounded-full cursor-pointer transition-all duration-300",
+                  "group relative flex flex-col justify-center px-3 sm:px-5 md:px-6 py-2 rounded-full cursor-pointer transition-all duration-300 flex-1",
                   activeSegment === "location"
-                    ? "bg-white shadow-lg min-w-[200px] lg:min-w-[240px] flex-1"
-                    : activeSegment
-                      ? "hidden lg:flex lg:flex-1"
-                      : "hover:bg-secondary flex-1",
+                    ? "bg-white shadow-lg"
+                    : "hover:bg-secondary",
                 )}
               >
                 <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
@@ -272,34 +268,35 @@ export default function ExploreHeader() {
                 )}
               />
 
-              {/* Time Segment */}
+              {/* Time Segment — always visible, hidden on narrowest needed */}
               <div
                 onClick={() => setActiveSegment("time")}
                 className={cn(
-                  "group relative flex flex-col justify-center px-4 lg:px-6 py-2 rounded-full cursor-pointer transition-all duration-300",
+                  "group relative hidden sm:flex flex-col justify-center px-3 sm:px-5 md:px-6 py-2 rounded-full cursor-pointer transition-all duration-300 flex-1 shrink-0",
                   activeSegment === "time"
-                    ? "bg-white shadow-lg min-w-[140px] lg:min-w-[200px] flex-1"
-                    : activeSegment
-                      ? "hidden lg:flex lg:flex-1"
-                      : "hover:bg-secondary flex-1",
+                    ? "bg-white shadow-lg"
+                    : "hover:bg-secondary",
                 )}
               >
-                <span className="hidden sm:block text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
+                <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
                   When
                 </span>
                 <div className="flex items-center gap-2">
-                  <Calendar size={14} className="text-muted-foreground" />
-                  <span className="text-sm font-bold text-primary truncate max-w-[80px] sm:max-w-[120px]">
+                  <Calendar
+                    size={13}
+                    className="text-muted-foreground shrink-0"
+                  />
+                  <span className="text-sm font-bold text-primary truncate max-w-[60px] sm:max-w-[100px] md:max-w-[140px]">
                     {time}
                   </span>
                 </div>
                 <AnimatePresence>
                   {activeSegment === "time" && (
                     <motion.div
-                      initial={{ opacity: 0, x: -200, y: 20 }}
-                      animate={{ opacity: 1, x: -250, y: 0 }}
-                      exit={{ opacity: 0, x: -200, y: 10 }}
-                      className="absolute top-full left-0 mt-6 z-[110]"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute top-full right-0 mt-6 z-[110]"
                     >
                       <DateTimeDropdown
                         onSelect={(date, t) => {

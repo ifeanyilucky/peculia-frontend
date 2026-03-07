@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ExplorePage() {
   return (
-    <main className="mx-auto px-6 py-12">
+    <main className="mx-auto ">
       <Suspense
         fallback={
           <div className="flex flex-col items-center justify-center py-20">
