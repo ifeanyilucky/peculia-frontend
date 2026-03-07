@@ -47,7 +47,7 @@ export default function PaymentFilters({
   return (
     <div
       className={cn(
-        "bg-white p-6 rounded-3xl border border-secondary space-y-6 shadow-sm",
+        "bg-white p-6 rounded-3xl border border-secondary space-y-6",
       )}
     >
       <div className="flex items-center justify-between">

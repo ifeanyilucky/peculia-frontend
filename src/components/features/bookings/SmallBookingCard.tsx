@@ -32,7 +32,7 @@ export default function SmallBookingCard({
         "w-full flex items-center gap-3 p-3 rounded-2xl border transition-all duration-300 text-left group",
         isSelected
           ? "border-violet-500 bg-violet-50/30 ring-1 ring-violet-500"
-          : "border-secondary bg-white hover:border-secondary hover:shadow-sm",
+          : "border-secondary bg-white hover:border-slate-400",
       )}
     >
       <div className="relative h-14 w-14 shrink-0 rounded-xl overflow-hidden border border-secondary">
