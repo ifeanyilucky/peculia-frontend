@@ -105,7 +105,7 @@ export default function MobileSearchModal({
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: "100%", opacity: 0 }}
           transition={{ type: "spring", damping: 28, stiffness: 280 }}
-          className="fixed inset-0 z-[100] bg-white flex flex-col"
+          className="fixed inset-0 z-100 bg-white flex flex-col"
         >
           {/* ── Header ─────────────────────────────────────────────────────── */}
           <div className="flex items-center gap-4 px-5 py-4 border-b border-secondary">
