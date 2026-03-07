@@ -45,7 +45,7 @@ export default function ExploreClient() {
   return (
     <div className="w-full px-6 py-12 mx-auto  min-h-screen">
       {/* Filters Bar */}
-      <div className="sticky top-[80px] z-30 w-full bg-white border-b border-slate-100 py-3 px-4 lg:px-12">
+      <div className="sticky top-[80px] z-30 w-full  py-3">
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between gap-2">
             <p className="text-sm font-medium text-muted-foreground">
