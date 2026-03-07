@@ -4,15 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { ROUTES } from "@/constants/routes";
-import {
-  Menu,
-  Globe,
-  ArrowRight,
-  User,
-  LogOut,
-  Bookmark,
-  Calendar,
-} from "lucide-react";
+import { Menu, User, LogOut, Bookmark, Calendar } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
 
 import Image from "next/image";
@@ -141,13 +133,6 @@ export default function PublicHeader() {
             </>
           )}
 
-          <Link
-            href={ROUTES.public.forBusiness}
-            className="hidden sm:block rounded-full border border-glam-blush bg-white px-4 py-2.5 text-sm font-semibold text-glam-plum transition-colors hover:bg-glam-blush/50"
-          >
-            List your business
-          </Link>
-
           <div className="relative" ref={menuRef}>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -195,17 +180,6 @@ export default function PublicHeader() {
                     </div>
                   </div>
                 )}
-
-                <div className="my-1 border-t border-glam-blush px-3"></div>
-
-                <Link
-                  href={ROUTES.public.forBusiness}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex w-full items-center justify-between p-3 text-sm font-bold text-glam-plum hover:bg-glam-blush/50 rounded-xl transition-colors"
-                >
-                  For businesses
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
               </div>
             )}
           </div>

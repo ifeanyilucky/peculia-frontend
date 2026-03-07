@@ -2,7 +2,6 @@ export const ROUTES = {
   public: {
     home: "/",
     explore: "/explore",
-    forBusiness: "/for-business",
     providerDetail: (id: string) => `/providers/${id}`,
   },
   auth: {
@@ -15,7 +14,7 @@ export const ROUTES = {
   client: {
     dashboard: "/dashboard",
     bookings: "/bookings",
-    bookingDetail: (id: string) => "/bookings",
+    bookingDetail: (_id: string) => "/bookings",
     book: (providerId: string) => `/book/${providerId}`,
     payments: "/payments",
     saved: "/saved",
@@ -31,5 +30,4 @@ export const ROUTES = {
     reviews: "/reviews",
     providers: "/providers",
   },
-  partnersPortal: "http://localhost:3002", // TODO: Make configurable via .env
 } as const;

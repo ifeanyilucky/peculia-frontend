@@ -8,8 +8,8 @@ import {
   ChevronDown,
   Calendar,
   Heart,
-  ArrowRight,
   LogOut,
+  Menu,
 } from "lucide-react";
 import { useAuthStore } from "@/store/auth.store";
 import Image from "next/image";
@@ -19,7 +19,11 @@ import { authService } from "@/services/auth.service";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-export default function DashboardHeader() {
+export default function DashboardHeader({
+  onMenuClick,
+}: {
+  onMenuClick?: () => void;
+}) {
   const { user, clearAuth } = useAuthStore();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -59,15 +63,24 @@ export default function DashboardHeader() {
 
   return (
     <header className="h-20 bg-white/80 backdrop-blur-md border-b border-glam-blush px-6 lg:px-10 flex items-center justify-between sticky top-0 z-30">
-      <Link href="/" className="relative h-8 w-28 shrink-0 mr-4 md:hidden">
-        <Image
-          src="/logo/logo.png"
-          alt="Glamyad"
-          fill
-          className="object-contain"
-          priority
-        />
-      </Link>
+      <div className="flex items-center gap-4">
+        <button
+          onClick={onMenuClick}
+          className="lg:hidden p-2.5 rounded-2xl bg-glam-blush/50 text-glam-charcoal hover:bg-glam-blush hover:text-glam-plum transition-all"
+        >
+          <Menu size={20} />
+        </button>
+        <Link href="/" className="relative h-8 w-28 shrink-0 md:hidden">
+          <Image
+            src="/logo/logo.png"
+            alt="Glamyad"
+            fill
+            className="object-contain"
+            priority
+          />
+        </Link>
+      </div>
+
       <div className="relative hidden md:block w-96">
         <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">
           <Search size={18} />
@@ -193,16 +206,6 @@ export default function DashboardHeader() {
                   <span className="ml-[32px]">Help and support</span>
                 </Link>
               </div>
-
-              <div className="h-px bg-glam-blush my-4" />
-
-              <Link
-                href="/for-business"
-                className="flex items-center justify-between w-full p-2 rounded-2xl text-glam-charcoal hover:bg-glam-blush/50 transition-all text-[15px] font-bold"
-              >
-                <span className="ml-[32px]">For businesses</span>
-                <ArrowRight size={20} className="text-glam-plum" />
-              </Link>
             </div>
           )}
         </div>
