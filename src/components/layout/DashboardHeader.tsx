@@ -96,10 +96,10 @@ export default function DashboardHeader({
       </div>
 
       <div className="flex items-center gap-4 ml-auto">
-        <button className="relative p-2.5 rounded-2xl bg-secondary/50 text-foreground hover:bg-secondary hover:text-primary transition-all">
+        {/* <button className="relative p-2.5 rounded-2xl bg-secondary/50 text-foreground hover:bg-secondary hover:text-primary transition-all">
           <Bell size={20} />
           <span className="absolute top-2.5 right-2.5 h-2 w-2 rounded-full bg-primary border-2 border-secondary" />
-        </button>
+        </button> */}
 
         <div className="h-10 w-px bg-secondary mx-2" />
 
