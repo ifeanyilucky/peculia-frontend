@@ -488,3 +488,194 @@ const SPECIALTY_EMOJIS: Record<string, string> = {
   Threading: "🪡",
   "Body Treatment": "🛁",
 };
+// ─────────────────────────────────────────────────────────────────────────────
+// Quick Filter Popovers
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Sort selection popover content.
+ */
+export function SortPopover({
+  value,
+  onSelect,
+}: {
+  value: string;
+  onSelect: (val: string) => void;
+}) {
+  const options = [
+    { id: "rating", label: "Top rated", icon: "⭐" },
+    { id: "distance", label: "Nearest", icon: "📍" },
+    { id: "newest", label: "Newest", icon: "✨" },
+    { id: "relevance", label: "Best match", icon: "🎯" },
+  ];
+
+  return (
+    <div className="w-[200px] bg-white rounded-3xl shadow-2xl border border-secondary overflow-hidden p-2">
+      {options.map((opt) => (
+        <button
+          key={opt.id}
+          onClick={() => onSelect(opt.id)}
+          className={cn(
+            "w-full flex items-center gap-3 px-4 py-2.5 rounded-2xl transition-all text-left",
+            value === opt.id
+              ? "bg-primary text-white shadow-sm"
+              : "hover:bg-secondary/50 text-primary font-bold text-sm",
+          )}
+        >
+          <span className="text-base shrink-0">{opt.icon}</span>
+          <span
+            className={cn(
+              "text-sm font-bold",
+              value === opt.id ? "text-white" : "text-primary",
+            )}
+          >
+            {opt.label}
+          </span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Price selection popover content.
+ */
+export function PricePopover({
+  value,
+  onSelect,
+}: {
+  value: number;
+  onSelect: (val: number) => void;
+}) {
+  const [tempPrice, setTempPrice] = useState(value || 500000);
+
+  return (
+    <div className="w-[280px] bg-white rounded-3xl shadow-2xl border border-secondary overflow-hidden p-5">
+      <div className="flex items-center justify-between mb-5">
+        <h4 className="text-xs font-black uppercase tracking-widest text-muted-foreground">
+          Max Price
+        </h4>
+        <span className="text-sm font-black text-primary">
+          NGN {tempPrice.toLocaleString()}
+        </span>
+      </div>
+
+      <input
+        type="range"
+        min="1000"
+        max="1000000"
+        step="1000"
+        value={tempPrice}
+        onChange={(e) => setTempPrice(Number(e.target.value))}
+        className="w-full h-1.5 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary mb-6"
+      />
+
+      <div className="flex gap-2">
+        <button
+          onClick={() => onSelect(0)}
+          className="flex-1 py-2.5 rounded-xl border border-secondary text-xs font-black text-muted-foreground hover:bg-secondary/30 transition-all"
+        >
+          Reset
+        </button>
+        <button
+          onClick={() => onSelect(tempPrice)}
+          className="flex-2 py-2.5 bg-primary text-white text-xs font-black rounded-xl hover:bg-primary/90 transition-all shadow-md active:scale-95"
+        >
+          Apply
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Rating selection popover content.
+ */
+export function RatingPopover({
+  value,
+  onSelect,
+}: {
+  value: number;
+  onSelect: (val: number) => void;
+}) {
+  const ratings = [
+    { label: "Any rating", val: 0 },
+    { label: "4.5+ ★", val: 4.5 },
+    { label: "4.0+ ★", val: 4.0 },
+    { label: "3.5+ ★", val: 3.5 },
+  ];
+
+  return (
+    <div className="w-[180px] bg-white rounded-3xl shadow-2xl border border-secondary overflow-hidden p-2">
+      {ratings.map((r) => (
+        <button
+          key={r.val}
+          onClick={() => onSelect(r.val)}
+          className={cn(
+            "w-full flex items-center gap-3 px-4 py-2.5 rounded-2xl transition-all text-left",
+            value === r.val
+              ? "bg-primary text-white shadow-sm"
+              : "hover:bg-secondary/50 text-primary font-bold text-sm",
+          )}
+        >
+          <span
+            className={cn(
+              "text-sm font-bold",
+              value === r.val ? "text-white" : "text-primary",
+            )}
+          >
+            {r.label}
+          </span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Type/Verification selection popover content.
+ */
+export function TypePopover({
+  isVerified,
+  onToggleVerified,
+}: {
+  isVerified: boolean;
+  onToggleVerified: (val: boolean) => void;
+}) {
+  return (
+    <div className="w-[240px] bg-white rounded-3xl shadow-2xl border border-secondary overflow-hidden p-5">
+      <h4 className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-4">
+        Professional Type
+      </h4>
+
+      <div className="flex items-center justify-between gap-4 p-3 bg-secondary/30 rounded-2xl border border-secondary/50">
+        <div className="min-w-0">
+          <p className="text-xs font-black text-primary">Verified Only</p>
+          <p className="text-[10px] text-muted-foreground leading-tight mt-0.5">
+            Only show vetted professionals
+          </p>
+        </div>
+        <button
+          onClick={() => onToggleVerified(!isVerified)}
+          className={cn(
+            "h-6 w-11 rounded-full transition-all relative shrink-0",
+            isVerified ? "bg-primary" : "bg-slate-300",
+          )}
+        >
+          <div
+            className={cn(
+              "absolute top-1 h-4 w-4 rounded-full bg-white transition-all shadow-sm",
+              isVerified ? "left-6" : "left-1",
+            )}
+          />
+        </button>
+      </div>
+
+      <div className="mt-4 pt-4 border-t border-secondary/60">
+        <p className="text-[10px] text-muted-foreground text-center italic">
+          Additional professional categories and visit types coming soon.
+        </p>
+      </div>
+    </div>
+  );
+}

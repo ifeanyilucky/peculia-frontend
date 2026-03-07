@@ -17,6 +17,13 @@ import ExploreFilterModal from "@/components/features/providers/ExploreFilterMod
 import ProviderGrid from "@/components/features/providers/ProviderGrid";
 import DiscoveryMap from "@/components/features/providers/DiscoveryMap";
 import { DiscoveryFilters, Provider } from "@/types/provider.types";
+import {
+  SortPopover,
+  PricePopover,
+  RatingPopover,
+  TypePopover,
+} from "@/components/layout/ExploreFilterPopups";
+import { useEffect, useRef } from "react";
 
 /**
  * The header is two rows: ~56px (row 1) + ~52px (row 2 search bar) = ~108px total.
@@ -37,7 +44,37 @@ export default function ExploreClient() {
   const [showMap, setShowMap] = useState(true);
   const [resultsCount, setResultsCount] = useState(0);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [activePopover, setActivePopover] = useState<string | null>(null);
   const [providers, setProviders] = useState<Provider[]>([]);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  // ── Click-outside handler for popovers ────────────────────────────────────
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        popoverRef.current &&
+        !popoverRef.current.contains(e.target as Node)
+      ) {
+        setActivePopover(null);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const updateFilter = (
+    key: string,
+    value: string | number | boolean | null,
+  ) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value === undefined || value === null || value === "" || value === 0) {
+      params.delete(key);
+    } else {
+      params.set(key, String(value));
+    }
+    router.push(`?${params.toString()}`);
+    setActivePopover(null);
+  };
 
   const handleResultsCount = useCallback((count: number) => {
     setResultsCount(count);
@@ -74,7 +111,7 @@ export default function ExploreClient() {
       >
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-between h-12 gap-3">
           {/* Left: results count + quick filter chips */}
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-[350px] -mb-[350px]">
             {/* Filters icon button */}
             <button
               onClick={() => setIsFilterModalOpen(true)}
@@ -95,17 +132,93 @@ export default function ExploreClient() {
             <div className="h-5 w-px bg-slate-200 shrink-0" />
 
             {/* Quick filter chips */}
-            {QUICK_FILTERS.map(({ label, icon: Icon }) => (
-              <button
-                key={label}
-                onClick={() => setIsFilterModalOpen(true)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 bg-white whitespace-nowrap text-xs font-bold text-slate-800 hover:border-slate-700 hover:bg-slate-50 transition-all shrink-0"
-              >
-                <Icon size={12} className="text-slate-500" />
-                {label}
-                <ChevronDown size={11} className="text-slate-400" />
-              </button>
-            ))}
+            <div className="flex items-center gap-2 relative" ref={popoverRef}>
+              {QUICK_FILTERS.map(({ label, icon: Icon }) => {
+                const isActive = activePopover === label;
+                const hasValue =
+                  (label === "Sort" && searchParams.get("sort")) ||
+                  (label === "Price" && searchParams.get("maxPrice")) ||
+                  (label === "Rating" && searchParams.get("minRating")) ||
+                  (label === "Type" &&
+                    searchParams.get("isVerified") === "true");
+
+                return (
+                  <div key={label} className="relative">
+                    <button
+                      onClick={() =>
+                        setActivePopover(activePopover === label ? null : label)
+                      }
+                      className={cn(
+                        "flex items-center gap-1.5 px-3 py-1.5 rounded-full border whitespace-nowrap text-xs font-bold transition-all shrink-0",
+                        isActive || hasValue
+                          ? "border-primary bg-secondary/30 text-primary"
+                          : "border-slate-200 bg-white text-slate-800 hover:border-slate-700",
+                      )}
+                    >
+                      <Icon
+                        size={12}
+                        className={
+                          isActive || hasValue
+                            ? "text-primary"
+                            : "text-slate-500"
+                        }
+                      />
+                      {label}
+                      <ChevronDown
+                        size={11}
+                        className={cn(
+                          "transition-transform",
+                          isActive
+                            ? "rotate-180 text-primary"
+                            : "text-slate-400",
+                        )}
+                      />
+                    </button>
+
+                    {/* Popovers */}
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                          className="absolute top-full left-0 mt-2 z-50 origin-top-left"
+                        >
+                          {label === "Sort" && (
+                            <SortPopover
+                              value={searchParams.get("sort") || "relevance"}
+                              onSelect={(val) => updateFilter("sort", val)}
+                            />
+                          )}
+                          {label === "Price" && (
+                            <PricePopover
+                              value={Number(searchParams.get("maxPrice")) || 0}
+                              onSelect={(val) => updateFilter("maxPrice", val)}
+                            />
+                          )}
+                          {label === "Rating" && (
+                            <RatingPopover
+                              value={Number(searchParams.get("minRating")) || 0}
+                              onSelect={(val) => updateFilter("minRating", val)}
+                            />
+                          )}
+                          {label === "Type" && (
+                            <TypePopover
+                              isVerified={
+                                searchParams.get("isVerified") === "true"
+                              }
+                              onToggleVerified={(val) =>
+                                updateFilter("isVerified", val ? "true" : null)
+                              }
+                            />
+                          )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Right: Map toggle (desktop only) */}
