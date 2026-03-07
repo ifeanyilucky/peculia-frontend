@@ -46,32 +46,34 @@ export default async function BookingServicesPage({
 }: BookingServicesPageProps) {
   const { slug } = await params;
 
-  try {
-    const provider = await providerService.getProviderById(slug);
-    const services = await providerService.getProviderServices(provider._id);
+  let provider;
+  let services;
 
+  try {
+    provider = await providerService.getProviderById(slug);
     if (!provider) {
       notFound();
     }
-
-    return (
-      <div className="flex min-h-screen flex-col bg-[#FAFAFA]">
-        <BookingHeader currentStep={1} />
-
-        <div className="mx-auto w-full max-w-7xl flex-1 px-6 py-12 lg:px-8">
-          <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
-            <BookingServiceSelection services={services} />
-            <BookingSummarySidebar
-              provider={provider}
-              currentStep={1}
-              slug={slug}
-            />
-          </div>
-        </div>
-      </div>
-    );
+    services = await providerService.getProviderServices(provider._id);
   } catch (error) {
     console.error("Error loading booking services:", error);
     notFound();
   }
+
+  return (
+    <div className="flex min-h-screen flex-col bg-[#FAFAFA]">
+      <BookingHeader currentStep={1} />
+
+      <div className="mx-auto w-full max-w-7xl flex-1 px-6 py-12 lg:px-8">
+        <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
+          <BookingServiceSelection services={services} />
+          <BookingSummarySidebar
+            provider={provider}
+            currentStep={1}
+            slug={slug}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }

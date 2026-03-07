@@ -41,6 +41,7 @@ export interface Provider {
   yearsOfExperience?: string | number;
   isVerified: boolean;
   isDiscoverable: boolean;
+  canBookOnline: boolean;
   rating: number;
   totalReviews: number;
   totalBookings: number;
