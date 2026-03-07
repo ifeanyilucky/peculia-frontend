@@ -33,7 +33,7 @@ export default function StatCard({
       <div className="flex items-start justify-between">
         <div
           className={cn(
-            "p-4 rounded-2xl transition-transform group-hover:scale-110",
+            "p-4 rounded-full transition-transform group-hover:scale-110",
             colorMap[color],
           )}
         >

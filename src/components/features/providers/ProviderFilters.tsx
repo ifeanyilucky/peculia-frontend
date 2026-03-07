@@ -64,7 +64,9 @@ export default function ProviderFilters({
         <p className="text-sm font-bold text-primary">Specialty</p>
         <div className="flex flex-col gap-2">
           {isLoading ? (
-            <p className="text-sm text-muted-foreground">Loading specialties...</p>
+            <p className="text-sm text-muted-foreground">
+              Loading specialties...
+            </p>
           ) : (
             specialties.map((spec) => (
               <label
@@ -95,7 +97,7 @@ export default function ProviderFilters({
           placeholder="e.g. Lagos"
           value={currentCity}
           onChange={(e) => updateFilter("city", e.target.value)}
-          className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-rose-500 focus:outline-none"
+          className="w-full rounded-full border border-slate-200 px-6 py-2 text-sm focus:border-rose-500 focus:outline-none"
         />
       </div>
 
@@ -113,7 +115,7 @@ export default function ProviderFilters({
                 )
               }
               className={cn(
-                "flex flex-1 items-center justify-center gap-1 rounded-lg border py-2 text-xs font-bold transition-all",
+                "flex flex-1 items-center justify-center gap-1 rounded-full border py-2 text-xs font-bold transition-all",
                 currentMinRating === String(rating)
                   ? "border-primary bg-primary text-white"
                   : "border-secondary text-slate-600 hover:border-rose-200",
@@ -156,7 +158,7 @@ export default function ProviderFilters({
         <select
           value={currentSort}
           onChange={(e) => updateFilter("sort", e.target.value)}
-          className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-rose-500 focus:outline-none appearance-none"
+          className="w-full rounded-full border border-slate-200 px-6 py-2 text-sm focus:border-rose-500 focus:outline-none appearance-none bg-white"
         >
           <option value="rating">Highest Rated</option>
           <option value="totalReviews">Most Reviewed</option>

@@ -91,7 +91,7 @@ export default function DashboardHeader({
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={handleSearch}
-          className="w-full h-11 bg-secondary/30 rounded-2xl pl-11 pr-4 text-sm font-medium border border-secondary focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/20 transition-all outline-none"
+          className="w-full h-11 bg-secondary/30 rounded-full pl-11 pr-4 text-sm font-medium border border-secondary focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/20 transition-all outline-none"
         />
       </div>
 

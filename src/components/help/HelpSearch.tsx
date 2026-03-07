@@ -75,7 +75,7 @@ export const HelpSearch = ({
       </div>
 
       {isOpen && query.trim() && (
-        <div className="absolute top-full mt-2 w-full overflow-hidden rounded-xl border border-border bg-card shadow-xl z-50">
+        <div className="absolute top-full mt-2 w-full overflow-hidden rounded-2xl border border-border bg-card shadow-xl z-50">
           {results.length > 0 ? (
             <div className="flex flex-col">
               {results.map((article) => (

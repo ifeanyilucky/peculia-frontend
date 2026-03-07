@@ -147,7 +147,7 @@ export default function LoginForm() {
             id="email"
             type="email"
             placeholder="e.g. name@example.com"
-            className="flex h-12 w-full rounded-xl border border-secondary bg-white px-4 py-2 text-sm transition-all focus:border-primary focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-12 w-full rounded-full border border-secondary bg-white px-6 py-2 text-sm transition-all focus:border-primary focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
           />
           {errors.email && (
             <p className="text-xs font-medium text-rose-500">
@@ -176,7 +176,7 @@ export default function LoginForm() {
               {...register("password")}
               id="password"
               type={showPassword ? "text" : "password"}
-              className="flex h-12 w-full rounded-xl border border-secondary bg-white px-4 py-2 text-sm transition-all focus:border-primary focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50 pr-12"
+              className="flex h-12 w-full rounded-full border border-secondary bg-white px-6 py-2 text-sm transition-all focus:border-primary focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50 pr-12"
             />
             <button
               type="button"
@@ -196,7 +196,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white transition-all hover:bg-primary/90 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
+          className="inline-flex h-12 w-full items-center justify-center rounded-full bg-primary px-8 py-2 text-sm font-bold text-white transition-all hover:bg-primary/90 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
         >
           {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
           {isLoading ? "Logging in..." : "Login"}

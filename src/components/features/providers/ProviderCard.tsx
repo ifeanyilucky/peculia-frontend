@@ -76,7 +76,7 @@ export default function ProviderCard({
               {(provider.services?.slice(0, 3) || []).map((service: any) => (
                 <div
                   key={service.id || service._id}
-                  className="flex items-center justify-between p-3 rounded-sm bg-secondary/50 border border-secondary group-hover:border-secondary transition-colors"
+                  className="flex items-center justify-between p-3 px-5 rounded-full bg-secondary/50 border border-secondary group-hover:border-secondary transition-colors"
                 >
                   <div>
                     <p className="text-sm font-bold text-primary leading-none">
