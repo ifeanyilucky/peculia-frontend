@@ -70,11 +70,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-white px-6 pt-16 lg:px-8 xl:pt-24 pb-20 mx-auto max-w-7xl">
-      {/* Background abstract elements */}
-      <div className="absolute top-0 -left-20 h-[500px] w-[500px] rounded-full bg-secondary/50 blur-3xl opacity-60" />
-      <div className="absolute top-20 -right-20 h-[500px] w-[500px] rounded-full bg-secondary/50 blur-3xl opacity-60" />
-
+    <section className="relative w-full overflow-hidden px-6 pt-16 lg:px-8 xl:pt-24 pb-20 mx-auto max-w-7xl">
       <div className="relative z-10 flex flex-col items-center">
         {/* Top Centered Text Content */}
         <motion.div

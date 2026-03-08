@@ -11,6 +11,9 @@ export default function PublicLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <PublicHeader />
+      {/* Background abstract elements */}
+      <div className="absolute top-0 -left-20 h-[500px] w-[500px] rounded-full bg-secondary/50 blur-3xl opacity-70" />
+      <div className="absolute top-20 -right-20 h-[500px] w-[500px] rounded-full bg-secondary/50 blur-3xl opacity-60" />
 
       <main className="flex-1">{children}</main>
 
@@ -40,7 +43,7 @@ export default function PublicLayout({
                   href={ROUTES.public.explore}
                   className="text-sm text-slate-500 hover:text-rose-600"
                 >
-                  Find Pros
+                  Find Professionals
                 </Link>
                 <Link
                   href={ROUTES.public.explore}
