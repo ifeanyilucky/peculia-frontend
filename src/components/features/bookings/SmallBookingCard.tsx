@@ -1,7 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Booking, getProviderName, getProviderLogo } from "@/types/booking.types";
+import {
+  Booking,
+  getProviderName,
+  getProviderLogo,
+} from "@/types/booking.types";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/utils/formatters";
@@ -20,7 +24,7 @@ export default function SmallBookingCard({
   onClick,
 }: SmallBookingCardProps) {
   const [imgError, setImgError] = useState(false);
-  
+
   const businessName = getProviderName(booking);
   const logoUrl = getProviderLogo(booking);
   const imageSrc = imgError || !logoUrl ? DEFAULT_BUSINESS_IMAGE : logoUrl;
@@ -55,7 +59,7 @@ export default function SmallBookingCard({
         </p>
         <div className="flex items-center gap-1.5 mt-1">
           <span className="text-muted-foreground text-[11px] font-bold">
-            {formatCurrency((booking.servicePrice || 0) / 100)}
+            {formatCurrency(booking.servicePrice || 0)}
           </span>
           <span className="h-0.5 w-0.5 rounded-full bg-secondary" />
           <span className="text-muted-foreground text-[11px] font-medium">

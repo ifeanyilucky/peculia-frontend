@@ -94,7 +94,7 @@ export default function ProviderCard({
 
               {provider.services && provider.services.length > 3 && (
                 <p className="text-xs font-black text-primary mt-2 hover:underline cursor-pointer">
-                  See all {provider.services.length} services
+                  See allservices
                 </p>
               )}
               {(!provider.services || provider.services.length === 0) && (

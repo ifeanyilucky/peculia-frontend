@@ -245,7 +245,7 @@ function SuccessContent() {
                         {s.name}
                       </span>
                       <span className="text-sm font-bold text-slate-900">
-                        {formatCurrency(s.price / 100)}
+                        {formatCurrency(s.price)}
                       </span>
                     </div>
                   ),
@@ -259,7 +259,7 @@ function SuccessContent() {
               Deposit Paid
             </span>
             <span className="text-xl font-black text-emerald-600">
-              {formatCurrency((booking.depositAmount || 0) / 100)}
+              {formatCurrency(booking.depositAmount || 0)}
             </span>
           </div>
           <div className="px-8 py-4 bg-slate-100/50 flex items-center justify-between border-t border-slate-200">
@@ -267,7 +267,7 @@ function SuccessContent() {
               Due at Appointment
             </span>
             <span className="text-lg font-bold text-slate-900">
-              {formatCurrency((booking.remainingBalance || 0) / 100)}
+              {formatCurrency(booking.remainingBalance || 0)}
             </span>
           </div>
         </motion.div>

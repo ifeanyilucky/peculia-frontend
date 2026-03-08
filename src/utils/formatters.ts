@@ -30,7 +30,7 @@ export const formatCurrency = (amount: number | undefined): string => {
     style: "currency",
     currency: "NGN",
     minimumFractionDigits: 2,
-  }).format(amount);
+  }).format(amount / 100);
 };
 
 /**

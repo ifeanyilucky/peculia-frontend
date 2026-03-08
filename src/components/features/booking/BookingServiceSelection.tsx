@@ -121,7 +121,7 @@ export default function BookingServiceSelection({
 
                   <div className="flex items-center gap-2 pt-2">
                     <p className="text-sm font-black text-slate-900">
-                      {formatCurrency(service.price / 100)}
+                      {formatCurrency(service.price)}
                     </p>
                     {service.depositAmount > 0 && (
                       <span className="text-[10px] font-bold text-green-600">

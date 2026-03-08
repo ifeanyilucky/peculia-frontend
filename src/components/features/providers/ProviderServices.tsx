@@ -118,7 +118,7 @@ export default function ProviderServices({
                   </div>
                   <div className="flex items-center gap-2">
                     <p className="text-lg font-black text-primary">
-                      {formatCurrency(service.price / 100)}
+                      {formatCurrency(service.price)}
                     </p>
                   </div>
                 </div>

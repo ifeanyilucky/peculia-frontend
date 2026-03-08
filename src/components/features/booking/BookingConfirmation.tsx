@@ -105,8 +105,7 @@ export default function BookingConfirmation() {
                 <div>
                   <h4 className="font-black text-primary">{service.name}</h4>
                   <p className="text-sm text-muted-foreground font-bold">
-                    {service.duration} mins •{" "}
-                    {formatCurrency(service.price / 100)}
+                    {service.duration} mins • {formatCurrency(service.price)}
                   </p>
                 </div>
               </div>
@@ -114,7 +113,7 @@ export default function BookingConfirmation() {
             <div className="pt-4 border-t border-secondary flex justify-between items-center">
               <span className="font-black text-primary">Total</span>
               <span className="font-black text-xl text-primary">
-                {formatCurrency(totalPrice / 100)}
+                {formatCurrency(totalPrice)}
               </span>
             </div>
             <div className="pt-2 border-t border-secondary flex justify-between items-center">
@@ -122,7 +121,7 @@ export default function BookingConfirmation() {
                 Deposit Required (20%)
               </span>
               <span className="font-black text-lg text-emerald-600">
-                {formatCurrency(depositAmount / 100)}
+                {formatCurrency(depositAmount)}
               </span>
             </div>
           </div>

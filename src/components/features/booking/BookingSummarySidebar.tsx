@@ -315,15 +315,13 @@ export default function BookingSummarySidebar({
                       className="flex justify-between items-start"
                     >
                       <div>
-                        <p className="font-bold text-primary">
-                          {service.name}
-                        </p>
+                        <p className="font-bold text-primary">{service.name}</p>
                         <p className="text-xs text-muted-foreground font-medium">
                           {service.duration} mins
                         </p>
                       </div>
                       <p className="font-bold text-primary">
-                        {formatCurrency(service.price / 100)}
+                        {formatCurrency(service.price)}
                       </p>
                     </div>
                   ))}
@@ -390,7 +388,7 @@ export default function BookingSummarySidebar({
                     Service Price
                   </span>
                   <span className="font-bold text-primary">
-                    {formatCurrency(totalPrice / 100)}
+                    {formatCurrency(totalPrice)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
@@ -398,15 +396,13 @@ export default function BookingSummarySidebar({
                     Deposit Due Now (20%)
                   </span>
                   <span className="font-bold text-emerald-600">
-                    {formatCurrency((totalPrice * 0.2) / 100)}
+                    {formatCurrency(totalPrice * 0.2)}
                   </span>
                 </div>
                 <div className="flex justify-between items-center pt-4 border-t border-secondary">
-                  <span className="font-black text-primary">
-                    Pay In Person
-                  </span>
+                  <span className="font-black text-primary">Pay In Person</span>
                   <span className="font-black text-xl text-primary">
-                    {formatCurrency((totalPrice * 0.8) / 100)}
+                    {formatCurrency(totalPrice * 0.8)}
                   </span>
                 </div>
               </div>
@@ -417,9 +413,7 @@ export default function BookingSummarySidebar({
             {/* Booking error banner */}
             {bookingError && (
               <div className="mb-3 rounded-2xl bg-secondary border border-secondary p-4">
-                <p className="text-sm font-bold text-primary">
-                  {bookingError}
-                </p>
+                <p className="text-sm font-bold text-primary">{bookingError}</p>
               </div>
             )}
 

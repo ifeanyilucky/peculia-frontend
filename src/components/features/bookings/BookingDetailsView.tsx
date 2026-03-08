@@ -255,7 +255,7 @@ export default function BookingDetailsView({
                   </p>
                 </div>
                 <p className="text-sm font-black text-primary shrink-0">
-                  {formatCurrency(service.price / 100)}
+                  {formatCurrency(service.price)}
                 </p>
               </div>
             ))}
