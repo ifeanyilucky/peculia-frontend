@@ -5,7 +5,7 @@ import { useAuthStore } from "@/store/auth.store";
 import api from "@/lib/axios";
 import FullPageLoader from "@/components/common/FullPageLoader";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { identifyUser, resetUser } from "@/lib/analytics";
+import { identifyUser, resetUser, trackEvent } from "@/lib/analytics";
 import { useAuthStore as useAuthStoreOriginal } from "@/store/auth.store";
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
