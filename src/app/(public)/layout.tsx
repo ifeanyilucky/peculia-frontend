@@ -9,11 +9,13 @@ export default function PublicLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="relative flex min-h-screen flex-col">
       <PublicHeader />
       {/* Background abstract elements */}
-      <div className="absolute top-0 -left-20 h-[500px] w-[500px] rounded-full bg-secondary/50 blur-3xl opacity-70" />
-      <div className="absolute top-20 -right-20 h-[500px] w-[500px] rounded-full bg-secondary/50 blur-3xl opacity-60" />
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute -left-20 top-0 h-[500px] w-[500px] rounded-full bg-secondary/50 opacity-70 blur-3xl" />
+        <div className="absolute -right-20 top-20 h-[500px] w-[500px] rounded-full bg-secondary/50 opacity-60 blur-3xl" />
+      </div>
 
       <main className="flex-1">{children}</main>
 
