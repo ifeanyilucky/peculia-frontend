@@ -264,7 +264,7 @@ export default function ExploreClient() {
         </div>
 
         {/* Map panel (desktop only) */}
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {showMap && (
             <motion.div
               initial={{ opacity: 0, x: 60 }}
@@ -276,7 +276,7 @@ export default function ExploreClient() {
               <DiscoveryMap providers={providers} />
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
       </div>
     </div>
   );
