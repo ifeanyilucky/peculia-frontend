@@ -16,11 +16,28 @@ const handleAuthFailure = () => {
   const pathname = window.location.pathname;
   const isBookingRoute = pathname.startsWith("/book");
 
+  // Strictly protected route prefixes (client, admin, appointments)
+  // All other routes are considered public by default.
+  const protectedPrefixes = [
+    "/dashboard",
+    "/bookings",
+    "/payments",
+    "/saved",
+    "/notifications",
+    "/profile",
+    "/users",
+    "/reviews",
+  ];
+
+  const isProtectedRoute =
+    protectedPrefixes.some((prefix) => pathname.startsWith(prefix)) ||
+    pathname === "/providers"; // Admin providers list
+
   if (isBookingRoute) {
     // Show the login modal instead of redirecting
     useUIStore.getState().openModal("booking-auth");
-  } else {
-    // Hard redirect to login with redirect param
+  } else if (isProtectedRoute) {
+    // Hard redirect to login with redirect param ONLY if on a protected route
     const redirectUrl = encodeURIComponent(window.location.href);
     window.location.href = `/login?redirect=${redirectUrl}`;
   }
