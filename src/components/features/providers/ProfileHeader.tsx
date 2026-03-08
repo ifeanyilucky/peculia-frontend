@@ -46,7 +46,10 @@ export default function ProfileHeader({
     `${provider.location?.city}, ${provider.location?.state}`;
   const mapQuery = encodeURIComponent(address);
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
-  const images = provider.portfolioImages || [];
+  const images = [
+    ...(provider.portfolioImages || []),
+    ...(provider.venueImages || []),
+  ];
 
   // Look up the label for the primary specialty
   const specialtyId = provider.specialties?.[0];

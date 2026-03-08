@@ -38,6 +38,7 @@ export interface Provider {
   specialties: string[];
   location?: Location;
   portfolioImages: PortfolioImage[];
+  venueImages?: PortfolioImage[];
   yearsOfExperience?: string | number;
   isVerified: boolean;
   isDiscoverable: boolean;
