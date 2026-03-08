@@ -186,6 +186,14 @@ export default function BookingSummarySidebar({
         const payment = await paymentService.initializePayment(
           booking.id || booking._id!,
         );
+
+        if (payment.alreadyPaid) {
+          router.push(
+            `/book/${slug}/success?bookingId=${booking.id || booking._id!}&reference=${payment.reference}`,
+          );
+          return;
+        }
+
         setPaymentData({
           access_code: payment.access_code,
           reference: payment.reference,
