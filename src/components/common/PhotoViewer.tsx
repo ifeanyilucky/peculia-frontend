@@ -31,35 +31,35 @@ export default function PhotoViewer({
       >
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 text-white hover:text-rose-500 z-110"
+          className="absolute top-4 right-4 md:top-6 md:right-6 text-white hover:text-rose-500 z-110 bg-black/20 hover:bg-black/40 rounded-full p-2"
         >
-          <X size={32} />
+          <X size={24} className="md:w-8 md:h-8" />
         </button>
 
         {images.length > 1 && (
           <>
             <button
               onClick={onPrev}
-              className="absolute left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-4 text-white hover:bg-white/20 z-110 transition-all"
+              className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 md:p-4 text-white hover:bg-white/20 z-110 transition-all backdrop-blur-sm"
             >
-              <ChevronLeft size={32} />
+              <ChevronLeft size={24} className="md:w-8 md:h-8" />
             </button>
 
             <button
               onClick={onNext}
-              className="absolute right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-4 text-white hover:bg-white/20 z-110 transition-all"
+              className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 md:p-4 text-white hover:bg-white/20 z-110 transition-all backdrop-blur-sm"
             >
-              <ChevronRight size={32} />
+              <ChevronRight size={24} className="md:w-8 md:h-8" />
             </button>
           </>
         )}
 
-        <div className="relative max-h-[85vh] w-full max-w-5xl px-12 flex flex-col items-center">
+        <div className="relative h-full max-h-dvh w-full max-w-7xl py-16 md:py-20 px-2 md:px-20 flex flex-col items-center justify-center">
           <motion.div
             key={currentIndex}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative aspect-video w-full"
+            className="relative w-full flex-1 min-h-0"
           >
             <Image
               src={images[currentIndex].url}
@@ -70,15 +70,17 @@ export default function PhotoViewer({
             />
           </motion.div>
 
-          {images[currentIndex].caption && (
-            <p className="mt-6 text-center text-lg text-white font-medium max-w-2xl">
-              {images[currentIndex].caption}
-            </p>
-          )}
+          <div className="mt-4 md:mt-6 flex flex-col items-center shrink-0">
+            {images[currentIndex].caption && (
+              <p className="text-center text-sm md:text-lg text-white font-medium max-w-2xl px-8">
+                {images[currentIndex].caption}
+              </p>
+            )}
 
-          <p className="mt-4 text-center text-slate-400 text-sm font-bold tracking-widest uppercase">
-            Image {currentIndex + 1} of {images.length}
-          </p>
+            <p className="mt-2 text-center text-slate-400 text-xs md:text-sm font-bold tracking-widest uppercase">
+              Image {currentIndex + 1} of {images.length}
+            </p>
+          </div>
         </div>
       </motion.div>
     </AnimatePresence>

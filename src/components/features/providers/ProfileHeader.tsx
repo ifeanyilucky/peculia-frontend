@@ -4,7 +4,9 @@ import { Provider } from "@/types/provider.types";
 import { CheckCircle2, Star, Share2, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import PhotoViewer from "@/components/common/PhotoViewer";
+import FullGalleryModal from "./FullGalleryModal";
 import SaveButton from "./SaveButton";
 import Breadcrumbs, { BreadcrumbItem } from "@/components/ui/Breadcrumbs";
 import {
@@ -31,6 +33,23 @@ export default function ProfileHeader({
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
   const { data: specialties = [], isLoading } = useSpecialties();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const isGalleryOpen = searchParams?.get("modal") === "gallery";
+
+  const handleOpenGallery = () => {
+    const params = new URLSearchParams(searchParams?.toString() || "");
+    params.set("modal", "gallery");
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
+  const handleCloseGallery = () => {
+    const params = new URLSearchParams(searchParams?.toString() || "");
+    params.delete("modal");
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -258,7 +277,7 @@ export default function ProfileHeader({
                 className="absolute bottom-6 right-6 rounded-lg bg-white/90 px-4 py-2 text-xs font-black text-primary backdrop-blur-sm transition-all hover:bg-white hover:scale-105 active:scale-95 border border-secondary"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setSelectedIndex(2);
+                  handleOpenGallery();
                 }}
               >
                 See all images
@@ -267,6 +286,14 @@ export default function ProfileHeader({
           </div>
         </div>
       </section>
+
+      <FullGalleryModal
+        isOpen={isGalleryOpen}
+        onClose={handleCloseGallery}
+        images={images}
+        businessName={provider.businessName}
+        onImageClick={(idx) => setSelectedIndex(idx)}
+      />
 
       <PhotoViewer
         images={images}

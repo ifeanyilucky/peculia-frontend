@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import Link from "next/link";
 import { providerService } from "@/services/provider.service";
 import ProfileHeader from "@/components/features/providers/ProfileHeader";
 import ProviderAbout from "@/components/features/providers/ProviderAbout";
 import ProviderServices from "@/components/features/providers/ProviderServices";
 import ProviderReviewsList from "@/components/features/providers/ProviderReviewsList";
-import { Suspense } from "react";
 import { availabilityService } from "@/services/availability.service";
 import ProviderLocation from "@/components/features/providers/ProviderLocation";
 import ProviderTeam from "@/components/features/providers/ProviderTeam";
@@ -137,12 +137,18 @@ export default async function ProviderProfilePage({
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
 
-          {/* Profile Header */}
-          <ProfileHeader
-            provider={provider}
-            schedule={schedule}
-            initialOpeningStatus={openingStatus}
-          />
+          {/* ProfileHeader heavily relies on useSearchParams for modal handling */}
+          <Suspense
+            fallback={
+              <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8 h-[500px] animate-pulse bg-slate-50 rounded-2xl my-4" />
+            }
+          >
+            <ProfileHeader
+              provider={provider}
+              schedule={schedule}
+              initialOpeningStatus={openingStatus}
+            />
+          </Suspense>
 
           {/* Content Tabs/Grid */}
           <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
