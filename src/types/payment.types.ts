@@ -5,6 +5,7 @@ export interface PaymentInitResponse {
   authorizationUrl: string;
   reference: string;
   access_code: string;
+  alreadyPaid?: boolean;
 }
 
 export interface PaymentBookingService {
