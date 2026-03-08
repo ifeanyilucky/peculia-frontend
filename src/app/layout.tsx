@@ -104,6 +104,7 @@ export const metadata: Metadata = {
 
 import { CookieConsent } from "@/components/common/CookieConsent";
 import { ModalProvider } from "@/providers/ModalProvider";
+import { PostHogProvider } from "@/components/PostHogProvider";
 
 export default function RootLayout({
   children,
@@ -121,14 +122,16 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <QueryProvider>
-            <AuthProvider>
-              {children}
-              <ModalProvider />
-              <ToastProvider />
-              <CookieConsent />
-            </AuthProvider>
-          </QueryProvider>
+          <PostHogProvider>
+            <QueryProvider>
+              <AuthProvider>
+                {children}
+                <ModalProvider />
+                <ToastProvider />
+                <CookieConsent />
+              </AuthProvider>
+            </QueryProvider>
+          </PostHogProvider>
         </ThemeProvider>
       </body>
     </html>

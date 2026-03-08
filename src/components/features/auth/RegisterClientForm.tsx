@@ -11,6 +11,7 @@ import { authService } from "@/services/auth.service";
 import { ROUTES } from "@/constants/routes";
 import { sileo } from "sileo";
 import { PasswordStrengthMeter } from "./PasswordStrengthMeter";
+import { trackEvent } from "@/lib/analytics";
 
 const registerSchema = z
   .object({
@@ -67,6 +68,12 @@ export default function RegisterClientForm() {
     try {
       await authService.registerClient(data);
       setIsSuccess(true);
+
+      // Track registration event
+      trackEvent("user_signed_up", {
+        role: "client",
+        email: data.email,
+      });
 
       sileo.success({
         title: "Registration successful!",

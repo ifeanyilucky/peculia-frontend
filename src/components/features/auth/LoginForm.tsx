@@ -12,6 +12,7 @@ import { authService } from "@/services/auth.service";
 import { ROUTES } from "@/constants/routes";
 import { sileo } from "sileo";
 import { GoogleLogin } from "@react-oauth/google";
+import { identifyUser, trackEvent } from "@/lib/analytics";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -42,6 +43,19 @@ export default function LoginForm() {
     refreshToken: string,
   ) => {
     setAuth(user, accessToken, refreshToken);
+
+    // Identify user in PostHog
+    identifyUser(user.id, {
+      email: user.email,
+      name: `${user.firstName} ${user.lastName}`,
+      role: user.role,
+    });
+
+    // Track login event
+    trackEvent("user_logged_in", {
+      method: "email",
+      role: user.role,
+    });
 
     sileo.success({
       title: "Welcome back!",

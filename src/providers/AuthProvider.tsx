@@ -5,6 +5,8 @@ import { useAuthStore } from "@/store/auth.store";
 import api from "@/lib/axios";
 import FullPageLoader from "@/components/common/FullPageLoader";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { identifyUser, resetUser } from "@/lib/analytics";
+import { useAuthStore as useAuthStoreOriginal } from "@/store/auth.store";
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,19 +26,38 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     const initAuth = async () => {
       try {
         const response = await api.get("/auth/me");
-        // GET /auth/me returns the user object directly under data.data
         const user = response.data.data;
         setAuth(user, accessToken, refreshToken!);
+
+        // Identify user on mount if authenticated
+        identifyUser(user.id, {
+          email: user.email,
+          name: `${user.firstName} ${user.lastName}`,
+          role: user.role,
+        });
       } catch {
         clearAuth();
+        resetUser();
       } finally {
         setIsLoading(false);
       }
     };
 
     initAuth();
-    // Empty dep array — runs exactly once on mount.
-    // All state is read from getState() so there are no stale closure issues.
+  }, []);
+
+  // Listen for logout
+  useEffect(() => {
+    const unsub = useAuthStoreOriginal.subscribe(
+      (state) => state.isAuthenticated,
+      (isAuthenticated) => {
+        if (!isAuthenticated) {
+          trackEvent("user_logged_out");
+          resetUser();
+        }
+      },
+    );
+    return () => unsub();
   }, []);
 
   if (isLoading) {
