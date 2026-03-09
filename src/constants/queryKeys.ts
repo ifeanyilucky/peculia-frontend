@@ -25,6 +25,7 @@ export const queryKeys = {
   reviews: {
     list: (filters?: any) => ["reviews", filters] as const,
     provider: (id: string) => ["reviews", "provider", id] as const,
+    booking: (bookingId: string) => ["reviews", "booking", bookingId] as const,
   },
   notifications: {
     unread: () => ["notifications", "unread"] as const,

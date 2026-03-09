@@ -91,13 +91,13 @@ export default function ProviderReviewsList({
             &ldquo;{review.comment}&rdquo;
           </p>
 
-          {review.reply && (
+          {review.providerReply && (
             <div className="mt-6 rounded-2xl bg-slate-50 p-5 ml-6 border-l-2 border-rose-500">
               <p className="text-xs font-bold text-slate-900 uppercase tracking-widest mb-2">
                 Provider Response
               </p>
               <p className="text-sm text-slate-600 leading-relaxed">
-                {review.reply}
+                {review.providerReply}
               </p>
             </div>
           )}

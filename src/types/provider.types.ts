@@ -87,6 +87,10 @@ export interface Review {
   bookingId: string;
   rating: number;
   comment: string;
+  /** Provider's reply to this review (populated from backend `providerReply` field) */
+  providerReply?: string;
+  providerRepliedAt?: string;
+  /** Legacy alias — use providerReply instead */
   reply?: string;
   replyDate?: string;
   createdAt: string;
