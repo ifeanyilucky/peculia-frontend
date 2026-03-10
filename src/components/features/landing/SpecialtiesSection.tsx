@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useSpecialties } from "@/hooks/useSpecialties";
 import { Loader2 } from "lucide-react";
 
@@ -50,7 +51,17 @@ export default function SpecialtiesSection() {
             className="group flex flex-col items-center p-6 rounded-2xl border border-secondary bg-white hover:bg-secondary/50 transition-colors text-center flex-shrink-0 w-40"
           >
             <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
-              <span className="text-2xl">✨</span> {/* Placeholder icon */}
+              {specialty.thumbnail ? (
+                <Image
+                  src={specialty.thumbnail}
+                  alt={specialty.label}
+                  width={48}
+                  height={48}
+                  className="rounded-xl object-cover"
+                />
+              ) : (
+                <span className="text-2xl">✨</span>
+              )}
             </div>
             <p className="text-sm font-bold text-primary group-hover:text-primary/80 transition-colors">
               {specialty.label}
