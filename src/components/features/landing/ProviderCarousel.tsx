@@ -66,11 +66,11 @@ export default function ProviderCarousel({
   if (providers.length === 0) return null;
 
   return (
-    <section className="relative py-24 px-6 lg:px-24 bg-white">
+    <section className="relative py-24 px-6 lg:px-24 bg-glam-ivory">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
-            <h2 className="font-peculiar text-4xl font-bold text-primary">
+            <h2 className="font-peculiar text-4xl font-bold text-glam-plum">
               {title}
             </h2>
             {description && (
@@ -78,7 +78,7 @@ export default function ProviderCarousel({
             )}
           </div>
           {href && hrefLabel && (
-            <a href={href} className="font-bold text-primary hover:underline">
+            <a href={href} className="font-bold text-glam-plum hover:underline">
               {hrefLabel} →
             </a>
           )}
