@@ -9,15 +9,15 @@ export default function TrustBadges() {
   ];
 
   return (
-    <div className="border-y border-slate-100 bg-white py-12 px-6 lg:px-24">
+    <div className="border-y border-glam-blush bg-glam-ivory py-12 px-6 lg:px-24">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
           {badges.map((badge, idx) => (
             <div
               key={idx}
-              className="flex items-center gap-3 text-slate-600 transition-colors hover:text-rose-600"
+              className="flex items-center gap-3 text-glam-charcoal/70 transition-colors hover:text-glam-plum"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-50 text-rose-500">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-glam-blush/30 text-glam-plum">
                 {badge.icon}
               </div>
               <span className="font-peculiar font-semibold">

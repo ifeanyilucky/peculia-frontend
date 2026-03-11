@@ -23,7 +23,7 @@ export default function ProviderReviewsList({
   if (isLoading)
     return (
       <div className="flex justify-center p-12">
-        <Loader2 className="animate-spin text-rose-600" />
+        <Loader2 className="animate-spin text-glam-plum" />
       </div>
     );
 
@@ -31,9 +31,9 @@ export default function ProviderReviewsList({
 
   if (reviews.length === 0) {
     return (
-      <div className="p-12 text-center bg-slate-50 rounded-3xl border border-slate-200">
-        <MessageSquare size={32} className="mx-auto text-slate-300" />
-        <p className="mt-4 text-slate-500">
+      <div className="p-12 text-center bg-glam-blush/20 rounded-3xl border border-glam-blush">
+        <MessageSquare size={32} className="mx-auto text-glam-charcoal/20" />
+        <p className="mt-4 text-glam-charcoal/60 font-medium">
           No reviews yet. Be the first to leave one!
         </p>
       </div>
@@ -41,15 +41,15 @@ export default function ProviderReviewsList({
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {reviews.map((review) => (
         <div
           key={review.id}
-          className="border-b border-slate-100 pb-8 last:border-0 last:pb-0"
+          className="border-b border-glam-blush pb-10 last:border-0 last:pb-0"
         >
           <div className="flex justify-between gap-4">
             <div className="flex gap-4">
-              <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-slate-100">
+              <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-glam-blush/40 ring-2 ring-white shadow-sm">
                 <Image
                   src={
                     review.clientId.avatar ||
@@ -61,11 +61,11 @@ export default function ProviderReviewsList({
                 />
               </div>
               <div>
-                <p className="font-bold text-slate-900">
+                <p className="font-black text-glam-plum">
                   {review.clientId.firstName}{" "}
                   {review.clientId.lastName?.charAt(0)}.
                 </p>
-                <div className="flex items-center gap-2 mt-1">
+                <div className="flex items-center gap-3 mt-1">
                   <div className="flex gap-0.5">
                     {[...Array(5)].map((_, i) => (
                       <Star
@@ -73,13 +73,13 @@ export default function ProviderReviewsList({
                         size={12}
                         className={
                           i < review.rating
-                            ? "fill-yellow-400 text-yellow-400"
-                            : "text-slate-200"
+                            ? "fill-glam-gold text-glam-gold"
+                            : "text-glam-blush"
                         }
                       />
                     ))}
                   </div>
-                  <span className="text-xs text-slate-400">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-glam-charcoal/40">
                     {format(new Date(review.createdAt), "MMM d, yyyy")}
                   </span>
                 </div>
@@ -87,16 +87,16 @@ export default function ProviderReviewsList({
             </div>
           </div>
 
-          <p className="mt-4 leading-relaxed text-slate-600 italic">
+          <p className="mt-5 leading-relaxed text-glam-charcoal/80 italic font-medium">
             &ldquo;{review.comment}&rdquo;
           </p>
 
           {review.providerReply && (
-            <div className="mt-6 rounded-2xl bg-slate-50 p-5 ml-6 border-l-2 border-rose-500">
-              <p className="text-xs font-bold text-slate-900 uppercase tracking-widest mb-2">
-                Provider Response
-              </p>
-              <p className="text-sm text-slate-600 leading-relaxed">
+            <div className="mt-6 rounded-2xl bg-white border border-glam-blush p-6 ml-6 shadow-sm relative">
+              <div className="absolute top-0 left-6 -translate-y-1/2 bg-white px-2 text-[9px] font-black uppercase tracking-widest text-glam-gold">
+                Response from {review.clientId.firstName}
+              </div>
+              <p className="text-sm text-glam-charcoal/70 leading-relaxed font-medium">
                 {review.providerReply}
               </p>
             </div>

@@ -97,17 +97,17 @@ export default function MobileSearchModal({
           className="fixed inset-0 z-100 bg-white flex flex-col"
         >
           {/* ── Header ─────────────────────────────────────────────────────── */}
-          <div className="flex items-center gap-4 px-5 py-4 border-b border-secondary">
+          <div className="flex items-center gap-4 px-5 py-4 border-b border-glam-blush">
             <button
               onClick={onClose}
-              className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-secondary transition-colors"
+              className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-glam-blush transition-colors"
             >
-              <ArrowLeft size={20} className="text-primary" />
+              <ArrowLeft size={20} className="text-glam-plum" />
             </button>
-            <h2 className="text-base font-black text-primary flex-1">Search</h2>
+            <h2 className="text-base font-black text-glam-plum flex-1">Search</h2>
             <button
               onClick={onClose}
-              className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-secondary transition-colors"
+              className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-glam-blush transition-colors"
             >
               <X size={18} className="text-muted-foreground" />
             </button>
@@ -126,14 +126,14 @@ export default function MobileSearchModal({
                   className={cn(
                     "relative flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-2xl transition-all text-left border",
                     isActive
-                      ? "bg-primary text-white border-primary"
+                      ? "bg-glam-plum text-white border-glam-plum"
                       : done
-                        ? "bg-secondary/60 border-secondary text-primary"
-                        : "border-secondary text-muted-foreground",
+                        ? "bg-glam-blush/60 border-glam-blush text-glam-plum"
+                        : "border-glam-blush text-muted-foreground",
                   )}
                 >
                   {done && !isActive ? (
-                    <CheckCircle2 size={13} className="text-primary shrink-0" />
+                    <CheckCircle2 size={13} className="text-glam-plum shrink-0" />
                   ) : (
                     <Meta.icon size={13} className="shrink-0" />
                   )}
@@ -168,7 +168,7 @@ export default function MobileSearchModal({
                   className="py-5 space-y-4"
                 >
                   <div>
-                    <h3 className="text-2xl font-black text-primary">
+                    <h3 className="text-2xl font-black text-glam-plum">
                       {STEP_META.treatment.title}
                     </h3>
                     <p className="text-sm text-muted-foreground mt-1">
@@ -186,13 +186,13 @@ export default function MobileSearchModal({
                       placeholder="Search treatments..."
                       value={treatment}
                       onChange={(e) => setTreatment(e.target.value)}
-                      className="w-full pl-12 pr-4 py-3.5 bg-secondary/40 rounded-2xl border-none font-bold text-primary placeholder:text-muted-foreground/70 focus:ring-2 focus:ring-primary/30 transition-all outline-none"
+                      className="w-full pl-12 pr-4 py-3.5 bg-glam-blush/40 rounded-2xl border-none font-bold text-glam-plum placeholder:text-muted-foreground/70 focus:ring-2 focus:ring-glam-plum/30 transition-all outline-none"
                       autoFocus
                     />
                     {treatment && (
                       <button
                         onClick={() => setTreatment("")}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 h-6 w-6 flex items-center justify-center rounded-full bg-muted hover:bg-secondary transition-colors"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 h-6 w-6 flex items-center justify-center rounded-full bg-muted hover:bg-glam-blush transition-colors"
                       >
                         <X size={12} className="text-muted-foreground" />
                       </button>
@@ -218,7 +218,7 @@ export default function MobileSearchModal({
                   className="py-5 space-y-4"
                 >
                   <div>
-                    <h3 className="text-2xl font-black text-primary">
+                    <h3 className="text-2xl font-black text-glam-plum">
                       {STEP_META.location.title}
                     </h3>
                     <p className="text-sm text-muted-foreground mt-1">
@@ -235,13 +235,13 @@ export default function MobileSearchModal({
                       placeholder="Search location..."
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
-                      className="w-full pl-12 pr-4 py-3.5 bg-secondary/40 rounded-2xl border-none font-bold text-primary placeholder:text-muted-foreground/70 focus:ring-2 focus:ring-primary/30 transition-all outline-none"
+                      className="w-full pl-12 pr-4 py-3.5 bg-glam-blush/40 rounded-2xl border-none font-bold text-glam-plum placeholder:text-muted-foreground/70 focus:ring-2 focus:ring-glam-plum/30 transition-all outline-none"
                       autoFocus
                     />
                     {location && (
                       <button
                         onClick={() => setLocation("")}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 h-6 w-6 flex items-center justify-center rounded-full bg-muted hover:bg-secondary transition-colors"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 h-6 w-6 flex items-center justify-center rounded-full bg-muted hover:bg-glam-blush transition-colors"
                       >
                         <X size={12} className="text-muted-foreground" />
                       </button>
@@ -267,7 +267,7 @@ export default function MobileSearchModal({
                   className="py-5 space-y-4"
                 >
                   <div>
-                    <h3 className="text-2xl font-black text-primary">
+                    <h3 className="text-2xl font-black text-glam-plum">
                       {STEP_META.time.title}
                     </h3>
                     <p className="text-sm text-muted-foreground mt-1">
@@ -286,16 +286,16 @@ export default function MobileSearchModal({
           </div>
 
           {/* ── Footer actions ─────────────────────────────────────────────── */}
-          <div className="absolute bottom-0 left-0 right-0 px-5 py-4 bg-white border-t border-secondary flex items-center justify-between gap-4 safe-area-inset-bottom">
+          <div className="absolute bottom-0 left-0 right-0 px-5 py-4 bg-white border-t border-glam-blush flex items-center justify-between gap-4 safe-area-inset-bottom">
             {/* Step summary chips */}
             <div className="flex items-center gap-2 min-w-0 overflow-hidden">
               {treatment && (
-                <span className="text-xs font-bold text-primary bg-secondary/60 px-2.5 py-1 rounded-full truncate max-w-[100px]">
+                <span className="text-xs font-bold text-glam-plum bg-glam-blush/60 px-2.5 py-1 rounded-full truncate max-w-[100px]">
                   {treatment}
                 </span>
               )}
               {location && (
-                <span className="text-xs font-bold text-primary bg-secondary/60 px-2.5 py-1 rounded-full truncate max-w-[80px]">
+                <span className="text-xs font-bold text-glam-plum bg-glam-blush/60 px-2.5 py-1 rounded-full truncate max-w-[80px]">
                   {location}
                 </span>
               )}
@@ -318,7 +318,7 @@ export default function MobileSearchModal({
               {/* Show results */}
               <button
                 onClick={handleApply}
-                className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-full font-black text-sm active:scale-95 transition-all shadow-lg shadow-primary/20"
+                className="flex items-center gap-2 px-6 py-3 bg-glam-plum text-white rounded-full font-black text-sm active:scale-95 transition-all shadow-lg shadow-glam-plum/20"
               >
                 <Search size={15} />
                 Show results
