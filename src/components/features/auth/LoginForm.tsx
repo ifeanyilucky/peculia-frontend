@@ -63,12 +63,12 @@ export default function LoginForm() {
     });
 
     if (redirect) {
-      window.location.href = decodeURIComponent(redirect);
+      router.push(decodeURIComponent(redirect));
       return;
     }
 
     if (user.role === "provider") {
-      window.location.href = ROUTES.partnersPortal;
+      router.push(ROUTES.partnersPortal);
       return;
     }
 

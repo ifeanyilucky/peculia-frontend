@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import HeroSection from "@/components/features/landing/HeroSection";
 import TrustBadges from "@/components/features/landing/TrustBadges";
 import HowItWorks from "@/components/features/landing/HowItWorks";
+import SpecialtiesSection from "@/components/features/landing/SpecialtiesSection";
 import ProviderCarousel from "@/components/features/landing/ProviderCarousel";
 import RecentlyViewedSection from "@/components/features/landing/RecentlyViewedSection";
 import Testimonials from "@/components/features/landing/Testimonials";
@@ -35,6 +36,7 @@ export default async function LandingPage() {
       <HeroSection />
       <TrustBadges />
       <HowItWorks />
+      <SpecialtiesSection />
       <ProviderCarousel
         providers={providers}
         title="Featured Professionals"

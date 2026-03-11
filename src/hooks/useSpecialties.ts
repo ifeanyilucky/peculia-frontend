@@ -5,6 +5,7 @@ export interface Specialty {
   id: string;
   label: string;
   icon: string;
+  thumbnail?: string;
 }
 
 export function useSpecialties() {
@@ -17,6 +18,7 @@ export function useSpecialties() {
           id: cat.specialtyId,
           label: cat.name,
           icon: cat.icon || "LayoutGrid",
+          thumbnail: cat.thumbnail,
         }),
       );
     },
