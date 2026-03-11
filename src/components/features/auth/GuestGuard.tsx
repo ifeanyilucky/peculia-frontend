@@ -34,8 +34,6 @@ export default function GuestGuard({
     if (isAuthenticated && user && !redirect) {
       if (user.role === "client") {
         router.push(ROUTES.client.dashboard);
-      } else if (user.role === "provider") {
-        router.push("/"); // TODO: Redirect to partners portal
       } else if (user.role === "admin") {
         router.push(ROUTES.admin.dashboard);
       }

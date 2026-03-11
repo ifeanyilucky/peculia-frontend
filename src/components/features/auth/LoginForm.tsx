@@ -67,11 +67,6 @@ export default function LoginForm() {
       return;
     }
 
-    if (user.role === "provider") {
-      router.push(ROUTES.partnersPortal);
-      return;
-    }
-
     const redirectMap = {
       client: ROUTES.client.dashboard,
       admin: ROUTES.admin.dashboard,
