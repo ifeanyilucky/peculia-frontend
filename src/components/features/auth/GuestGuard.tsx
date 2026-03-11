@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/auth.store";
 import FullPageLoader from "@/components/common/FullPageLoader";
 import { ROUTES } from "@/constants/routes";
@@ -13,8 +13,6 @@ export default function GuestGuard({
 }) {
   const { user, isAuthenticated } = useAuthStore();
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const redirect = searchParams?.get("redirect");
 
   const [hasHydrated, setHasHydrated] = useState<boolean>(() =>
     useAuthStore.persist.hasHydrated(),
@@ -31,7 +29,7 @@ export default function GuestGuard({
   useEffect(() => {
     if (!hasHydrated) return;
 
-    if (isAuthenticated && user && !redirect) {
+    if (isAuthenticated && user) {
       if (user.role === "client") {
         router.push(ROUTES.client.dashboard);
       } else if (user.role === "provider") {
@@ -40,7 +38,7 @@ export default function GuestGuard({
         router.push(ROUTES.admin.dashboard);
       }
     }
-  }, [hasHydrated, isAuthenticated, user, router, redirect]);
+  }, [hasHydrated, isAuthenticated, user, router]);
 
   const isAuthorized = hasHydrated && !isAuthenticated;
 
