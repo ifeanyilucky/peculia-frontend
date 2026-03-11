@@ -7,12 +7,12 @@ interface ProviderAboutProps {
 
 export default function ProviderAbout({ provider }: ProviderAboutProps) {
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 pt-4">
       <section>
-        <h3 className="font-peculiar text-2xl font-bold text-primary">
+        <h3 className="font-peculiar text-3xl font-black text-glam-plum">
           About the Professional
         </h3>
-        <p className="mt-4 leading-relaxed text-foreground whitespace-pre-wrap">
+        <p className="mt-4 leading-relaxed text-glam-charcoal/80 whitespace-pre-wrap font-medium">
           {provider.bio ||
             "No bio provided yet. Contact the professional for more details about their services and expertise."}
         </p>
@@ -49,16 +49,16 @@ export default function ProviderAbout({ provider }: ProviderAboutProps) {
       </section> */}
 
       <section>
-        <h4 className="font-peculiar text-lg font-bold text-primary mb-4">
+        <h4 className="font-peculiar text-xl font-black text-glam-plum mb-6 uppercase tracking-widest">
           Core Specialties
         </h4>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-3">
           {provider.specialties.map((spec) => (
             <div
               key={spec}
-              className="flex capitalize items-center gap-2 rounded-full bg-white border border-secondary px-4 py-2 text-sm font-medium text-foreground"
+              className="flex capitalize items-center gap-2 rounded-full bg-white border border-glam-blush px-6 py-2.5 text-sm font-black text-glam-plum shadow-sm"
             >
-              <GraduationCap size={16} className="text-primary" />
+              <GraduationCap size={16} className="text-glam-gold" />
               {spec.replace("_", " ")}
             </div>
           ))}

@@ -51,11 +51,11 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
         glam: {
-          plum: "hsl(var(--primary))",
-          blush: "hsl(var(--secondary))",
-          gold: "hsl(var(--accent))",
-          charcoal: "hsl(var(--foreground))",
-          ivory: "hsl(var(--background))",
+          plum: "hsl(var(--glam-plum))",
+          blush: "hsl(var(--glam-blush))",
+          gold: "hsl(var(--glam-gold))",
+          charcoal: "hsl(var(--glam-charcoal))",
+          ivory: "hsl(var(--glam-ivory))",
         },
       },
       borderRadius: {

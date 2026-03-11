@@ -11,9 +11,9 @@ export default function ProviderTeam({ team }: ProviderTeamProps) {
   if (!team || team.length === 0) return null;
 
   return (
-    <section className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
+    <section className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150 pt-4">
       <div className="flex items-center justify-between">
-        <h3 className="font-peculiar text-3xl font-black text-primary tracking-tight">
+        <h3 className="font-peculiar text-3xl font-black text-glam-plum tracking-tight">
           Team
         </h3>
       </div>
@@ -26,7 +26,7 @@ export default function ProviderTeam({ team }: ProviderTeamProps) {
           >
             {/* Avatar Container */}
             <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32">
-              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-white shadow-lg ring-1 ring-secondary transition-transform duration-500 group-hover:scale-105">
+              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-white shadow-lg ring-1 ring-glam-blush transition-transform duration-500 group-hover:scale-105">
                 {member.avatar ? (
                   <Image
                     src={member.avatar}
@@ -35,16 +35,16 @@ export default function ProviderTeam({ team }: ProviderTeamProps) {
                     className="object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-secondary flex items-center justify-center text-muted-foreground text-2xl font-black">
+                  <div className="w-full h-full bg-glam-blush/30 flex items-center justify-center text-glam-plum/40 text-2xl font-black">
                     {member.firstName.charAt(0)}
                   </div>
                 )}
               </div>
 
               {/* Rating Badge */}
-              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-white px-2 py-0.5 rounded-full shadow-md border border-secondary ring-4 ring-white">
-                <Star size={10} className="fill-yellow-400 text-yellow-400" />
-                <span className="text-[10px] sm:text-xs font-black text-primary leading-none">
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-white px-2 py-0.5 rounded-full shadow-md border border-glam-blush ring-4 ring-white">
+                <Star size={10} className="fill-glam-gold text-glam-gold" />
+                <span className="text-[10px] sm:text-xs font-black text-glam-plum leading-none">
                   {member.rating.toFixed(1)}
                 </span>
               </div>
@@ -52,11 +52,11 @@ export default function ProviderTeam({ team }: ProviderTeamProps) {
 
             {/* Info */}
             <div className="space-y-1">
-              <h4 className="font-bold text-primary text-sm sm:text-base tracking-tight group-hover:text-primary transition-colors">
+              <h4 className="font-bold text-glam-plum text-sm sm:text-base tracking-tight group-hover:text-glam-plum transition-colors">
                 {member.firstName}
               </h4>
               {member.position && (
-                <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-widest leading-none">
+                <p className="text-[10px] sm:text-xs font-black text-glam-charcoal/40 uppercase tracking-widest leading-none">
                   {member.position}
                 </p>
               )}

@@ -49,9 +49,9 @@ export function TreatmentDropdown({
   );
 
   return (
-    <div className="w-[340px] bg-white rounded-3xl shadow-2xl border border-secondary overflow-hidden">
+    <div className="w-[340px] bg-white rounded-3xl shadow-2xl border border-glam-blush overflow-hidden">
       {/* Header */}
-      <div className="px-5 pt-5 pb-3 border-b border-secondary/60">
+      <div className="px-5 pt-5 pb-3 border-b border-glam-blush">
         <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">
           {searchQuery ? "Results" : "Popular Treatments"}
         </p>
@@ -61,7 +61,7 @@ export function TreatmentDropdown({
       <div className="p-2 max-h-72 overflow-y-auto grid gap-0.5">
         {isLoading ? (
           <div className="flex items-center justify-center gap-2 py-8 text-muted-foreground">
-            <Loader2 size={16} className="animate-spin" />
+            <Loader2 size={16} className="animate-spin text-glam-plum" />
             <span className="text-sm font-medium">Loading…</span>
           </div>
         ) : filtered.length > 0 ? (
@@ -69,14 +69,14 @@ export function TreatmentDropdown({
             <button
               key={spec.id}
               onClick={() => onSelect(spec.label)}
-              className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-secondary/50 active:bg-secondary transition-colors text-left group w-full"
+              className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-glam-blush/40 active:bg-glam-blush transition-colors text-left group w-full"
             >
               {/* Icon placeholder */}
-              <div className="h-10 w-10 rounded-xl bg-secondary flex items-center justify-center group-hover:bg-white transition-colors shrink-0 text-lg">
+              <div className="h-10 w-10 rounded-xl bg-glam-blush/30 flex items-center justify-center group-hover:bg-white transition-colors shrink-0 text-lg">
                 {SPECIALTY_EMOJIS[spec.label] ?? "✨"}
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-bold text-primary truncate">
+                <p className="text-sm font-bold text-glam-plum truncate">
                   {spec.label}
                 </p>
                 <p className="text-xs text-muted-foreground">
@@ -104,7 +104,7 @@ export function TreatmentDropdown({
 
       {/* Footer hint */}
       {!searchQuery && (
-        <div className="px-5 py-3 border-t border-secondary/60 bg-secondary/20">
+        <div className="px-5 py-3 border-t border-glam-blush bg-glam-blush/10">
           <p className="text-[10px] text-muted-foreground">
             Type in the search bar above to filter treatments
           </p>
@@ -144,16 +144,16 @@ export function LocationDropdown({
   );
 
   return (
-    <div className="w-[320px] bg-white rounded-3xl shadow-2xl border border-secondary overflow-hidden">
+    <div className="w-[320px] bg-white rounded-3xl shadow-2xl border border-glam-blush overflow-hidden">
       {/* Use my location */}
       <div className="px-5 pt-4 pb-2">
         <button
           disabled
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-dashed border-secondary/80 text-left opacity-50 cursor-not-allowed"
+          className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl border border-dashed border-glam-blush text-left opacity-50 cursor-not-allowed"
         >
-          <Navigation size={16} className="text-primary shrink-0" />
+          <Navigation size={16} className="text-glam-plum shrink-0" />
           <div>
-            <p className="text-sm font-bold text-primary">Use my location</p>
+            <p className="text-sm font-bold text-glam-plum">Use my location</p>
             <p className="text-[10px] text-muted-foreground">
               Location services not available
             </p>
@@ -164,11 +164,11 @@ export function LocationDropdown({
       {/* Divider */}
       <div className="px-5 py-2">
         <div className="flex items-center gap-2">
-          <div className="flex-1 h-px bg-secondary/60" />
+          <div className="flex-1 h-px bg-glam-blush" />
           <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             {searchQuery ? "Results" : "Popular Cities"}
           </p>
-          <div className="flex-1 h-px bg-secondary/60" />
+          <div className="flex-1 h-px bg-glam-blush" />
         </div>
       </div>
 
@@ -179,10 +179,10 @@ export function LocationDropdown({
             <button
               key={city.label}
               onClick={() => onSelect(city.label)}
-              className="flex items-center gap-3 px-4 py-2.5 rounded-2xl hover:bg-secondary/50 active:bg-secondary transition-colors text-left group w-full"
+              className="flex items-center gap-3 px-4 py-2.5 rounded-2xl hover:bg-glam-blush/40 active:bg-glam-blush transition-colors text-left group w-full"
             >
               <span className="text-xl shrink-0">{city.flag}</span>
-              <p className="text-sm font-bold text-primary">{city.label}</p>
+              <p className="text-sm font-bold text-glam-plum">{city.label}</p>
               <ChevronRight
                 size={14}
                 className="ml-auto text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
@@ -260,7 +260,7 @@ export function DateTimeDropdown({
   const isPast = (d: Date) => isBefore(d, today) && !isSameDay(d, today);
 
   return (
-    <div className="w-[calc(100vw-2rem)] max-w-[480px] bg-white rounded-3xl shadow-2xl border border-secondary overflow-hidden">
+    <div className="w-[calc(100vw-2rem)] max-w-[480px] bg-white rounded-3xl shadow-2xl border border-glam-blush overflow-hidden">
       {/* Quick picks */}
       <div className="flex gap-2 p-4 pb-0">
         {[
@@ -279,11 +279,11 @@ export function DateTimeDropdown({
               className={cn(
                 "flex-1 px-3 py-2.5 rounded-2xl border text-left transition-all",
                 isSelected
-                  ? "border-primary bg-primary/5 ring-1 ring-primary/20"
-                  : "border-secondary hover:border-slate-300",
+                  ? "border-glam-plum bg-glam-blush/30 ring-1 ring-glam-plum/20"
+                  : "border-glam-blush hover:border-glam-gold/50",
               )}
             >
-              <p className="text-sm font-black text-primary">{label}</p>
+              <p className="text-sm font-black text-glam-plum">{label}</p>
               <p className="text-[10px] text-muted-foreground">
                 {format(date, "EEE, d MMM")}
               </p>
@@ -299,16 +299,16 @@ export function DateTimeDropdown({
           <button
             onClick={handlePrevMonth}
             disabled={isSameMonth(viewDate, today)}
-            className="p-1.5 hover:bg-secondary rounded-full transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            className="p-1.5 hover:bg-glam-blush/50 rounded-full transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <ChevronLeft size={16} />
           </button>
-          <p className="text-sm font-black text-primary">
+          <p className="text-sm font-black text-glam-plum">
             {format(viewDate, "MMMM yyyy")}
           </p>
           <button
             onClick={handleNextMonth}
-            className="p-1.5 hover:bg-secondary rounded-full transition-colors"
+            className="p-1.5 hover:bg-glam-blush/50 rounded-full transition-colors"
           >
             <ChevronRight size={16} />
           </button>
@@ -346,11 +346,11 @@ export function DateTimeDropdown({
                 className={cn(
                   "h-9 w-9 mx-auto flex items-center justify-center rounded-full text-sm font-bold transition-all",
                   isSelected
-                    ? "bg-primary text-white shadow-md"
+                    ? "bg-glam-plum text-white shadow-md"
                     : isToday && !isSelected
-                      ? "text-primary ring-1 ring-primary/30"
+                      ? "text-glam-plum ring-1 ring-glam-plum/30"
                       : isCurrentMonth && !past
-                        ? "text-slate-700 hover:bg-secondary"
+                        ? "text-glam-charcoal hover:bg-glam-blush/40"
                         : "text-slate-300 cursor-default",
                 )}
               >
@@ -362,7 +362,7 @@ export function DateTimeDropdown({
       </div>
 
       {/* Time slots */}
-      <div className="border-t border-secondary/60 p-4">
+      <div className="border-t border-glam-blush p-4">
         <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-3">
           Time of day
         </p>
@@ -382,8 +382,8 @@ export function DateTimeDropdown({
                 className={cn(
                   "flex-1 min-w-[70px] py-2 px-3 rounded-xl border text-center transition-all",
                   isSelected
-                    ? "border-primary bg-primary text-white"
-                    : "border-secondary text-primary hover:border-primary/40 hover:bg-secondary/30",
+                    ? "border-glam-plum bg-glam-plum text-white"
+                    : "border-glam-blush text-glam-plum hover:border-glam-plum/40 hover:bg-glam-blush/30",
                 )}
               >
                 <p className="text-xs font-black">{slot.label}</p>
@@ -399,7 +399,7 @@ export function DateTimeDropdown({
 
         {/* Custom time range picker — shown only when "Custom" is selected */}
         {selectedTimeSlot === "Custom" && (
-          <div className="mt-3 p-3 bg-secondary/30 rounded-2xl space-y-2">
+          <div className="mt-3 p-3 bg-glam-blush/30 rounded-2xl space-y-2">
             <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
               Select your time range
             </p>
@@ -421,7 +421,7 @@ export function DateTimeDropdown({
                       onSelect(selectedDate, `${e.target.value}-${customEnd}`);
                     }
                   }}
-                  className="w-full px-3 py-2 border border-secondary rounded-xl text-sm font-bold text-primary bg-white focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                  className="w-full px-3 py-2 border border-glam-blush rounded-xl text-sm font-bold text-glam-plum bg-white focus:ring-2 focus:ring-glam-plum/20 focus:outline-none"
                 />
               </div>
               <span className="text-muted-foreground text-sm font-black mt-4">
@@ -447,7 +447,7 @@ export function DateTimeDropdown({
                       );
                     }
                   }}
-                  className="w-full px-3 py-2 border border-secondary rounded-xl text-sm font-bold text-primary bg-white focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                  className="w-full px-3 py-2 border border-glam-blush rounded-xl text-sm font-bold text-glam-plum bg-white focus:ring-2 focus:ring-glam-plum/20 focus:outline-none"
                 />
               </div>
             </div>
@@ -510,7 +510,7 @@ export function SortPopover({
   ];
 
   return (
-    <div className="w-[200px] bg-white rounded-3xl shadow-2xl border border-secondary overflow-hidden p-2">
+    <div className="w-[200px] bg-white rounded-3xl shadow-2xl border border-glam-blush overflow-hidden p-2">
       {options.map((opt) => (
         <button
           key={opt.id}
@@ -518,15 +518,15 @@ export function SortPopover({
           className={cn(
             "w-full flex items-center gap-3 px-4 py-2.5 rounded-2xl transition-all text-left",
             value === opt.id
-              ? "bg-primary text-white shadow-sm"
-              : "hover:bg-secondary/50 text-primary font-bold text-sm",
+              ? "bg-glam-plum text-white shadow-sm"
+              : "hover:bg-glam-blush/40 text-glam-plum font-bold text-sm",
           )}
         >
           <span className="text-base shrink-0">{opt.icon}</span>
           <span
             className={cn(
               "text-sm font-bold",
-              value === opt.id ? "text-white" : "text-primary",
+              value === opt.id ? "text-white" : "text-glam-plum",
             )}
           >
             {opt.label}
@@ -550,12 +550,12 @@ export function PricePopover({
   const [tempPrice, setTempPrice] = useState(value || 500000);
 
   return (
-    <div className="w-[280px] bg-white rounded-3xl shadow-2xl border border-secondary overflow-hidden p-5">
+    <div className="w-[280px] bg-white rounded-3xl shadow-2xl border border-glam-blush overflow-hidden p-5">
       <div className="flex items-center justify-between mb-5">
         <h4 className="text-xs font-black uppercase tracking-widest text-muted-foreground">
           Max Price
         </h4>
-        <span className="text-sm font-black text-primary">
+        <span className="text-sm font-black text-glam-plum">
           NGN {tempPrice.toLocaleString()}
         </span>
       </div>
@@ -567,19 +567,19 @@ export function PricePopover({
         step="1000"
         value={tempPrice}
         onChange={(e) => setTempPrice(Number(e.target.value))}
-        className="w-full h-1.5 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary mb-6"
+        className="w-full h-1.5 bg-glam-blush rounded-lg appearance-none cursor-pointer accent-glam-plum mb-6"
       />
 
       <div className="flex gap-2">
         <button
           onClick={() => onSelect(0)}
-          className="flex-1 py-2.5 rounded-xl border border-secondary text-xs font-black text-muted-foreground hover:bg-secondary/30 transition-all"
+          className="flex-1 py-2.5 rounded-xl border border-glam-blush text-xs font-black text-muted-foreground hover:bg-glam-blush/30 transition-all"
         >
           Reset
         </button>
         <button
           onClick={() => onSelect(tempPrice)}
-          className="flex-2 py-2.5 bg-primary text-white text-xs font-black rounded-xl hover:bg-primary/90 transition-all shadow-md active:scale-95"
+          className="flex-2 py-2.5 bg-glam-plum text-white text-xs font-black rounded-xl hover:bg-glam-plum/90 transition-all shadow-md active:scale-95"
         >
           Apply
         </button>
@@ -606,7 +606,7 @@ export function RatingPopover({
   ];
 
   return (
-    <div className="w-[180px] bg-white rounded-3xl shadow-2xl border border-secondary overflow-hidden p-2">
+    <div className="w-[180px] bg-white rounded-3xl shadow-2xl border border-glam-blush overflow-hidden p-2">
       {ratings.map((r) => (
         <button
           key={r.val}
@@ -614,14 +614,14 @@ export function RatingPopover({
           className={cn(
             "w-full flex items-center gap-3 px-4 py-2.5 rounded-2xl transition-all text-left",
             value === r.val
-              ? "bg-primary text-white shadow-sm"
-              : "hover:bg-secondary/50 text-primary font-bold text-sm",
+              ? "bg-glam-plum text-white shadow-sm"
+              : "hover:bg-glam-blush/40 text-glam-plum font-bold text-sm",
           )}
         >
           <span
             className={cn(
               "text-sm font-bold",
-              value === r.val ? "text-white" : "text-primary",
+              value === r.val ? "text-white" : "text-glam-plum",
             )}
           >
             {r.label}
@@ -643,14 +643,14 @@ export function TypePopover({
   onToggleVerified: (val: boolean) => void;
 }) {
   return (
-    <div className="w-[240px] bg-white rounded-3xl shadow-2xl border border-secondary overflow-hidden p-5">
+    <div className="w-[240px] bg-white rounded-3xl shadow-2xl border border-glam-blush overflow-hidden p-5">
       <h4 className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-4">
         Professional Type
       </h4>
 
-      <div className="flex items-center justify-between gap-4 p-3 bg-secondary/30 rounded-2xl border border-secondary/50">
+      <div className="flex items-center justify-between gap-4 p-3 bg-glam-blush/30 rounded-2xl border border-glam-blush/50">
         <div className="min-w-0">
-          <p className="text-xs font-black text-primary">Verified Only</p>
+          <p className="text-xs font-black text-glam-plum">Verified Only</p>
           <p className="text-[10px] text-muted-foreground leading-tight mt-0.5">
             Only show vetted professionals
           </p>
@@ -659,7 +659,7 @@ export function TypePopover({
           onClick={() => onToggleVerified(!isVerified)}
           className={cn(
             "h-6 w-11 rounded-full transition-all relative shrink-0",
-            isVerified ? "bg-primary" : "bg-slate-300",
+            isVerified ? "bg-glam-plum" : "bg-slate-300",
           )}
         >
           <div
@@ -671,7 +671,7 @@ export function TypePopover({
         </button>
       </div>
 
-      <div className="mt-4 pt-4 border-t border-secondary/60">
+      <div className="mt-4 pt-4 border-t border-glam-blush">
         <p className="text-[10px] text-muted-foreground text-center italic">
           Additional professional categories and visit types coming soon.
         </p>
