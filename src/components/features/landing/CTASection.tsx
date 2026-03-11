@@ -4,13 +4,13 @@ import { ROUTES } from "@/constants/routes";
 
 export default function CTASection() {
   return (
-    <section className="py-24 px-6 lg:px-24 bg-glam-ivory">
-      <div className="mx-auto max-w-7xl overflow-hidden rounded-[32px] bg-glam-plum">
+    <section className="py-24 px-6 lg:px-24">
+      <div className="mx-auto max-w-7xl overflow-hidden rounded-[32px] bg-slate-900">
         <div className="grid lg:grid-cols-2">
           {/* Client Panel */}
           <div className="relative p-12 lg:p-16">
             <div className="relative z-10">
-              <span className="text-sm font-bold uppercase tracking-widest text-glam-gold">
+              <span className="text-sm font-bold uppercase tracking-widest text-rose-500">
                 For Clients
               </span>
               <h2 className="mt-4 font-peculiar text-4xl font-bold text-white">
@@ -33,19 +33,19 @@ export default function CTASection() {
               </ul>
               <Link
                 href={ROUTES.public.explore}
-                className="mt-10 inline-flex items-center rounded-full bg-glam-gold px-8 py-4 font-bold text-glam-plum transition-all hover:bg-white hover:text-glam-plum"
+                className="mt-10 inline-flex items-center rounded-full bg-rose-600 px-8 py-4 font-bold text-white transition-all hover:bg-white hover:text-slate-900"
               >
                 Find a Professional <ArrowRight size={20} className="ml-2" />
               </Link>
             </div>
             {/* Background Accent */}
-            <div className="absolute top-0 right-0 h-64 w-64 translate-x-1/2 -translate-y-1/2 rounded-full bg-glam-gold/10 blur-[100px]" />
+            <div className="absolute top-0 right-0 h-64 w-64 translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-500/10 blur-[100px]" />
           </div>
 
           {/* Provider Panel */}
-          <div className="relative bg-glam-charcoal/50 p-12 lg:p-16">
+          <div className="relative bg-slate-800 p-12 lg:p-16">
             <div className="relative z-10">
-              <span className="text-sm font-bold uppercase tracking-widest text-glam-blush">
+              <span className="text-sm font-bold uppercase tracking-widest text-emerald-500">
                 For Professionals
               </span>
               <h2 className="mt-4 font-peculiar text-4xl font-bold text-white">
@@ -68,7 +68,7 @@ export default function CTASection() {
               </ul>
               <Link
                 href={ROUTES.public.forBusiness}
-                className="mt-10 inline-flex items-center rounded-full bg-glam-blush px-8 py-4 font-bold text-glam-plum transition-all hover:bg-white hover:text-glam-plum"
+                className="mt-10 inline-flex items-center rounded-full bg-white px-8 py-4 font-bold text-slate-900 transition-all hover:bg-emerald-500 hover:text-white"
               >
                 Join as a Professional <ArrowRight size={20} className="ml-2" />
               </Link>

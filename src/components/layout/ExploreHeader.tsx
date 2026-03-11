@@ -191,7 +191,7 @@ export default function ExploreHeader() {
       ═══════════════════════════════════════════════════════════════════════ */}
       <header
         ref={headerRef}
-        className="sticky top-0 z-50 w-full bg-white border-b border-glam-blush shadow-sm"
+        className="sticky top-0 z-50 w-full bg-white border-b border-secondary"
       >
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10">
           {/* ── ROW 1: Logo + Nav + Profile ─────────────────────────────── */}
@@ -218,7 +218,7 @@ export default function ExploreHeader() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="px-3 py-1.5 rounded-full text-sm font-bold text-glam-charcoal/60 hover:text-glam-plum hover:bg-glam-blush/40 transition-all"
+                  className="px-3 py-1.5 rounded-full text-sm font-bold text-muted-foreground hover:text-primary hover:bg-secondary/60 transition-all"
                 >
                   {link.label}
                 </Link>
@@ -232,10 +232,10 @@ export default function ExploreHeader() {
                 <button
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
                   aria-label="Profile menu"
-                  className="flex items-center gap-2 rounded-full border border-glam-blush bg-white px-2 py-1.5 hover:shadow-md transition-all duration-200"
+                  className="flex items-center gap-2 rounded-full border border-secondary bg-white px-2 py-1.5 hover:shadow-md transition-all duration-200"
                 >
-                  <Menu size={16} className="text-glam-charcoal/60" />
-                  <div className="h-7 w-7 rounded-full bg-glam-plum flex items-center justify-center text-white text-xs font-black">
+                  <Menu size={16} className="text-muted-foreground" />
+                  <div className="h-7 w-7 rounded-full bg-primary flex items-center justify-center text-white text-xs font-black">
                     {userInitials ?? <User size={14} />}
                   </div>
                 </button>
@@ -248,18 +248,18 @@ export default function ExploreHeader() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.96 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute right-0 top-full mt-3 w-60 origin-top-right rounded-2xl bg-white shadow-2xl ring-1 ring-glam-plum/10 border border-glam-blush p-1.5 z-50"
+                      className="absolute right-0 top-full mt-3 w-60 origin-top-right rounded-2xl bg-white shadow-2xl ring-1 ring-secondary border border-secondary/60 p-1.5 z-50"
                     >
                       {isAuthenticated ? (
                         <>
                           {/* User info */}
-                          <div className="px-3 py-3 mb-1 border-b border-glam-blush">
+                          <div className="px-3 py-3 mb-1 border-b border-secondary">
                             <div className="flex items-center gap-3">
-                              <div className="h-10 w-10 rounded-full bg-glam-plum flex items-center justify-center text-white text-sm font-black shrink-0">
+                              <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-white text-sm font-black shrink-0">
                                 {userInitials}
                               </div>
                               <div className="min-w-0">
-                                <p className="text-sm font-black text-glam-plum truncate">
+                                <p className="text-sm font-black text-primary truncate">
                                   {user?.firstName} {user?.lastName}
                                 </p>
                                 <p className="text-xs text-muted-foreground truncate">
@@ -273,19 +273,19 @@ export default function ExploreHeader() {
                             <Link
                               href="/client/bookings"
                               onClick={() => setIsProfileOpen(false)}
-                              className="flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-glam-charcoal hover:bg-glam-blush/40 rounded-xl transition-colors"
+                              className="flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-foreground hover:bg-secondary/50 rounded-xl transition-colors"
                             >
                               <BookOpen
                                 size={16}
-                                className="text-glam-charcoal/60"
+                                className="text-muted-foreground"
                               />
                               My Bookings
                             </Link>
                             <button
                               onClick={handleSignOut}
-                              className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-glam-plum hover:bg-glam-blush/40 rounded-xl transition-colors"
+                              className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-primary hover:bg-secondary/50 rounded-xl transition-colors"
                             >
-                              <LogOut size={16} className="text-glam-plum/70" />
+                              <LogOut size={16} className="text-primary/70" />
                               Sign out
                             </button>
                           </div>
@@ -295,23 +295,23 @@ export default function ExploreHeader() {
                           <Link
                             href={ROUTES.auth.login}
                             onClick={() => setIsProfileOpen(false)}
-                            className="flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-glam-charcoal hover:bg-glam-blush/40 rounded-xl transition-colors"
+                            className="flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-foreground hover:bg-secondary/50 rounded-xl transition-colors"
                           >
                             Log in
                           </Link>
                           <Link
                             href={ROUTES.auth.registerClient}
                             onClick={() => setIsProfileOpen(false)}
-                            className="flex items-center gap-3 px-3 py-2.5 text-sm font-black text-glam-plum hover:bg-glam-blush/40 rounded-xl transition-colors"
+                            className="flex items-center gap-3 px-3 py-2.5 text-sm font-black text-primary hover:bg-secondary/50 rounded-xl transition-colors"
                           >
-                            <Sparkles size={14} className="text-glam-gold" />
+                            <Sparkles size={14} className="text-accent" />
                             Sign up free
                           </Link>
-                          <div className="mt-1 pt-1 border-t border-glam-blush">
+                          <div className="mt-1 pt-1 border-t border-secondary">
                             <Link
                               href={ROUTES.partnersPortal}
                               onClick={() => setIsProfileOpen(false)}
-                              className="flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-glam-charcoal/40 hover:bg-glam-blush/40 rounded-xl transition-colors"
+                              className="flex items-center gap-3 px-3 py-2.5 text-sm font-bold text-muted-foreground hover:bg-secondary/50 rounded-xl transition-colors"
                             >
                               Partner portal ↗
                             </Link>
@@ -330,21 +330,21 @@ export default function ExploreHeader() {
             {/* ─── Mobile pill (< md) ──────────────────────────────────── */}
             <button
               onClick={() => setIsMobileSearchOpen(true)}
-              className="md:hidden w-full flex items-center gap-3 bg-white border border-glam-blush rounded-full px-4 py-2.5 shadow-sm hover:shadow-md transition-all active:scale-[0.99]"
+              className="md:hidden w-full flex items-center gap-3 bg-white border border-secondary rounded-full px-4 py-2.5 shadow-sm hover:shadow-md transition-all active:scale-[0.99]"
             >
-              <div className="h-8 w-8 rounded-full bg-glam-plum/10 flex items-center justify-center shrink-0">
-                <Search size={15} className="text-glam-plum" />
+              <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                <Search size={15} className="text-primary" />
               </div>
               <div className="flex-1 text-left min-w-0">
-                <p className="text-xs font-black text-glam-plum truncate">
+                <p className="text-xs font-black text-primary truncate">
                   {treatment || "All treatments & venues"}
                 </p>
-                <p className="text-[10px] font-medium text-glam-charcoal/40 truncate">
+                <p className="text-[10px] font-medium text-muted-foreground truncate">
                   {location || "Anywhere"} · {selectedTime}
                 </p>
               </div>
-              <div className="h-7 w-7 rounded-full border border-glam-blush flex items-center justify-center shrink-0">
-                <MapPin size={12} className="text-glam-plum" />
+              <div className="h-7 w-7 rounded-full border border-secondary flex items-center justify-center shrink-0">
+                <MapPin size={12} className="text-primary" />
               </div>
             </button>
 
@@ -353,8 +353,8 @@ export default function ExploreHeader() {
               className={cn(
                 "hidden md:flex items-center bg-white border rounded-full transition-all duration-300 w-full",
                 activeSegment
-                  ? "border-glam-gold/30 shadow-xl ring-4 ring-glam-blush/30 bg-white"
-                  : "border-glam-blush shadow-sm hover:shadow-md",
+                  ? "border-slate-300 shadow-xl ring-4 ring-secondary/30 bg-slate-50/80"
+                  : "border-secondary shadow-sm hover:shadow-md",
               )}
             >
               {/* ─ Treatment segment ─ */}
@@ -475,9 +475,9 @@ export default function ExploreHeader() {
                   onClick={handleSearch}
                   aria-label="Search"
                   className={cn(
-                    "flex items-center justify-center gap-2 rounded-full bg-glam-plum text-white font-black transition-all duration-300 active:scale-95",
+                    "flex items-center justify-center gap-2 rounded-full bg-primary text-white font-black transition-all duration-300 active:scale-95",
                     activeSegment
-                      ? "px-6 py-3 shadow-lg shadow-glam-plum/20"
+                      ? "px-6 py-3 shadow-lg shadow-primary/20"
                       : "h-10 w-10",
                   )}
                 >
@@ -539,14 +539,14 @@ function SearchSegment({
       onClick={onClick}
       className={cn(
         "relative group flex flex-col justify-center px-5 py-2.5 rounded-full cursor-pointer transition-all duration-200 min-w-0",
-        isActive ? "bg-white shadow-md" : "hover:bg-glam-blush/40",
+        isActive ? "bg-white shadow-md" : "hover:bg-secondary/40",
         className,
       )}
     >
       {/* Label row */}
       <div className="flex items-center gap-1.5 mb-0.5">
         {icon}
-        <span className="text-[10px] font-black uppercase tracking-widest text-glam-charcoal/40 group-hover:text-glam-plum/70 transition-colors">
+        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-primary/70 transition-colors">
           {label}
         </span>
       </div>
@@ -581,7 +581,7 @@ function Divider({ visible }: { visible: boolean }) {
   return (
     <div
       className={cn(
-        "h-7 w-px bg-glam-blush shrink-0 transition-opacity duration-200",
+        "h-7 w-px bg-secondary shrink-0 transition-opacity duration-200",
         visible ? "opacity-100" : "opacity-0",
       )}
     />

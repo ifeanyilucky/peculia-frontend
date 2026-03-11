@@ -70,7 +70,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden px-6 pt-16 lg:px-8 xl:pt-24 pb-20 mx-auto max-w-7xl bg-linear-to-b from-glam-ivory to-glam-blush">
+    <section className="relative w-full overflow-hidden px-6 pt-16 lg:px-8 xl:pt-24 pb-20 mx-auto max-w-7xl">
       <div className="relative z-10 flex flex-col items-center">
         {/* Top Centered Text Content */}
         <motion.div
@@ -86,8 +86,8 @@ export default function HeroSection() {
             Introducing the Glamyad Mobile App
             <span className="text-muted-foreground">→</span>
           </span> */}
-          <h1 className="font-peculiar text-4xl sm:text-6xl font-black text-glam-plum ">
-            Discover top-rated <span className="text-glam-plum">selfcare</span>{" "}
+          <h1 className="font-peculiar text-4xl sm:text-6xl font-black text-primary ">
+            Discover top-rated <span className="text-primary">selfcare</span>{" "}
             near you
           </h1>
           <p className="mt-6 max-w-2xl text-base font-medium text-foreground sm:text-lg">
@@ -104,7 +104,7 @@ export default function HeroSection() {
           >
             <form
               onSubmit={handleSearch}
-              className="flex flex-col gap-3 rounded-[32px] border border-glam-blush bg-glam-ivory p-3 lg:flex-row lg:items-center lg:gap-0 lg:rounded-full shadow-xl shadow-glam-plum/5"
+              className="flex flex-col gap-3 rounded-[32px] border border-secondary bg-white p-3 lg:flex-row lg:items-center lg:gap-0 lg:rounded-full"
             >
               <div className="flex flex-1 items-center px-4 py-2 lg:border-r lg:border-secondary lg:py-0">
                 <Search

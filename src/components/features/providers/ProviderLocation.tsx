@@ -44,43 +44,41 @@ export default function ProviderLocation({
   };
 
   return (
-    <section className="space-y-10 pt-4">
-      <div className="flex flex-col gap-12 lg:items-start">
+    <section className="space-y-10">
+      <div className="flex flex-col gap-8 lg:items-start">
         {/* Map Section */}
         <div className="w-full space-y-4">
-          <h3 className="font-peculiar text-3xl font-black text-glam-plum">
+          <h3 className="font-peculiar text-2xl font-bold text-slate-900">
             Location
           </h3>
-          <div className="overflow-hidden rounded-[2rem] border border-glam-blush shadow-sm">
+          <div className="overflow-hidden rounded-2xl border border-slate-200">
             <iframe
               width="100%"
-              height="400"
+              height="350"
               frameBorder="0"
               scrolling="no"
               marginHeight={0}
               marginWidth={0}
               src={embedUrl}
-              className="grayscale contrast-[1.1] brightness-[0.9]"
+              className="grayscale contrast-[1.1]"
               title="Provider Location Map"
             />
-            <div className="bg-white p-8">
+            <div className="bg-slate-50 p-6">
               <div className="flex items-start gap-4">
-                <div className="rounded-2xl bg-glam-blush/30 p-4 text-glam-plum border border-glam-blush shadow-sm">
+                <div className="rounded-xl bg-white p-3 text-rose-500 border border-slate-200">
                   <MapPin size={24} />
                 </div>
                 <div className="flex-1">
-                  <p className="text-xl font-black text-glam-plum leading-tight">
+                  <p className="text-lg font-bold text-slate-900 leading-tight">
                     {provider.businessName ||
                       `${provider.userId.firstName} ${provider.userId.lastName}`}
                   </p>
-                  <p className="mt-2 text-glam-charcoal/60 font-medium leading-relaxed">
-                    {address}
-                  </p>
+                  <p className="mt-1 text-slate-500 font-medium">{address}</p>
                   <a
                     href={mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-6 inline-flex items-center gap-2 text-glam-plum font-black hover:opacity-80 transition-all group"
+                    className="mt-3 inline-flex items-center gap-2 text-rose-600 font-bold hover:text-rose-700 transition-colors group"
                   >
                     <span>Get directions</span>
                     <ExternalLink
@@ -96,17 +94,15 @@ export default function ProviderLocation({
 
         {/* Opening Hours Section */}
         <div className="w-full space-y-6">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-glam-blush/30 flex items-center justify-center text-glam-plum">
-              <Clock size={20} />
-            </div>
-            <h3 className="font-peculiar text-3xl font-black text-glam-plum">
+          <div className="flex items-center gap-2">
+            <Clock size={24} className="text-rose-500" />
+            <h3 className="font-peculiar text-2xl font-bold text-slate-900">
               Opening Hours
             </h3>
           </div>
 
-          <div className="rounded-[2rem] border border-glam-blush bg-white p-8 shadow-sm">
-            <ul className="space-y-5">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6">
+            <ul className="space-y-4">
               {days.map((day) => {
                 const daySchedule = schedule?.schedule?.[day];
                 const hours = formatHours(daySchedule);
@@ -118,20 +114,20 @@ export default function ProviderLocation({
                 return (
                   <li
                     key={day}
-                    className={`flex justify-between items-center text-sm ${isToday ? "bg-glam-blush/40 -mx-4 px-4 py-3 rounded-2xl ring-1 ring-glam-blush/60" : ""}`}
+                    className={`flex justify-between items-center text-sm ${isToday ? "bg-rose-50 -mx-3 px-3 py-2 rounded-lg" : ""}`}
                   >
                     <span
-                      className={`capitalize font-black ${isToday ? "text-glam-plum" : "text-glam-charcoal/60"}`}
+                      className={`capitalize font-bold ${isToday ? "text-rose-600" : "text-slate-900"}`}
                     >
                       {day}
                       {isToday && (
-                        <span className="ml-3 text-[10px] font-black uppercase tracking-widest text-glam-gold">
+                        <span className="ml-2 text-[10px] uppercase tracking-wider text-rose-400">
                           Today
                         </span>
                       )}
                     </span>
                     <span
-                      className={`font-black ${hours === "Closed" ? "text-glam-charcoal/20" : "text-glam-plum"}`}
+                      className={`font-medium ${hours === "Closed" ? "text-slate-400" : "text-slate-600"}`}
                     >
                       {hours}
                     </span>
@@ -139,15 +135,15 @@ export default function ProviderLocation({
                 );
               })}
               {!schedule?.schedule && (
-                <p className="text-center text-sm text-glam-charcoal/40 py-4 italic font-medium">
+                <p className="text-center text-sm text-slate-400 py-4 italic">
                   Complete schedule not available
                 </p>
               )}
             </ul>
           </div>
 
-          <div className="rounded-2xl bg-glam-blush/20 border border-glam-blush/40 p-5">
-            <p className="text-[11px] text-glam-charcoal/40 leading-relaxed text-center font-black uppercase tracking-widest">
+          <div className="rounded-xl bg-slate-50 border border-slate-100 p-4">
+            <p className="text-xs text-slate-500 leading-relaxed text-center">
               Hours may vary on holidays. Please check with the professional
               before visiting.
             </p>

@@ -23,10 +23,10 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="bg-glam-ivory py-24 px-6 lg:px-24">
+    <section className="bg-secondary py-24 px-6 lg:px-24">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 text-center">
-          <h2 className="font-peculiar text-4xl font-bold text-glam-plum">
+          <h2 className="font-peculiar text-4xl font-bold text-primary">
             What Our Clients Say
           </h2>
           <p className="mt-4 text-lg text-foreground">
@@ -38,23 +38,23 @@ export default function Testimonials() {
           {testimonials.map((t, idx) => (
             <div
               key={idx}
-              className="relative rounded-3xl bg-white p-8 border border-glam-blush transition-all hover:border-glam-gold/50 shadow-sm"
+              className="relative rounded-3xl bg-white p-8 border border-secondary transition-all hover:border-slate-300"
             >
-              <Quote className="absolute top-6 right-8 h-12 w-12 text-glam-gold/20" />
+              <Quote className="absolute top-6 right-8 h-12 w-12 text-accent/20" />
               <div className="flex gap-1">
                 {[...Array(t.rating)].map((_, i) => (
                   <Star
                     key={i}
                     size={16}
-                    className="fill-glam-gold text-glam-gold"
+                    className="fill-yellow-400 text-yellow-400"
                   />
                 ))}
               </div>
-              <p className="mt-6 text-lg italic leading-relaxed text-glam-charcoal">
+              <p className="mt-6 text-lg italic leading-relaxed text-foreground">
                 &ldquo;{t.text}&rdquo;
               </p>
-              <div className="mt-8 pt-8 border-t border-glam-blush">
-                <p className="font-peculiar font-bold text-glam-plum">
+              <div className="mt-8 pt-8 border-t border-secondary">
+                <p className="font-peculiar font-bold text-primary">
                   {t.name}
                 </p>
                 <p className="text-sm text-muted-foreground">{t.role}</p>
