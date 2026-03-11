@@ -69,7 +69,6 @@ export default function LoginForm() {
 
     const redirectMap = {
       client: ROUTES.client.dashboard,
-      admin: ROUTES.admin.dashboard,
     };
 
     router.push(redirectMap[user.role as keyof typeof redirectMap]);

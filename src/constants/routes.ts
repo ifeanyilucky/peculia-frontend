@@ -22,14 +22,5 @@ export const ROUTES = {
     notifications: "/notifications",
     profile: "/profile",
   },
-  admin: {
-    dashboard: "/dashboard",
-    users: "/users",
-    userDetail: (id: string) => `/users/${id}`,
-    bookings: "/bookings",
-    payments: "/payments",
-    reviews: "/reviews",
-    providers: "/providers",
-  },
   partnersPortal: "https://partners.glamyad.com",
 } as const;

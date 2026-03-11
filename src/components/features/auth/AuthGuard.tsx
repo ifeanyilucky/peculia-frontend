@@ -6,7 +6,7 @@ import { useAuthStore } from "@/store/auth.store";
 import FullPageLoader from "@/components/common/FullPageLoader";
 import { ROUTES } from "@/constants/routes";
 
-type Role = "client" | "admin";
+type Role = "client";
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -45,7 +45,6 @@ export default function AuthGuard({ children, allowedRoles }: AuthGuardProps) {
       // Wrong role — redirect to their correct dashboard
       const redirectMap: Record<Role, string> = {
         client: ROUTES.client.dashboard,
-        admin: ROUTES.admin.dashboard,
       };
       router.push(redirectMap[user.role]);
       return;

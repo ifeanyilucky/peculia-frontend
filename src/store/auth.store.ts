@@ -10,7 +10,7 @@ interface User {
   email: string;
   firstName: string;
   lastName: string;
-  role: "client" | "admin";
+  role: "client";
   avatar?: string;
   phone?: string;
   isDiscoverable?: boolean;
