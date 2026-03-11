@@ -10,7 +10,6 @@ import { availabilityService } from "@/services/availability.service";
 import ProviderLocation from "@/components/features/providers/ProviderLocation";
 import ProviderTeam from "@/components/features/providers/ProviderTeam";
 import NearbyProviders from "@/components/features/providers/NearbyProviders";
-import ProfileTabs from "@/components/features/providers/ProfileTabs";
 import { getOpeningStatus } from "@/utils/time.utils";
 import RecentlyViewedTracker from "@/components/features/providers/RecentlyViewedTracker";
 import Script from "next/script";
@@ -128,17 +127,9 @@ export default async function ProviderProfilePage({
       location: provider.location,
     };
 
-    const sections = [
-      { id: "services", label: "Services" },
-      { id: "team", label: "Team" },
-      { id: "about", label: "About" },
-      { id: "reviews", label: "Reviews" },
-      { id: "location", label: "Location" },
-    ];
-
     return (
       <RecentlyViewedTracker provider={providerData}>
-        <div className="bg-glam-ivory/30 pb-24">
+        <div className="bg-white pb-24">
           {/* Schema.org Structured Data */}
           <Script
             id="provider-jsonld"
@@ -159,65 +150,52 @@ export default async function ProviderProfilePage({
             />
           </Suspense>
 
-          {/* Sticky Tabs */}
-          <ProfileTabs sections={sections} />
-
           {/* Content Tabs/Grid */}
           <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
             <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
               {/* Left Column: Main Info */}
               <div className="flex-1 space-y-16">
-                <div id="services">
-                  <ProviderServices
-                    services={services}
-                    providerId={provider._id}
-                  />
-                </div>
-                <hr className="border-glam-blush" />
-                <div id="team">
-                  <ProviderTeam team={team} />
-                </div>
+                <ProviderServices
+                  services={services}
+                  providerId={provider._id}
+                />
+                <hr className="border-slate-100" />
+                <ProviderTeam team={team} />
 
-                <hr className="border-glam-blush" />
-                <div id="about">
-                  <ProviderAbout provider={provider} />
-                </div>
+                <hr className="border-slate-100" />
+                <ProviderAbout provider={provider} />
 
-                <hr className="border-glam-blush" />
+                <hr className="border-slate-100" />
 
-                <section id="reviews">
-                  <h3 className="font-peculiar text-3xl font-black text-glam-plum mb-8">
+                <section>
+                  <h3 className="font-peculiar text-2xl font-bold text-slate-900 mb-8">
                     Client Reviews
                   </h3>
                   <Suspense
                     fallback={
-                      <div className="flex items-center justify-center py-12">
-                        <Loader2 className="animate-spin text-glam-plum" />
-                      </div>
+                      <Loader2 className="animate-spin text-rose-600 mx-auto" />
                     }
                   >
                     <ProviderReviewsList providerProfileId={provider._id} />
                   </Suspense>
                 </section>
 
-                <hr className="border-glam-blush" />
+                <hr className="border-slate-100" />
 
-                <div id="location">
-                  <ProviderLocation provider={provider} schedule={schedule} />
-                </div>
+                <ProviderLocation provider={provider} schedule={schedule} />
               </div>
 
               {/* Right Column: Sticky Sidebar (Desktop) */}
-              <aside className="w-full space-y-8 lg:w-96 lg:shrink-0 lg:sticky lg:top-40">
-                <div className="rounded-3xl border border-glam-blush bg-white p-8 shadow-sm">
-                  <h2 className="font-peculiar text-3xl font-black text-glam-plum">
+              <aside className="w-full space-y-8 lg:w-96 lg:shrink-0 lg:sticky lg:top-24">
+                <div className="rounded-2xl border border-slate-200 bg-white p-8">
+                  <h2 className="font-peculiar text-3xl font-black text-slate-900">
                     {provider.businessName}
                   </h2>
                   <div className="mt-4 flex items-center gap-2">
-                    <span className="text-xl font-bold text-glam-plum">
+                    <span className="text-xl font-bold text-slate-900">
                       {provider.rating.toFixed(1)}
                     </span>
-                    <div className="flex items-center text-glam-gold">
+                    <div className="flex items-center text-yellow-500">
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
@@ -230,38 +208,38 @@ export default async function ProviderProfilePage({
                           className={
                             i < Math.floor(provider.rating)
                               ? ""
-                              : "text-glam-blush"
+                              : "text-slate-200"
                           }
                         />
                       ))}
                     </div>
-                    <span className="text-muted-foreground font-medium">
+                    <span className="text-slate-400 font-medium">
                       ({provider.totalReviews.toLocaleString()})
                     </span>
                   </div>
 
                   <Link
                     href={`/book/${slug}/services`}
-                    className="mt-8 flex justify-center w-full rounded-full bg-glam-plum py-4 text-lg font-black text-white transition-all hover:bg-glam-plum/90 shadow-lg shadow-glam-plum/20 active:scale-95"
+                    className="mt-8 flex justify-center w-full rounded-full bg-slate-900 py-4 text-lg font-black text-white transition-all hover:bg-slate-800 active:scale-95"
                   >
                     Book now
                   </Link>
 
                   <div className="mt-10 space-y-6">
-                    <div className="flex items-start gap-3 text-glam-charcoal/70">
-                      <Clock size={20} className="mt-1 shrink-0" />
+                    <div className="flex items-start gap-3">
+                      <Clock size={20} className="mt-1 text-slate-400" />
                       <div>
-                        <p className="font-bold">
+                        <p className="font-bold text-slate-900">
                           <span
                             className={
                               openingStatus.isOpen
                                 ? "text-green-600"
-                                : "text-glam-plum"
+                                : "text-rose-600"
                             }
                           >
                             {openingStatus.isOpen ? "Open" : "Closed"}
                           </span>
-                          <span className="ml-2 font-medium">
+                          <span className="ml-2 font-medium text-slate-500">
                             {openingStatus.message.replace(
                               /^(Open|Closed) - /,
                               "— ",
@@ -269,16 +247,16 @@ export default async function ProviderProfilePage({
                           </span>
                           <ChevronDown
                             size={16}
-                            className="ml-2 inline opacity-50"
+                            className="ml-2 inline text-slate-400"
                           />
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-3 text-glam-charcoal/70">
-                      <MapPin size={20} className="mt-1 shrink-0" />
+                    <div className="flex items-start gap-3">
+                      <MapPin size={20} className="mt-1 text-slate-400" />
                       <div className="flex-1">
-                        <p className="font-medium leading-relaxed">
+                        <p className="font-medium text-slate-500 leading-relaxed">
                           {provider.location?.address ||
                             `${provider.location?.city}, ${provider.location?.state}`}
                         </p>
@@ -289,7 +267,7 @@ export default async function ProviderProfilePage({
                           )}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mt-2 inline-block text-glam-plum font-black hover:underline"
+                          className="mt-1 text-indigo-600 font-bold hover:underline"
                         >
                           Get directions
                         </a>
@@ -311,19 +289,19 @@ export default async function ProviderProfilePage({
           />
 
           {/* Mobile Sticky CTA */}
-          <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-glam-blush bg-white/80 p-4 backdrop-blur-lg md:hidden safe-area-inset-bottom">
+          <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white/80 p-4 backdrop-blur-lg md:hidden">
             <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
               <div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-glam-charcoal/40">
+                <p className="text-xs font-medium text-slate-500">
                   Starting price
                 </p>
-                <p className="text-xl font-black text-glam-plum">
+                <p className="text-xl font-black text-slate-900">
                   ₦{(startingPrice / 100).toLocaleString()}
                 </p>
               </div>
               <Link
                 href={`/book/${slug}/services`}
-                className="flex-[1.5] rounded-full bg-glam-plum py-4 font-black text-white shadow-lg shadow-glam-plum/20 transition-all active:scale-95 text-center"
+                className="flex-1 rounded-full bg-rose-600 py-3 font-bold text-white transition-all active:scale-95 text-center"
               >
                 Book Appointment
               </Link>

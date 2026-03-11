@@ -3,25 +3,25 @@
 
 @layer base {
   :root {
-    --background: 45 27% 97%;
-    --foreground: 0 0% 10%;
+    --background: 20 33% 97%;
+    --foreground: 0 0% 12%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
+    --card-foreground: 0 0% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
-    --primary: 323 96% 10%;
+    --popover-foreground: 0 0% 12%;
+    --primary: 313 53% 19%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 9 91% 95%;
-    --secondary-foreground: 323 96% 10%;
-    --muted: 45 20% 94%;
+    --secondary: 337 58% 90%;
+    --secondary-foreground: 313 53% 19%;
+    --muted: 20 20% 95%;
     --muted-foreground: 0 0% 40%;
-    --accent: 37 45% 56%;
-    --accent-foreground: 0 0% 10%;
+    --accent: 46 68% 47%;
+    --accent-foreground: 0 0% 12%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 9 91% 90%;
-    --input: 9 91% 90%;
-    --ring: 323 96% 10%;
+    --border: 337 58% 90%;
+    --input: 337 58% 90%;
+    --ring: 313 53% 19%;
     --radius: 1rem;
     --radius-sm: 0.5rem;
     --radius-md: 0.75rem;
@@ -29,11 +29,11 @@
     --radius-xl: 1.5rem;
 
     /* Base Glam Colors */
-    --glam-plum: 323 96% 10%;
-    --glam-blush: 9 91% 95%;
-    --glam-gold: 37 45% 56%;
-    --glam-charcoal: 0 0% 10%;
-    --glam-ivory: 45 27% 97%;
+    --glam-plum: 313 53% 19%;
+    --glam-blush: 337 58% 90%;
+    --glam-gold: 46 68% 47%;
+    --glam-charcoal: 0 0% 12%;
+    --glam-ivory: 20 33% 97%;
   }
 
   .dark {

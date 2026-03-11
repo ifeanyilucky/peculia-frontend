@@ -34,7 +34,7 @@ export default function ExploreFilterModal({
       <div className="text-left space-y-8">
         {/* Sort By */}
         <section>
-          <h4 className="text-sm font-black text-glam-plum mb-4 uppercase tracking-widest">
+          <h4 className="text-sm font-black text-primary mb-4 uppercase tracking-widest">
             Sort by
           </h4>
           <div className="grid grid-cols-3 gap-3">
@@ -49,22 +49,22 @@ export default function ExploreFilterModal({
                 className={cn(
                   "flex flex-col items-center justify-center p-4 rounded-full border transition-all gap-2",
                   sortBy === option.id
-                    ? "border-glam-plum bg-glam-blush ring-1 ring-glam-plum shadow-sm"
-                    : "border-glam-blush hover:border-glam-gold/30",
+                    ? "border-primary bg-secondary ring-1 ring-primary shadow-sm"
+                    : "border-secondary hover:border-secondary",
                 )}
               >
                 <option.icon
                   size={20}
                   className={
                     sortBy === option.id
-                      ? "text-glam-plum"
+                      ? "text-primary"
                       : "text-muted-foreground"
                   }
                 />
                 <span
                   className={cn(
                     "text-xs font-bold",
-                    sortBy === option.id ? "text-glam-plum" : "text-glam-charcoal",
+                    sortBy === option.id ? "text-primary" : "text-foreground",
                   )}
                 >
                   {option.id}
@@ -77,10 +77,10 @@ export default function ExploreFilterModal({
         {/* Price Slider */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h4 className="text-sm font-black text-glam-plum uppercase tracking-widest">
+            <h4 className="text-sm font-black text-primary uppercase tracking-widest">
               Maximum price
             </h4>
-            <span className="text-sm font-bold text-glam-plum">
+            <span className="text-sm font-bold text-primary">
               NGN {price.toLocaleString()}+
             </span>
           </div>
@@ -91,21 +91,21 @@ export default function ExploreFilterModal({
             step="1000"
             value={price}
             onChange={(e) => setPrice(Number(e.target.value))}
-            className="w-full h-1.5 bg-glam-blush rounded-lg appearance-none cursor-pointer accent-glam-plum"
+            className="w-full h-1.5 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
           />
         </section>
 
         {/* Footer Actions */}
-        <div className="pt-6 flex items-center gap-4 border-t border-glam-blush mt-8">
+        <div className="pt-6 flex items-center gap-4 border-t border-secondary mt-8">
           <button
             onClick={handleClearAll}
-            className="flex-1 py-4 text-sm font-black text-glam-plum hover:bg-glam-blush/50 rounded-full transition-all border border-glam-blush"
+            className="flex-1 py-4 text-sm font-black text-primary hover:bg-secondary/50 rounded-full transition-all border border-secondary"
           >
             Clear all
           </button>
           <button
             onClick={() => onApply({ sortBy, price })}
-            className="flex-[2] py-4 bg-glam-plum text-white text-sm font-black rounded-full hover:bg-glam-plum/90 transition-all shadow-lg active:scale-95"
+            className="flex-[2] py-4 bg-primary text-white text-sm font-black rounded-full hover:bg-primary/90 transition-all shadow-lg active:scale-95"
           >
             Apply
           </button>

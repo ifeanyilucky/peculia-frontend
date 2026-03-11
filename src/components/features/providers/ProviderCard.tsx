@@ -47,12 +47,12 @@ export default function ProviderCard({
         {/* Content */}
         <div className="px-1">
           <div className="flex items-center justify-between gap-2">
-            <h3 className="font-peculiar text-xl font-bold text-glam-plum truncate">
+            <h3 className="font-peculiar text-xl font-bold text-primary truncate">
               {provider.businessName}
             </h3>
             <div className="flex items-center gap-1.5 shrink-0">
-              <Star className="fill-glam-gold text-glam-gold" size={16} />
-              <span className="text-sm font-bold text-glam-plum">
+              <Star className="fill-yellow-400 text-yellow-400" size={16} />
+              <span className="text-sm font-bold text-primary">
                 {provider.rating.toFixed(1)}
               </span>
               <span className="text-sm font-medium text-muted-foreground">
@@ -76,17 +76,17 @@ export default function ProviderCard({
               {(provider.services?.slice(0, 3) || []).map((service: any) => (
                 <div
                   key={service.id || service._id}
-                  className="flex items-center justify-between p-3 px-5 rounded-full bg-glam-blush/30 border border-glam-blush group-hover:border-glam-blush transition-colors"
+                  className="flex items-center justify-between p-3 px-5 rounded-full bg-secondary/50 border border-secondary group-hover:border-secondary transition-colors"
                 >
                   <div>
-                    <p className="text-sm font-bold text-glam-plum leading-none">
+                    <p className="text-sm font-bold text-primary leading-none">
                       {service.name}
                     </p>
                     <p className="text-[10px] font-bold text-muted-foreground mt-1">
                       {service.duration} mins
                     </p>
                   </div>
-                  <p className="text-sm font-black text-glam-plum">
+                  <p className="text-sm font-black text-primary">
                     {formatCurrency(service.price)}
                   </p>
                 </div>
