@@ -9,7 +9,6 @@ export interface CategoryData {
   order: number;
   specialtyId: string;
   isActive: boolean;
-  thumbnail?: string;
 }
 
 export const serviceService = {
