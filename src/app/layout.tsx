@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     maximumScale: 1,
     userScalable: false,
   },
-  themeColor: "#7c3aed",
+  themeColor: "#4a173f",
   openGraph: {
     type: "website",
     locale: "en_US",
