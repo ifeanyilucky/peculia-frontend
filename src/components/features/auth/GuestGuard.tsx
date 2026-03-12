@@ -30,11 +30,7 @@ export default function GuestGuard({
     if (!hasHydrated) return;
 
     if (isAuthenticated && user) {
-      if (user.role === "client") {
-        router.push(ROUTES.client.dashboard);
-      } else if (user.role === "admin") {
-        router.push(ROUTES.admin.dashboard);
-      }
+      router.push(ROUTES.client.dashboard);
     }
   }, [hasHydrated, isAuthenticated, user, router]);
 

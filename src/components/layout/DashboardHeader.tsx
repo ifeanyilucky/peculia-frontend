@@ -113,9 +113,7 @@ export default function DashboardHeader({
                 {user?.firstName} {user?.lastName}
               </p>
               <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-1">
-                {user?.role === "provider"
-                  ? "Professional Account"
-                  : "Client Account"}
+                Client Account
               </p>
             </div>
             <div className="h-10 w-10 rounded-2xl bg-primary overflow-hidden relative border-2 border-white shadow-sm transition-transform group-active:scale-95">
