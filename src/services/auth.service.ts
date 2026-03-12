@@ -7,7 +7,7 @@ export interface AuthResponse {
     email: string;
     firstName: string;
     lastName: string;
-    role: "client" | "provider" | "admin";
+    role: "client" | "admin";
     avatar?: string;
     phone?: string;
   };

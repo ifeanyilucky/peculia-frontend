@@ -67,14 +67,8 @@ export default function LoginForm() {
       return;
     }
 
-    if (user.role === "provider") {
-      window.location.href = ROUTES.partnersPortal;
-      return;
-    }
-
     const redirectMap = {
       client: ROUTES.client.dashboard,
-      admin: ROUTES.admin.dashboard,
     };
 
     router.push(redirectMap[user.role as keyof typeof redirectMap]);
