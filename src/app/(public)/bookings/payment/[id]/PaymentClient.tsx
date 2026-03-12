@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import api from "@/lib/axios";
 import { paymentService } from "@/services/payment.service";
 import { sileo } from "sileo";
-import { Button } from "@/components/ui/button";
 import { Loader2, CheckCircle, XCircle, AlertCircle, Calendar, Scissors } from "lucide-react";
 import Link from "next/link";
 
@@ -95,33 +94,31 @@ export default function PaymentClient({
   }, [bookingId]);
 
   useEffect(() => {
-    if (reference && booking && !booking.depositPaid) {
-      const verifyPayment = async () => {
-        setProcessing(true);
-        try {
-          const result = await paymentService.verifyPayment(reference, bookingId);
-          if (result.status === "success") {
-            setBooking((prev) =>
-              prev ? { ...prev, depositPaid: true, paymentStatus: "completed" } : null
-            );
-            sileo.success({
-              title: "Payment Successful",
-              description: "Your booking has been confirmed!",
-            });
-          }
-        } catch (error) {
-          console.error("Payment verification failed:", error);
-          sileo.error({
-            title: "Payment Failed",
-            description: "Please try again or contact support.",
+    // Skip payment verification if no reference in URL
+    if (!reference || !booking || booking.depositPaid) return;
+    
+    const verifyPayment = async () => {
+      setProcessing(true);
+      try {
+        const result = await paymentService.verifyPayment(reference, bookingId);
+        if (result.status === "success") {
+          setBooking((prev) =>
+            prev ? { ...prev, depositPaid: true, paymentStatus: "completed" } : null
+          );
+          sileo.success({
+            title: "Payment Successful",
+            description: "Your booking has been confirmed!",
           });
-        } finally {
-          setProcessing(false);
         }
-      };
-      verifyPayment();
-    }
-  }, [reference, booking, bookingId]);
+      } catch (error: any) {
+        // Silent fail - user can still try to pay again
+        console.log("Payment verification:", error?.response?.status === 401 ? "Auth required, skipping" : error);
+      } finally {
+        setProcessing(false);
+      }
+    };
+    verifyPayment();
+  }, [reference, booking?.depositPaid]); // Only run when reference changes or deposit status changes
 
   const handlePayment = async () => {
     setProcessing(true);
@@ -162,7 +159,9 @@ export default function PaymentClient({
               This booking link is invalid or has expired.
             </p>
             <Link href="/">
-              <Button className="w-full">Go to Homepage</Button>
+              <button className="w-full h-12 bg-primary text-white font-semibold rounded-xl hover:bg-primary/90 transition-colors">
+                Go to Homepage
+              </button>
             </Link>
           </div>
         </div>
@@ -186,9 +185,9 @@ export default function PaymentClient({
                 This booking slot has been taken or cancelled. Please book a new appointment.
               </p>
               <Link href="/explore">
-                <Button className="mt-4 bg-red-600 hover:bg-red-700">
+                <button className="mt-4 h-12 px-6 bg-red-600 text-white font-semibold rounded-xl hover:bg-red-700 transition-colors">
                   Book Another Appointment
-                </Button>
+                </button>
               </Link>
             </div>
           </div>
@@ -266,27 +265,29 @@ export default function PaymentClient({
 
             {/* Payment Button */}
             {!isAlreadyPaid && !isSlotTaken && (
-              <Button
+              <button
                 onClick={handlePayment}
                 disabled={processing}
-                className="w-full h-14 text-lg font-semibold"
+                className="w-full h-14 text-lg font-semibold bg-primary text-white rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {processing ? (
-                  <>
+                  <span className="flex items-center justify-center">
                     <Loader2 className="w-5 h-5 mr-2 animate-spin" />
                     Processing...
-                  </>
+                  </span>
                 ) : (
                   `Pay ${formatCurrency(booking.depositAmount)} Deposit`
                 )}
-              </Button>
+              </button>
             )}
 
             {/* Already Paid Message */}
             {isAlreadyPaid && !isSlotTaken && (
               <div className="text-center">
                 <Link href="/bookings">
-                  <Button className="w-full">View My Bookings</Button>
+                  <button className="w-full h-12 bg-primary text-white font-semibold rounded-xl hover:bg-primary/90 transition-colors">
+                    View My Bookings
+                  </button>
                 </Link>
               </div>
             )}

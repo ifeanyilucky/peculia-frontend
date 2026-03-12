@@ -15,6 +15,7 @@ const handleAuthFailure = () => {
 
   const pathname = window.location.pathname;
   const isBookingRoute = pathname.startsWith("/book");
+  const isPaymentRoute = pathname.startsWith("/bookings/payment");
 
   // Strictly protected route prefixes (client, admin, appointments)
   // All other routes are considered public by default.
@@ -30,8 +31,8 @@ const handleAuthFailure = () => {
   ];
 
   const isProtectedRoute =
-    protectedPrefixes.some((prefix) => pathname.startsWith(prefix)) ||
-    pathname === "/providers"; // Admin providers list
+    protectedPrefixes.some((prefix) => pathname.startsWith(prefix)) &&
+    !isPaymentRoute; // Allow public payment page
 
   if (isBookingRoute) {
     // Show the login modal instead of redirecting
