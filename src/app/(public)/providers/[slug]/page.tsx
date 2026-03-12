@@ -151,10 +151,10 @@ export default async function ProviderProfilePage({
           </Suspense>
 
           {/* Content Tabs/Grid */}
-          <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
+          <div className="mx-auto max-w-7xl px-6 py-8 lg:py-12 lg:px-8">
             <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
               {/* Left Column: Main Info */}
-              <div className="flex-1 space-y-16">
+              <div className="flex-1 space-y-12 lg:space-y-16">
                 <ProviderServices
                   services={services}
                   providerId={provider._id}
@@ -185,8 +185,9 @@ export default async function ProviderProfilePage({
                 <ProviderLocation provider={provider} schedule={schedule} />
               </div>
 
-              {/* Right Column: Sticky Sidebar (Desktop) */}
-              <aside className="w-full space-y-8 lg:w-96 lg:shrink-0 lg:sticky lg:top-24">
+              {/* Right Column: Sticky Sidebar — desktop only (lg+).
+                  On mobile, this info is visible in ProfileHeader; booking is via the sticky CTA bar. */}
+              <aside className="hidden lg:block w-96 shrink-0 sticky top-24 space-y-8">
                 <div className="rounded-2xl border border-slate-200 bg-white p-8">
                   <h2 className="font-peculiar text-3xl font-black text-slate-900">
                     {provider.businessName}
