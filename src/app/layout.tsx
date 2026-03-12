@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import QueryProvider from "@/providers/QueryProvider";
@@ -28,6 +28,14 @@ const peculiar = localFont({
   variable: "--font-peculiar",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#4a173f",
+};
 
 export const metadata: Metadata = {
   title: {
@@ -64,13 +72,7 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     title: "Glamyad",
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
-  themeColor: "#4a173f",
+
   openGraph: {
     type: "website",
     locale: "en_US",
