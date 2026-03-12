@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import QueryProvider from "@/providers/QueryProvider";
@@ -29,15 +29,8 @@ const peculiar = localFont({
   display: "swap",
 });
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  themeColor: "#4a173f",
-};
-
 export const metadata: Metadata = {
+  metadataBase: new URL("https://glamyad.com"),
   title: {
     default: "Glamyad | Book Top Beauty & Wellness Professionals",
     template: "%s | Glamyad",
@@ -72,7 +65,13 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     title: "Glamyad",
   },
-
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
+  themeColor: "#4a173f",
   openGraph: {
     type: "website",
     locale: "en_US",
