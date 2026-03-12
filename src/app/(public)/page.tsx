@@ -8,6 +8,8 @@ import Testimonials from "@/components/features/landing/Testimonials";
 import CTASection from "@/components/features/landing/CTASection";
 import { providerService } from "@/services/provider.service";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Glamyad | Book Top Beauty & Wellness Professionals Near You",
   description:
