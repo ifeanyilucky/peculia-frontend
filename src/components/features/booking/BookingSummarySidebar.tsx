@@ -531,7 +531,7 @@ export default function BookingSummarySidebar({
       )}
 
       {/* Mobile Bottom Bar - Fixed at bottom on small screens */}
-      {currentStep === 1 && selectedServices.length > 0 && (
+      {selectedServices.length > 0 && (
         <div
           className="fixed bottom-0 left-0 right-0 z-50 lg:hidden"
           style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}

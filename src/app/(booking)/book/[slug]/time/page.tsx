@@ -54,7 +54,7 @@ export default function TimeSelectionPage() {
     <div className="flex min-h-screen flex-col bg-[#FAFAFA]">
       <BookingHeader currentStep={3} />
 
-      <div className="mx-auto w-full max-w-7xl flex-1 px-6 py-12 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl flex-1 px-6 py-12 lg:px-8 pb-24 lg:pb-12">
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
           <BookingTimeSelection providerId={provider._id} />
           <BookingSummarySidebar
