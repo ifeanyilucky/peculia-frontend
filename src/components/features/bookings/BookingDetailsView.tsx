@@ -23,6 +23,7 @@ import {
   Star,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/utils/formatters";
 import { useRouter } from "next/navigation";
@@ -239,9 +240,19 @@ export default function BookingDetailsView({
 
         {/* Already reviewed badge */}
         {hasReviewed && (
-          <div className="flex items-center gap-2 px-4 py-3 bg-amber-50 text-amber-700 rounded-2xl border border-amber-100 text-xs font-bold">
-            <Star size={14} className="fill-amber-400" />
-            You reviewed this appointment ({existingReview.rating}/5)
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 px-4 py-3 bg-amber-50 text-amber-700 rounded-2xl border border-amber-100 text-xs font-bold">
+              <Star size={14} className="fill-amber-400" />
+              You reviewed this appointment ({existingReview.rating}/5)
+            </div>
+            {provider?.slug && (
+              <Link
+                href={`/providers/${provider.slug}`}
+                className="w-full py-3 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all active:scale-[0.98] shadow-md flex items-center justify-center gap-2"
+              >
+                Book this provider again
+              </Link>
+            )}
           </div>
         )}
 
@@ -507,7 +518,7 @@ function ReviewModal({
 }) {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const submitMutation = useMutation({
     mutationFn: () =>
@@ -521,16 +532,30 @@ function ReviewModal({
       onClose();
       setRating(0);
       setComment("");
+      setError(null);
     },
-    onError: () => {
-      setIsSubmitting(false);
+    onError: (err: unknown) => {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Failed to submit review. Please try again.",
+      );
     },
   });
 
+  const isSubmitting = submitMutation.isPending;
+
   const handleSubmit = () => {
     if (rating === 0) return;
-    setIsSubmitting(true);
+    setError(null);
     submitMutation.mutate();
+  };
+
+  const handleClose = () => {
+    if (!isSubmitting) {
+      setError(null);
+      onClose();
+    }
   };
 
   const [mounted, setMounted] = useState(false);
@@ -539,18 +564,25 @@ function ReviewModal({
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) {
+      setError(null);
+    }
+  }, [isOpen]);
+
   if (!isOpen || !mounted) return null;
 
   const modalContent = (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
       <div
         className="absolute inset-0 bg-primary/40 backdrop-blur-sm"
-        onClick={onClose}
+        onClick={handleClose}
       />
       <div className="relative bg-white rounded-3xl w-full max-w-sm p-6 shadow-2xl animate-in zoom-in-95 duration-200">
         <button
-          onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full hover:bg-secondary/50 text-muted-foreground"
+          onClick={handleClose}
+          disabled={isSubmitting}
+          className="absolute top-4 right-4 p-2 rounded-full hover:bg-secondary/50 text-muted-foreground disabled:opacity-50"
         >
           <XCircle size={20} />
         </button>
@@ -572,6 +604,12 @@ function ReviewModal({
           rows={3}
           maxLength={1000}
         />
+
+        {error && (
+          <div className="mt-3 p-3 bg-red-50 border border-red-100 rounded-xl">
+            <p className="text-xs text-red-600 font-medium">{error}</p>
+          </div>
+        )}
 
         <button
           onClick={handleSubmit}
