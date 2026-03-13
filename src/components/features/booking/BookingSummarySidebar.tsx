@@ -190,8 +190,8 @@ export default function BookingSummarySidebar({
         policyAccepted: policyAccepted,
         policyVersion: "1.0",
         captchaToken: isCaptchaEnabled
-          ? (await executeCaptcha()) || undefined
-          : undefined,
+          ? (await executeCaptcha()) || "skip"
+          : "skip",
       });
 
       if (booking.status === "pending_payment") {
@@ -538,35 +538,60 @@ export default function BookingSummarySidebar({
         >
           <div className="bg-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] px-4 py-3">
             <div className="flex items-center justify-between gap-4">
-              <div className="flex flex-col">
-                <span className="text-xs font-medium text-slate-500">
-                  {selectedServices.length}{" "}
-                  {selectedServices.length === 1 ? "service" : "services"}
-                </span>
-                <span className="text-sm font-bold text-slate-900">
-                  {formatDuration(
-                    selectedServices.reduce((acc, s) => acc + s.duration, 0),
-                  )}
-                </span>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="text-right">
-                  <span className="text-xs font-medium text-slate-500">
-                    Total
-                  </span>
-                  <p className="text-lg font-black text-slate-900">
-                    {formatCurrency(totalPrice)}
-                  </p>
+              {currentStep === 4 ? (
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex flex-col">
+                    <span className="text-xs font-medium text-slate-500">Deposit</span>
+                    <span className="text-sm font-bold text-emerald-600">
+                      {formatCurrency(totalPrice * 0.2)}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-medium text-slate-500">
+                      Pay {formatCurrency(totalPrice * 0.2)}
+                    </span>
+                    <button
+                      onClick={handleContinue}
+                      disabled={isBooking || !isStepComplete() || paymentPaused}
+                      className="shrink-0 px-6 py-3 rounded-full bg-slate-900 text-white font-bold text-sm disabled:opacity-50"
+                    >
+                      {isBooking ? "Processing..." : "Confirm & Pay"}
+                    </button>
+                  </div>
                 </div>
+              ) : (
+                <>
+                  <div className="flex flex-col">
+                    <span className="text-xs font-medium text-slate-500">
+                      {selectedServices.length}{" "}
+                      {selectedServices.length === 1 ? "service" : "services"}
+                    </span>
+                    <span className="text-sm font-bold text-slate-900">
+                      {formatDuration(
+                        selectedServices.reduce((acc, s) => acc + s.duration, 0),
+                      )}
+                    </span>
+                  </div>
 
-                <button
-                  onClick={handleContinue}
-                  className="shrink-0 px-6 py-3 rounded-full bg-slate-900 text-white font-bold text-sm"
-                >
-                  Continue
-                </button>
-              </div>
+                  <div className="flex items-center gap-4">
+                    <div className="text-right">
+                      <span className="text-xs font-medium text-slate-500">
+                        Total
+                      </span>
+                      <p className="text-lg font-black text-slate-900">
+                        {formatCurrency(totalPrice)}
+                      </p>
+                    </div>
+
+                    <button
+                      onClick={handleContinue}
+                      className="shrink-0 px-6 py-3 rounded-full bg-slate-900 text-white font-bold text-sm"
+                    >
+                      Continue
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
