@@ -10,7 +10,8 @@ export type BookingStatus =
   | "cancelled_by_provider"
   | "expired"
   | "no_show"
-  | "refunded";
+  | "refunded"
+  | "disputed";
 
 export type DepositStatus = 
   | "held_in_escrow"
@@ -49,7 +50,7 @@ export interface Booking {
   hasRescheduled?: boolean;
   rescheduleCount?: number;
   lastRescheduledAt?: string;
-  paymentStatus: "pending" | "deposit_paid" | "completed" | "refunded";
+  paymentStatus: "pending" | "deposit_paid" | "completed" | "refunded" | "chargeback";
   payoutStatus: "pending" | "paid_out";
   depositPaid: boolean;
   depositPaidAt?: string;
@@ -63,6 +64,7 @@ export interface Booking {
   updatedAt: string;
   policyAcceptedAt?: string;
   policyVersion?: string;
+  metadata?: Record<string, any>;
 }
 
 export function getProviderFromBooking(booking: Booking): Provider | null {

@@ -13,8 +13,28 @@ export const bookingService = {
     notes?: string;
     policyAccepted?: boolean;
     policyVersion?: string;
+    captchaToken?: string;
   }) => {
     const response = await api.post<ApiSuccess<Booking>>("/bookings", data);
+    return response.data.data;
+  },
+
+  createPublicBooking: async (data: {
+    providerProfileId: string;
+    serviceIds: string[];
+    teamMemberId?: string;
+    scheduledDate: string;
+    startTime: string;
+    endTime: string;
+    clientName: string;
+    clientEmail: string;
+    clientPhone: string;
+    notes?: string;
+    policyAccepted?: boolean;
+    policyVersion?: string;
+    captchaToken?: string;
+  }) => {
+    const response = await api.post<ApiSuccess<Booking>>("/bookings/public", data);
     return response.data.data;
   },
 

@@ -24,16 +24,17 @@ export default function ProviderBookingCard({
   onAction,
 }: ProviderBookingCardProps) {
   const statusStyles = {
-    pending_payment: "bg-amber-50 text-amber-600 border-amber-100",
-    confirmed: "bg-blue-50 text-blue-600 border-blue-100",
-    rescheduled: "bg-purple-50 text-purple-600 border-purple-100",
-    in_progress: "bg-primary text-white border-primary",
-    completed: "bg-green-50 text-green-600 border-green-100",
-    cancelled_by_client: "bg-secondary text-primary border-secondary",
-    cancelled_by_provider: "bg-secondary text-primary border-secondary",
-    no_show: "bg-secondary/50 text-muted-foreground border-secondary",
+    pending_payment: "bg-amber-50 text-amber-700 border-amber-100",
+    confirmed: "bg-emerald-50 text-emerald-700 border-emerald-100",
+    rescheduled: "bg-blue-50 text-blue-700 border-blue-100",
+    in_progress: "bg-blue-50 text-blue-700 border-blue-100",
+    completed: "bg-emerald-50 text-emerald-700 border-emerald-100",
+    cancelled_by_client: "bg-rose-50 text-rose-700 border-rose-100",
+    cancelled_by_provider: "bg-rose-50 text-rose-700 border-rose-100",
+    no_show: "bg-red-50 text-red-700 border-red-100",
     expired: "bg-secondary/50 text-muted-foreground border-secondary",
     refunded: "bg-secondary/50 text-muted-foreground border-secondary",
+    disputed: "bg-red-50 text-red-700 border-red-100",
   };
 
   const statusLabels = {
@@ -47,6 +48,7 @@ export default function ProviderBookingCard({
     no_show: "No-Show",
     expired: "Expired",
     refunded: "Refunded",
+    disputed: "Disputed",
   };
 
   const client = typeof booking.clientId !== "string" ? booking.clientId : null;

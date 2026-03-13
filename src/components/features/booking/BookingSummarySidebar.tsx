@@ -15,6 +15,7 @@ import AddPhoneModal from "@/components/features/booking/AddPhoneModal";
 import { paymentService } from "@/services/payment.service";
 import CenterModal from "@/components/common/CenterModal";
 import { openPaystackModal } from "@/utils/paystack";
+import { useCaptcha } from "@/hooks/useCaptcha";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
@@ -80,6 +81,9 @@ export default function BookingSummarySidebar({
   /** Ref-based in-flight lock — prevents double submits that slip through
    * React's async re-render cycle before `isBooking` state updates. */
   const isSubmittingRef = useRef(false);
+
+  // CAPTCHA for bot protection
+  const { token: captchaToken, executeCaptcha, isEnabled: isCaptchaEnabled } = useCaptcha("booking");
 
   // Directly call openPaystackModal without depending on a useEffect cycle
   const triggerPaymentModal = useCallback(
@@ -180,6 +184,7 @@ export default function BookingSummarySidebar({
         endTime: selectedSlot.endTime,
         policyAccepted: policyAccepted,
         policyVersion: "1.0",
+        captchaToken: isCaptchaEnabled ? (await executeCaptcha()) || undefined : undefined,
       });
 
       if (booking.status === "pending_payment") {
