@@ -16,6 +16,7 @@ import { paymentService } from "@/services/payment.service";
 import CenterModal from "@/components/common/CenterModal";
 import { openPaystackModal } from "@/utils/paystack";
 import { useCaptcha } from "@/hooks/useCaptcha";
+import { cn } from "@/lib/utils";
 
 interface BookingSummarySidebarProps {
   provider: Provider;
@@ -83,7 +84,11 @@ export default function BookingSummarySidebar({
   const isSubmittingRef = useRef(false);
 
   // CAPTCHA for bot protection
-  const { token: captchaToken, executeCaptcha, isEnabled: isCaptchaEnabled } = useCaptcha("booking");
+  const {
+    token: captchaToken,
+    executeCaptcha,
+    isEnabled: isCaptchaEnabled,
+  } = useCaptcha("booking");
 
   // Directly call openPaystackModal without depending on a useEffect cycle
   const triggerPaymentModal = useCallback(
@@ -184,7 +189,9 @@ export default function BookingSummarySidebar({
         endTime: selectedSlot.endTime,
         policyAccepted: policyAccepted,
         policyVersion: "1.0",
-        captchaToken: isCaptchaEnabled ? (await executeCaptcha()) || undefined : undefined,
+        captchaToken: isCaptchaEnabled
+          ? (await executeCaptcha()) || undefined
+          : undefined,
       });
 
       if (booking.status === "pending_payment") {
@@ -281,7 +288,7 @@ export default function BookingSummarySidebar({
 
   return (
     <>
-      <aside className="w-full lg:w-[400px] lg:shrink-0 h-fit lg:sticky lg:top-28">
+      <aside className="hidden lg:block w-full lg:w-[400px] lg:shrink-0 h-fit lg:sticky lg:top-28">
         <div className="rounded-2xl border border-secondary bg-white flex flex-col min-h-[500px]">
           <div className="p-6 flex items-start gap-4 border-b border-secondary">
             <div>
@@ -522,6 +529,64 @@ export default function BookingSummarySidebar({
           onClose={() => setShowPhoneModal(false)}
         />
       )}
+
+      {/* Mobile Bottom Bar - Fixed at bottom on small screens */}
+      {currentStep === 1 && selectedServices.length > 0 && (
+        <div
+          className="fixed bottom-0 left-0 right-0 z-50 lg:hidden"
+          style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+        >
+          <div className="bg-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] px-4 py-3">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex flex-col">
+                <span className="text-xs font-medium text-slate-500">
+                  {selectedServices.length}{" "}
+                  {selectedServices.length === 1 ? "service" : "services"}
+                </span>
+                <span className="text-sm font-bold text-slate-900">
+                  {formatDuration(
+                    selectedServices.reduce((acc, s) => acc + s.duration, 0),
+                  )}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <div className="text-right">
+                  <span className="text-xs font-medium text-slate-500">
+                    Total
+                  </span>
+                  <p className="text-lg font-black text-slate-900">
+                    {formatCurrency(totalPrice)}
+                  </p>
+                </div>
+
+                <button
+                  onClick={handleContinue}
+                  className="shrink-0 px-6 py-3 rounded-full bg-slate-900 text-white font-bold text-sm"
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Spacer to prevent content from being hidden behind the fixed bar */}
+          {/* <div className="h-20 bg-transparent" /> */}
+        </div>
+      )}
     </>
   );
+}
+
+// Helper function to format duration
+function formatDuration(minutes: number): string {
+  if (minutes < 60) {
+    return `${minutes}mins`;
+  }
+  const hrs = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  if (mins === 0) {
+    return `${hrs}hr${hrs > 1 ? "s" : ""}`;
+  }
+  return `${hrs}hr${hrs > 1 ? "s" : ""} ${mins}mins`;
 }
