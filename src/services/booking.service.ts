@@ -48,6 +48,8 @@ export const bookingService = {
     page?: number;
     limit?: number;
     search?: string;
+    startDate?: string;
+    endDate?: string;
   }) => {
     const response = await api.get<ApiSuccess<any>>("/bookings/my", { params });
     return response.data.data;

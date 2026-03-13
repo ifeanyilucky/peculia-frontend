@@ -77,7 +77,10 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginFormValues) => {
     setIsLoading(true);
     try {
-      const { user, accessToken, refreshToken } = await authService.login(data);
+      const { user, accessToken, refreshToken } = await authService.login({
+        ...data,
+        portal: "client",
+      });
       handleAuthSuccess(user, accessToken, refreshToken);
     } catch (error: unknown) {
       console.error(error as Error);
@@ -92,6 +95,7 @@ export default function LoginForm() {
       const { user, accessToken, refreshToken } = await authService.googleLogin(
         {
           idToken: response.credential,
+          portal: "client",
         },
       );
       handleAuthSuccess(user, accessToken, refreshToken);

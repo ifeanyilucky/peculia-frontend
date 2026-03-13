@@ -75,7 +75,7 @@ export const authService = {
     return response.data;
   },
 
-  googleLogin: async (data: { idToken: string; role?: string }) => {
+  googleLogin: async (data: { idToken: string; role?: string; portal?: string }) => {
     const response = await api.post<ApiSuccess<AuthResponse>>(
       "/auth/google",
       data,

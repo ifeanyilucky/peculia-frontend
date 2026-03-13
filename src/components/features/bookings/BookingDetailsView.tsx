@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   Booking,
   getProviderFromBooking,
@@ -19,12 +20,17 @@ import {
   ChevronRight,
   AlertCircle,
   Ban,
+  Star,
 } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/utils/formatters";
 import { useRouter } from "next/navigation";
 import { DEFAULT_BUSINESS_IMAGE } from "@/constants/images";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { reviewService } from "@/services/review.service";
+import { queryKeys } from "@/constants/queryKeys";
+import { Loader2 } from "lucide-react";
 
 interface BookingDetailsViewProps {
   booking: Booking;
@@ -88,6 +94,7 @@ export default function BookingDetailsView({
 }: BookingDetailsViewProps) {
   const router = useRouter();
   const [imgError, setImgError] = useState(false);
+  const [showReviewModal, setShowReviewModal] = useState(false);
 
   const provider = getProviderFromBooking(booking);
   const businessName = getProviderName(booking);
@@ -104,10 +111,21 @@ export default function BookingDetailsView({
     icon: CheckCircle2,
   };
 
+  const isCompleted = booking.status === "completed";
+  const canReview = isCompleted;
+
+  const { data: existingReview, refetch: refetchReview } = useQuery({
+    queryKey: queryKeys.reviews.booking(booking.id),
+    queryFn: () => reviewService.getReviewByBooking(booking.id),
+    enabled: canReview,
+  });
+
+  const hasReviewed = !!existingReview;
+
   // Pricing — values stored in kobo (pence), convert to naira for display
-  const serviceTotal = (booking.servicePrice || 0) / 100;
-  const depositAmount = (booking.depositAmount || 0) / 100;
-  const remainingBalance = (booking.remainingBalance || 0) / 100;
+  const serviceTotal = booking.servicePrice || 0;
+  const depositAmount = booking.depositAmount || 0;
+  const remainingBalance = booking.remainingBalance || 0;
 
   // Handlers
   const handleAddToCalendar = () => {
@@ -205,6 +223,25 @@ export default function BookingDetailsView({
           <div className="flex items-center gap-2 px-4 py-3 bg-emerald-50 text-emerald-700 rounded-2xl border border-emerald-100 text-xs font-bold">
             <CheckCircle2 size={14} />
             Deposit of {formatCurrency(depositAmount)} paid
+          </div>
+        )}
+
+        {/* Review CTA — only for completed bookings without review */}
+        {canReview && !hasReviewed && (
+          <button
+            onClick={() => setShowReviewModal(true)}
+            className="w-full py-3.5 bg-gradient-to-r from-amber-400 to-yellow-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:from-amber-500 hover:to-yellow-600 transition-all active:scale-[0.98] shadow-md flex items-center justify-center gap-2"
+          >
+            <Star size={16} className="fill-white" />
+            Review your appointment
+          </button>
+        )}
+
+        {/* Already reviewed badge */}
+        {hasReviewed && (
+          <div className="flex items-center gap-2 px-4 py-3 bg-amber-50 text-amber-700 rounded-2xl border border-amber-100 text-xs font-bold">
+            <Star size={14} className="fill-amber-400" />
+            You reviewed this appointment ({existingReview.rating}/5)
           </div>
         )}
 
@@ -361,6 +398,14 @@ export default function BookingDetailsView({
           Ref: {booking.bookingRef}
         </p>
       </div>
+
+      {/* Review Modal */}
+      <ReviewModal
+        isOpen={showReviewModal}
+        onClose={() => setShowReviewModal(false)}
+        booking={booking}
+        onSuccess={() => refetchReview()}
+      />
     </div>
   );
 }
@@ -400,4 +445,151 @@ function ActionItem({
       />
     </button>
   );
+}
+
+function StarRatingInput({
+  value,
+  onChange,
+}: {
+  value: number;
+  onChange: (v: number) => void;
+}) {
+  const [hovered, setHovered] = useState(0);
+  const labels: Record<number, string> = {
+    1: "Poor",
+    2: "Fair",
+    3: "Good",
+    4: "Great",
+    5: "Excellent!",
+  };
+  const active = hovered || value;
+
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div className="flex gap-1.5">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <button
+            key={star}
+            type="button"
+            onClick={() => onChange(star)}
+            onMouseEnter={() => setHovered(star)}
+            onMouseLeave={() => setHovered(0)}
+            className="group focus:outline-none transition-transform duration-150"
+          >
+            <Star
+              size={32}
+              className={`transition-all duration-200 ${
+                active >= star
+                  ? "fill-yellow-400 text-yellow-400"
+                  : "text-slate-200 fill-slate-100"
+              }`}
+            />
+          </button>
+        ))}
+      </div>
+      <span className="text-sm font-semibold text-slate-500">
+        {active > 0 ? labels[active] : "Tap to rate"}
+      </span>
+    </div>
+  );
+}
+
+function ReviewModal({
+  isOpen,
+  onClose,
+  booking,
+  onSuccess,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  booking: Booking;
+  onSuccess: () => void;
+}) {
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const submitMutation = useMutation({
+    mutationFn: () =>
+      reviewService.submitReview({
+        bookingId: booking.id,
+        rating,
+        comment: comment.trim() || undefined,
+      }),
+    onSuccess: () => {
+      onSuccess();
+      onClose();
+      setRating(0);
+      setComment("");
+    },
+    onError: () => {
+      setIsSubmitting(false);
+    },
+  });
+
+  const handleSubmit = () => {
+    if (rating === 0) return;
+    setIsSubmitting(true);
+    submitMutation.mutate();
+  };
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!isOpen || !mounted) return null;
+
+  const modalContent = (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+      <div
+        className="absolute inset-0 bg-primary/40 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="relative bg-white rounded-3xl w-full max-w-sm p-6 shadow-2xl animate-in zoom-in-95 duration-200">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-2 rounded-full hover:bg-secondary/50 text-muted-foreground"
+        >
+          <XCircle size={20} />
+        </button>
+
+        <h3 className="text-xl font-peculiar font-bold text-primary text-center mb-1">
+          Rate Your Experience
+        </h3>
+        <p className="text-xs text-muted-foreground text-center mb-6">
+          How was your appointment with {getProviderName(booking)}?
+        </p>
+
+        <StarRatingInput value={rating} onChange={setRating} />
+
+        <textarea
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          placeholder="Share your experience (optional)"
+          className="w-full mt-6 p-3 rounded-xl border border-secondary bg-secondary/30 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+          rows={3}
+          maxLength={1000}
+        />
+
+        <button
+          onClick={handleSubmit}
+          disabled={rating === 0 || isSubmitting}
+          className="w-full mt-4 py-3.5 bg-primary text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 size={16} className="animate-spin" />
+              Submitting...
+            </>
+          ) : (
+            "Submit Review"
+          )}
+        </button>
+      </div>
+    </div>
+  );
+
+  return createPortal(modalContent, document.body);
 }
