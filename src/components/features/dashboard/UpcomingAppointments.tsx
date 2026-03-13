@@ -15,10 +15,17 @@ import BookingDetailsView from "@/components/features/bookings/BookingDetailsVie
 export default function UpcomingAppointments() {
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
   const { data: bookings, isLoading } = useQuery({
     queryKey: ["bookings", "upcoming", "client"],
     queryFn: () =>
-      bookingService.getMyBookings({ status: "confirmed", limit: 3 }),
+      bookingService.getMyBookings({
+        status: "confirmed",
+        limit: 3,
+        startDate: today.toISOString(),
+      }),
   });
 
   if (isLoading) {
