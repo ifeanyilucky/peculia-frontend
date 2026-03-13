@@ -313,6 +313,16 @@ export default function BookingTimeSelection({
         <div className="space-y-2">
           {slots
             .filter((s) => s.isAvailable)
+            .sort((a, b) => a.startTime.localeCompare(b.startTime))
+            .filter((slot, index, sortedSlots) => {
+              if (index === 0) return true;
+              const prevSlot = sortedSlots[index - 1];
+              const [prevEndH, prevEndM] = prevSlot.endTime.split(":").map(Number);
+              const prevEndMinutes = prevEndH * 60 + prevEndM;
+              const [slotStartH, slotStartM] = slot.startTime.split(":").map(Number);
+              const slotStartMinutes = slotStartH * 60 + slotStartM;
+              return slotStartMinutes >= prevEndMinutes;
+            })
             .map((slot) => {
               const isSelected = selectedSlot?.startTime === slot.startTime;
               return (
