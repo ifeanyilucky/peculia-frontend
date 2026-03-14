@@ -3,7 +3,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { providerService } from "@/services/provider.service";
 import { queryKeys } from "@/constants/queryKeys";
-import { Star, MessageSquare, Loader2 } from "lucide-react";
+import {
+  Star,
+  MessageSquare,
+  Loader2,
+  Quote,
+  CornerDownRight,
+} from "lucide-react";
 import Image from "next/image";
 import { format } from "date-fns";
 
@@ -41,15 +47,15 @@ export default function ProviderReviewsList({
   }
 
   return (
-    <div className="space-y-8">
+    <div className="grid gap-8">
       {reviews.map((review) => (
         <div
-          key={review.id}
-          className="border-b border-slate-100 pb-8 last:border-0 last:pb-0"
+          key={review._id}
+          className="group relative bg-white p-6 rounded-3xl border border-slate-100/50 hover:border-rose-100 hover:shadow-xl hover:shadow-rose-500/[0.03] transition-all duration-300"
         >
-          <div className="flex justify-between gap-4">
+          <div className="flex flex-col sm:flex-row justify-between gap-4">
             <div className="flex gap-4">
-              <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-slate-100">
+              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-slate-100 ring-4 ring-slate-50">
                 <Image
                   src={
                     review.clientId.avatar ||
@@ -60,43 +66,54 @@ export default function ProviderReviewsList({
                   className="object-cover"
                 />
               </div>
-              <div>
-                <p className="font-bold text-slate-900">
+              <div className="flex flex-col justify-center">
+                <p className="font-peculiar text-lg font-bold text-slate-900">
                   {review.clientId.firstName}{" "}
                   {review.clientId.lastName?.charAt(0)}.
                 </p>
-                <div className="flex items-center gap-2 mt-1">
+                <div className="flex items-center gap-3 mt-1">
                   <div className="flex gap-0.5">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        size={12}
+                        size={14}
+                        fill={i < review.rating ? "currentColor" : "none"}
                         className={
                           i < review.rating
-                            ? "fill-yellow-400 text-yellow-400"
+                            ? "text-yellow-400"
                             : "text-slate-200"
                         }
                       />
                     ))}
                   </div>
-                  <span className="text-xs text-slate-400">
+                  <span className="text-xs font-medium text-slate-400">
                     {format(new Date(review.createdAt), "MMM d, yyyy")}
                   </span>
                 </div>
               </div>
             </div>
+
+            <Quote
+              size={24}
+              className="text-slate-100 absolute top-6 right-6 group-hover:text-rose-100 transition-colors"
+            />
           </div>
 
-          <p className="mt-4 leading-relaxed text-slate-600 italic">
-            &ldquo;{review.comment}&rdquo;
-          </p>
+          <div className="mt-6 relative">
+            <p className="leading-relaxed text-slate-600 text-base">
+              {review.comment}
+            </p>
+          </div>
 
           {review.providerReply && (
-            <div className="mt-6 rounded-2xl bg-slate-50 p-5 ml-6 border-l-2 border-rose-500">
-              <p className="text-xs font-bold text-slate-900 uppercase tracking-widest mb-2">
-                Provider Response
-              </p>
-              <p className="text-sm text-slate-600 leading-relaxed">
+            <div className="mt-8 rounded-2xl bg-slate-50/50 p-6 border border-slate-100/50 group-hover:bg-slate-50 transition-colors">
+              <div className="flex items-center gap-2 mb-3">
+                <CornerDownRight size={16} className="text-rose-500" />
+                <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest">
+                  Provider Response
+                </span>
+              </div>
+              <p className="text-sm text-slate-600 leading-relaxed font-medium">
                 {review.providerReply}
               </p>
             </div>
