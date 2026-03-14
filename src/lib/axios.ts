@@ -1,10 +1,11 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useAuthStore } from "@/store/auth.store";
 import { useUIStore } from "@/store/ui.store";
 import { sileo } from "sileo";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
@@ -17,8 +18,6 @@ const handleAuthFailure = () => {
   const isBookingRoute = pathname.startsWith("/book");
   const isPaymentRoute = pathname.startsWith("/bookings/payment");
 
-  // Strictly protected route prefixes (client, admin, appointments)
-  // All other routes are considered public by default.
   const protectedPrefixes = [
     "/dashboard",
     "/bookings",
@@ -32,25 +31,35 @@ const handleAuthFailure = () => {
 
   const isProtectedRoute =
     protectedPrefixes.some((prefix) => pathname.startsWith(prefix)) &&
-    !isPaymentRoute; // Allow public payment page
+    !isPaymentRoute;
 
   if (isBookingRoute) {
-    // Show the login modal instead of redirecting
     useUIStore.getState().openModal("booking-auth");
   } else if (isProtectedRoute) {
-    // Hard redirect to login with redirect param ONLY if on a protected route
     const redirectUrl = encodeURIComponent(window.location.href);
     window.location.href = `/login?redirect=${redirectUrl}`;
   }
 };
 
 api.interceptors.request.use((config) => {
-  const token = useAuthStore.getState().accessToken;
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  const csrfToken = getCsrfToken();
+  if (csrfToken) {
+    config.headers["X-CSRF-Token"] = csrfToken;
   }
   return config;
 });
+
+function getCsrfToken(): string | null {
+  if (typeof document === "undefined") return null;
+  const cookies = document.cookie.split(";");
+  for (let cookie of cookies) {
+    const [name, value] = cookie.trim().split("=");
+    if (name === "glamyad_csrf") {
+      return value;
+    }
+  }
+  return null;
+}
 
 let isRefreshing = false;
 let failedQueue: Array<{
@@ -69,18 +78,29 @@ const processQueue = (error: unknown, token: string | null = null) => {
   failedQueue = [];
 };
 
+export const fetchCsrfToken = async (): Promise<string> => {
+  try {
+    const response = await api.get("/auth/csrf-token");
+    return response.data.data.csrfToken;
+  } catch {
+    return "";
+  }
+};
+
 api.interceptors.response.use(
   (response) => response,
-  async (error) => {
+  async (error: AxiosError) => {
     const originalRequest = error.config;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && originalRequest && !originalRequest._retry) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })
           .then((token) => {
-            originalRequest.headers.Authorization = `Bearer ${token}`;
+            if (token) {
+              originalRequest.headers.Authorization = `Bearer ${token}`;
+            }
             return api(originalRequest);
           })
           .catch((err) => Promise.reject(err));
@@ -89,36 +109,26 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      const refreshToken = useAuthStore.getState().refreshToken;
-
-      if (!refreshToken) {
-        useAuthStore.getState().clearAuth();
-        handleAuthFailure();
-        return Promise.reject(error);
-      }
-
       try {
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh-token`,
-          {
-            refreshToken,
-          },
+          {},
+          { withCredentials: true },
         );
 
-        const { accessToken, refreshToken: newRefreshToken } =
-          response.data.data;
+        const { accessToken, refreshToken } = response.data.data;
 
-        // Preserve the existing user object instead of overwriting with undefined
-        // since the refresh endpoint only returns tokens, not the user profile.
         const currentUser = useAuthStore.getState().user;
         if (currentUser) {
-          useAuthStore
-            .getState()
-            .setAuth(currentUser, accessToken, newRefreshToken);
+          useAuthStore.getState().setAuth(currentUser, accessToken, refreshToken);
         }
 
         processQueue(null, accessToken);
-        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        
+        if (accessToken) {
+          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        }
+        
         return api(originalRequest);
       } catch (refreshError) {
         console.error("[Axios] Refresh token expired or invalid. Logging out.");
@@ -131,13 +141,11 @@ api.interceptors.response.use(
       }
     }
 
-    // Global Error Toast Handling
     const errorMessage =
       error.response?.data?.message ||
       error.message ||
       "An unexpected error occurred";
 
-    // Avoid showing toast for 401 as it's handled by refresh logic or redirect
     if (error.response?.status !== 401 && typeof window !== "undefined") {
       sileo.error({
         title: "Error",

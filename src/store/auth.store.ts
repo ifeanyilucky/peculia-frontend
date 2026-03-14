@@ -10,19 +10,19 @@ interface User {
   email: string;
   firstName: string;
   lastName: string;
-  role: "client";
+  role: "client" | "provider" | "admin";
   avatar?: string;
   phone?: string;
   isDiscoverable?: boolean;
+  slug?: string;
+  onboardingStep?: number;
 }
 
 interface AuthState {
   user: User | null;
-  accessToken: string | null;
-  refreshToken: string | null;
   isAuthenticated: boolean;
   _hasHydrated: boolean;
-  setAuth: (user: User, accessToken: string, refreshToken: string) => void;
+  setAuth: (user: User) => void;
   updateUser: (user: Partial<User>) => void;
   clearAuth: () => void;
   setHasHydrated: (state: boolean) => void;
@@ -33,15 +33,11 @@ export const useAuthStore = create<AuthState>()(
     persist(
       (set) => ({
         user: null,
-        accessToken: null,
-        refreshToken: null,
         isAuthenticated: false,
         _hasHydrated: false,
-        setAuth: (user, accessToken, refreshToken) =>
+        setAuth: (user) =>
           set({
             user,
-            accessToken,
-            refreshToken,
             isAuthenticated: true,
           }),
         updateUser: (userData) =>
@@ -51,18 +47,14 @@ export const useAuthStore = create<AuthState>()(
         clearAuth: () =>
           set({
             user: null,
-            accessToken: null,
-            refreshToken: null,
             isAuthenticated: false,
           }),
-        setHasHydrated: (state) => set({ _hasHydrated: state }),
+        setHasHydrated: (state: boolean) => set({ _hasHydrated: state }),
       }),
       {
         name: "glamyad-auth-storage",
         storage: createJSONStorage(() => localStorage),
         partialize: (state) => ({
-          accessToken: state.accessToken,
-          refreshToken: state.refreshToken,
           user: state.user,
           isAuthenticated: state.isAuthenticated,
         }),
