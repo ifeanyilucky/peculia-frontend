@@ -51,7 +51,7 @@ export default function ProviderReviewsList({
       {reviews.map((review) => (
         <div
           key={review._id}
-          className="group relative bg-white p-6 rounded-3xl border border-slate-100/50 hover:border-rose-100 hover:shadow-xl hover:shadow-rose-500/[0.03] transition-all duration-300"
+          className="group relative bg-white p-6 rounded-3xl border border-slate-100/50 hover:border-rose-100 hover:shadow-xl hover:shadow-rose-500/3 transition-all duration-300"
         >
           <div className="flex flex-col sm:flex-row justify-between gap-4">
             <div className="flex gap-4">
