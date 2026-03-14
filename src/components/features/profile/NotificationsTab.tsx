@@ -2,14 +2,23 @@
 
 import { useState, useEffect } from "react";
 import { clientService } from "@/services/client.service";
-import { Bell, Mail, Smartphone } from "lucide-react";
+import { Bell, Mail, Smartphone, BellRing } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { usePushNotifications } from "@/hooks/usePushNotifications";
 
 export function NotificationsTab() {
   const [emailNotifs, setEmailNotifs] = useState(true);
   const [smsNotifs, setSmsNotifs] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+
+  const {
+    pushPermission,
+    pushToken,
+    subscribe,
+    unsubscribe,
+    isLoading: pushLoading,
+  } = usePushNotifications();
 
   useEffect(() => {
     const fetchPreferences = async () => {
@@ -51,6 +60,14 @@ export function NotificationsTab() {
       }
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handlePushToggle = async () => {
+    if (pushToken) {
+      await unsubscribe();
+    } else {
+      await subscribe();
     }
   };
 
@@ -97,6 +114,41 @@ export function NotificationsTab() {
         </div>
 
         <div className="space-y-5 max-w-2xl">
+          {/* Push Notifications Toggle */}
+          <div className="flex items-center justify-between p-6 rounded-3xl bg-slate-50 border border-slate-100">
+            <div className="flex items-center gap-5">
+              <div className="h-12 w-12 rounded-xl bg-white flex items-center justify-center text-slate-400 shrink-0">
+                <BellRing size={20} strokeWidth={2.5} />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-slate-900">
+                  Push Notifications
+                </p>
+                <p className="text-xs font-medium text-slate-500 mt-0.5">
+                  {pushPermission === "granted" 
+                    ? "Receive instant notifications on your device"
+                    : "Enable to receive instant notifications"}
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={handlePushToggle}
+              disabled={pushLoading}
+              className={cn(
+                "w-12 h-6 rounded-full transition-colors relative shrink-0",
+                pushToken ? "bg-emerald-500" : "bg-slate-200",
+                pushLoading && "opacity-50 cursor-not-allowed"
+              )}
+            >
+              <span
+                className={cn(
+                  "absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform",
+                  pushToken ? "translate-x-6" : "translate-x-0",
+                )}
+              />
+            </button>
+          </div>
+
           {/* Email Toggle */}
           <div className="flex items-center justify-between p-6 rounded-3xl bg-slate-50 border border-slate-100">
             <div className="flex items-center gap-5">
