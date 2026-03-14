@@ -76,7 +76,7 @@ export interface Service {
 }
 
 export interface Review {
-  id: string;
+  _id: string;
   clientId: {
     id: string;
     firstName: string;
