@@ -60,7 +60,7 @@ export default function ClientDashboardPage() {
       {/* Welcome Banner */}
       {mounted && showWelcome && (
         <div className="relative overflow-hidden rounded-2xl bg-slate-900 p-8 lg:p-12 text-white border border-slate-200">
-          <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-rose-600/20 blur-[100px]" />
+          <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-glam-plum/20 blur-[100px]" />
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-64 w-64 rounded-full bg-blue-600/20 blur-[100px]" />
 
           <button
@@ -71,7 +71,7 @@ export default function ClientDashboardPage() {
           </button>
 
           <div className="relative z-10 max-w-2xl space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full bg-rose-600/20 px-4 py-2 text-xs font-bold text-rose-400 border border-rose-600/30">
+            <div className="inline-flex items-center gap-2 rounded-full bg-glam-plum/20 px-4 py-2 text-xs font-bold text-glam-plum border border-glam-plum/30">
               <Sparkles size={14} />
               Welcome to the community
             </div>
@@ -90,7 +90,7 @@ export default function ClientDashboardPage() {
             <div className="pt-4">
               <Link
                 href={ROUTES.public.explore}
-                className="inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-sm font-black text-slate-900 hover:bg-rose-600 hover:text-white transition-all border border-slate-200"
+                className="inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-sm font-black text-slate-900 hover:bg-glam-plum hover:text-white transition-all border border-slate-200"
               >
                 Find a Professional
                 <ArrowRight size={18} />
@@ -121,7 +121,7 @@ export default function ClientDashboardPage() {
                   label: "My Bookings",
                   icon: CalendarDays,
                   href: ROUTES.client.bookings,
-                  color: "bg-rose-50 text-rose-600",
+                  color: "bg-rose-50 text-glam-plum",
                 },
                 {
                   label: "Saved",
@@ -164,11 +164,11 @@ export default function ClientDashboardPage() {
           <div className="rounded-4xl bg-white border border-slate-100 p-6 space-y-6">
             {isLoadingActivity ? (
               <div className="flex justify-center py-10">
-                <Loader2 className="animate-spin text-rose-600" size={24} />
+                <Loader2 className="animate-spin text-glam-plum" size={24} />
               </div>
             ) : hasActivityError ? (
               <div className="text-center py-6">
-                <p className="text-sm font-medium text-rose-500">
+                <p className="text-sm font-medium text-glam-plum">
                   Failed to load activity.
                 </p>
               </div>

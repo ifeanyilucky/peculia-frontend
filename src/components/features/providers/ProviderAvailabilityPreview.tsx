@@ -13,7 +13,7 @@ export default function ProviderAvailabilityPreview() {
 
   return (
     <div className="rounded-3xl border border-slate-100 bg-white p-6">
-      <div className="mb-6 flex items-center gap-3 text-rose-600">
+      <div className="mb-6 flex items-center gap-3 text-glam-plum">
         <Calendar size={24} />
         <h3 className="font-peculiar text-xl font-bold text-slate-900">
           Weekly Schedule
@@ -48,7 +48,7 @@ export default function ProviderAvailabilityPreview() {
       </div>
 
       <div className="mt-6 rounded-2xl bg-rose-50 p-4 text-center">
-        <p className="text-xs font-medium text-rose-600 leading-tight">
+        <p className="text-xs font-medium text-glam-plum leading-tight">
           Times vary by service and provider availability. Book to see specific
           time slots.
         </p>

@@ -100,7 +100,7 @@ export default function BookingConfirmPage() {
   if (isLoading || !hasHydrated || !isReady || !isAuthenticated) {
     return (
       <div className="flex min-h-screen items-center justify-center p-8 bg-white">
-        <Loader2 className="animate-spin text-rose-600" size={40} />
+        <Loader2 className="animate-spin text-glam-plum" size={40} />
       </div>
     );
   }
@@ -138,7 +138,7 @@ export default function BookingConfirmPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-3xl p-8 max-w-md mx-4 text-center border border-slate-200">
             <div className="w-16 h-16 rounded-full bg-rose-100 flex items-center justify-center mx-auto mb-6">
-              <Clock className="w-8 h-8 text-rose-600" />
+              <Clock className="w-8 h-8 text-glam-plum" />
             </div>
             <h2 className="font-peculiar text-2xl font-black text-slate-900 mb-3">
               Session Timeout
@@ -149,7 +149,7 @@ export default function BookingConfirmPage() {
             </p>
             <button
               onClick={handleStartOver}
-              className="w-full py-4 px-6 rounded-full bg-rose-600 text-white font-bold hover:bg-rose-700 transition-colors"
+              className="w-full py-4 px-6 rounded-full bg-glam-plum text-white font-bold hover:bg-rose-700 transition-colors"
             >
               Start New Booking
             </button>

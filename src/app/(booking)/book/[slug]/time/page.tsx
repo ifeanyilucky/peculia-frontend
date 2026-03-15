@@ -14,7 +14,11 @@ export default function TimeSelectionPage() {
   const params = useParams();
   const slug = params?.slug as string;
 
-  const { data: provider, isLoading: isProviderLoading, isError: hasProviderError } = useQuery({
+  const {
+    data: provider,
+    isLoading: isProviderLoading,
+    isError: hasProviderError,
+  } = useQuery({
     queryKey: ["provider", "public", slug],
     queryFn: () => providerService.getProviderPublicProfile(slug),
     enabled: !!slug,
@@ -25,7 +29,7 @@ export default function TimeSelectionPage() {
   if (!hasHydrated || isProviderLoading || !isReady) {
     return (
       <div className="flex min-h-screen items-center justify-center p-8 bg-white">
-        <Loader2 className="animate-spin text-rose-600" size={40} />
+        <Loader2 className="animate-spin text-glam-plum" size={40} />
       </div>
     );
   }
@@ -33,7 +37,7 @@ export default function TimeSelectionPage() {
   if (hasProviderError || !provider) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center p-8 bg-white">
-        <AlertCircle size={48} className="text-rose-500 mb-4" />
+        <AlertCircle size={48} className="text-glam-plum mb-4" />
         <h2 className="text-xl font-black text-slate-900 mb-2">
           Provider not found
         </h2>
@@ -42,7 +46,7 @@ export default function TimeSelectionPage() {
         </p>
         <Link
           href="/explore"
-          className="px-6 py-3 rounded-full bg-slate-900 text-white font-bold hover:bg-rose-600 transition-all"
+          className="px-6 py-3 rounded-full bg-slate-900 text-white font-bold hover:bg-glam-plum transition-all"
         >
           Browse Professionals
         </Link>

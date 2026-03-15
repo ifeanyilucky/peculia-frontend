@@ -164,10 +164,10 @@ export default function ClientProfilePage() {
                   "flex items-center gap-3 px-5 py-3.5 rounded-[1.25rem] transition-all whitespace-nowrap lg:whitespace-normal font-black uppercase tracking-widest text-[10px]",
                   isActive
                     ? isDanger
-                      ? "bg-rose-50 text-rose-600"
+                      ? "bg-rose-50 text-glam-plum"
                       : "bg-slate-900 text-white"
                     : isDanger
-                      ? "text-rose-400 hover:bg-rose-50/50"
+                      ? "text-glam-plum hover:bg-rose-50/50"
                       : "text-slate-400 hover:bg-slate-50 hover:text-slate-900",
                 )}
               >
@@ -201,7 +201,7 @@ export default function ClientProfilePage() {
                         </div>
                       )}
                     </div>
-                    <button className="absolute -bottom-3 -right-3 h-12 w-12 rounded-[1.25rem] bg-rose-600 text-white flex items-center justify-center border-4 border-white hover:bg-rose-700 transition-all hover:scale-105 active:scale-95">
+                    <button className="absolute -bottom-3 -right-3 h-12 w-12 rounded-[1.25rem] bg-glam-plum text-white flex items-center justify-center border-4 border-white hover:bg-rose-700 transition-all hover:scale-105 active:scale-95">
                       <Camera size={18} strokeWidth={2.5} />
                     </button>
                   </div>
@@ -228,7 +228,7 @@ export default function ClientProfilePage() {
                           />
                         </div>
                         {profileErrors.firstName && (
-                          <p className="text-[10px] font-bold text-rose-500 ml-1">
+                          <p className="text-[10px] font-bold text-glam-plum ml-1">
                             {profileErrors.firstName.message}
                           </p>
                         )}
@@ -250,7 +250,7 @@ export default function ClientProfilePage() {
                           />
                         </div>
                         {profileErrors.lastName && (
-                          <p className="text-[10px] font-bold text-rose-500 ml-1">
+                          <p className="text-[10px] font-bold text-glam-plum ml-1">
                             {profileErrors.lastName.message}
                           </p>
                         )}
@@ -299,7 +299,7 @@ export default function ClientProfilePage() {
                       <button
                         type="submit"
                         disabled={isUpdatingProfile}
-                        className="flex items-center gap-2 rounded-xl bg-slate-900 px-8 h-14 text-[10px] font-black uppercase tracking-[0.15em] text-white hover:bg-rose-600 transition-all disabled:opacity-50 active:scale-95 border border-slate-200"
+                        className="flex items-center gap-2 rounded-xl bg-slate-900 px-8 h-14 text-[10px] font-black uppercase tracking-[0.15em] text-white hover:bg-glam-plum transition-all disabled:opacity-50 active:scale-95 border border-slate-200"
                       >
                         {isUpdatingProfile ? (
                           <Loader2 className="animate-spin" size={16} />
@@ -354,7 +354,7 @@ export default function ClientProfilePage() {
                       />
                     </div>
                     {passwordErrors.currentPassword && (
-                      <p className="text-[10px] font-bold text-rose-500 ml-1">
+                      <p className="text-[10px] font-bold text-glam-plum ml-1">
                         {passwordErrors.currentPassword.message}
                       </p>
                     )}
@@ -377,7 +377,7 @@ export default function ClientProfilePage() {
                       />
                     </div>
                     {passwordErrors.newPassword && (
-                      <p className="text-[10px] font-bold text-rose-500 ml-1">
+                      <p className="text-[10px] font-bold text-glam-plum ml-1">
                         {passwordErrors.newPassword.message}
                       </p>
                     )}
@@ -400,7 +400,7 @@ export default function ClientProfilePage() {
                       />
                     </div>
                     {passwordErrors.confirmPassword && (
-                      <p className="text-[10px] font-bold text-rose-500 ml-1">
+                      <p className="text-[10px] font-bold text-glam-plum ml-1">
                         {passwordErrors.confirmPassword.message}
                       </p>
                     )}

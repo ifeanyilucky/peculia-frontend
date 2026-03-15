@@ -53,7 +53,7 @@ export default function PortfolioGrid({
             <div className="flex justify-end">
               <button
                 onClick={() => handleDelete(image.publicId)}
-                className="p-3 rounded-2xl bg-white/10 backdrop-blur-md text-white hover:bg-rose-600 transition-all border border-white/10"
+                className="p-3 rounded-2xl bg-white/10 backdrop-blur-md text-white hover:bg-glam-plum transition-all border border-white/10"
               >
                 <Trash2 size={18} />
               </button>
@@ -61,7 +61,7 @@ export default function PortfolioGrid({
 
             <div className="space-y-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
               <div className="flex items-center gap-2">
-                <FileText size={14} className="text-rose-400" />
+                <FileText size={14} className="text-glam-plum" />
                 <span className="text-[10px] font-black uppercase tracking-widest text-white/60">
                   Professional Sample
                 </span>

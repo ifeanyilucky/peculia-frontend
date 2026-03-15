@@ -79,7 +79,7 @@ export default function ServicesList({
             <div className="flex items-start justify-between gap-4">
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-rose-600 animate-pulse" />
+                  <div className="h-2 w-2 rounded-full bg-glam-plum animate-pulse" />
                   <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                     {(service.categoryId &&
                     typeof service.categoryId === "object"
@@ -101,7 +101,7 @@ export default function ServicesList({
                 </button>
                 <button
                   onClick={() => handleDelete(service.id)}
-                  className="p-2.5 rounded-xl bg-slate-50 text-slate-400 hover:bg-rose-600 hover:text-white transition-all"
+                  className="p-2.5 rounded-xl bg-slate-50 text-slate-400 hover:bg-glam-plum hover:text-white transition-all"
                 >
                   <Trash2 size={18} />
                 </button>

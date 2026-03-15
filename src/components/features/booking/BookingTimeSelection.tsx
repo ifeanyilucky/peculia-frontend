@@ -302,10 +302,10 @@ export default function BookingTimeSelection({
         </div>
       ) : !slots || slots.length === 0 ? (
         <div className="py-16 flex flex-col items-center justify-center text-center text-muted-foreground bg-rose-50 rounded-3xl border border-secondary">
-          <p className="text-sm font-bold text-rose-500">
+          <p className="text-sm font-bold text-glam-plum">
             No available slots for this date.
           </p>
-          <p className="text-xs font-medium text-rose-400 mt-1">
+          <p className="text-xs font-medium text-glam-plum mt-1">
             Try selecting another day.
           </p>
         </div>
@@ -317,9 +317,13 @@ export default function BookingTimeSelection({
             .filter((slot, index, sortedSlots) => {
               if (index === 0) return true;
               const prevSlot = sortedSlots[index - 1];
-              const [prevEndH, prevEndM] = prevSlot.endTime.split(":").map(Number);
+              const [prevEndH, prevEndM] = prevSlot.endTime
+                .split(":")
+                .map(Number);
               const prevEndMinutes = prevEndH * 60 + prevEndM;
-              const [slotStartH, slotStartM] = slot.startTime.split(":").map(Number);
+              const [slotStartH, slotStartM] = slot.startTime
+                .split(":")
+                .map(Number);
               const slotStartMinutes = slotStartH * 60 + slotStartM;
               return slotStartMinutes >= prevEndMinutes;
             })

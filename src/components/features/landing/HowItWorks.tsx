@@ -3,19 +3,19 @@ import { Search, CreditCard, CalendarCheck } from "lucide-react";
 export default function HowItWorks() {
   const steps = [
     {
-      icon: <Search className="text-rose-600" size={32} />,
+      icon: <Search className="text-glam-plum" size={32} />,
       title: "Discover Pros",
       description:
         "Search for top-rated beauty and wellness professionals near you. Filter by specialty, rating, or price.",
     },
     {
-      icon: <CreditCard className="text-rose-600" size={32} />,
+      icon: <CreditCard className="text-glam-plum" size={32} />,
       title: "Book & Pay",
       description:
         "Secure your appointment with a deposit. Our platform ensures your payments are safe and tracked.",
     },
     {
-      icon: <CalendarCheck className="text-rose-600" size={32} />,
+      icon: <CalendarCheck className="text-glam-plum" size={32} />,
       title: "Elevate Your Look",
       description:
         "Show up for your appointment and enjoy premium service. Leave a review to help others find great pros.",

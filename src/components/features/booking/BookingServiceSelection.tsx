@@ -35,7 +35,7 @@ export default function BookingServiceSelection({
 
   const categories = useMemo((): CategorySection[] => {
     const categoryMap = new Map<string, Service[]>();
-    
+
     services.forEach((service) => {
       const categoryName = getCategoryName(service);
       if (!categoryMap.has(categoryName)) {
@@ -106,7 +106,8 @@ export default function BookingServiceSelection({
     if (element) {
       const headerOffset = 140;
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
 
       window.scrollTo({
         top: offsetPosition,
@@ -143,9 +144,9 @@ export default function BookingServiceSelection({
         ref={tabsRef}
         className={cn(
           "sticky z-10 bg-[#FAFAFA] py-4 -mx-6 px-6 lg:-mx-8 lg:px-8 mb-6 transition-shadow",
-          isSticky && "border-b border-slate-200 shadow-sm"
+          isSticky && "border-b border-slate-200 shadow-sm",
         )}
-        style={{ top: '80px' }}
+        style={{ top: "80px" }}
       >
         <div className="overflow-x-auto no-scrollbar">
           <div className="flex w-max gap-3">
@@ -184,7 +185,7 @@ export default function BookingServiceSelection({
             >
               {/* Category Header */}
               <h2 className="font-peculiar text-xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                <span className="w-2 h-8 bg-rose-600 rounded-full" />
+                <span className="w-2 h-8 bg-glam-plum rounded-full" />
                 {category.name}
               </h2>
 
@@ -202,7 +203,7 @@ export default function BookingServiceSelection({
                       className={cn(
                         "group cursor-pointer rounded-xl border p-6 transition-all duration-200 hover:border-slate-300",
                         isSelected
-                          ? "border-rose-600 bg-rose-50/10"
+                          ? "border-glam-plum bg-rose-50/10"
                           : "border-slate-200 bg-white",
                       )}
                     >
@@ -243,7 +244,7 @@ export default function BookingServiceSelection({
 
                         <div className="shrink-0 flex items-center justify-center pt-1">
                           {isSelected ? (
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-rose-600 text-white border border-slate-200">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-glam-plum text-white border border-slate-200">
                               <Check size={20} strokeWidth={3} />
                             </div>
                           ) : (

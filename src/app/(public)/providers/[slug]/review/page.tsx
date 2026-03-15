@@ -205,7 +205,7 @@ export default function ReviewPage() {
           )}
           <Link
             href={`/providers/${slug}`}
-            className="inline-flex items-center gap-2 mt-4 text-rose-600 font-bold hover:underline"
+            className="inline-flex items-center gap-2 mt-4 text-glam-plum font-bold hover:underline"
           >
             <ChevronLeft size={16} />
             Back to {providerName}
@@ -286,7 +286,7 @@ export default function ReviewPage() {
             <span
               className={
                 comment.length > MAX_CHARS * 0.85
-                  ? "text-rose-400"
+                  ? "text-glam-plum"
                   : "text-slate-300"
               }
             >
@@ -300,7 +300,7 @@ export default function ReviewPage() {
             onChange={(e) => setComment(e.target.value)}
             disabled={isPending}
             placeholder="Tell others what you loved about your experience…"
-            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 placeholder:text-slate-300 focus:border-rose-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-rose-200 transition-all resize-none disabled:opacity-60"
+            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 placeholder:text-slate-300 focus:border-glam-plum focus:bg-white focus:outline-none focus:ring-2 focus:ring-rose-200 transition-all resize-none disabled:opacity-60"
           />
         </div>
 
@@ -327,7 +327,7 @@ export default function ReviewPage() {
         <button
           type="submit"
           disabled={rating === 0 || isPending}
-          className="w-full relative overflow-hidden rounded-full bg-rose-600 py-4 font-black text-white text-base transition-all hover:bg-rose-700 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
+          className="w-full relative overflow-hidden rounded-full bg-glam-plum py-4 font-black text-white text-base transition-all hover:bg-rose-700 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
         >
           {isPending ? (
             <span className="flex items-center justify-center gap-2">
@@ -459,7 +459,7 @@ function SuccessScreen({
 function LoadingScreen({ message }: { message: string }) {
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-50 to-white flex flex-col items-center justify-center gap-4 text-center px-6">
-      <Loader2 size={36} className="animate-spin text-rose-500" />
+      <Loader2 size={36} className="animate-spin text-glam-plum" />
       <p className="text-slate-500 font-medium">{message}</p>
     </div>
   );
@@ -469,13 +469,13 @@ function ErrorScreen({ message }: { message: string }) {
   return (
     <div className="min-h-screen bg-linear-to-b from-slate-50 to-white flex flex-col items-center justify-center gap-4 text-center px-6">
       <div className="flex h-20 w-20 items-center justify-center rounded-full bg-rose-100">
-        <Frown size={36} className="text-rose-500" />
+        <Frown size={36} className="text-glam-plum" />
       </div>
       <h2 className="text-xl font-black text-slate-900">Oops!</h2>
       <p className="text-slate-500 max-w-xs text-sm">{message}</p>
       <Link
         href="/explore"
-        className="mt-2 text-rose-600 font-bold hover:underline text-sm"
+        className="mt-2 text-glam-plum font-bold hover:underline text-sm"
       >
         Browse professionals →
       </Link>

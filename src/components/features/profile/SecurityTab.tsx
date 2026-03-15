@@ -98,7 +98,7 @@ export function SecurityTab() {
               />
             </div>
             {errors.currentPassword && (
-              <p className="text-[10px] font-bold text-rose-500 ml-1">
+              <p className="text-[10px] font-bold text-glam-plum ml-1">
                 {errors.currentPassword.message}
               </p>
             )}
@@ -121,7 +121,7 @@ export function SecurityTab() {
               />
             </div>
             {errors.newPassword && (
-              <p className="text-[10px] font-bold text-rose-500 ml-1">
+              <p className="text-[10px] font-bold text-glam-plum ml-1">
                 {errors.newPassword.message}
               </p>
             )}
@@ -145,7 +145,7 @@ export function SecurityTab() {
               />
             </div>
             {errors.confirmPassword && (
-              <p className="text-[10px] font-bold text-rose-500 ml-1">
+              <p className="text-[10px] font-bold text-glam-plum ml-1">
                 {errors.confirmPassword.message}
               </p>
             )}

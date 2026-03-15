@@ -88,12 +88,10 @@ export default function LoginForm() {
   const onGoogleSuccess = async (response: any) => {
     setIsLoading(true);
     try {
-      const { user } = await authService.googleLogin(
-        {
-          idToken: response.credential,
-          portal: "client",
-        },
-      );
+      const { user } = await authService.googleLogin({
+        idToken: response.credential,
+        portal: "client",
+      });
       handleAuthSuccess(user);
     } catch (error: unknown) {
       console.error(error as Error);
@@ -158,7 +156,7 @@ export default function LoginForm() {
             className="flex h-12 w-full rounded-full border border-secondary bg-white px-6 py-2 text-sm transition-all focus:border-primary focus:outline-none focus:ring-4 focus:ring-rose-50/50 disabled:cursor-not-allowed disabled:opacity-50"
           />
           {errors.email && (
-            <p className="text-xs font-medium text-rose-500">
+            <p className="text-xs font-medium text-glam-plum">
               {errors.email.message}
             </p>
           )}
@@ -195,7 +193,7 @@ export default function LoginForm() {
             </button>
           </div>
           {errors.password && (
-            <p className="text-xs font-medium text-rose-500">
+            <p className="text-xs font-medium text-glam-plum">
               {errors.password.message}
             </p>
           )}

@@ -121,7 +121,7 @@ export default function UpcomingAppointments() {
                     </p>
                     <div className="flex items-center gap-4 mt-2">
                       <div className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                        <CalendarDays size={12} className="text-rose-500" />
+                        <CalendarDays size={12} className="text-glam-plum" />
                         {format(new Date(booking.scheduledDate), "MMM do")}
                       </div>
                       <div className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-muted-foreground">

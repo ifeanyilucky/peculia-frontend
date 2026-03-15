@@ -24,7 +24,7 @@ export default function ProfessionalSelectionPage() {
   if (!hasHydrated || isProviderLoading || !isReady) {
     return (
       <div className="flex min-h-screen items-center justify-center p-8 bg-white">
-        <Loader2 className="animate-spin text-rose-600" size={40} />
+        <Loader2 className="animate-spin text-glam-plum" size={40} />
       </div>
     );
   }

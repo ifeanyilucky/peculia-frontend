@@ -20,12 +20,12 @@ export default function RescheduleConfirmPage() {
   const router = useRouter();
   const bookingId = params?.bookingId as string;
 
-  const { 
-    selectedTeamMember, 
-    selectedDate, 
+  const {
+    selectedTeamMember,
+    selectedDate,
     selectedSlot,
     setSelectedProvider,
-    resetBookingFlow 
+    resetBookingFlow,
   } = useBookingStore();
 
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
@@ -33,16 +33,20 @@ export default function RescheduleConfirmPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  const { data: booking, isLoading: isBookingLoading, error: bookingError } = useQuery({
+  const {
+    data: booking,
+    isLoading: isBookingLoading,
+    error: bookingError,
+  } = useQuery({
     queryKey: ["booking", bookingId],
     queryFn: () => bookingService.getBookingById(bookingId),
     enabled: !!bookingId,
   });
 
   const providerId = booking
-    ? (typeof booking.providerProfileId === "object"
+    ? typeof booking.providerProfileId === "object"
       ? (booking.providerProfileId as any)._id
-      : booking.providerProfileId)
+      : booking.providerProfileId
     : undefined;
 
   const { data: provider, isLoading: isProviderLoading } = useQuery({
@@ -103,7 +107,7 @@ export default function RescheduleConfirmPage() {
 
   const handleReschedule = async () => {
     if (!selectedDate || !selectedSlot) return;
-    
+
     setIsSubmitting(true);
     try {
       await bookingService.rescheduleBooking(bookingId, {
@@ -128,7 +132,7 @@ export default function RescheduleConfirmPage() {
   if (isBookingLoading || isProviderLoading || !booking) {
     return (
       <div className="flex min-h-screen items-center justify-center p-8 bg-white">
-        <Loader2 className="animate-spin text-rose-600" size={40} />
+        <Loader2 className="animate-spin text-glam-plum" size={40} />
       </div>
     );
   }
@@ -136,13 +140,16 @@ export default function RescheduleConfirmPage() {
   if (bookingError) {
     return (
       <div className="flex min-h-screen items-center justify-center p-8 bg-white">
-        <p className="text-slate-500">Unable to load booking. Please try again.</p>
+        <p className="text-slate-500">
+          Unable to load booking. Please try again.
+        </p>
       </div>
     );
   }
 
   const businessName = provider?.businessName || "Professional";
-  const businessLogo = provider?.portfolioImages?.[0]?.url || "/placeholder-business.png";
+  const businessLogo =
+    provider?.portfolioImages?.[0]?.url || "/placeholder-business.png";
   const serviceTotal = (booking.servicePrice || 0) / 100;
 
   return (
@@ -170,21 +177,23 @@ export default function RescheduleConfirmPage() {
               Current Appointment
             </p>
             <p className="text-sm font-medium text-slate-600">
-              {format(new Date(booking.scheduledDate), "eee, d MMM yyyy")} at {booking.startTime}
+              {format(new Date(booking.scheduledDate), "eee, d MMM yyyy")} at{" "}
+              {booking.startTime}
             </p>
           </div>
 
           {/* New Appointment */}
           <div className="p-4 bg-rose-50 rounded-2xl border border-rose-100">
-            <p className="text-xs font-black uppercase tracking-widest text-rose-400 mb-3">
+            <p className="text-xs font-black uppercase tracking-widest text-glam-plum mb-3">
               New Appointment
             </p>
             {selectedDate && selectedSlot ? (
               <p className="text-sm font-medium text-slate-900">
-                {format(selectedDate, "eee, d MMM yyyy")} at {selectedSlot.startTime}
+                {format(selectedDate, "eee, d MMM yyyy")} at{" "}
+                {selectedSlot.startTime}
               </p>
             ) : (
-              <p className="text-sm font-medium text-rose-600">
+              <p className="text-sm font-medium text-glam-plum">
                 Please select a new time
               </p>
             )}
@@ -205,7 +214,9 @@ export default function RescheduleConfirmPage() {
             <div>
               <p className="font-bold text-slate-900">{businessName}</p>
               <p className="text-sm font-medium text-slate-500">
-                {booking.services.length} {booking.services.length === 1 ? "service" : "services"} · {formatCurrency(serviceTotal)}
+                {booking.services.length}{" "}
+                {booking.services.length === 1 ? "service" : "services"} ·{" "}
+                {formatCurrency(serviceTotal)}
               </p>
             </div>
           </div>
@@ -216,12 +227,14 @@ export default function RescheduleConfirmPage() {
           <button
             onClick={handleReschedule}
             disabled={!selectedDate || !selectedSlot || isSubmitting}
-            className="w-full py-4 bg-rose-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-rose-700 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-4 bg-glam-plum text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-rose-700 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? "Processing..." : "Confirm Reschedule"}
           </button>
           <button
-            onClick={() => router.push(`/appointments/${bookingId}/reschedule/time`)}
+            onClick={() =>
+              router.push(`/appointments/${bookingId}/reschedule/time`)
+            }
             className="w-full py-4 border border-slate-200 text-slate-600 rounded-2xl font-bold text-sm hover:bg-slate-50 transition-all"
           >
             Back to Time Selection
@@ -239,7 +252,7 @@ export default function RescheduleConfirmPage() {
         <div className="flex flex-col gap-3">
           <button
             onClick={handleGoToBookings}
-            className="w-full h-14 rounded-full bg-rose-600 text-sm font-black text-white hover:bg-rose-700 transition-all active:scale-[0.98]"
+            className="w-full h-14 rounded-full bg-glam-plum text-sm font-black text-white hover:bg-rose-700 transition-all active:scale-[0.98]"
           >
             View My Bookings
           </button>
@@ -251,7 +264,7 @@ export default function RescheduleConfirmPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-3xl p-8 max-w-md mx-4 text-center border border-slate-200">
             <div className="w-16 h-16 rounded-full bg-rose-100 flex items-center justify-center mx-auto mb-6">
-              <Clock className="w-8 h-8 text-rose-600" />
+              <Clock className="w-8 h-8 text-glam-plum" />
             </div>
             <h2 className="font-peculiar text-2xl font-black text-slate-900 mb-3">
               Session Timeout
@@ -261,7 +274,7 @@ export default function RescheduleConfirmPage() {
             </p>
             <button
               onClick={() => router.push("/bookings")}
-              className="w-full py-4 px-6 rounded-full bg-rose-600 text-white font-bold hover:bg-rose-700 transition-colors"
+              className="w-full py-4 px-6 rounded-full bg-glam-plum text-white font-bold hover:bg-rose-700 transition-colors"
             >
               Go to My Bookings
             </button>

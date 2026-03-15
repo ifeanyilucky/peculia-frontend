@@ -22,7 +22,7 @@ export default function StatCard({
   color = "rose",
 }: StatCardProps) {
   const colorMap = {
-    rose: "bg-rose-50 text-rose-600",
+    rose: "bg-rose-50 text-glam-plum",
     blue: "bg-blue-50 text-blue-600",
     green: "bg-green-50 text-green-600",
     amber: "bg-amber-50 text-amber-600",
@@ -45,7 +45,7 @@ export default function StatCard({
               "flex items-center gap-0.5 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
               trend.isUp
                 ? "bg-green-50 text-green-600"
-                : "bg-rose-50 text-rose-600",
+                : "bg-rose-50 text-glam-plum",
             )}
           >
             {trend.isUp ? (

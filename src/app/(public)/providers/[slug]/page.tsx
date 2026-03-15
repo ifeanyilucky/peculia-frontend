@@ -173,7 +173,7 @@ export default async function ProviderProfilePage({
                   </h3>
                   <Suspense
                     fallback={
-                      <Loader2 className="animate-spin text-rose-600 mx-auto" />
+                      <Loader2 className="animate-spin text-glam-plum mx-auto" />
                     }
                   >
                     <ProviderReviewsList providerProfileId={provider._id} />
@@ -235,7 +235,7 @@ export default async function ProviderProfilePage({
                             className={
                               openingStatus.isOpen
                                 ? "text-green-600"
-                                : "text-rose-600"
+                                : "text-glam-plum"
                             }
                           >
                             {openingStatus.isOpen ? "Open" : "Closed"}
@@ -302,7 +302,7 @@ export default async function ProviderProfilePage({
               </div>
               <Link
                 href={`/book/${slug}/services`}
-                className="flex-1 rounded-full bg-rose-600 py-3 font-bold text-white transition-all active:scale-95 text-center"
+                className="flex-1 rounded-full bg-glam-plum py-3 font-bold text-white transition-all active:scale-95 text-center"
               >
                 Book Appointment
               </Link>

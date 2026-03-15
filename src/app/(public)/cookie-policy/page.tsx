@@ -9,7 +9,7 @@ export default function CookiePolicyPage() {
         <div className="max-w-4xl mx-auto">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-rose-600 mb-8 transition-colors group"
+            className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-glam-plum mb-8 transition-colors group"
           >
             <ChevronLeft
               size={20}
@@ -20,7 +20,7 @@ export default function CookiePolicyPage() {
 
           <header className="mb-12">
             <h1 className="text-2xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">
-              Cookie <span className="text-rose-600">Policy</span>
+              Cookie <span className="text-glam-plum">Policy</span>
             </h1>
             <p className="text-sm text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
               Last updated: February 23, 2026. This policy explains how Glamyad
@@ -32,7 +32,7 @@ export default function CookiePolicyPage() {
           <div className="space-y-12">
             <section>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
+                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-glam-plum">
                   <Info size={18} />
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">
@@ -52,7 +52,7 @@ export default function CookiePolicyPage() {
 
             <section>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
+                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-glam-plum">
                   <Shield size={18} />
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">
@@ -86,7 +86,7 @@ export default function CookiePolicyPage() {
 
             <section>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
+                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-glam-plum">
                   <Lock size={18} />
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">
@@ -109,7 +109,7 @@ export default function CookiePolicyPage() {
                 please contact us at{" "}
                 <a
                   href="mailto:privacy@glamyad.com"
-                  className="text-rose-600 hover:underline"
+                  className="text-glam-plum hover:underline"
                 >
                   privacy@glamyad.com
                 </a>

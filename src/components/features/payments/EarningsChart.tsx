@@ -128,7 +128,7 @@ export default function EarningsChart() {
 
       <div className="mt-8 pt-6 border-t border-slate-50 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="h-2 w-2 rounded-full bg-rose-600" />
+          <div className="h-2 w-2 rounded-full bg-glam-plum" />
           <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
             Peak Day: Friday
           </span>

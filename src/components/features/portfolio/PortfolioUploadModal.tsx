@@ -168,7 +168,7 @@ export default function PortfolioUploadModal({
           <button
             disabled={!file || isUploading}
             onClick={handleUpload}
-            className="flex-1 h-14 rounded-2xl bg-slate-900 text-sm font-black uppercase tracking-widest text-white hover:bg-rose-600 transition-all flex items-center justify-center gap-3 disabled:opacity-50 border border-slate-200"
+            className="flex-1 h-14 rounded-2xl bg-slate-900 text-sm font-black uppercase tracking-widest text-white hover:bg-glam-plum transition-all flex items-center justify-center gap-3 disabled:opacity-50 border border-slate-200"
           >
             {isUploading ? (
               <Loader2 size={18} className="animate-spin" />

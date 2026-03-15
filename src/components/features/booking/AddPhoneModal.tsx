@@ -85,7 +85,7 @@ export default function AddPhoneModal({
           </p>
 
           {error && (
-            <p className="mt-4 rounded-2xl bg-rose-50 px-4 py-3 text-sm font-bold text-rose-600 border border-rose-100">
+            <p className="mt-4 rounded-2xl bg-rose-50 px-4 py-3 text-sm font-bold text-glam-plum border border-rose-100">
               {error}
             </p>
           )}

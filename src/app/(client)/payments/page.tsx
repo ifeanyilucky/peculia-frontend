@@ -126,7 +126,7 @@ export default function PaymentsPage() {
       <div className="min-h-[400px]">
         {isLoading ? (
           <div className="flex flex-col items-center justify-center h-64 gap-4">
-            <Loader2 className="animate-spin text-rose-600" size={40} />
+            <Loader2 className="animate-spin text-glam-plum" size={40} />
             <p className="text-sm font-black uppercase tracking-widest text-slate-400">
               Loading transactions...
             </p>

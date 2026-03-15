@@ -149,16 +149,16 @@ export default function BlockedDatesCalendar() {
                   className={cn(
                     "text-xs font-black",
                     isToday
-                      ? "text-rose-600 h-6 w-6 rounded-full bg-rose-50 flex items-center justify-center -mr-1 -mt-1"
+                      ? "text-glam-plum h-6 w-6 rounded-full bg-rose-50 flex items-center justify-center -mr-1 -mt-1"
                       : "text-slate-400",
-                    isBlocked && !isToday && "text-rose-600",
+                    isBlocked && !isToday && "text-glam-plum",
                   )}
                 >
                   {format(date, "d")}
                 </span>
 
                 {isBlocked && (
-                  <div className="absolute inset-x-2 bottom-2 p-1.5 rounded-lg bg-rose-600 flex items-center justify-center text-white">
+                  <div className="absolute inset-x-2 bottom-2 p-1.5 rounded-lg bg-glam-plum flex items-center justify-center text-white">
                     <Lock size={12} strokeWidth={3} />
                   </div>
                 )}

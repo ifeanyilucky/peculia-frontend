@@ -47,7 +47,7 @@ export default function ForgotPasswordPage() {
   if (isSuccess) {
     return (
       <div className="space-y-6 text-center">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-rose-100 text-rose-600">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-rose-100 text-glam-plum">
           <Mail size={24} />
         </div>
         <div className="space-y-2">
@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
         </div>
         <Link
           href={ROUTES.auth.login}
-          className="inline-flex items-center text-sm font-medium text-rose-600 hover:underline"
+          className="inline-flex items-center text-sm font-medium text-glam-plum hover:underline"
         >
           <ArrowLeft size={16} className="mr-2" /> Back to Login
         </Link>
@@ -69,9 +69,7 @@ export default function ForgotPasswordPage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h2 className="font-peculiar text-3xl font-bold">
-          Forgot Password
-        </h2>
+        <h2 className="font-peculiar text-3xl font-bold">Forgot Password</h2>
         <p className="text-sm text-muted-foreground">
           Enter your email and we&apos;ll send you a link to reset your
           password.
@@ -91,7 +89,7 @@ export default function ForgotPasswordPage() {
             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
           />
           {errors.email && (
-            <p className="text-xs font-medium text-rose-500">
+            <p className="text-xs font-medium text-glam-plum">
               {errors.email.message}
             </p>
           )}
@@ -100,7 +98,7 @@ export default function ForgotPasswordPage() {
         <button
           type="submit"
           disabled={isLoading}
-          className="inline-flex h-10 w-full items-center justify-center rounded-md bg-rose-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-700 disabled:opacity-50"
+          className="inline-flex h-10 w-full items-center justify-center rounded-md bg-glam-plum px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-700 disabled:opacity-50"
         >
           {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {isLoading ? "Sending link..." : "Send Reset Link"}
@@ -110,7 +108,7 @@ export default function ForgotPasswordPage() {
       <div className="text-center">
         <Link
           href={ROUTES.auth.login}
-          className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-rose-600 hover:underline"
+          className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-glam-plum hover:underline"
         >
           <ArrowLeft size={16} className="mr-2" /> Back to Login
         </Link>

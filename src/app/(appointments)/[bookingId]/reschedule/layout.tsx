@@ -22,7 +22,9 @@ export default function RescheduleLayout({ children }: RescheduleLayoutProps) {
   const handleBack = () => {
     if (currentStep > 1) {
       const prevSteps = ["professional", "time", "confirm"];
-      router.push(`/appointments/${bookingId}/reschedule/${prevSteps[currentStep - 2]}`);
+      router.push(
+        `/appointments/${bookingId}/reschedule/${prevSteps[currentStep - 2]}`,
+      );
     } else {
       router.push("/bookings");
     }
@@ -55,7 +57,12 @@ export default function RescheduleLayout({ children }: RescheduleLayoutProps) {
                 return (
                   <div key={step} className="flex items-center">
                     <button
-                      onClick={() => isCompleted && router.push(`/appointments/${bookingId}/reschedule/${["professional", "time", "confirm"][index]}`)}
+                      onClick={() =>
+                        isCompleted &&
+                        router.push(
+                          `/appointments/${bookingId}/reschedule/${["professional", "time", "confirm"][index]}`,
+                        )
+                      }
                       disabled={!isCompleted}
                       className={cn(
                         "transition-all hover:opacity-80 active:scale-95 disabled:opacity-100 disabled:scale-100",
@@ -86,9 +93,7 @@ export default function RescheduleLayout({ children }: RescheduleLayoutProps) {
           </div>
         </header>
 
-        <main className="flex-1">
-          {children}
-        </main>
+        <main className="flex-1">{children}</main>
       </div>
 
       <CenterModal
@@ -100,7 +105,7 @@ export default function RescheduleLayout({ children }: RescheduleLayoutProps) {
         <div className="flex flex-col gap-3">
           <button
             onClick={handleExit}
-            className="w-full h-14 rounded-full bg-rose-600 text-sm font-black text-white hover:bg-rose-700 transition-all active:scale-[0.98]"
+            className="w-full h-14 rounded-full bg-glam-plum text-sm font-black text-white hover:bg-rose-700 transition-all active:scale-[0.98]"
           >
             Yes, cancel
           </button>

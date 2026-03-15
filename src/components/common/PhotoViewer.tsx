@@ -31,7 +31,7 @@ export default function PhotoViewer({
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 md:top-6 md:right-6 text-white hover:text-rose-500 z-110 bg-black/20 hover:bg-black/40 rounded-full p-2"
+          className="absolute top-4 right-4 md:top-6 md:right-6 text-white hover:text-glam-plum z-110 bg-black/20 hover:bg-black/40 rounded-full p-2"
         >
           <X size={24} className="md:w-8 md:h-8" />
         </button>

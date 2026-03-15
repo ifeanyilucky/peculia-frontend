@@ -44,11 +44,11 @@ export function DangerZoneTab() {
     <section className="bg-rose-50/40 rounded-4xl border border-rose-100 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
       <div className="p-8 lg:p-10 space-y-8">
         <div className="flex items-center gap-4 border-b border-rose-100 pb-8">
-          <div className="h-12 w-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center shrink-0">
+          <div className="h-12 w-12 rounded-2xl bg-glam-plum text-white flex items-center justify-center shrink-0">
             <Trash2 size={24} strokeWidth={2} />
           </div>
           <div>
-            <h3 className="text-xl font-black text-rose-600">Danger Zone</h3>
+            <h3 className="text-xl font-black text-glam-plum">Danger Zone</h3>
             <p className="text-sm font-medium text-rose-800/60 mt-1">
               Permanently delete your account and all associated data.
             </p>
@@ -83,7 +83,7 @@ export function DangerZoneTab() {
               <button
                 onClick={onDeleteAccount}
                 disabled={isDeleting || deleteConfirmation !== "DELETE"}
-                className="h-14 px-8 w-full sm:w-auto rounded-2xl bg-rose-600 text-white text-[10px] font-black uppercase tracking-widest hover:bg-rose-700 disabled:opacity-30 disabled:cursor-not-allowed transition-all shrink-0 active:scale-95 /20"
+                className="h-14 px-8 w-full sm:w-auto rounded-2xl bg-glam-plum text-white text-[10px] font-black uppercase tracking-widest hover:bg-rose-700 disabled:opacity-30 disabled:cursor-not-allowed transition-all shrink-0 active:scale-95 /20"
               >
                 Delete Account
               </button>

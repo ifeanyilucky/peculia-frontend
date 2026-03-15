@@ -153,7 +153,7 @@ export default async function PublicProviderProfilePage({
                   </h3>
                   <Suspense
                     fallback={
-                      <Loader2 className="animate-spin text-rose-600 mx-auto" />
+                      <Loader2 className="animate-spin text-glam-plum mx-auto" />
                     }
                   >
                     <ProviderReviewsList providerProfileId={provider._id} />
@@ -213,7 +213,7 @@ export default async function PublicProviderProfilePage({
                             className={
                               openingStatus.isOpen
                                 ? "text-green-600"
-                                : "text-rose-600"
+                                : "text-glam-plum"
                             }
                           >
                             {openingStatus.isOpen ? "Open" : "Closed"}

@@ -25,7 +25,7 @@ export default function NotFound() {
       <div className="mt-12 flex flex-col sm:flex-row items-center gap-4">
         <Link
           href="/"
-          className="h-14 px-8 rounded-2xl bg-slate-900 text-xs font-black uppercase tracking-widest text-white hover:bg-rose-600 transition-all flex items-center gap-2 border border-slate-200"
+          className="h-14 px-8 rounded-2xl bg-slate-900 text-xs font-black uppercase tracking-widest text-white hover:bg-glam-plum transition-all flex items-center gap-2 border border-slate-200"
         >
           <Home size={18} />
           Back to Home

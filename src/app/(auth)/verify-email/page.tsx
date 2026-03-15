@@ -50,7 +50,7 @@ function VerifyEmailContent() {
     <div className="flex flex-col items-center justify-center space-y-6 text-center">
       {status === "loading" && (
         <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-12 w-12 animate-spin text-rose-600" />
+          <Loader2 className="h-12 w-12 animate-spin text-glam-plum" />
           <p className="text-muted-foreground">{message}</p>
         </div>
       )}
@@ -68,7 +68,7 @@ function VerifyEmailContent() {
           </div>
           <button
             onClick={() => router.push(ROUTES.auth.login)}
-            className="w-full rounded-md bg-rose-600 px-4 py-2 text-sm font-medium text-white hover:bg-rose-700"
+            className="w-full rounded-md bg-glam-plum px-4 py-2 text-sm font-medium text-white hover:bg-rose-700"
           >
             Go to Login
           </button>
@@ -94,7 +94,7 @@ function VerifyEmailContent() {
           </button>
           <button
             onClick={() => router.push(ROUTES.auth.login)}
-            className="text-sm font-medium text-rose-600 hover:underline"
+            className="text-sm font-medium text-glam-plum hover:underline"
           >
             Back to Login
           </button>
@@ -106,7 +106,7 @@ function VerifyEmailContent() {
 
 export default function VerifyEmailPage() {
   return (
-    <Suspense fallback={<Loader2 className="animate-spin text-rose-600" />}>
+    <Suspense fallback={<Loader2 className="animate-spin text-glam-plum" />}>
       <VerifyEmailContent />
     </Suspense>
   );

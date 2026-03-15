@@ -97,7 +97,7 @@ export default function ProviderFilters({
           placeholder="e.g. Lagos"
           value={currentCity}
           onChange={(e) => updateFilter("city", e.target.value)}
-          className="w-full rounded-full border border-slate-200 px-6 py-2 text-sm focus:border-rose-500 focus:outline-none"
+          className="w-full rounded-full border border-slate-200 px-6 py-2 text-sm focus:border-glam-plum focus:outline-none"
         />
       </div>
 
@@ -158,7 +158,7 @@ export default function ProviderFilters({
         <select
           value={currentSort}
           onChange={(e) => updateFilter("sort", e.target.value)}
-          className="w-full rounded-full border border-slate-200 px-6 py-2 text-sm focus:border-rose-500 focus:outline-none appearance-none bg-white"
+          className="w-full rounded-full border border-slate-200 px-6 py-2 text-sm focus:border-glam-plum focus:outline-none appearance-none bg-white"
         >
           <option value="rating">Highest Rated</option>
           <option value="totalReviews">Most Reviewed</option>

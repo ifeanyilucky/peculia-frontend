@@ -50,7 +50,7 @@ export default function UpcomingBookingsList() {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center p-12 bg-white rounded-2xl border border-slate-100">
-        <Loader2 className="animate-spin text-rose-600 mb-4" size={32} />
+        <Loader2 className="animate-spin text-glam-plum mb-4" size={32} />
         <p className="text-sm font-black uppercase tracking-widest text-slate-400">
           Fetching schedule...
         </p>
@@ -98,7 +98,7 @@ export default function UpcomingBookingsList() {
                     className={cn(
                       "absolute left-0 top-1.5 h-9 w-9 rounded-full flex items-center justify-center border-4 border-white z-10 transition-transform group-hover:scale-110",
                       isEventToday
-                        ? "bg-rose-600 text-white"
+                        ? "bg-glam-plum text-white"
                         : "bg-slate-900 text-white",
                     )}
                   >
@@ -112,7 +112,7 @@ export default function UpcomingBookingsList() {
                           className={cn(
                             "px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest",
                             isEventToday
-                              ? "bg-rose-50 text-rose-600"
+                              ? "bg-rose-50 text-glam-plum"
                               : "bg-slate-50 text-slate-600",
                           )}
                         >
@@ -167,7 +167,7 @@ export default function UpcomingBookingsList() {
                       </button>
                       <button
                         onClick={() => handleAction(booking.id, "no-show")}
-                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-50 text-slate-600 text-[10px] font-black uppercase tracking-widest hover:bg-rose-600 hover:text-white transition-all border border-slate-200"
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-50 text-slate-600 text-[10px] font-black uppercase tracking-widest hover:bg-glam-plum hover:text-white transition-all border border-slate-200"
                       >
                         <XCircle size={14} />
                         No-Show

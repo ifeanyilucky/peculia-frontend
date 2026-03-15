@@ -137,14 +137,14 @@ export default function MyBookingsPage() {
               placeholder="Search provider..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="h-11 w-full sm:w-56 pl-10 pr-4 rounded-2xl bg-white border border-slate-100 text-sm font-medium focus:border-rose-400 transition-all outline-none shadow-sm"
+              className="h-11 w-full sm:w-56 pl-10 pr-4 rounded-2xl bg-white border border-slate-100 text-sm font-medium focus:border-glam-plum transition-all outline-none shadow-sm"
             />
           </div>
 
           {/* Book Now CTA */}
           <Link
             href={ROUTES.public.explore}
-            className="inline-flex items-center gap-2 h-11 px-5 rounded-2xl bg-slate-900 text-white text-xs font-black uppercase tracking-widest hover:bg-rose-600 transition-all active:scale-95 shrink-0"
+            className="inline-flex items-center gap-2 h-11 px-5 rounded-2xl bg-slate-900 text-white text-xs font-black uppercase tracking-widest hover:bg-glam-plum transition-all active:scale-95 shrink-0"
           >
             <Plus size={14} strokeWidth={3} />
             Book
@@ -165,7 +165,7 @@ export default function MyBookingsPage() {
         <div className="min-h-[400px]">
           {isLoading ? (
             <div className="flex flex-col items-center justify-center h-64 gap-4">
-              <Loader2 className="animate-spin text-rose-600" size={36} />
+              <Loader2 className="animate-spin text-glam-plum" size={36} />
               <p className="text-xs font-black uppercase tracking-widest text-slate-400">
                 Loading your bookings…
               </p>
@@ -188,7 +188,7 @@ export default function MyBookingsPage() {
                     setSearchQuery("");
                     setDebouncedSearch("");
                   }}
-                  className="mt-5 text-xs font-black uppercase tracking-widest text-rose-500 hover:underline"
+                  className="mt-5 text-xs font-black uppercase tracking-widest text-glam-plum hover:underline"
                 >
                   Clear Filters
                 </button>
@@ -348,7 +348,7 @@ function CancelAppointmentModalContent({
     <div className="text-left mt-2">
       <div className="flex items-center gap-4 mb-6">
         <div className="h-12 w-12 rounded-full bg-rose-100 flex items-center justify-center shrink-0">
-          <CalendarX size={24} className="text-rose-600" />
+          <CalendarX size={24} className="text-glam-plum" />
         </div>
         <div>
           <p className="font-bold text-slate-900">Cancel your appointment?</p>
@@ -368,7 +368,7 @@ function CancelAppointmentModalContent({
       <div className="flex flex-col gap-3">
         <button
           onClick={handleCancel}
-          className="w-full h-12 rounded-full bg-rose-600 text-sm font-black text-white hover:bg-rose-700 transition-all"
+          className="w-full h-12 rounded-full bg-glam-plum text-sm font-black text-white hover:bg-rose-700 transition-all"
         >
           Yes, cancel appointment
         </button>
@@ -446,9 +446,9 @@ function ManageAppointmentModalContent({
         >
           <CalendarX
             size={20}
-            className="text-slate-400 group-hover:text-rose-500"
+            className="text-slate-400 group-hover:text-glam-plum"
           />
-          <span className="font-bold text-rose-500 text-[15px]">
+          <span className="font-bold text-glam-plum text-[15px]">
             Cancel appointment
           </span>
         </button>

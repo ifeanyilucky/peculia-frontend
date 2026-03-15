@@ -15,7 +15,7 @@ export default function TermsOfServicePage() {
         <div className="max-w-4xl mx-auto">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-rose-600 mb-8 transition-colors group"
+            className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-glam-plum mb-8 transition-colors group"
           >
             <ChevronLeft
               size={20}
@@ -26,7 +26,7 @@ export default function TermsOfServicePage() {
 
           <header className="mb-12">
             <h1 className="text-2xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">
-              Terms of <span className="text-rose-600">Service</span>
+              Terms of <span className="text-glam-plum">Service</span>
             </h1>
             <p className="text-sm text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
               Last updated: February 25, 2026. Please read these terms carefully
@@ -37,7 +37,7 @@ export default function TermsOfServicePage() {
           <div className="space-y-12">
             <section>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
+                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-glam-plum">
                   <AppWindow size={18} />
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">
@@ -56,7 +56,7 @@ export default function TermsOfServicePage() {
 
             <section>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
+                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-glam-plum">
                   <FileText size={18} />
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">
@@ -76,7 +76,7 @@ export default function TermsOfServicePage() {
 
             <section>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
+                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-glam-plum">
                   <CreditCard size={18} />
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">
@@ -105,7 +105,7 @@ export default function TermsOfServicePage() {
 
             <section>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-rose-600">
+                <div className="w-10 h-10 bg-rose-50 dark:bg-rose-950 rounded-xl flex items-center justify-center text-glam-plum">
                   <ShieldAlert size={18} />
                 </div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white">
@@ -128,7 +128,7 @@ export default function TermsOfServicePage() {
                 contact{" "}
                 <a
                   href="mailto:legal@glamyad.com"
-                  className="text-rose-600 hover:underline"
+                  className="text-glam-plum hover:underline"
                 >
                   legal@glamyad.com
                 </a>

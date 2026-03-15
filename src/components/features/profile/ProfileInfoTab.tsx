@@ -74,7 +74,7 @@ export function ProfileInfoTab() {
                 </div>
               )}
             </div>
-            <button className="absolute -bottom-3 -right-3 h-12 w-12 rounded-[1.25rem] bg-rose-600 text-white flex items-center justify-center border-4 border-white hover:bg-rose-700 transition-all hover:scale-105 active:scale-95">
+            <button className="absolute -bottom-3 -right-3 h-12 w-12 rounded-[1.25rem] bg-glam-plum text-white flex items-center justify-center border-4 border-white hover:bg-rose-700 transition-all hover:scale-105 active:scale-95">
               <Camera size={18} strokeWidth={2.5} />
             </button>
           </div>
@@ -101,7 +101,7 @@ export function ProfileInfoTab() {
                   />
                 </div>
                 {errors.firstName && (
-                  <p className="text-[10px] font-bold text-rose-500 ml-1">
+                  <p className="text-[10px] font-bold text-glam-plum ml-1">
                     {errors.firstName.message}
                   </p>
                 )}
@@ -123,7 +123,7 @@ export function ProfileInfoTab() {
                   />
                 </div>
                 {errors.lastName && (
-                  <p className="text-[10px] font-bold text-rose-500 ml-1">
+                  <p className="text-[10px] font-bold text-glam-plum ml-1">
                     {errors.lastName.message}
                   </p>
                 )}
@@ -172,7 +172,7 @@ export function ProfileInfoTab() {
               <button
                 type="submit"
                 disabled={isUpdatingProfile}
-                className="flex items-center gap-2 rounded-xl bg-slate-900 px-8 h-14 text-[10px] font-black uppercase tracking-[0.15em] text-white hover:bg-rose-600 transition-all /5 disabled:opacity-50 active:scale-95"
+                className="flex items-center gap-2 rounded-xl bg-slate-900 px-8 h-14 text-[10px] font-black uppercase tracking-[0.15em] text-white hover:bg-glam-plum transition-all /5 disabled:opacity-50 active:scale-95"
               >
                 {isUpdatingProfile ? (
                   <Loader2 className="animate-spin" size={16} />

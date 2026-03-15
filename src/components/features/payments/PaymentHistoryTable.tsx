@@ -24,7 +24,7 @@ const statusConfig = {
   },
   failed: {
     label: "Failed",
-    color: "text-rose-600 bg-rose-50",
+    color: "text-glam-plum bg-rose-50",
     icon: XCircle,
   },
   pending: {
@@ -103,9 +103,7 @@ export default function PaymentHistoryTable({
         <p
           className={cn(
             "font-peculiar text-lg font-black leading-tight",
-            item.type === "refund"
-              ? "text-blue-600"
-              : "text-slate-900",
+            item.type === "refund" ? "text-blue-600" : "text-slate-900",
           )}
         >
           {item.type === "refund" ? "+" : "-"} ₦

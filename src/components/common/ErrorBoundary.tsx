@@ -23,7 +23,11 @@ export default class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error(`ErrorBoundary caught an error in [${this.props.name || "Unknown Component"}]:`, error, errorInfo);
+    console.error(
+      `ErrorBoundary caught an error in [${this.props.name || "Unknown Component"}]:`,
+      error,
+      errorInfo,
+    );
   }
 
   private handleReset = () => {
@@ -38,18 +42,20 @@ export default class ErrorBoundary extends Component<Props, State> {
 
       return (
         <div className="p-8 rounded-[2rem] bg-rose-50 border border-rose-100 flex flex-col items-center justify-center text-center space-y-4">
-          <div className="h-12 w-12 rounded-2xl bg-white flex items-center justify-center text-rose-500 border border-slate-200">
+          <div className="h-12 w-12 rounded-2xl bg-white flex items-center justify-center text-glam-plum border border-slate-200">
             <AlertTriangle size={24} />
           </div>
           <div>
-            <h3 className="font-bold text-rose-900">Something went wrong here</h3>
-            <p className="text-xs text-rose-600/70 mt-1 uppercase tracking-widest font-medium">
+            <h3 className="font-bold text-rose-900">
+              Something went wrong here
+            </h3>
+            <p className="text-xs text-glam-plum/70 mt-1 uppercase tracking-widest font-medium">
               Failed to load {this.props.name || "this section"}
             </p>
           </div>
           <button
             onClick={this.handleReset}
-            className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-900 hover:text-rose-600 transition-colors"
+            className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-900 hover:text-glam-plum transition-colors"
           >
             <RefreshCw size={14} />
             Try Again

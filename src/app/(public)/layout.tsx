@@ -43,13 +43,13 @@ export default function PublicLayout({
                 <span className="font-bold text-slate-900">Explore</span>
                 <Link
                   href={ROUTES.public.explore}
-                  className="text-sm text-slate-500 hover:text-rose-600"
+                  className="text-sm text-slate-500 hover:text-glam-plum"
                 >
                   Find Professionals
                 </Link>
                 <Link
                   href={ROUTES.public.explore}
-                  className="text-sm text-slate-500 hover:text-rose-600"
+                  className="text-sm text-slate-500 hover:text-glam-plum"
                 >
                   Services
                 </Link>
@@ -58,13 +58,13 @@ export default function PublicLayout({
                 <span className="font-bold text-slate-900">Professionals</span>
                 <Link
                   href={ROUTES.partnersPortal}
-                  className="text-sm text-slate-500 hover:text-rose-600"
+                  className="text-sm text-slate-500 hover:text-glam-plum"
                 >
                   Join Glamyad
                 </Link>
                 <Link
                   href={ROUTES.partnersPortal}
-                  className="text-sm text-slate-500 hover:text-rose-600"
+                  className="text-sm text-slate-500 hover:text-glam-plum"
                 >
                   Pro Portal
                 </Link>
@@ -73,19 +73,19 @@ export default function PublicLayout({
                 <span className="font-bold text-slate-900">Legal</span>
                 <Link
                   href="/terms-of-service"
-                  className="text-sm text-slate-500 hover:text-rose-600"
+                  className="text-sm text-slate-500 hover:text-glam-plum"
                 >
                   Terms of Service
                 </Link>
                 <Link
                   href="/privacy-policy"
-                  className="text-sm text-slate-500 hover:text-rose-600"
+                  className="text-sm text-slate-500 hover:text-glam-plum"
                 >
                   Privacy Policy
                 </Link>
                 <Link
                   href="/cookie-policy"
-                  className="text-sm text-slate-500 hover:text-rose-600"
+                  className="text-sm text-slate-500 hover:text-glam-plum"
                 >
                   Cookie Policy
                 </Link>

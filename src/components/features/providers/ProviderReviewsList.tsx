@@ -29,7 +29,7 @@ export default function ProviderReviewsList({
   if (isLoading)
     return (
       <div className="flex justify-center p-12">
-        <Loader2 className="animate-spin text-rose-600" />
+        <Loader2 className="animate-spin text-glam-plum" />
       </div>
     );
 
@@ -108,8 +108,8 @@ export default function ProviderReviewsList({
           {review.providerReply && (
             <div className="mt-8 rounded-2xl bg-slate-50/50 p-6 border border-slate-100/50 group-hover:bg-slate-50 transition-colors">
               <div className="flex items-center gap-2 mb-3">
-                <CornerDownRight size={16} className="text-rose-500" />
-                <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest">
+                <CornerDownRight size={16} className="text-glam-plum" />
+                <span className="text-[10px] font-black text-glam-plum uppercase tracking-widest">
                   Provider Response
                 </span>
               </div>

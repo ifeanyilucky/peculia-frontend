@@ -99,7 +99,7 @@ export default function SavedProvidersPage() {
       <div className="min-h-[400px]">
         {isLoading ? (
           <div className="flex justify-center py-20">
-            <Loader2 className="animate-spin text-rose-600" size={40} />
+            <Loader2 className="animate-spin text-glam-plum" size={40} />
           </div>
         ) : !isAuthenticated ? (
           <div className="flex flex-col items-center justify-center py-24 bg-white rounded-2xl border-2 border-dashed border-slate-200 text-slate-400">
@@ -115,7 +115,7 @@ export default function SavedProvidersPage() {
             </p>
             <Link
               href={ROUTES.auth.login}
-              className="mt-8 flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 text-sm font-black text-white hover:bg-rose-600 transition-all"
+              className="mt-8 flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 text-sm font-black text-white hover:bg-glam-plum transition-all"
             >
               Sign In
               <ArrowRight size={18} />
@@ -135,7 +135,7 @@ export default function SavedProvidersPage() {
             </p>
             <Link
               href={ROUTES.public.explore}
-              className="mt-8 flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 text-sm font-black text-white hover:bg-rose-600 transition-all"
+              className="mt-8 flex items-center gap-2 rounded-full bg-slate-900 px-8 py-4 text-sm font-black text-white hover:bg-glam-plum transition-all"
             >
               Explore Community
               <ArrowRight size={18} />
@@ -149,7 +149,7 @@ export default function SavedProvidersPage() {
                 <button
                   onClick={() => handleRemove(provider._id)}
                   disabled={unsaveMutation.isPending}
-                  className="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-slate-400 hover:text-rose-500 hover:bg-white transition-all group-hover:opacity-100 border border-slate-200"
+                  className="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-slate-400 hover:text-glam-plum hover:bg-white transition-all group-hover:opacity-100 border border-slate-200"
                 >
                   {unsaveMutation.isPending ? (
                     <Loader2 size={18} className="animate-spin" />

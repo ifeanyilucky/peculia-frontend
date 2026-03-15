@@ -67,7 +67,7 @@ function ResetPasswordForm() {
   if (!token) {
     return (
       <div className="text-center space-y-4">
-        <h2 className="font-peculiar text-2xl font-bold text-rose-600">
+        <h2 className="font-peculiar text-2xl font-bold text-glam-plum">
           Invalid Link
         </h2>
         <p className="text-muted-foreground">
@@ -75,7 +75,7 @@ function ResetPasswordForm() {
         </p>
         <button
           onClick={() => router.push(ROUTES.auth.forgotPassword)}
-          className="text-sm font-medium text-rose-600 hover:underline"
+          className="text-sm font-medium text-glam-plum hover:underline"
         >
           Request a new link
         </button>
@@ -86,9 +86,7 @@ function ResetPasswordForm() {
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
-        <h2 className="font-peculiar text-3xl font-bold">
-          Reset Password
-        </h2>
+        <h2 className="font-peculiar text-3xl font-bold">Reset Password</h2>
         <p className="text-sm text-muted-foreground">
           Enter your new password below.
         </p>
@@ -104,7 +102,7 @@ function ResetPasswordForm() {
           />
           <PasswordStrengthMeter password={password} />
           {errors.password && (
-            <p className="text-xs font-medium text-rose-500">
+            <p className="text-xs font-medium text-glam-plum">
               {errors.password.message}
             </p>
           )}
@@ -118,7 +116,7 @@ function ResetPasswordForm() {
             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
           />
           {errors.confirmPassword && (
-            <p className="text-xs font-medium text-rose-500">
+            <p className="text-xs font-medium text-glam-plum">
               {errors.confirmPassword.message}
             </p>
           )}
@@ -127,7 +125,7 @@ function ResetPasswordForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="inline-flex h-10 w-full items-center justify-center rounded-md bg-rose-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-700 disabled:opacity-50"
+          className="inline-flex h-10 w-full items-center justify-center rounded-md bg-glam-plum px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-700 disabled:opacity-50"
         >
           {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           {isLoading ? "Resetting..." : "Reset Password"}
@@ -142,7 +140,7 @@ export default function ResetPasswordPage() {
     <Suspense
       fallback={
         <div className="flex justify-center">
-          <Loader2 className="animate-spin text-rose-600" />
+          <Loader2 className="animate-spin text-glam-plum" />
         </div>
       }
     >

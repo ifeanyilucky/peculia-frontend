@@ -105,7 +105,7 @@ export default function PayoutsTable({ payouts }: PayoutsTableProps) {
                   <td className="px-8 py-6">
                     <div className="flex items-center gap-2">
                       {transaction.type === "withdrawal" ? (
-                        <ArrowDownToLine size={14} className="text-rose-600" />
+                        <ArrowDownToLine size={14} className="text-glam-plum" />
                       ) : (
                         <CheckCircle2 size={14} className="text-green-600" />
                       )}
@@ -123,7 +123,7 @@ export default function PayoutsTable({ payouts }: PayoutsTableProps) {
                           ? "bg-green-50 text-green-600"
                           : transaction.status === "pending"
                             ? "bg-amber-50 text-amber-600"
-                            : "bg-rose-50 text-rose-600",
+                            : "bg-rose-50 text-glam-plum",
                       )}
                     >
                       {transaction.status === "pending" ? (
@@ -141,7 +141,7 @@ export default function PayoutsTable({ payouts }: PayoutsTableProps) {
                       className={cn(
                         "text-sm font-black",
                         transaction.type === "withdrawal"
-                          ? "text-rose-600"
+                          ? "text-glam-plum"
                           : "text-slate-900",
                       )}
                     >

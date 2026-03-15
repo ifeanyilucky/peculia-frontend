@@ -151,7 +151,7 @@ export default function WeeklyScheduleEditor({
         <button
           onClick={handleSave}
           disabled={isSaving}
-          className="h-12 px-6 rounded-2xl bg-slate-900 text-xs font-black uppercase tracking-widest text-white hover:bg-rose-600 transition-all flex items-center gap-2 disabled:opacity-70 border border-slate-200"
+          className="h-12 px-6 rounded-2xl bg-slate-900 text-xs font-black uppercase tracking-widest text-white hover:bg-glam-plum transition-all flex items-center gap-2 disabled:opacity-70 border border-slate-200"
         >
           {isSaving ? (
             <Loader2 size={16} className="animate-spin" />
@@ -240,7 +240,7 @@ export default function WeeklyScheduleEditor({
                           {day.slots.length > 1 && (
                             <button
                               onClick={() => removeSlot(dayIdx, slotIdx)}
-                              className="p-3 rounded-2xl text-slate-300 hover:text-rose-600 hover:bg-rose-50 transition-all"
+                              className="p-3 rounded-2xl text-slate-300 hover:text-glam-plum hover:bg-rose-50 transition-all"
                             >
                               <Trash2 size={18} />
                             </button>

@@ -65,7 +65,7 @@ export default function ProviderLocation({
             />
             <div className="bg-slate-50 p-6">
               <div className="flex items-start gap-4">
-                <div className="rounded-xl bg-white p-3 text-rose-500 border border-slate-200">
+                <div className="rounded-xl bg-white p-3 text-glam-plum border border-slate-200">
                   <MapPin size={24} />
                 </div>
                 <div className="flex-1">
@@ -78,7 +78,7 @@ export default function ProviderLocation({
                     href={mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-3 inline-flex items-center gap-2 text-rose-600 font-bold hover:text-rose-700 transition-colors group"
+                    className="mt-3 inline-flex items-center gap-2 text-glam-plum font-bold hover:text-rose-700 transition-colors group"
                   >
                     <span>Get directions</span>
                     <ExternalLink
@@ -95,7 +95,7 @@ export default function ProviderLocation({
         {/* Opening Hours Section */}
         <div className="w-full space-y-6">
           <div className="flex items-center gap-2">
-            <Clock size={24} className="text-rose-500" />
+            <Clock size={24} className="text-glam-plum" />
             <h3 className="font-peculiar text-2xl font-bold text-slate-900">
               Opening Hours
             </h3>
@@ -117,11 +117,11 @@ export default function ProviderLocation({
                     className={`flex justify-between items-center text-sm ${isToday ? "bg-rose-50 -mx-3 px-3 py-2 rounded-lg" : ""}`}
                   >
                     <span
-                      className={`capitalize font-bold ${isToday ? "text-rose-600" : "text-slate-900"}`}
+                      className={`capitalize font-bold ${isToday ? "text-glam-plum" : "text-slate-900"}`}
                     >
                       {day}
                       {isToday && (
-                        <span className="ml-2 text-[10px] uppercase tracking-wider text-rose-400">
+                        <span className="ml-2 text-[10px] uppercase tracking-wider text-glam-plum">
                           Today
                         </span>
                       )}

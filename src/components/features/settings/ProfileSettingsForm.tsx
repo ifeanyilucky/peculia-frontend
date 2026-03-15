@@ -76,12 +76,12 @@ export default function ProfileSettingsForm() {
                 {...register("firstName")}
                 className={cn(
                   "h-14 w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 text-sm font-bold focus:bg-white focus:border-slate-900 transition-all outline-none",
-                  errors.firstName && "border-rose-500 bg-rose-50",
+                  errors.firstName && "border-glam-plum bg-rose-50",
                 )}
               />
             </div>
             {errors.firstName && (
-              <p className="text-[10px] font-bold text-rose-500 pl-1">
+              <p className="text-[10px] font-bold text-glam-plum pl-1">
                 {errors.firstName.message}
               </p>
             )}
@@ -96,12 +96,12 @@ export default function ProfileSettingsForm() {
                 {...register("lastName")}
                 className={cn(
                   "h-14 w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 text-sm font-bold focus:bg-white focus:border-slate-900 transition-all outline-none",
-                  errors.lastName && "border-rose-500 bg-rose-50",
+                  errors.lastName && "border-glam-plum bg-rose-50",
                 )}
               />
             </div>
             {errors.lastName && (
-              <p className="text-[10px] font-bold text-rose-500 pl-1">
+              <p className="text-[10px] font-bold text-glam-plum pl-1">
                 {errors.lastName.message}
               </p>
             )}
@@ -129,7 +129,7 @@ export default function ProfileSettingsForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full sm:w-auto h-14 px-10 rounded-2xl bg-slate-900 text-xs font-black uppercase tracking-widest text-white hover:bg-rose-600 transition-all flex items-center justify-center gap-2 border border-slate-200"
+            className="w-full sm:w-auto h-14 px-10 rounded-2xl bg-slate-900 text-xs font-black uppercase tracking-widest text-white hover:bg-glam-plum transition-all flex items-center justify-center gap-2 border border-slate-200"
           >
             {isSubmitting ? (
               <Loader2 className="animate-spin" size={18} />

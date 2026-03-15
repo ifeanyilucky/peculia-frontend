@@ -40,7 +40,7 @@ export default function DataTable<T extends { id: string }>({
                   type="checkbox"
                   checked={isAllSelected}
                   onChange={onToggleSelectAll}
-                  className="w-5 h-5 rounded border-slate-300 bg-white text-rose-600 focus:ring-1 focus:ring-rose-500/50 cursor-pointer accent-rose-600"
+                  className="w-5 h-5 rounded border-slate-300 bg-white text-glam-plum focus:ring-1 focus:ring-rose-500/50 cursor-pointer accent-rose-600"
                 />
               </th>
             )}
@@ -92,7 +92,7 @@ export default function DataTable<T extends { id: string }>({
                       type="checkbox"
                       checked={selectedIds.has(item.id)}
                       onChange={() => onToggleSelectRow(item)}
-                      className="w-5 h-5 rounded border-slate-300 bg-white text-rose-600 focus:ring-1 focus:ring-rose-500/50 cursor-pointer accent-rose-600"
+                      className="w-5 h-5 rounded border-slate-300 bg-white text-glam-plum focus:ring-1 focus:ring-rose-500/50 cursor-pointer accent-rose-600"
                     />
                   </td>
                 )}

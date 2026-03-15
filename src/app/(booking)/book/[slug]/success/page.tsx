@@ -128,7 +128,7 @@ function SuccessContent() {
   if (verificationStatus === "error") {
     return (
       <div className="max-w-md mx-auto mt-20 text-center px-6">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-rose-50 text-rose-600 mb-6">
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-rose-50 text-glam-plum mb-6">
           <XCircle size={40} />
         </div>
         <h1 className="text-3xl font-black text-slate-900 mb-4">
