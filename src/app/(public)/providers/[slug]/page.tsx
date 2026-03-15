@@ -15,6 +15,7 @@ import RecentlyViewedTracker from "@/components/features/providers/RecentlyViewe
 import Script from "next/script";
 import { Loader2, Star, Clock, MapPin, ChevronDown } from "lucide-react";
 import type { Metadata, ResolvingMetadata } from "next";
+import { formatCurrency } from "@/utils/formatters";
 
 interface ProviderProfilePageProps {
   params: Promise<{ slug: string }>;
@@ -297,7 +298,7 @@ export default async function ProviderProfilePage({
                   Starting price
                 </p>
                 <p className="text-xl font-black text-slate-900">
-                  ₦{(startingPrice / 100).toLocaleString()}
+                  {formatCurrency(startingPrice)}
                 </p>
               </div>
               <Link
