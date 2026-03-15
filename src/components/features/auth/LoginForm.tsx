@@ -37,12 +37,8 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  const handleAuthSuccess = (
-    user: any,
-    accessToken: string,
-    refreshToken: string,
-  ) => {
-    setAuth(user, accessToken, refreshToken);
+  const handleAuthSuccess = (user: any) => {
+    setAuth(user);
 
     // Identify user in PostHog
     identifyUser(user.id, {
@@ -77,11 +73,11 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginFormValues) => {
     setIsLoading(true);
     try {
-      const { user, accessToken, refreshToken } = await authService.login({
+      const { user } = await authService.login({
         ...data,
         portal: "client",
       });
-      handleAuthSuccess(user, accessToken, refreshToken);
+      handleAuthSuccess(user);
     } catch (error: unknown) {
       console.error(error as Error);
     } finally {
@@ -92,13 +88,13 @@ export default function LoginForm() {
   const onGoogleSuccess = async (response: any) => {
     setIsLoading(true);
     try {
-      const { user, accessToken, refreshToken } = await authService.googleLogin(
+      const { user } = await authService.googleLogin(
         {
           idToken: response.credential,
           portal: "client",
         },
       );
-      handleAuthSuccess(user, accessToken, refreshToken);
+      handleAuthSuccess(user);
     } catch (error: unknown) {
       console.error(error as Error);
       sileo.error({

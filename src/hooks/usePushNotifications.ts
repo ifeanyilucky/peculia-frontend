@@ -108,10 +108,10 @@ export const usePushNotifications = () => {
 
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_KEY || ""),
+        applicationServerKey: urlBase64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_KEY || "") as unknown as BufferSource,
       });
 
-      const token = btoa(String.fromCharCode(...new Uint8Array(subscription.endpoint)));
+      const token = btoa(subscription.endpoint);
       setPushToken(token);
       return token;
     } catch {

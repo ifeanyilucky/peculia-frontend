@@ -12,31 +12,19 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Read everything from getState() to avoid:
-    // 1. Stale closures
-    // 2. Re-triggering this effect when setAuth updates accessToken in the store
-    const { accessToken, setAuth, clearAuth, refreshToken } =
-      useAuthStore.getState();
-
-    if (!accessToken) {
-      setIsLoading(false);
-      return;
-    }
-
     const initAuth = async () => {
       try {
         const response = await api.get("/auth/me");
         const user = response.data.data;
-        setAuth(user, accessToken, refreshToken!);
+        useAuthStore.getState().setAuth(user);
 
-        // Identify user on mount if authenticated
         identifyUser(user.id, {
           email: user.email,
           name: `${user.firstName} ${user.lastName}`,
           role: user.role,
         });
       } catch {
-        clearAuth();
+        useAuthStore.getState().clearAuth();
         resetUser();
       } finally {
         setIsLoading(false);
@@ -46,7 +34,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     initAuth();
   }, []);
 
-  // Listen for logout
   useEffect(() => {
     const unsub = useAuthStoreOriginal.subscribe(
       (state) => state.isAuthenticated,

@@ -6,7 +6,7 @@ import { useAuthStore } from "@/store/auth.store";
 import FullPageLoader from "@/components/common/FullPageLoader";
 import { ROUTES } from "@/constants/routes";
 
-type Role = "client";
+type Role = "client" | "provider" | "admin";
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -41,12 +41,14 @@ export default function AuthGuard({ children, allowedRoles }: AuthGuardProps) {
       return;
     }
 
-    if (allowedRoles && user && !allowedRoles.includes(user.role)) {
+    if (allowedRoles && user && !allowedRoles.includes(user.role as Role)) {
       // Wrong role — redirect to their correct dashboard
       const redirectMap: Record<Role, string> = {
         client: ROUTES.client.dashboard,
+        provider: ROUTES.partnersPortal,
+        admin: ROUTES.client.dashboard,
       };
-      router.push(redirectMap[user.role]);
+      router.push(redirectMap[user.role as Role]);
       return;
     }
   }, [hasHydrated, isAuthenticated, user, allowedRoles, router]);
@@ -55,7 +57,7 @@ export default function AuthGuard({ children, allowedRoles }: AuthGuardProps) {
   const isAuthorized =
     hasHydrated &&
     isAuthenticated &&
-    (!allowedRoles || !user || allowedRoles.includes(user.role));
+    (!allowedRoles || !user || allowedRoles.includes(user.role as Role));
 
   if (!isAuthorized) {
     return <FullPageLoader />;
