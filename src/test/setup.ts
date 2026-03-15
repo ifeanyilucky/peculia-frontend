@@ -63,11 +63,10 @@ afterAll(() => {
 });
 
 // Mock window.location
-delete window.location;
-window.location = {
+(window as any).location = {
   href: '',
   pathname: '/',
   search: '',
   hash: '',
   hostname: 'localhost',
-} as any;
+};
