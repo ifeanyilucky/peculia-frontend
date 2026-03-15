@@ -10,9 +10,6 @@ const nextConfig: NextConfig = withPWA({
   /* config options here */
   output: "standalone",
   cleanDistDir: true,
-  sentry: {
-    hideSourceMaps: true,
-  },
   images: {
     remotePatterns: [
       {
